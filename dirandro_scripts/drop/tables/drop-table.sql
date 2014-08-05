@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     02/08/2014 03:56:03 p.m.                     */
+/* Created on:     05/08/2014 05:18:58 p.m.                     */
 /*==============================================================*/
 
 
@@ -39,6 +39,12 @@ alter table SIETID.CFG_VALOR
 
 alter table SIETID.CFG_VALOR
    drop constraint FK_CGF_VALOR_EDITOR;
+
+alter table EXP_ABOGADO_PERSONA
+   drop constraint FK_EXP_ABOGADO_PER_CREADOR;
+
+alter table EXP_ABOGADO_PERSONA
+   drop constraint FK_EXP_ABOGADO_PER_EDITOR;
 
 alter table EXP_ABOGADO_PERSONA
    drop constraint FK_SIIC_EXP_ABOGADO_REPRESENT;
@@ -903,6 +909,9 @@ alter table SIETID.PER_PARENTEZCO
 
 alter table SIETID.PER_PARENTEZCO
    drop constraint FK_PER_PARENTEZCO_RELACION;
+
+alter table SIETID.PER_PARENTEZCO
+   drop constraint FK_PER_PARIENTE;
 
 alter table SIETID.PER_PERSONA
    drop constraint FK_PERSONA_CREADOR;
