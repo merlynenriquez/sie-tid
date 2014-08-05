@@ -14,9 +14,7 @@
 						http://www.springframework.org/schema/jee 
 						http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 
-	<context:component-scan base-package="pe.gob.mininter.dirandro.dao.hibernate.impl" />
-	<context:component-scan base-package="pe.gob.mininter.dirandro.dao.oracle.impl" />
-	<context:component-scan base-package="pe.gob.mininter.dirandro.dao.mapper" />
+	<context:component-scan base-package="pe.gob.mininter.dirandro.dao" />
 	
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
        <property name="dataSource" ref="dataSource" />
@@ -37,17 +35,18 @@
 	</bean>-->
 	
     
-    <!-- Jndi para Tomcat -->
+    <!-- Jndi para Tomcat
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/mininterDB"/>
 	</bean> 
-
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@172.22.0.19:1521:BDTRAMITE" />
-		<property name="username" value="SIIC" />
-		<property name="password" value="siic" />
-	</bean>	 -->
+	 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@192.168.56.101:1521:xe" />
+		<property name="username" value="harecl" />
+		<property name="password" value="harec" />
+	</bean>	
 
 	<!-- <bean id="dataSourceExterno" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:jdbc/mininterDB"/>

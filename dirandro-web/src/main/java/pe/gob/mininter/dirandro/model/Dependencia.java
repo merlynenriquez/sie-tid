@@ -91,10 +91,6 @@ public class Dependencia implements Serializable {
 	@OneToMany(mappedBy="expDependencia")
 	private List<Equipo> orgEquipos;
 
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="expDependencia")
-	private List<Usuario> segUsuarios;
-
 	public Dependencia() {
 	}
 
@@ -348,26 +344,5 @@ public class Dependencia implements Serializable {
 		return orgEquipo;
 	}
 
-	public List<Usuario> getSegUsuarios() {
-		return this.segUsuarios;
-	}
-
-	public void setSegUsuarios(List<Usuario> segUsuarios) {
-		this.segUsuarios = segUsuarios;
-	}
-
-	public Usuario addSegUsuario(Usuario segUsuario) {
-		getSegUsuarios().add(segUsuario);
-		segUsuario.setExpDependencia(this);
-
-		return segUsuario;
-	}
-
-	public Usuario removeSegUsuario(Usuario segUsuario) {
-		getSegUsuarios().remove(segUsuario);
-		segUsuario.setExpDependencia(null);
-
-		return segUsuario;
-	}
 
 }
