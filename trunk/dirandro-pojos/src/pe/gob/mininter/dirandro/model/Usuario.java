@@ -78,6 +78,14 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Valor> cfgValors2;
 
+	//bi-directional many-to-one association to AbogadoPersona
+	@OneToMany(mappedBy="segUsuario1")
+	private List<AbogadoPersona> expAbogadoPersonas1;
+
+	//bi-directional many-to-one association to AbogadoPersona
+	@OneToMany(mappedBy="segUsuario2")
+	private List<AbogadoPersona> expAbogadoPersonas2;
+
 	//bi-directional many-to-one association to Adjunto
 	@OneToMany(mappedBy="segUsuario1")
 	private List<Adjunto> expAdjuntos1;
@@ -848,6 +856,50 @@ public class Usuario implements Serializable {
 		cfgValors2.setSegUsuario2(null);
 
 		return cfgValors2;
+	}
+
+	public List<AbogadoPersona> getExpAbogadoPersonas1() {
+		return this.expAbogadoPersonas1;
+	}
+
+	public void setExpAbogadoPersonas1(List<AbogadoPersona> expAbogadoPersonas1) {
+		this.expAbogadoPersonas1 = expAbogadoPersonas1;
+	}
+
+	public AbogadoPersona addExpAbogadoPersonas1(AbogadoPersona expAbogadoPersonas1) {
+		getExpAbogadoPersonas1().add(expAbogadoPersonas1);
+		expAbogadoPersonas1.setSegUsuario1(this);
+
+		return expAbogadoPersonas1;
+	}
+
+	public AbogadoPersona removeExpAbogadoPersonas1(AbogadoPersona expAbogadoPersonas1) {
+		getExpAbogadoPersonas1().remove(expAbogadoPersonas1);
+		expAbogadoPersonas1.setSegUsuario1(null);
+
+		return expAbogadoPersonas1;
+	}
+
+	public List<AbogadoPersona> getExpAbogadoPersonas2() {
+		return this.expAbogadoPersonas2;
+	}
+
+	public void setExpAbogadoPersonas2(List<AbogadoPersona> expAbogadoPersonas2) {
+		this.expAbogadoPersonas2 = expAbogadoPersonas2;
+	}
+
+	public AbogadoPersona addExpAbogadoPersonas2(AbogadoPersona expAbogadoPersonas2) {
+		getExpAbogadoPersonas2().add(expAbogadoPersonas2);
+		expAbogadoPersonas2.setSegUsuario2(this);
+
+		return expAbogadoPersonas2;
+	}
+
+	public AbogadoPersona removeExpAbogadoPersonas2(AbogadoPersona expAbogadoPersonas2) {
+		getExpAbogadoPersonas2().remove(expAbogadoPersonas2);
+		expAbogadoPersonas2.setSegUsuario2(null);
+
+		return expAbogadoPersonas2;
 	}
 
 	public List<Adjunto> getExpAdjuntos1() {
