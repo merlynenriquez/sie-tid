@@ -1,4 +1,7 @@
 /*==============================================================*/
+/* DBMS name:      ORACLE Version 11g                           */
+/* Created on:     05/08/2014 05:18:58 p.m.                     */
+/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -101,7 +104,11 @@ create table EXP_ABOGADO_PERSONA
    ABOGADO              NUMBER(16),
    PERSONA              NUMBER(16)           not null,
    ESTADO               NUMBER(16),
-   FEC_INI_REPRESENTACION DATE
+   FEC_INI_REPRESENTACION DATE,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
 );
 
 comment on table EXP_ABOGADO_PERSONA is
@@ -121,6 +128,18 @@ comment on column EXP_ABOGADO_PERSONA.ESTADO is
 
 comment on column EXP_ABOGADO_PERSONA.FEC_INI_REPRESENTACION is
 'fecha en que se conoce empieza a representarlo';
+
+comment on column EXP_ABOGADO_PERSONA.CREADOR is
+'Usuario de creación';
+
+comment on column EXP_ABOGADO_PERSONA.CREACION is
+'Fecha de creación';
+
+comment on column EXP_ABOGADO_PERSONA.EDITOR is
+'Usuario que modifica';
+
+comment on column EXP_ABOGADO_PERSONA.EDICION is
+'Fecha de modificación';
 
 alter table EXP_ABOGADO_PERSONA
    add constraint PK_EXP_ABOGADO_PERSONA primary key (ID);
@@ -2178,6 +2197,7 @@ create table SIETID.PER_PARENTEZCO
 (
    ID                   NUMBER(16)           not null,
    PERSONA              NUMBER(16),
+   PERSONA_PARIENTE     NUMBER(16),
    TIPO_RELACION        NUMBER(16),
    OBSERVACION          NVARCHAR2(200),
    CREADOR              NUMBER(16)           not null,
@@ -2194,6 +2214,9 @@ comment on column SIETID.PER_PARENTEZCO.ID is
 
 comment on column SIETID.PER_PARENTEZCO.PERSONA is
 'Identificador de persona';
+
+comment on column SIETID.PER_PARENTEZCO.PERSONA_PARIENTE is
+'Identificador del pariente con el que se tiene vínculo de consanguinidad o afinidad';
 
 comment on column SIETID.PER_PARENTEZCO.TIPO_RELACION is
 'Tipo de relación o parentesco';
@@ -2675,6 +2698,14 @@ alter table SIETID.CFG_VALOR
 
 alter table SIETID.CFG_VALOR
    add constraint FK_CGF_VALOR_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_ABOGADO_PERSONA
+   add constraint FK_EXP_ABOGADO_PER_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_ABOGADO_PERSONA
+   add constraint FK_EXP_ABOGADO_PER_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
 alter table EXP_ABOGADO_PERSONA
@@ -3829,6 +3860,10 @@ alter table SIETID.PER_PARENTEZCO
    add constraint FK_PER_PARENTEZCO_RELACION foreign key (TIPO_RELACION)
       references SIETID.CFG_VALOR (ID);
 
+alter table SIETID.PER_PARENTEZCO
+   add constraint FK_PER_PARIENTE foreign key (PERSONA_PARIENTE)
+      references SIETID.PER_PERSONA (ID);
+
 alter table SIETID.PER_PERSONA
    add constraint FK_PERSONA_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -4012,3 +4047,4 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
