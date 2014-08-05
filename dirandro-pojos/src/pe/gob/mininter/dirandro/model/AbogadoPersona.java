@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -21,6 +22,11 @@ public class AbogadoPersona implements Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
 
+	@Column(nullable=false)
+	private Timestamp creacion;
+
+	private Timestamp edicion;
+
 	@Column(precision=16)
 	private BigDecimal estado;
 
@@ -38,6 +44,16 @@ public class AbogadoPersona implements Serializable {
 	@JoinColumn(name="ABOGADO")
 	private Letrado perLetrado;
 
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="EDITOR")
+	private Usuario segUsuario1;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="CREADOR", nullable=false)
+	private Usuario segUsuario2;
+
 	public AbogadoPersona() {
 	}
 
@@ -47,6 +63,22 @@ public class AbogadoPersona implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Timestamp getCreacion() {
+		return this.creacion;
+	}
+
+	public void setCreacion(Timestamp creacion) {
+		this.creacion = creacion;
+	}
+
+	public Timestamp getEdicion() {
+		return this.edicion;
+	}
+
+	public void setEdicion(Timestamp edicion) {
+		this.edicion = edicion;
 	}
 
 	public BigDecimal getEstado() {
@@ -79,6 +111,22 @@ public class AbogadoPersona implements Serializable {
 
 	public void setPerLetrado(Letrado perLetrado) {
 		this.perLetrado = perLetrado;
+	}
+
+	public Usuario getSegUsuario1() {
+		return this.segUsuario1;
+	}
+
+	public void setSegUsuario1(Usuario segUsuario1) {
+		this.segUsuario1 = segUsuario1;
+	}
+
+	public Usuario getSegUsuario2() {
+		return this.segUsuario2;
+	}
+
+	public void setSegUsuario2(Usuario segUsuario2) {
+		this.segUsuario2 = segUsuario2;
 	}
 
 }
