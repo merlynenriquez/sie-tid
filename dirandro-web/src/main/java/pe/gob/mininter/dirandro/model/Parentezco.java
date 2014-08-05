@@ -1,8 +1,17 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 /**
@@ -36,7 +45,12 @@ public class Parentezco implements Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona perPersona1;
+
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="PERSONA_PARIENTE")
+	private Persona perPersona2;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -91,12 +105,20 @@ public class Parentezco implements Serializable {
 		this.cfgValor = cfgValor;
 	}
 
-	public Persona getPerPersona() {
-		return this.perPersona;
+	public Persona getPerPersona1() {
+		return this.perPersona1;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPerPersona1(Persona perPersona1) {
+		this.perPersona1 = perPersona1;
+	}
+
+	public Persona getPerPersona2() {
+		return this.perPersona2;
+	}
+
+	public void setPerPersona2(Persona perPersona2) {
+		this.perPersona2 = perPersona2;
 	}
 
 	public Usuario getSegUsuario1() {

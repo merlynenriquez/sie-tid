@@ -1,9 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,19 +24,15 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_DET_CRIMEN")
-public class DetCrimen implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class DetCrimen extends AuditoriaBean implements Validador, Serializable {
+
+	private static final long serialVersionUID = -6704151480718740744L;
 
 	@Id
 	@SequenceGenerator(name="EXP_DET_CRIMEN_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_CRIMEN_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
+	private Long id;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -41,16 +49,6 @@ public class DetCrimen implements Serializable {
 	@JoinColumn(name="EXP_DEL")
 	private ExpedienteDelito expExpedienteDelito;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to ExpedienteMediosMovil
 	@OneToMany(mappedBy="expDetCrimen")
 	private List<ExpedienteMediosMovil> expExpedienteMediosMovils;
@@ -58,28 +56,12 @@ public class DetCrimen implements Serializable {
 	public DetCrimen() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
 	}
 
 	public Valor getCfgValor() {
@@ -106,22 +88,6 @@ public class DetCrimen implements Serializable {
 		this.expExpedienteDelito = expExpedienteDelito;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public List<ExpedienteMediosMovil> getExpExpedienteMediosMovils() {
 		return this.expExpedienteMediosMovils;
 	}
@@ -142,6 +108,12 @@ public class DetCrimen implements Serializable {
 		expExpedienteMediosMovil.setExpDetCrimen(null);
 
 		return expExpedienteMediosMovil;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

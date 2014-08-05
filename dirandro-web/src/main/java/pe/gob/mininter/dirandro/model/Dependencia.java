@@ -1,9 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,8 +24,9 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_DEPENDENCIA")
-public class Dependencia implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Dependencia extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = -5926061859511311124L;
 
 	@Id
 	@SequenceGenerator(name="EXP_DEPENDENCIA_ID_GENERATOR", sequenceName="SEQ_")
@@ -27,13 +40,8 @@ public class Dependencia implements Serializable {
 	@Column(length=30)
 	private String codigo;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(length=600)
 	private String direccion;
-
-	private Timestamp edicion;
 
 	@Column(length=2000)
 	private String nombre;
@@ -56,16 +64,6 @@ public class Dependencia implements Serializable {
 	//bi-directional many-to-one association to Dependencia
 	@OneToMany(mappedBy="expDependencia")
 	private List<Dependencia> expDependencias;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
 
 	//bi-directional many-to-one association to Expediente
 	@OneToMany(mappedBy="expDependencia")
@@ -118,14 +116,6 @@ public class Dependencia implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public String getDireccion() {
 		return this.direccion;
 	}
@@ -133,15 +123,7 @@ public class Dependencia implements Serializable {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
+	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -194,22 +176,6 @@ public class Dependencia implements Serializable {
 		expDependencia.setExpDependencia(null);
 
 		return expDependencia;
-	}
-
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
 	}
 
 	public List<Expediente> getExpExpedientes() {
@@ -344,5 +310,10 @@ public class Dependencia implements Serializable {
 		return orgEquipo;
 	}
 
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

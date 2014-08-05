@@ -1,9 +1,17 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,8 +20,9 @@ import java.util.List;
  */
 @Entity
 @Table(name="CFG_LISTA")
-public class Lista implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Lista extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = -8943186992102390415L;
 
 	@Id
 	@SequenceGenerator(name="CFG_LISTA_ID_GENERATOR", sequenceName="SEQ_")
@@ -37,55 +46,49 @@ public class Lista implements Serializable {
 	public Lista() {
 	}
 
-
 	public long getId() {
 		return id;
 	}
-
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
 	public String getCodigo() {
 		return codigo;
 	}
-
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
-
 	public String getDescripcion() {
 		return descripcion;
 	}
-
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-
 	public String getEstado() {
 		return estado;
 	}
-
 
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
-
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
- 
 
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

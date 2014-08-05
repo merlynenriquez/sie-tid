@@ -1,9 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,22 +24,18 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_DELITO")
-public class Delito implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Delito extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = 8754887405793559368L;
 
 	@Id
 	@SequenceGenerator(name="EXP_DELITO_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DELITO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=200)
 	private String codigo;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(length=400)
 	private String nombre;
@@ -54,16 +62,6 @@ public class Delito implements Serializable {
 	@OneToMany(mappedBy="expDelito")
 	private List<Delito> expDelitos;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to ExpedienteDelito
 	@OneToMany(mappedBy="expDelito")
 	private List<ExpedienteDelito> expExpedienteDelitos;
@@ -71,11 +69,11 @@ public class Delito implements Serializable {
 	public Delito() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -86,23 +84,7 @@ public class Delito implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
+	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -165,22 +147,6 @@ public class Delito implements Serializable {
 		return expDelito;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public List<ExpedienteDelito> getExpExpedienteDelitos() {
 		return this.expExpedienteDelitos;
 	}
@@ -201,6 +167,12 @@ public class Delito implements Serializable {
 		expExpedienteDelito.setExpDelito(null);
 
 		return expExpedienteDelito;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

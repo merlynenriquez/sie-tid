@@ -1,8 +1,19 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -11,46 +22,32 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="PER_CORREO")
-public class Correo implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Correo extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = -1921706650569597925L;
 
 	@Id
 	@SequenceGenerator(name="PER_CORREO_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_CORREO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(nullable=false, length=200)
 	private String correo;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA", nullable=false)
 	private Persona perPersona;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	public Correo() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,22 +59,6 @@ public class Correo implements Serializable {
 		this.correo = correo;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public Persona getPerPersona() {
 		return this.perPersona;
 	}
@@ -86,20 +67,10 @@ public class Correo implements Serializable {
 		this.perPersona = perPersona;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

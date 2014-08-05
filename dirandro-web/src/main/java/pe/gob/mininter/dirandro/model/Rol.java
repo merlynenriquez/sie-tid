@@ -15,6 +15,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
 
 /**
  * The persistent class for the SEG_ROL database table.
@@ -22,18 +25,18 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="SEG_ROL")
-public class Rol implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Rol extends AuditoriaBean implements Validador, Serializable {
+
+	private static final long serialVersionUID = 4748951542756910651L;
 
 	@Id
 	@SequenceGenerator(name="SEG_ROL_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_ROL_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=8)
-	private long id;
+	private Long id;
 
 	@Column(length=20)
 	private String codigo;
-
 
 	@Column(length=500)
 	private String descripcion;
@@ -53,8 +56,6 @@ public class Rol implements Serializable {
 	
 	@Transient
 	private Map<String, List<Opcion>> opciones;
-
-	
 	
 /*
 	//bi-directional many-to-one association to Rol
@@ -67,10 +68,10 @@ public class Rol implements Serializable {
 */
 	public Rol() {
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getCodigo() {
@@ -110,6 +111,11 @@ public class Rol implements Serializable {
 	}
 	public void setOpciones(Map<String, List<Opcion>> opciones) {
 		this.opciones = opciones;
+	}
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
  
 }
