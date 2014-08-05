@@ -1,10 +1,22 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -123,8 +135,12 @@ public class Persona implements Serializable {
 	private List<NoIdentificado> perNoIdentificados;
 
 	//bi-directional many-to-one association to Parentezco
-	@OneToMany(mappedBy="perPersona")
-	private List<Parentezco> perParentezcos;
+	@OneToMany(mappedBy="perPersona1")
+	private List<Parentezco> perParentezcos1;
+
+	//bi-directional many-to-one association to Parentezco
+	@OneToMany(mappedBy="perPersona2")
+	private List<Parentezco> perParentezcos2;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -667,26 +683,48 @@ public class Persona implements Serializable {
 		return perNoIdentificado;
 	}
 
-	public List<Parentezco> getPerParentezcos() {
-		return this.perParentezcos;
+	public List<Parentezco> getPerParentezcos1() {
+		return this.perParentezcos1;
 	}
 
-	public void setPerParentezcos(List<Parentezco> perParentezcos) {
-		this.perParentezcos = perParentezcos;
+	public void setPerParentezcos1(List<Parentezco> perParentezcos1) {
+		this.perParentezcos1 = perParentezcos1;
 	}
 
-	public Parentezco addPerParentezco(Parentezco perParentezco) {
-		getPerParentezcos().add(perParentezco);
-		perParentezco.setPerPersona(this);
+	public Parentezco addPerParentezcos1(Parentezco perParentezcos1) {
+		getPerParentezcos1().add(perParentezcos1);
+		perParentezcos1.setPerPersona1(this);
 
-		return perParentezco;
+		return perParentezcos1;
 	}
 
-	public Parentezco removePerParentezco(Parentezco perParentezco) {
-		getPerParentezcos().remove(perParentezco);
-		perParentezco.setPerPersona(null);
+	public Parentezco removePerParentezcos1(Parentezco perParentezcos1) {
+		getPerParentezcos1().remove(perParentezcos1);
+		perParentezcos1.setPerPersona1(null);
 
-		return perParentezco;
+		return perParentezcos1;
+	}
+
+	public List<Parentezco> getPerParentezcos2() {
+		return this.perParentezcos2;
+	}
+
+	public void setPerParentezcos2(List<Parentezco> perParentezcos2) {
+		this.perParentezcos2 = perParentezcos2;
+	}
+
+	public Parentezco addPerParentezcos2(Parentezco perParentezcos2) {
+		getPerParentezcos2().add(perParentezcos2);
+		perParentezcos2.setPerPersona2(this);
+
+		return perParentezcos2;
+	}
+
+	public Parentezco removePerParentezcos2(Parentezco perParentezcos2) {
+		getPerParentezcos2().remove(perParentezcos2);
+		perParentezcos2.setPerPersona2(null);
+
+		return perParentezcos2;
 	}
 
 	public Valor getCfgValor1() {

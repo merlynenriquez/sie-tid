@@ -1,9 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,8 +24,9 @@ import java.util.List;
  */
 @Entity
 @Table(name="UBG_DISTRITO")
-public class Distrito implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Distrito extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = 2374489167323606236L;
 
 	@Id
 	@SequenceGenerator(name="UBG_DISTRITO_ID_GENERATOR", sequenceName="SEQ_")
@@ -23,11 +36,6 @@ public class Distrito implements Serializable {
 
 	@Column(name="CODIGO_HOST", length=14)
 	private String codigoHost;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(nullable=false, length=100)
 	private String nombre;
@@ -60,16 +68,6 @@ public class Distrito implements Serializable {
 	@OneToMany(mappedBy="ubgDistrito")
 	private List<Persona> perPersonas;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to Provincia
 	@ManyToOne
 	@JoinColumn(name="PROVINCIA", nullable=false)
@@ -92,22 +90,6 @@ public class Distrito implements Serializable {
 
 	public void setCodigoHost(String codigoHost) {
 		this.codigoHost = codigoHost;
-	}
-
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
 	}
 
 	public String getNombre() {
@@ -272,28 +254,18 @@ public class Distrito implements Serializable {
 		return perPersona;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public Provincia getUbgProvincia() {
 		return this.ubgProvincia;
 	}
 
 	public void setUbgProvincia(Provincia ubgProvincia) {
 		this.ubgProvincia = ubgProvincia;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

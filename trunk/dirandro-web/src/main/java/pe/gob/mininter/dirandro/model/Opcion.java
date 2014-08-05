@@ -16,6 +16,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
 
 /**
  * The persistent class for the SEG_OPCION database table.
@@ -23,25 +26,21 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="SEG_OPCION")
-public class Opcion implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Opcion extends AuditoriaBean implements Validador, Serializable {
+
+	private static final long serialVersionUID = -3391678147762056309L;
 
 	@Id
 	@SequenceGenerator(name="SEG_OPCION_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_OPCION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=8)
-	private long id;
+	private Long id;
 
 	@Column(nullable=false, length=30)
 	private String codigo;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(length=500)
 	private String descripcion;
-
-	private Timestamp edicion;
 
 	@Column(nullable=false, length=100)
 	private String nombre;
@@ -72,16 +71,7 @@ public class Opcion implements Serializable {
 	@OneToMany(mappedBy="segOpcion")
 	private List<Permiso> segPermisos;
 
-*/
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
+*/	
 
 	@Transient
 	private List<Opcion> acciones;
@@ -90,11 +80,11 @@ public class Opcion implements Serializable {
 	public Opcion() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -104,15 +94,7 @@ public class Opcion implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
+	}	
 
 	public String getDescripcion() {
 		return this.descripcion;
@@ -120,14 +102,6 @@ public class Opcion implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
 	}
 
 	public String getNombre() {
@@ -170,28 +144,18 @@ public class Opcion implements Serializable {
 		this.padre = segOpcion;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public List<Opcion> getAcciones() {
 		return acciones;
 	}
 
 	public void setAcciones(List<Opcion> acciones) {
 		this.acciones = acciones;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/*public List<Permiso> getSegPermisos() {

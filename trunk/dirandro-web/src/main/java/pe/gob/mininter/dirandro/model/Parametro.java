@@ -1,8 +1,19 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -11,8 +22,9 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="CFG_PARAMETRO")
-public class Parametro implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Parametro extends AuditoriaBean implements Validador, Serializable {
+
+	private static final long serialVersionUID = 2585331288022926733L;
 
 	@Id
 	@SequenceGenerator(name="CFG_PARAMETRO_CODIGO_GENERATOR", sequenceName="SEQ_")
@@ -20,13 +32,8 @@ public class Parametro implements Serializable {
 	@Column(unique=true, nullable=false, length=30)
 	private String codigo;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(length=500)
 	private String descripcion;
-
-	private Timestamp edicion;
 
 	@Column(nullable=false, length=100)
 	private String nombre;
@@ -39,16 +46,6 @@ public class Parametro implements Serializable {
 	@JoinColumn(name="ESTADO", nullable=false)
 	private Valor cfgValor;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	public Parametro() {
 	}
 
@@ -59,29 +56,13 @@ public class Parametro implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
+	
 	public String getDescripcion() {
 		return this.descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
 	}
 
 	public String getNombre() {
@@ -108,20 +89,10 @@ public class Parametro implements Serializable {
 		this.cfgValor = cfgValor;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

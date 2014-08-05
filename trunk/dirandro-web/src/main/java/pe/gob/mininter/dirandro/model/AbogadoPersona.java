@@ -1,9 +1,23 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,14 +26,15 @@ import java.util.Date;
  */
 @Entity
 @Table(name="EXP_ABOGADO_PERSONA")
-public class AbogadoPersona implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class AbogadoPersona extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = 6618362410494391936L;
 
 	@Id
 	@SequenceGenerator(name="EXP_ABOGADO_PERSONA_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ABOGADO_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(precision=16)
 	private BigDecimal estado;
@@ -41,11 +56,11 @@ public class AbogadoPersona implements Serializable {
 	public AbogadoPersona() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,6 +94,12 @@ public class AbogadoPersona implements Serializable {
 
 	public void setPerLetrado(Letrado perLetrado) {
 		this.perLetrado = perLetrado;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

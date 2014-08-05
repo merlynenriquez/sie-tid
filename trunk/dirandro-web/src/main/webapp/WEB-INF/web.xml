@@ -1,18 +1,14 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    version="3.0">
-
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 
 	<display-name>Dirandro</display-name>
 
 	<!-- Context parameters -->
-
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
-
+	
 	<context-param>
 		<description>Vaadin modo de producción</description>
 		<param-name>productionMode</param-name>
@@ -20,7 +16,6 @@
 	</context-param>
 
 	<!-- Listeners -->
-
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -32,9 +27,9 @@
 	<listener>
 		<listener-class>pe.com.bbva.harec.web.listener.HarecListener</listener-class>
 	</listener>
- -->
+ 	-->
+ 	
 	<!-- Servlets -->
-
 	<!-- Servlet Vaadin -->
 	<servlet>
 		<servlet-name>DirandroApplication</servlet-name>
@@ -51,15 +46,15 @@
 		</init-param>
 		 -->
 	</servlet>
-
+	
+	<!-- Servlet Mapping -->
 	<servlet-mapping>
 		<servlet-name>DirandroApplication</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- Configuracion del tiempo de sesion -->
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
-
-
 </web-app>

@@ -1,9 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,21 +23,18 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="PER_DETALLE")
-public class Detalle implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Detalle extends AuditoriaBean implements Validador, Serializable {
+	
+	private static final long serialVersionUID = 2783567751765001502L;
 
 	@Id
 	@SequenceGenerator(name="PER_DETALLE_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_DETALLE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=20)
 	private String calzado;
-
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(name="FECHALUGAR_ULTVEZ", length=2000)
 	private String fechalugarUltvez;
@@ -131,24 +139,14 @@ public class Detalle implements Serializable {
 	@JoinColumn(name="PERSONA")
 	private Persona perPersona;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	public Detalle() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -159,23 +157,7 @@ public class Detalle implements Serializable {
 	public void setCalzado(String calzado) {
 		this.calzado = calzado;
 	}
-
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
+	
 	public String getFechalugarUltvez() {
 		return this.fechalugarUltvez;
 	}
@@ -360,20 +342,9 @@ public class Detalle implements Serializable {
 		this.perPersona = perPersona;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 }

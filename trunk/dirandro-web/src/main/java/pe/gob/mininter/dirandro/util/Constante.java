@@ -5,7 +5,7 @@ import com.vaadin.terminal.ThemeResource;
 public abstract class Constante {
 
 	public static abstract class SCHEMA {
-		public static final String HAREC = "SIIC";
+		public static final String TID = "SIETID";
 	}
 
 	public static abstract class DESARROLLO {
@@ -223,6 +223,8 @@ public abstract class Constante {
 	public static abstract class CODIGO_MENSAJE {
 		
 		public final static String ERROR_GENERICO = "error.generico";
+		public final static String VALIDAR_ELIMINAR_GENERICO= "validar.eliminar.generico";
+		
 		public final static String VALIDAR_TEXTBOX = "validar.textbox";
 		public final static String VALIDAR_COMBOBOX = "validar.combobox";
 		public final static String VALIDAR_MAX_TAMANHO = "validar.textbox.maxtamanho";

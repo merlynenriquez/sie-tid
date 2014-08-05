@@ -11,4 +11,7 @@ public abstract class AlertaException extends BaseException {
 		super(titulo, codigoMensaje, args);
 	}
 	
+	public AlertaException(String titulo, String codigoMensaje, Object[] args, Throwable cause) {
+		super(titulo, codigoMensaje, args, cause);
+	}
 }
