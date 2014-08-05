@@ -1,0 +1,81 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+ "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		
+		<mapping class="pe.gob.mininter.dirandro.model.Lista" />
+		<mapping class="pe.gob.mininter.dirandro.model.Parametro" />
+		<mapping class="pe.gob.mininter.dirandro.model.Regla" />
+		<mapping class="pe.gob.mininter.dirandro.model.Valor" />
+		<mapping class="pe.gob.mininter.dirandro.model.AbogadoPersona" />
+		<mapping class="pe.gob.mininter.dirandro.model.Adjunto" />
+		<mapping class="pe.gob.mininter.dirandro.model.Anexo" />
+		<mapping class="pe.gob.mininter.dirandro.model.Arma" />
+		<mapping class="pe.gob.mininter.dirandro.model.CentroPoblado" />
+		<mapping class="pe.gob.mininter.dirandro.model.Delito" />
+		<mapping class="pe.gob.mininter.dirandro.model.Dependencia" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetCrimen" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetDroga" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetExpedientePersona" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetLlamada" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetPerArmExp" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetPerInmExp" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetPerTelExp" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetPerVehExp" />
+		<mapping class="pe.gob.mininter.dirandro.model.Documento" />
+		<mapping class="pe.gob.mininter.dirandro.model.Droga" />
+		<mapping class="pe.gob.mininter.dirandro.model.Entidad" />
+		<mapping class="pe.gob.mininter.dirandro.model.Especie" />
+		<mapping class="pe.gob.mininter.dirandro.model.Estado" />
+		<mapping class="pe.gob.mininter.dirandro.model.Expediente" />
+		<mapping class="pe.gob.mininter.dirandro.model.ExpedienteDelito" />
+		<mapping class="pe.gob.mininter.dirandro.model.ExpedienteMediosMovil" />
+		<mapping class="pe.gob.mininter.dirandro.model.Explosivo" />
+		<mapping class="pe.gob.mininter.dirandro.model.Importe" />
+		<mapping class="pe.gob.mininter.dirandro.model.Inmueble" />
+		<mapping class="pe.gob.mininter.dirandro.model.Instalacion" />
+		<mapping class="pe.gob.mininter.dirandro.model.Municione" />
+		<mapping class="pe.gob.mininter.dirandro.model.Organizacion" />
+		<mapping class="pe.gob.mininter.dirandro.model.Predecesor" />
+		<mapping class="pe.gob.mininter.dirandro.model.Ruta" />
+		<mapping class="pe.gob.mininter.dirandro.model.SituacionGeneral" />
+		<mapping class="pe.gob.mininter.dirandro.model.TipoHecho" />
+		<mapping class="pe.gob.mininter.dirandro.model.Vehiculo" />
+		<mapping class="pe.gob.mininter.dirandro.model.Hojaremision" />
+		<mapping class="pe.gob.mininter.dirandro.model.HojaremisionMuestra" />
+		<mapping class="pe.gob.mininter.dirandro.model.ModeloMarca" />
+		<mapping class="pe.gob.mininter.dirandro.model.Pais" />
+		<mapping class="pe.gob.mininter.dirandro.model.TipoEspecie" />
+		<mapping class="pe.gob.mininter.dirandro.model.Equipo" />
+		<mapping class="pe.gob.mininter.dirandro.model.Integrante" />
+		<mapping class="pe.gob.mininter.dirandro.model.Correo" />
+		<mapping class="pe.gob.mininter.dirandro.model.Detalle" />
+		<mapping class="pe.gob.mininter.dirandro.model.Direccion" />
+		<mapping class="pe.gob.mininter.dirandro.model.Empresa" />
+		<mapping class="pe.gob.mininter.dirandro.model.Identificacion" />
+		<mapping class="pe.gob.mininter.dirandro.model.Imagen" />
+		<mapping class="pe.gob.mininter.dirandro.model.Letrado" />
+		<mapping class="pe.gob.mininter.dirandro.model.NoIdentificado" />
+		<mapping class="pe.gob.mininter.dirandro.model.Parentezco" />
+		<mapping class="pe.gob.mininter.dirandro.model.Persona" />
+		<mapping class="pe.gob.mininter.dirandro.model.Policia" />
+		<mapping class="pe.gob.mininter.dirandro.model.Telefono" />
+		<mapping class="pe.gob.mininter.dirandro.model.Opcion" />
+		<mapping class="pe.gob.mininter.dirandro.model.Permiso" />
+		<mapping class="pe.gob.mininter.dirandro.model.Preferencia" />
+		<mapping class="pe.gob.mininter.dirandro.model.Rol" />
+		<mapping class="pe.gob.mininter.dirandro.model.Usuario" />
+		<mapping class="pe.gob.mininter.dirandro.model.Tabla" />
+		<mapping class="pe.gob.mininter.dirandro.model.Departamento" />
+		<mapping class="pe.gob.mininter.dirandro.model.Distrito" />
+		<mapping class="pe.gob.mininter.dirandro.model.Provincia" />
+		<!-- 
+		<mapping class="pe.com.bbva.harec.model.quartz.QrtzJobDetails" />
+		<mapping class="pe.com.bbva.harec.model.quartz.QrtzTriggers" />
+		<mapping class="pe.com.bbva.harec.model.quartz.QrtzCronTriggers" />
+		 -->
+	</session-factory>
+</hibernate-configuration>

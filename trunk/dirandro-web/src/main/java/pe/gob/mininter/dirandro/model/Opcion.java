@@ -1,10 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -42,22 +52,27 @@ public class Opcion implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO", nullable=false)
-	private Valor cfgValor1;
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor2;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Opcion
 	@ManyToOne
 	@JoinColumn(name="PADRE")
-	private Opcion segOpcion;
-
+	private Opcion padre;
+/*
 	//bi-directional many-to-one association to Opcion
 	@OneToMany(mappedBy="segOpcion")
 	private List<Opcion> segOpcions;
 
+	//bi-directional many-to-one association to Permiso
+	@OneToMany(mappedBy="segOpcion")
+	private List<Permiso> segPermisos;
+
+*/
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
@@ -68,9 +83,9 @@ public class Opcion implements Serializable {
 	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
-	//bi-directional many-to-one association to Permiso
-	@OneToMany(mappedBy="segOpcion")
-	private List<Permiso> segPermisos;
+	@Transient
+	private List<Opcion> acciones;
+
 
 	public Opcion() {
 	}
@@ -131,50 +146,28 @@ public class Opcion implements Serializable {
 		this.orden = orden;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getTipo() {
+		return this.tipo;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTipo(Valor cfgValor1) {
+		this.tipo = cfgValor1;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getEstado() {
+		return this.estado;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setEstado(Valor cfgValor2) {
+		this.estado = cfgValor2;
 	}
 
-	public Opcion getSegOpcion() {
-		return this.segOpcion;
+	public Opcion getPadre() {
+		return this.padre;
 	}
 
-	public void setSegOpcion(Opcion segOpcion) {
-		this.segOpcion = segOpcion;
-	}
-
-	public List<Opcion> getSegOpcions() {
-		return this.segOpcions;
-	}
-
-	public void setSegOpcions(List<Opcion> segOpcions) {
-		this.segOpcions = segOpcions;
-	}
-
-	public Opcion addSegOpcion(Opcion segOpcion) {
-		getSegOpcions().add(segOpcion);
-		segOpcion.setSegOpcion(this);
-
-		return segOpcion;
-	}
-
-	public Opcion removeSegOpcion(Opcion segOpcion) {
-		getSegOpcions().remove(segOpcion);
-		segOpcion.setSegOpcion(null);
-
-		return segOpcion;
+	public void setPadre(Opcion segOpcion) {
+		this.padre = segOpcion;
 	}
 
 	public Usuario getSegUsuario1() {
@@ -193,7 +186,15 @@ public class Opcion implements Serializable {
 		this.segUsuario2 = segUsuario2;
 	}
 
-	public List<Permiso> getSegPermisos() {
+	public List<Opcion> getAcciones() {
+		return acciones;
+	}
+
+	public void setAcciones(List<Opcion> acciones) {
+		this.acciones = acciones;
+	}
+
+	/*public List<Permiso> getSegPermisos() {
 		return this.segPermisos;
 	}
 
@@ -201,6 +202,14 @@ public class Opcion implements Serializable {
 		this.segPermisos = segPermisos;
 	}
 
+	public List<Opcion> getSegOpcions() {
+		return this.segOpcions;
+	}
+
+	public void setSegOpcions(List<Opcion> segOpcions) {
+		this.segOpcions = segOpcions;
+	}
+	
 	public Permiso addSegPermiso(Permiso segPermiso) {
 		getSegPermisos().add(segPermiso);
 		segPermiso.setSegOpcion(this);
@@ -215,4 +224,19 @@ public class Opcion implements Serializable {
 		return segPermiso;
 	}
 
+	public Opcion addSegOpcion(Opcion segOpcion) {
+		getSegOpcions().add(segOpcion);
+		segOpcion.setSegOpcion(this);
+
+		return segOpcion;
+	}
+
+	public Opcion removeSegOpcion(Opcion segOpcion) {
+		getSegOpcions().remove(segOpcion);
+		segOpcion.setSegOpcion(null);
+
+		return segOpcion;
+	}
+
+*/
 }
