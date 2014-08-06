@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -66,6 +67,9 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	@ManyToOne
 	@JoinColumn(name="ROL")
 	private Rol rol;
+	
+	@Transient
+	private String terminal;
 
 	public Usuario() {
 	}
@@ -156,6 +160,14 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	public String getTerminal() {
+		return terminal;
+	}
+
+	public void setTerminal(String terminal) {
+		this.terminal = terminal;
 	}
 
 	@Override

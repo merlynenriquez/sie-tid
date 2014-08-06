@@ -6,13 +6,13 @@ import pe.gob.mininter.dirandro.model.Valor;
 
 public interface ValorService extends BaseService<Valor, Long> {
 
-	List<Valor> buscar(Valor valor);
+	public List<Valor> buscar(Valor valor);
 	
-	List<Valor> obtenerLista(String codigoLista);
+	public List<Valor> obtenerLista(String codigoLista);
 	
-	Valor obtenerValor(String lista, String valor);
+	public Valor obtenerValor(String lista, String valor);
 	
-	List<Valor> obtenerxVector(Long valor1);
+	public List<Valor> obtenerxVector(Long valor1);
 	
-	List<Valor> obtenerListaSalida(String codigoLista);
+	public List<Valor> obtenerListaSalida(String codigoLista);
 }

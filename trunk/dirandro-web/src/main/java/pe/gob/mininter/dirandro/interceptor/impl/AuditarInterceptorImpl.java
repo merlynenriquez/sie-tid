@@ -8,13 +8,13 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.stereotype.Component;
 
 import pe.gob.mininter.dirandro.interceptor.AuditarInterceptor;
+import pe.gob.mininter.dirandro.model.Usuario;
+import pe.gob.mininter.dirandro.util.HarecUtil;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 @Component("auditarInterceptor")
 public class AuditarInterceptorImpl implements AuditarInterceptor, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2269463476088223892L;
 
 	private final static String METODO_CREAR = "crear";
@@ -25,7 +25,7 @@ public class AuditarInterceptorImpl implements AuditarInterceptor, Serializable 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 
-		/*if (validarInvocacion(invocation)) {
+		if (validarInvocacion(invocation)) {
 			Usuario usuario = HarecUtil.obtenerUsuarioSesion();
 			Object parametro = invocation.getArguments()[0];
 			Date fechaHora = new Date();
@@ -56,20 +56,16 @@ public class AuditarInterceptorImpl implements AuditarInterceptor, Serializable 
 					}
 				}
 			}
-		}*/
+		}
 		return invocation.proceed();
 	}
 
 	private boolean validarInvocacion(MethodInvocation invocation) {
-		/*if (invocation.getArguments().length == 1) {
+		if (invocation.getArguments().length == 1) {
 			Object parametro = invocation.getArguments()[0];
-			return (parametro instanceof AuditoriaBean || parametro instanceof List<?>)
-					&& (METODO_CREAR.equals(invocation.getMethod().getName())
-							|| METODO_ACTUALIZAR.equals(invocation.getMethod()
-									.getName()) || METODO_GRABAR_TODOS
-								.equals(invocation.getMethod().getName()));
+			return (parametro instanceof AuditoriaBean || parametro instanceof List<?>) && (METODO_CREAR.equals(invocation.getMethod().getName()) || METODO_ACTUALIZAR.equals(invocation.getMethod().getName()) || METODO_GRABAR_TODOS.equals(invocation.getMethod().getName()));
 
-		}*/
+		}
 		return false;
 	}
 

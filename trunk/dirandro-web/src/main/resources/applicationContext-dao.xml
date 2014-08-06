@@ -43,9 +43,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@192.168.56.101:1521:xe" />
-		<property name="username" value="harecl" />
-		<property name="password" value="harec" />
+		<property name="url" value="jdbc:oracle:thin:@172.22.0.19:1521:BDTRAMITE" />
+		<property name="username" value="SIETID" />
+		<property name="password" value="sietid" />
 	</bean>	
 
 	<!-- <bean id="dataSourceExterno" class="org.springframework.jndi.JndiObjectFactoryBean">

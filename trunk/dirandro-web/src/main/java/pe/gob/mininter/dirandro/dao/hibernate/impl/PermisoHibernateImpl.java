@@ -10,9 +10,6 @@ import pe.gob.mininter.dirandro.model.Permiso;
 @Repository
 public class PermisoHibernateImpl extends BaseHibernateImpl<Permiso, Long> implements PermisoHibernate {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1143632255799838731L;
 
 	@Autowired

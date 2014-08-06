@@ -8,17 +8,13 @@ import pe.gob.mininter.dirandro.dao.hibernate.UsuarioHibernate;
 import pe.gob.mininter.dirandro.model.Usuario;
 
 @Repository
-public class UsuarioHibernateImpl extends BaseHibernateImpl<Usuario, Long>
-		implements UsuarioHibernate {
+public class UsuarioHibernateImpl extends BaseHibernateImpl<Usuario, Long> implements UsuarioHibernate {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5705020726314524566L;
 
 	@Autowired
 	public UsuarioHibernateImpl(SessionFactory sessionFactory) {
 		setSessionFactory(sessionFactory);
 	}
+	
 }

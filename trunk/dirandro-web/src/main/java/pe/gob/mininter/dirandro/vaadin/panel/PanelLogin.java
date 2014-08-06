@@ -276,26 +276,20 @@ public class PanelLogin extends CustomComponent implements ClickListener {
         	throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Captcha Valido"});
         }
 		
-        username = username.toUpperCase();
+        username = username.toLowerCase();
         String hash512 = HarecUtil.returnSHA512(password);
         Usuario usuario = seguridadService.login(username, hash512);
-        /*Usuario usuario = new Usuario();
-        usuario.setApeMat("Mori");
-        usuario.setNombres("Elvis");
-        usuario.setApePat("Campos");
-        usuario.setId(1l);
-        */
         
         if(usuario != null){
         	WebApplicationContext context = ((WebApplicationContext) getApplication().getContext());
             WebBrowser webBrowser = context.getBrowser();
-    		//TODO usuario.setTerminal(webBrowser.getAddress());
+    		usuario.setTerminal(webBrowser.getAddress());
+    		System.out.println("terminal:"+usuario.getTerminal());
         	
         	ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
     		HttpServletRequest request = requestAttributes.getRequest();
     		HttpSession session = request.getSession(true);
     		session.setAttribute(Constante.SESION.USUARIO, usuario);
-    		//TODO session.setAttribute("lstDistritos", ubigeoService.obtenerTodos());    		
     		
     		mainApplication.cargarPanelPrincipal();
         }else{

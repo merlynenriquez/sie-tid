@@ -3,8 +3,6 @@ package pe.gob.mininter.dirandro.service;
 import java.io.Serializable;
 import java.util.List;
 
-import pe.gob.mininter.dirandro.util.Busqueda;
-
 /**
  * Servicio base que contempla las implementaciones base.
  * 
@@ -62,14 +60,7 @@ public interface BaseService<Entidad, TipoLlave> extends Serializable {
 	 * @return Lista de Entidades segun la clase
 	 */
 	public List<Entidad> obtenerTodos();
-	
-	/**
-	 * 
-	 * @param filtro - filtro que se le envia para poder hacer la busqueda
-	 * @return Lista de Entidades segun la clase
-	 */
-	public List<Entidad> buscar(final Busqueda filtro);
-	
+		
 	/**
 	 * Obtiene el recurso (Entidad) segun su indentificador (codigo) 
 	 * 

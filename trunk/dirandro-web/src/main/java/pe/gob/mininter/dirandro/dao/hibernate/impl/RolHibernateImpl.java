@@ -8,12 +8,8 @@ import pe.gob.mininter.dirandro.dao.hibernate.RolHibernate;
 import pe.gob.mininter.dirandro.model.Rol;
 
 @Repository
-public class RolHibernateImpl extends
-		BaseHibernateImpl<Rol, Long> implements RolHibernate {
+public class RolHibernateImpl extends BaseHibernateImpl<Rol, Long> implements RolHibernate {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1143632255799838731L;
 
 	@Autowired

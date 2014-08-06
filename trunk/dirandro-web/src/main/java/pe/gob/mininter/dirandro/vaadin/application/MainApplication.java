@@ -58,14 +58,12 @@ public class MainApplication extends Application {
 		
 	}
 	
-	public void cargarPanelPrincipal()
-	{
+	public void cargarPanelPrincipal(){
 		windowHarec.removeAllComponents();
-		
-		//panelTest panelPrincipal = new panelTest();
+
 		PanelPrincipal panelPrincipal = new PanelPrincipal();
-		//panelPrincipal.setFlagConsulta(flagConsulta);
-		//panelPrincipal.prepararPanelPrincipal();
+		panelPrincipal.setFlagConsulta(flagConsulta);
+		panelPrincipal.prepararPanelPrincipal();
 		
 		panelPrincipal.setWidth("100%");
 		panelPrincipal.setHeight("100%");

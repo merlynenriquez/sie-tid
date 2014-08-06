@@ -57,6 +57,7 @@ public class SeguridadServiceImpl implements SeguridadService {
 		//usuario = usuarioService.grabarUsuario(usuario);
 		
 		//usuario.setRol(membresia.getRol());
+		System.out.println("prueba= "+ usuario.getRol());		
 		
 		List<Permiso> permisos = permisoService.obtenerPermisosXRol(usuario.getRol().getId(), true);
 		List<Opcion> opciones = new ArrayList<Opcion>();

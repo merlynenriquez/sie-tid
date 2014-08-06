@@ -1,14 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
-
-import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
