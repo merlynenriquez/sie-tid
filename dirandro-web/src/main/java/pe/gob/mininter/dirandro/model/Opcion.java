@@ -2,7 +2,6 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -28,7 +27,10 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="SEG_OPCION")
 public class Opcion extends AuditoriaBean implements Validador, Serializable {
 
-	private static final long serialVersionUID = -3391678147762056309L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8954847423695023225L;
 
 	@Id
 	@SequenceGenerator(name="SEG_OPCION_ID_GENERATOR", sequenceName="SEQ_")
@@ -62,16 +64,6 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 	@ManyToOne
 	@JoinColumn(name="PADRE")
 	private Opcion padre;
-/*
-	//bi-directional many-to-one association to Opcion
-	@OneToMany(mappedBy="segOpcion")
-	private List<Opcion> segOpcions;
-
-	//bi-directional many-to-one association to Permiso
-	@OneToMany(mappedBy="segOpcion")
-	private List<Permiso> segPermisos;
-
-*/	
 
 	@Transient
 	private List<Opcion> acciones;
@@ -81,7 +73,7 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -89,15 +81,15 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getCodigo() {
-		return this.codigo;
+		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}	
+	}
 
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -105,7 +97,7 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -113,7 +105,7 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public BigDecimal getOrden() {
-		return this.orden;
+		return orden;
 	}
 
 	public void setOrden(BigDecimal orden) {
@@ -121,27 +113,27 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public Valor getTipo() {
-		return this.tipo;
+		return tipo;
 	}
 
-	public void setTipo(Valor cfgValor1) {
-		this.tipo = cfgValor1;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
 	public Valor getEstado() {
-		return this.estado;
+		return estado;
 	}
 
-	public void setEstado(Valor cfgValor2) {
-		this.estado = cfgValor2;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	public Opcion getPadre() {
-		return this.padre;
+		return padre;
 	}
 
-	public void setPadre(Opcion segOpcion) {
-		this.padre = segOpcion;
+	public void setPadre(Opcion padre) {
+		this.padre = padre;
 	}
 
 	public List<Opcion> getAcciones() {
@@ -158,49 +150,4 @@ public class Opcion extends AuditoriaBean implements Validador, Serializable {
 		
 	}
 
-	/*public List<Permiso> getSegPermisos() {
-		return this.segPermisos;
-	}
-
-	public void setSegPermisos(List<Permiso> segPermisos) {
-		this.segPermisos = segPermisos;
-	}
-
-	public List<Opcion> getSegOpcions() {
-		return this.segOpcions;
-	}
-
-	public void setSegOpcions(List<Opcion> segOpcions) {
-		this.segOpcions = segOpcions;
-	}
-	
-	public Permiso addSegPermiso(Permiso segPermiso) {
-		getSegPermisos().add(segPermiso);
-		segPermiso.setSegOpcion(this);
-
-		return segPermiso;
-	}
-
-	public Permiso removeSegPermiso(Permiso segPermiso) {
-		getSegPermisos().remove(segPermiso);
-		segPermiso.setSegOpcion(null);
-
-		return segPermiso;
-	}
-
-	public Opcion addSegOpcion(Opcion segOpcion) {
-		getSegOpcions().add(segOpcion);
-		segOpcion.setSegOpcion(this);
-
-		return segOpcion;
-	}
-
-	public Opcion removeSegOpcion(Opcion segOpcion) {
-		getSegOpcions().remove(segOpcion);
-		segOpcion.setSegOpcion(null);
-
-		return segOpcion;
-	}
-
-*/
 }

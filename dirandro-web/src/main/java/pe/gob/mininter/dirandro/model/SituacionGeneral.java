@@ -1,7 +1,12 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 
@@ -12,19 +17,18 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="EXP_SITUACION_GENERAL")
-public class SituacionGeneral implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class SituacionGeneral extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4473456073297589273L;
 
 	@Id
 	@SequenceGenerator(name="EXP_SITUACION_GENERAL_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_SITUACION_GENERAL_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
+	private Long id;
 
 	private Timestamp fecha;
 
@@ -34,52 +38,26 @@ public class SituacionGeneral implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TABLA")
-	private Valor cfgValor1;
+	private Valor tabla;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor2;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
+	private Valor situacion;
 
 	public SituacionGeneral() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public Timestamp getFecha() {
-		return this.fecha;
+		return fecha;
 	}
 
 	public void setFecha(Timestamp fecha) {
@@ -87,43 +65,33 @@ public class SituacionGeneral implements Serializable {
 	}
 
 	public BigDecimal getIdRegistro() {
-		return this.idRegistro;
+		return idRegistro;
 	}
 
 	public void setIdRegistro(BigDecimal idRegistro) {
 		this.idRegistro = idRegistro;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getTabla() {
+		return tabla;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTabla(Valor tabla) {
+		this.tabla = tabla;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,9 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,25 +24,24 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="EXP_RUTA")
-public class Ruta implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Ruta extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5835089998137979339L;
 
 	@Id
 	@SequenceGenerator(name="EXP_RUTA_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_RUTA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(name="CODIGO_DESTINO", precision=16)
 	private BigDecimal codigoDestino;
 
 	@Column(name="CODIGO_ORIGEN", precision=16)
 	private BigDecimal codigoOrigen;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(name="FECHA_ENVIO")
 	private Timestamp fechaEnvio;
@@ -44,17 +55,17 @@ public class Ruta implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO_RUTA")
-	private Valor cfgValor1;
+	private Valor estadoRuta;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TABLA_ORIGEN")
-	private Valor cfgValor2;
+	private Valor tablaOrigen;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TABLA_DESTINO")
-	private Valor cfgValor3;
+	private Valor tablaDestino;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -69,36 +80,26 @@ public class Ruta implements Serializable {
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="USUARIO_ORIGEN")
-	private Usuario segUsuario1;
+	private Usuario usuarioOrigen;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="USUARIO_RECEPCION")
-	private Usuario segUsuario2;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario3;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario4;
+	private Usuario usuarioRecepcion;
 
 	public Ruta() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public BigDecimal getCodigoDestino() {
-		return this.codigoDestino;
+		return codigoDestino;
 	}
 
 	public void setCodigoDestino(BigDecimal codigoDestino) {
@@ -106,31 +107,15 @@ public class Ruta implements Serializable {
 	}
 
 	public BigDecimal getCodigoOrigen() {
-		return this.codigoOrigen;
+		return codigoOrigen;
 	}
 
 	public void setCodigoOrigen(BigDecimal codigoOrigen) {
 		this.codigoOrigen = codigoOrigen;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public Timestamp getFechaEnvio() {
-		return this.fechaEnvio;
+		return fechaEnvio;
 	}
 
 	public void setFechaEnvio(Timestamp fechaEnvio) {
@@ -138,7 +123,7 @@ public class Ruta implements Serializable {
 	}
 
 	public Timestamp getFechaRecepcion() {
-		return this.fechaRecepcion;
+		return fechaRecepcion;
 	}
 
 	public void setFechaRecepcion(Timestamp fechaRecepcion) {
@@ -146,39 +131,39 @@ public class Ruta implements Serializable {
 	}
 
 	public String getObservacion() {
-		return this.observacion;
+		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getEstadoRuta() {
+		return estadoRuta;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setEstadoRuta(Valor estadoRuta) {
+		this.estadoRuta = estadoRuta;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getTablaOrigen() {
+		return tablaOrigen;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTablaOrigen(Valor tablaOrigen) {
+		this.tablaOrigen = tablaOrigen;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getTablaDestino() {
+		return tablaDestino;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setTablaDestino(Valor tablaDestino) {
+		this.tablaDestino = tablaDestino;
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -186,43 +171,33 @@ public class Ruta implements Serializable {
 	}
 
 	public Integrante getOrgIntegrante() {
-		return this.orgIntegrante;
+		return orgIntegrante;
 	}
 
 	public void setOrgIntegrante(Integrante orgIntegrante) {
 		this.orgIntegrante = orgIntegrante;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
+	public Usuario getUsuarioOrigen() {
+		return usuarioOrigen;
 	}
 
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
+	public void setUsuarioOrigen(Usuario usuarioOrigen) {
+		this.usuarioOrigen = usuarioOrigen;
 	}
 
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
+	public Usuario getUsuarioRecepcion() {
+		return usuarioRecepcion;
 	}
 
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	public void setUsuarioRecepcion(Usuario usuarioRecepcion) {
+		this.usuarioRecepcion = usuarioRecepcion;
 	}
 
-	public Usuario getSegUsuario3() {
-		return this.segUsuario3;
-	}
-
-	public void setSegUsuario3(Usuario segUsuario3) {
-		this.segUsuario3 = segUsuario3;
-	}
-
-	public Usuario getSegUsuario4() {
-		return this.segUsuario4;
-	}
-
-	public void setSegUsuario4(Usuario segUsuario4) {
-		this.segUsuario4 = segUsuario4;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

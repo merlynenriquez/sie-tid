@@ -1,10 +1,22 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -13,19 +25,18 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_ESPECIE")
-public class Especie implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Especie extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5910148998744477152L;
 
 	@Id
 	@SequenceGenerator(name="EXP_ESPECIE_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ESPECIE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
+	private Long id;
 
 	@Column(precision=10, scale=4)
 	private BigDecimal medida;
@@ -39,17 +50,17 @@ public class Especie implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor1;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor cfgValor2;
+	private Valor tipoMedida;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor3;
+	private Valor situacion;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -61,16 +72,6 @@ public class Especie implements Serializable {
 	@JoinColumn(name="TIPO_ESPECIE")
 	private TipoEspecie mntTipoEspecie;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to HojaremisionMuestra
 	@OneToMany(mappedBy="expEspecie")
 	private List<HojaremisionMuestra> hrHojaremisionMuestras;
@@ -78,32 +79,16 @@ public class Especie implements Serializable {
 	public Especie() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public BigDecimal getMedida() {
-		return this.medida;
+		return medida;
 	}
 
 	public void setMedida(BigDecimal medida) {
@@ -111,7 +96,7 @@ public class Especie implements Serializable {
 	}
 
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -119,39 +104,39 @@ public class Especie implements Serializable {
 	}
 
 	public String getSerie() {
-		return this.serie;
+		return serie;
 	}
 
 	public void setSerie(String serie) {
 		this.serie = serie;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getTipoMedida() {
+		return tipoMedida;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTipoMedida(Valor tipoMedida) {
+		this.tipoMedida = tipoMedida;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -159,49 +144,26 @@ public class Especie implements Serializable {
 	}
 
 	public TipoEspecie getMntTipoEspecie() {
-		return this.mntTipoEspecie;
+		return mntTipoEspecie;
 	}
 
 	public void setMntTipoEspecie(TipoEspecie mntTipoEspecie) {
 		this.mntTipoEspecie = mntTipoEspecie;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
-		return this.hrHojaremisionMuestras;
+		return hrHojaremisionMuestras;
 	}
 
-	public void setHrHojaremisionMuestras(List<HojaremisionMuestra> hrHojaremisionMuestras) {
+	public void setHrHojaremisionMuestras(
+			List<HojaremisionMuestra> hrHojaremisionMuestras) {
 		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
 	}
 
-	public HojaremisionMuestra addHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().add(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setExpEspecie(this);
-
-		return hrHojaremisionMuestra;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public HojaremisionMuestra removeHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().remove(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setExpEspecie(null);
-
-		return hrHojaremisionMuestra;
-	}
-
+ 
 }

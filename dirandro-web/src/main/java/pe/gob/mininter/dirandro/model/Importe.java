@@ -1,9 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,19 +23,18 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="EXP_IMPORTES")
-public class Importe implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Importe extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5594740774950181739L;
 
 	@Id
 	@SequenceGenerator(name="EXP_IMPORTES_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_IMPORTES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
+	private Long id;
 
 	@Column(precision=10, scale=2)
 	private BigDecimal moneda;
@@ -38,72 +48,46 @@ public class Importe implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_CUENTA")
-	private Valor cfgValor1;
+	private Valor tipoCuenta;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor2;
+	private Valor situacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO_MONEDA")
-	private Valor cfgValor3;
+	private Valor estadoMoneda;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="BANCO")
-	private Valor cfgValor4;
+	private Valor banco;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MONEDA")
-	private Valor cfgValor5;
+	private Valor tipoMoneda;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	public Importe() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public BigDecimal getMoneda() {
-		return this.moneda;
+		return moneda;
 	}
 
 	public void setMoneda(BigDecimal moneda) {
@@ -111,7 +95,7 @@ public class Importe implements Serializable {
 	}
 
 	public String getNroCuenta() {
-		return this.nroCuenta;
+		return nroCuenta;
 	}
 
 	public void setNroCuenta(String nroCuenta) {
@@ -119,75 +103,66 @@ public class Importe implements Serializable {
 	}
 
 	public String getNroTarjeta() {
-		return this.nroTarjeta;
+		return nroTarjeta;
 	}
 
 	public void setNroTarjeta(String nroTarjeta) {
 		this.nroTarjeta = nroTarjeta;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getTipoCuenta() {
+		return tipoCuenta;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTipoCuenta(Valor tipoCuenta) {
+		this.tipoCuenta = tipoCuenta;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getEstadoMoneda() {
+		return estadoMoneda;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setEstadoMoneda(Valor estadoMoneda) {
+		this.estadoMoneda = estadoMoneda;
 	}
 
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
+	public Valor getBanco() {
+		return banco;
 	}
 
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
+	public void setBanco(Valor banco) {
+		this.banco = banco;
 	}
 
-	public Valor getCfgValor5() {
-		return this.cfgValor5;
+	public Valor getTipoMoneda() {
+		return tipoMoneda;
 	}
 
-	public void setCfgValor5(Valor cfgValor5) {
-		this.cfgValor5 = cfgValor5;
+	public void setTipoMoneda(Valor tipoMoneda) {
+		this.tipoMoneda = tipoMoneda;
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
 		this.expExpediente = expExpediente;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
 
 }

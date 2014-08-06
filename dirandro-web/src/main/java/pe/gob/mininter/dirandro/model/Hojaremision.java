@@ -1,7 +1,12 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,21 +18,21 @@ import java.util.List;
  */
 @Entity
 @Table(name="HR_HOJAREMISION")
-public class Hojaremision implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Hojaremision extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7410875204571125889L;
 
 	@Id
 	@SequenceGenerator(name="HR_HOJAREMISION_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HR_HOJAREMISION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(name="COSTO_TRASLADO", precision=10, scale=2)
 	private BigDecimal costoTraslado;
-
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(name="FECHA_EMISION")
 	private Timestamp fechaEmision;
@@ -59,7 +64,7 @@ public class Hojaremision implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_HR")
-	private Valor cfgValor;
+	private Valor TipoHr;
 
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
@@ -86,16 +91,6 @@ public class Hojaremision implements Serializable {
 	@JoinColumn(name="PERSONA")
 	private Persona perPersona;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to HojaremisionMuestra
 	@OneToMany(mappedBy="hrHojaremision")
 	private List<HojaremisionMuestra> hrHojaremisionMuestras;
@@ -103,40 +98,24 @@ public class Hojaremision implements Serializable {
 	public Hojaremision() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public BigDecimal getCostoTraslado() {
-		return this.costoTraslado;
+		return costoTraslado;
 	}
 
 	public void setCostoTraslado(BigDecimal costoTraslado) {
 		this.costoTraslado = costoTraslado;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public Timestamp getFechaEmision() {
-		return this.fechaEmision;
+		return fechaEmision;
 	}
 
 	public void setFechaEmision(Timestamp fechaEmision) {
@@ -144,7 +123,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public Timestamp getFechaRecepcion() {
-		return this.fechaRecepcion;
+		return fechaRecepcion;
 	}
 
 	public void setFechaRecepcion(Timestamp fechaRecepcion) {
@@ -152,7 +131,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public Timestamp getFechaTraslado() {
-		return this.fechaTraslado;
+		return fechaTraslado;
 	}
 
 	public void setFechaTraslado(Timestamp fechaTraslado) {
@@ -160,7 +139,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public String getMotivoTraslado() {
-		return this.motivoTraslado;
+		return motivoTraslado;
 	}
 
 	public void setMotivoTraslado(String motivoTraslado) {
@@ -168,7 +147,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public String getNroLicencia() {
-		return this.nroLicencia;
+		return nroLicencia;
 	}
 
 	public void setNroLicencia(String nroLicencia) {
@@ -176,7 +155,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public BigDecimal getNumero() {
-		return this.numero;
+		return numero;
 	}
 
 	public void setNumero(BigDecimal numero) {
@@ -184,7 +163,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public String getObservacion() {
-		return this.observacion;
+		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
@@ -192,7 +171,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public String getOficio() {
-		return this.oficio;
+		return oficio;
 	}
 
 	public void setOficio(String oficio) {
@@ -200,23 +179,23 @@ public class Hojaremision implements Serializable {
 	}
 
 	public String getVehiculoPlaca() {
-		return this.vehiculoPlaca;
+		return vehiculoPlaca;
 	}
 
 	public void setVehiculoPlaca(String vehiculoPlaca) {
 		this.vehiculoPlaca = vehiculoPlaca;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public Valor getTipoHr() {
+		return TipoHr;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setTipoHr(Valor tipoHr) {
+		TipoHr = tipoHr;
 	}
 
 	public Dependencia getExpDependencia1() {
-		return this.expDependencia1;
+		return expDependencia1;
 	}
 
 	public void setExpDependencia1(Dependencia expDependencia1) {
@@ -224,7 +203,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public Dependencia getExpDependencia2() {
-		return this.expDependencia2;
+		return expDependencia2;
 	}
 
 	public void setExpDependencia2(Dependencia expDependencia2) {
@@ -232,7 +211,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -240,7 +219,7 @@ public class Hojaremision implements Serializable {
 	}
 
 	public ModeloMarca getMntModeloMarca() {
-		return this.mntModeloMarca;
+		return mntModeloMarca;
 	}
 
 	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
@@ -248,49 +227,26 @@ public class Hojaremision implements Serializable {
 	}
 
 	public Persona getPerPersona() {
-		return this.perPersona;
+		return perPersona;
 	}
 
 	public void setPerPersona(Persona perPersona) {
 		this.perPersona = perPersona;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
-		return this.hrHojaremisionMuestras;
+		return hrHojaremisionMuestras;
 	}
 
-	public void setHrHojaremisionMuestras(List<HojaremisionMuestra> hrHojaremisionMuestras) {
+	public void setHrHojaremisionMuestras(
+			List<HojaremisionMuestra> hrHojaremisionMuestras) {
 		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
 	}
 
-	public HojaremisionMuestra addHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().add(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setHrHojaremision(this);
-
-		return hrHojaremisionMuestra;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public HojaremisionMuestra removeHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().remove(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setHrHojaremision(null);
-
-		return hrHojaremisionMuestra;
-	}
-
+ 
 }

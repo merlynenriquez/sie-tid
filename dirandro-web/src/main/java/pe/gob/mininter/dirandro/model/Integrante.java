@@ -26,14 +26,17 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Entity
 @Table(name="ORG_INTEGRANTE")
 public class Integrante extends AuditoriaBean implements Validador, Serializable {
-
-	private static final long serialVersionUID = 1531833399826275265L;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8006992786865932374L;
 
 	@Id
 	@SequenceGenerator(name="ORG_INTEGRANTE_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORG_INTEGRANTE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(name="ES_LIDER", nullable=false, precision=22)
 	private BigDecimal esLider;
@@ -49,12 +52,12 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="FUNCION")
-	private Valor cfgValor1;
+	private Valor funcion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO", nullable=false)
-	private Valor cfgValor2;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Equipo
 	@ManyToOne
@@ -69,16 +72,16 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	public Integrante() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
-	}	
+	}
 
 	public BigDecimal getEsLider() {
-		return this.esLider;
+		return esLider;
 	}
 
 	public void setEsLider(BigDecimal esLider) {
@@ -86,67 +89,39 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public List<Expediente> getExpExpedientes() {
-		return this.expExpedientes;
+		return expExpedientes;
 	}
 
 	public void setExpExpedientes(List<Expediente> expExpedientes) {
 		this.expExpedientes = expExpedientes;
 	}
 
-	public Expediente addExpExpediente(Expediente expExpediente) {
-		getExpExpedientes().add(expExpediente);
-		expExpediente.setOrgIntegrante(this);
-
-		return expExpediente;
-	}
-
-	public Expediente removeExpExpediente(Expediente expExpediente) {
-		getExpExpedientes().remove(expExpediente);
-		expExpediente.setOrgIntegrante(null);
-
-		return expExpediente;
-	}
-
 	public List<Ruta> getExpRutas() {
-		return this.expRutas;
+		return expRutas;
 	}
 
 	public void setExpRutas(List<Ruta> expRutas) {
 		this.expRutas = expRutas;
 	}
 
-	public Ruta addExpRuta(Ruta expRuta) {
-		getExpRutas().add(expRuta);
-		expRuta.setOrgIntegrante(this);
-
-		return expRuta;
+	public Valor getFuncion() {
+		return funcion;
 	}
 
-	public Ruta removeExpRuta(Ruta expRuta) {
-		getExpRutas().remove(expRuta);
-		expRuta.setOrgIntegrante(null);
-
-		return expRuta;
+	public void setFuncion(Valor funcion) {
+		this.funcion = funcion;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
-	}
-
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
-	}
-
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	public Equipo getOrgEquipo() {
-		return this.orgEquipo;
+		return orgEquipo;
 	}
 
 	public void setOrgEquipo(Equipo orgEquipo) {
@@ -154,7 +129,7 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Usuario getSegUsuario3() {
-		return this.segUsuario3;
+		return segUsuario3;
 	}
 
 	public void setSegUsuario3(Usuario segUsuario3) {

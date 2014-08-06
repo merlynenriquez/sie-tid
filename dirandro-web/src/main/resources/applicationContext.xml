@@ -20,10 +20,11 @@
 
 	<!-- 
 	
-	<import resource="applicationContext-service.xml"/>
+	
 	<import resource="applicationContext-interceptor.xml"/>
 	
 	 -->
+	<import resource="applicationContext-service.xml"/>
 	<import resource="applicationContext-vaadin.xml"/>
 	<import resource="applicationContext-dao.xml"/>
 	
@@ -31,13 +32,13 @@
 	<bean p:location="classpath:dirandro.properties" 
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean" 
 			id="deployProperties"/>
-	
+		
 	<context:spring-configured/>
 	<context:property-placeholder properties-ref="deployProperties"/>	
 	
 	<!-- bean class="pe.com.bbva.harec.util.MailUtil2" scope="prototype"/>
-	<bean class="pe.com.bbva.harec.util.PlantillaVelocity" scope="prototype"/> -->
-	
+	-->
+	<bean class="pe.gob.mininter.dirandro.util.PlantillaVelocity" scope="prototype"/> 
 	<!-- Configuracion del Log4J -->
 	<bean id="log4jInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod" value="org.springframework.util.Log4jConfigurer.initLogging" />

@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
 
 /**
  * The persistent class for the PER_PARENTEZCO database table.
@@ -20,19 +22,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="PER_PARENTEZCO")
-public class Parentezco implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Parentezco extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1946559235893710683L;
 
 	@Id
 	@SequenceGenerator(name="PER_PARENTEZCO_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_PARENTEZCO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
+	private Long id;
 
 	@Column(length=400)
 	private String observacion;
@@ -40,101 +41,65 @@ public class Parentezco implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_RELACION")
-	private Valor cfgValor;
+	private Valor tipoRelacion;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona1;
+	private Persona perPersona;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA_PARIENTE")
-	private Persona perPersona2;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
+	private Persona perPariente;
 
 	public Parentezco() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public String getObservacion() {
-		return this.observacion;
+		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public Valor getTipoRelacion() {
+		return tipoRelacion;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setTipoRelacion(Valor tipoRelacion) {
+		this.tipoRelacion = tipoRelacion;
 	}
 
-	public Persona getPerPersona1() {
-		return this.perPersona1;
+	public Persona getPerPersona() {
+		return perPersona;
 	}
 
-	public void setPerPersona1(Persona perPersona1) {
-		this.perPersona1 = perPersona1;
+	public void setPerPersona(Persona perPersona) {
+		this.perPersona = perPersona;
 	}
 
-	public Persona getPerPersona2() {
-		return this.perPersona2;
+	public Persona getPerPariente() {
+		return perPariente;
 	}
 
-	public void setPerPersona2(Persona perPersona2) {
-		this.perPersona2 = perPersona2;
+	public void setPerPariente(Persona perPariente) {
+		this.perPariente = perPariente;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
+ 
 }

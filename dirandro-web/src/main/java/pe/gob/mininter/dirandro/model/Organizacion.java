@@ -1,10 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -13,25 +23,24 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_ORGANIZACION")
-public class Organizacion implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Organizacion extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1911787099919273558L;
 
 	@Id
 	@SequenceGenerator(name="EXP_ORGANIZACION_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ORGANIZACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=700)
 	private String campo;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(length=300)
 	private String descripcion;
-
-	private Timestamp edicion;
 
 	@Column(length=300)
 	private String nombre;
@@ -53,61 +62,35 @@ public class Organizacion implements Serializable {
 	@OneToMany(mappedBy="expOrganizacion")
 	private List<Instalacion> expInstalacions;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	public Organizacion() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getCampo() {
-		return this.campo;
+		return campo;
 	}
 
 	public void setCampo(String campo) {
 		this.campo = campo;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -115,7 +98,7 @@ public class Organizacion implements Serializable {
 	}
 
 	public BigDecimal getNroIntegrantes() {
-		return this.nroIntegrantes;
+		return nroIntegrantes;
 	}
 
 	public void setNroIntegrantes(BigDecimal nroIntegrantes) {
@@ -123,7 +106,7 @@ public class Organizacion implements Serializable {
 	}
 
 	public String getUbicacionActivos() {
-		return this.ubicacionActivos;
+		return ubicacionActivos;
 	}
 
 	public void setUbicacionActivos(String ubicacionActivos) {
@@ -131,7 +114,7 @@ public class Organizacion implements Serializable {
 	}
 
 	public String getZonaOperacion() {
-		return this.zonaOperacion;
+		return zonaOperacion;
 	}
 
 	public void setZonaOperacion(String zonaOperacion) {
@@ -139,63 +122,27 @@ public class Organizacion implements Serializable {
 	}
 
 	public List<DetExpedientePersona> getExpDetExpedientePersonas() {
-		return this.expDetExpedientePersonas;
+		return expDetExpedientePersonas;
 	}
 
-	public void setExpDetExpedientePersonas(List<DetExpedientePersona> expDetExpedientePersonas) {
+	public void setExpDetExpedientePersonas(
+			List<DetExpedientePersona> expDetExpedientePersonas) {
 		this.expDetExpedientePersonas = expDetExpedientePersonas;
 	}
 
-	public DetExpedientePersona addExpDetExpedientePersona(DetExpedientePersona expDetExpedientePersona) {
-		getExpDetExpedientePersonas().add(expDetExpedientePersona);
-		expDetExpedientePersona.setExpOrganizacion(this);
-
-		return expDetExpedientePersona;
-	}
-
-	public DetExpedientePersona removeExpDetExpedientePersona(DetExpedientePersona expDetExpedientePersona) {
-		getExpDetExpedientePersonas().remove(expDetExpedientePersona);
-		expDetExpedientePersona.setExpOrganizacion(null);
-
-		return expDetExpedientePersona;
-	}
-
 	public List<Instalacion> getExpInstalacions() {
-		return this.expInstalacions;
+		return expInstalacions;
 	}
 
 	public void setExpInstalacions(List<Instalacion> expInstalacions) {
 		this.expInstalacions = expInstalacions;
 	}
 
-	public Instalacion addExpInstalacion(Instalacion expInstalacion) {
-		getExpInstalacions().add(expInstalacion);
-		expInstalacion.setExpOrganizacion(this);
-
-		return expInstalacion;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public Instalacion removeExpInstalacion(Instalacion expInstalacion) {
-		getExpInstalacions().remove(expInstalacion);
-		expInstalacion.setExpOrganizacion(null);
-
-		return expInstalacion;
-	}
-
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
 
 }

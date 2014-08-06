@@ -1,5 +1,12 @@
 package pe.gob.mininter.dirandro.util;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Usuario;
 
 public abstract class HarecUtil {
@@ -24,6 +32,77 @@ public abstract class HarecUtil {
 		}
 		return usuario;
 	}
+
+
+	/**
+	 * Similar a ordenarOpciones(opciones, ordenarAcciones) pero ordenarAcciones = false.
+	 * @param opciones = Maestro de opciones a ordenar
+	 * @return Lista de opciones ordenadas sin diferenciar las acciones
+	 */
+	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones)
+	{
+		return ordenarOpciones(opciones, false);
+	}
+	
+	
+	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones, final boolean ordenarAcciones)
+	{
+		Map<String, List<Opcion>> map = new HashMap<String, List<Opcion>>();
+		Map<String,Opcion> map2 = new HashMap<String, Opcion>();
+		List<Opcion> list;
+		List<Opcion> list2 = new ArrayList<Opcion>();
+		String codigoPadre;
+		for (Opcion opcion : opciones) {
+			
+			if(ordenarAcciones){			
+				if(Constante.VALOR.CODIGO.SUBMENU.equals(opcion.getTipo().getCodigo()))
+				{
+					//opcion.setAcciones(new ArrayList<Opcion>());
+					map2.put(opcion.getCodigo(), opcion);
+				}
+				
+				if(Constante.VALOR.CODIGO.ACCION.equals(opcion.getTipo().getCodigo()))
+				{
+					list2.add(opcion);
+					continue;
+				}
+			}
+			
+			if(opcion.getPadre() == null)
+			{
+				codigoPadre = Constante.OPCION.KEY_PADRE;
+			}
+			else
+			{
+				codigoPadre = opcion.getPadre().getCodigo();
+			}
+			
+			if(map.containsKey(codigoPadre))
+			{
+				list = map.get(codigoPadre);
+			}
+			else
+			{
+				list = new ArrayList<Opcion>();
+				map.put(codigoPadre, list);
+			}
+			
+			list.add(opcion);
+		}
+		
+		if(ordenarAcciones){			
+			for (Opcion opcion : list2) {
+				if(map2.containsKey(opcion.getPadre().getCodigo()))
+				{
+					//--TODO: HABILITAR LA PARTE DE OPCIONES
+					//map2.get(opcion.getPadre().getCodigo()).getAcciones().add(opcion);
+				}
+			}
+		}
+		
+		return map;
+	}
+	
 	/* 
 	public static List<Distrito> obtenerDistritos(){
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -133,73 +212,6 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
-	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones, final boolean ordenarAcciones)
-	{
-		Map<String, List<Opcion>> map = new HashMap<String, List<Opcion>>();
-		Map<String,Opcion> map2 = new HashMap<String, Opcion>();
-		List<Opcion> list;
-		List<Opcion> list2 = new ArrayList<Opcion>();
-		String codigoPadre;
-		for (Opcion opcion : opciones) {
-			
-			if(ordenarAcciones){			
-				if(Constante.VALOR.CODIGO.SUBMENU.equals(opcion.getTipo().getCodigo()))
-				{
-					//opcion.setAcciones(new ArrayList<Opcion>());
-					map2.put(opcion.getCodigo(), opcion);
-				}
-				
-				if(Constante.VALOR.CODIGO.ACCION.equals(opcion.getTipo().getCodigo()))
-				{
-					list2.add(opcion);
-					continue;
-				}
-			}
-			
-			if(opcion.getPadre() == null)
-			{
-				codigoPadre = Constante.OPCION.KEY_PADRE;
-			}
-			else
-			{
-				codigoPadre = opcion.getPadre().getCodigo();
-			}
-			
-			if(map.containsKey(codigoPadre))
-			{
-				list = map.get(codigoPadre);
-			}
-			else
-			{
-				list = new ArrayList<Opcion>();
-				map.put(codigoPadre, list);
-			}
-			
-			list.add(opcion);
-		}
-		
-		if(ordenarAcciones){			
-			for (Opcion opcion : list2) {
-				if(map2.containsKey(opcion.getPadre().getCodigo()))
-				{
-					//--TODO: HABILITAR LA PARTE DE OPCIONES
-					//map2.get(opcion.getPadre().getCodigo()).getAcciones().add(opcion);
-				}
-			}
-		}
-		
-		return map;
-	}
-	
-	/**
-	 * Similar a ordenarOpciones(opciones, ordenarAcciones) pero ordenarAcciones = false.
-	 * @param opciones = Maestro de opciones a ordenar
-	 * @return Lista de opciones ordenadas sin diferenciar las acciones
-	 * /
-	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones)
-	{
-		return ordenarOpciones(opciones, false);
-	}
 	
 	public static Map<String, List<Equipo>> ordenarEquipos(List<Equipo> equipos){
 		Map<String, List<Equipo>> map = new HashMap<String, List<Equipo>>();
@@ -296,6 +308,8 @@ public abstract class HarecUtil {
 		nomArchivo= StringUtils.replace(nomArchivo, " ","_");
 	}
 	
+		 */
+	
 	public static String returnSHA512(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-512");
         md.update(password.getBytes());
@@ -315,6 +329,6 @@ public abstract class HarecUtil {
         }
         return hexString.toString();
     }
-	 */
+
 }
 

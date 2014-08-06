@@ -44,7 +44,7 @@ public class Parametro extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO", nullable=false)
-	private Valor cfgValor;
+	private Valor estado;
 
 	public Parametro() {
 	}
@@ -81,12 +81,12 @@ public class Parametro extends AuditoriaBean implements Validador, Serializable 
 		this.valor = valor;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	@Override

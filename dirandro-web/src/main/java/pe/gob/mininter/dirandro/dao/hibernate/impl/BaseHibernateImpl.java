@@ -28,12 +28,12 @@ public abstract class BaseHibernateImpl <Entidad extends Serializable, TipoLlave
 	protected Class<Entidad> domainClass;
 	
 	@Autowired
-	private SessionFactory sessionFactory;
-	
+	public SessionFactory sessionFactory;
+	/*
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
+*/
 	protected Session getSession() {
     	return sessionFactory.getCurrentSession();
     }

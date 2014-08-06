@@ -1,7 +1,12 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,25 +18,24 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_DOCUMENTO")
-public class Documento implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Documento extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7210926761891471965L;
 
 	@Id
 	@SequenceGenerator(name="EXP_DOCUMENTO_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DOCUMENTO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=1000)
 	private String asunto;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(name="DIAS_ATENCION", precision=4)
 	private BigDecimal diasAtencion;
-
-	private Timestamp edicion;
 
 	@Column(name="ES_INICIAL", length=1)
 	private String esInicial;
@@ -72,61 +76,35 @@ public class Documento implements Serializable {
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	public Documento() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getAsunto() {
-		return this.asunto;
+		return asunto;
 	}
 
 	public void setAsunto(String asunto) {
 		this.asunto = asunto;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public BigDecimal getDiasAtencion() {
-		return this.diasAtencion;
+		return diasAtencion;
 	}
 
 	public void setDiasAtencion(BigDecimal diasAtencion) {
 		this.diasAtencion = diasAtencion;
 	}
 
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public String getEsInicial() {
-		return this.esInicial;
+		return esInicial;
 	}
 
 	public void setEsInicial(String esInicial) {
@@ -134,7 +112,7 @@ public class Documento implements Serializable {
 	}
 
 	public Timestamp getFechaDocumento() {
-		return this.fechaDocumento;
+		return fechaDocumento;
 	}
 
 	public void setFechaDocumento(Timestamp fechaDocumento) {
@@ -142,7 +120,7 @@ public class Documento implements Serializable {
 	}
 
 	public Timestamp getFechaRecepcion() {
-		return this.fechaRecepcion;
+		return fechaRecepcion;
 	}
 
 	public void setFechaRecepcion(Timestamp fechaRecepcion) {
@@ -150,7 +128,7 @@ public class Documento implements Serializable {
 	}
 
 	public BigDecimal getFolios() {
-		return this.folios;
+		return folios;
 	}
 
 	public void setFolios(BigDecimal folios) {
@@ -158,7 +136,7 @@ public class Documento implements Serializable {
 	}
 
 	public String getNroDocumento() {
-		return this.nroDocumento;
+		return nroDocumento;
 	}
 
 	public void setNroDocumento(String nroDocumento) {
@@ -166,29 +144,15 @@ public class Documento implements Serializable {
 	}
 
 	public List<Anexo> getExpAnexos() {
-		return this.expAnexos;
+		return expAnexos;
 	}
 
 	public void setExpAnexos(List<Anexo> expAnexos) {
 		this.expAnexos = expAnexos;
 	}
 
-	public Anexo addExpAnexo(Anexo expAnexo) {
-		getExpAnexos().add(expAnexo);
-		expAnexo.setExpDocumento(this);
-
-		return expAnexo;
-	}
-
-	public Anexo removeExpAnexo(Anexo expAnexo) {
-		getExpAnexos().remove(expAnexo);
-		expAnexo.setExpDocumento(null);
-
-		return expAnexo;
-	}
-
 	public Valor getCfgValor1() {
-		return this.cfgValor1;
+		return cfgValor1;
 	}
 
 	public void setCfgValor1(Valor cfgValor1) {
@@ -196,7 +160,7 @@ public class Documento implements Serializable {
 	}
 
 	public Valor getCfgValor2() {
-		return this.cfgValor2;
+		return cfgValor2;
 	}
 
 	public void setCfgValor2(Valor cfgValor2) {
@@ -204,7 +168,7 @@ public class Documento implements Serializable {
 	}
 
 	public Adjunto getExpAdjunto() {
-		return this.expAdjunto;
+		return expAdjunto;
 	}
 
 	public void setExpAdjunto(Adjunto expAdjunto) {
@@ -212,27 +176,17 @@ public class Documento implements Serializable {
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
 		this.expExpediente = expExpediente;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
