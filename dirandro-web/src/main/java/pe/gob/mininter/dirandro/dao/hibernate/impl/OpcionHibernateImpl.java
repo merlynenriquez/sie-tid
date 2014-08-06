@@ -10,9 +10,6 @@ import pe.gob.mininter.dirandro.model.Opcion;
 @Repository
 public class OpcionHibernateImpl extends BaseHibernateImpl<Opcion, Long> implements OpcionHibernate {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8539528121329387055L;
 
 	@Autowired

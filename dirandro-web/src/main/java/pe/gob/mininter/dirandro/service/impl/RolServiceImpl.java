@@ -16,7 +16,7 @@ import pe.gob.mininter.dirandro.service.RolService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
-@Service(Constante.NOMBRE_SERVICIO.ROL)
+@Service
 public class RolServiceImpl extends BaseServiceImpl<Rol, Long>
 		implements RolService {
 
@@ -109,12 +109,6 @@ public class RolServiceImpl extends BaseServiceImpl<Rol, Long>
 
 	@Override
 	public List<Rol> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Rol> buscar(Busqueda filtro) {
 		// TODO Auto-generated method stub
 		return null;
 	}

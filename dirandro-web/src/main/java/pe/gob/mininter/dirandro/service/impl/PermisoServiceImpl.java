@@ -106,10 +106,4 @@ public class PermisoServiceImpl extends BaseServiceImpl<Permiso, Long>
 		return null;
 	}
 
-	@Override
-	public List<Permiso> buscar(Busqueda filtro) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

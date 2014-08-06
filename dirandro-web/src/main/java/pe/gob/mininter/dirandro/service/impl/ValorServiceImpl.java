@@ -19,7 +19,7 @@ import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
-@Service(Constante.NOMBRE_SERVICIO.VALOR)
+@Service
 public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
 		ValorService {
 
@@ -139,12 +139,6 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
 
 	@Override
 	public List<Valor> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Valor> buscar(Busqueda filtro) {
 		// TODO Auto-generated method stub
 		return null;
 	}

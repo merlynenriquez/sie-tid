@@ -7,10 +7,10 @@ import pe.gob.mininter.dirandro.model.Opcion;
 
 public interface OpcionService extends BaseService<Opcion, Long> {
 	
-	List<Opcion> buscar(Opcion lista);
+	public List<Opcion> buscar(Opcion lista);
 	
-	Map<String, List<Opcion>> listarOpciones();
+	public Map<String, List<Opcion>> listarOpciones();
 	
-	Opcion obtenerOpcionPorCodigo(String codigo);
+	public Opcion obtenerOpcionPorCodigo(String codigo);
 	
 }

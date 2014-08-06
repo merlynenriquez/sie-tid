@@ -19,14 +19,9 @@ import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 
-@Service(Constante.NOMBRE_SERVICIO.OPCION)
-public class OpcionServiceImpl extends BaseServiceImpl<Opcion, Long>
-		implements OpcionService {
+@Service
+public class OpcionServiceImpl extends BaseServiceImpl<Opcion, Long> implements OpcionService {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1996923554551485459L;
 	
 	private OpcionHibernate opcionHibernate;
@@ -107,12 +102,6 @@ public class OpcionServiceImpl extends BaseServiceImpl<Opcion, Long>
 
 	@Override
 	public List<Opcion> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Opcion> buscar(Busqueda filtro) {
 		// TODO Auto-generated method stub
 		return null;
 	}

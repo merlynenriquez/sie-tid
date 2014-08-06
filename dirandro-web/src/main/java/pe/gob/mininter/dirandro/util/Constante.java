@@ -168,58 +168,7 @@ public abstract class Constante {
 		public final static String ADJUNTOS_SIZE = "ADJUNTOS_SIZE";
 		public final static String FECHA_ALERTA = "FECHA_ALERTA";
 	}
-
-	@Deprecated
-	public static abstract class NOMBRE_SERVICIO {
-		
-		public final static String CORREO_PERSONA = "correoService";
-		public final static String DIRECCION_PERSONA = "direccionService";
-		public final static String LISTA = "listaService";
-		public final static String VALOR = "valorService";
-		public final static String PARAMETRO = "parametroService";
-		public final static String ROL = "rolService";
-		public final static String OPCION = "opcionService";
-		public final static String MEMBRESIA = "membresiaService";
-		public final static String LDAP = "ldapService";
-		public final static String FCR = "fcrService";
-		public final static String REQUERIMIENTO = "requerimientoService";
-		public final static String REGLA_ESTADO = "reglaEstadoService";
-		public final static String REGLA_DERIVACION = "reglaDerivacionService";
-		public final static String DELITO = "delitoService";
-		public final static String ENTIDAD = "EntidadService";
-		public final static String DROGA = "drogaService";
-		public final static String PERSONA = "PersonaService";
-		public final static String MARCA = "modeloMarcaService";
-		public final static String TELEFONO = "telefonoService";
-		public final static String DEPENDENCIA = "dependenciaService";
-		public final static String BANDA = "bandaService";
-		public final static String EXP_PERSONA = "expedientePersonaService";
-		public final static String EQUIPO = "equipoService";
-		public final static String POLICIA = "policiaService";
-		public final static String EMPRESA = "empresaService";
-		public final static String INMUEBLE = "inmuebleService";
-		public final static String USUARIO = "usuarioService";
-		public final static String ARMA = "armaService";
-		public final static String VEHICULO = "vehiculoService";
-		public final static String PREDECESOR = "predecesorService";
-		public final static String ESTADO_EXPEDIENTE = "estadoService";
-		public final static String DOCUMENTO = "documentoService";
-		public final static String RUTA = "rutaService";
-		public final static String ADJUNTO = "adjuntoService";
-		public final static String EXPEDIENTE = "expedienteService";
-		public final static String UBIGEO = "ubigeoService";
-		public final static String EXPDELITO = "expedienteDelitoService";
-		public final static String IMPORTE = "importeService";
-		public final static String DETPERARMAEXP = "detPerArmExpService";
-		public final static String DETPERTELEXP = "detPerTelExpService";
-		public final static String ABOGADO = "abogadoService";
-		public final static String DETPERVEHEXP = "detPerVehExpService";
-		public final static String TIPOESPECIE = "tipoEspecieService";
-		public final static String ESPECIE = "especieService";
-		public final static String DETEXPCRIMEN = "detExpCrimenService";
-		public final static String EXPMEDIOSMOVIL = "expedienteMediosMovilService";
-	}
-
+	
 	public static abstract class CODIGO_MENSAJE {
 		
 		public final static String ERROR_GENERICO = "error.generico";
@@ -277,6 +226,7 @@ public abstract class Constante {
 		public final static String KEY_PADRE = "padre";
 
 		// Menu Nro 1
+		public final static String CODIGO_MNT_DELITO = "MANT_DELITO";
 		public final static String CODIGO_ADMIN_PARM = "ADMIN_PARM";
 		public final static String CODIGO_ADMIN_LOV = "ADMIN_LOV";
 		public final static String CODIGO_ADMIN_ROL_MEMB = "ADMIN_ROL_MEMB";

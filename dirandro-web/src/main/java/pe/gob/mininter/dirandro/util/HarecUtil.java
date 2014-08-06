@@ -39,61 +39,50 @@ public abstract class HarecUtil {
 	 * @param opciones = Maestro de opciones a ordenar
 	 * @return Lista de opciones ordenadas sin diferenciar las acciones
 	 */
-	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones)
-	{
+	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones){
 		return ordenarOpciones(opciones, false);
 	}
 	
 	
-	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones, final boolean ordenarAcciones)
-	{
+	public static Map<String, List<Opcion>> ordenarOpciones(final List<Opcion> opciones, final boolean ordenarAcciones){
 		Map<String, List<Opcion>> map = new HashMap<String, List<Opcion>>();
 		Map<String,Opcion> map2 = new HashMap<String, Opcion>();
 		List<Opcion> list;
 		List<Opcion> list2 = new ArrayList<Opcion>();
 		String codigoPadre;
 		for (Opcion opcion : opciones) {
-			
 			if(ordenarAcciones){			
-				if(Constante.VALOR.CODIGO.SUBMENU.equals(opcion.getTipo().getCodigo()))
-				{
+				if(Constante.VALOR.CODIGO.SUBMENU.equals(opcion.getTipo().getCodigo())){
 					//opcion.setAcciones(new ArrayList<Opcion>());
 					map2.put(opcion.getCodigo(), opcion);
 				}
 				
-				if(Constante.VALOR.CODIGO.ACCION.equals(opcion.getTipo().getCodigo()))
-				{
+				if(Constante.VALOR.CODIGO.ACCION.equals(opcion.getTipo().getCodigo())){
 					list2.add(opcion);
 					continue;
 				}
 			}
 			
-			if(opcion.getPadre() == null)
-			{
+			if(opcion.getPadre() == null){
 				codigoPadre = Constante.OPCION.KEY_PADRE;
 			}
-			else
-			{
+			else{
 				codigoPadre = opcion.getPadre().getCodigo();
 			}
 			
-			if(map.containsKey(codigoPadre))
-			{
+			if(map.containsKey(codigoPadre)){
 				list = map.get(codigoPadre);
 			}
-			else
-			{
+			else{
 				list = new ArrayList<Opcion>();
 				map.put(codigoPadre, list);
 			}
-			
 			list.add(opcion);
 		}
 		
 		if(ordenarAcciones){			
 			for (Opcion opcion : list2) {
-				if(map2.containsKey(opcion.getPadre().getCodigo()))
-				{
+				if(map2.containsKey(opcion.getPadre().getCodigo())){
 					//--TODO: HABILITAR LA PARTE DE OPCIONES
 					//map2.get(opcion.getPadre().getCodigo()).getAcciones().add(opcion);
 				}

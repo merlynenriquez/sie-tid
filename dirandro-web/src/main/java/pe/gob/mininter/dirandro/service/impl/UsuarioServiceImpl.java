@@ -18,14 +18,14 @@ import pe.gob.mininter.dirandro.service.UsuarioService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
-@Service(Constante.NOMBRE_SERVICIO.USUARIO)
+@Service
 public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implements UsuarioService {
 	
 	private static final long serialVersionUID = 3585418496951268063L;	
 	private UsuarioHibernate usuarioHibernate;
 	
 	@Autowired
-	private UsuarioOracle usuarioOracle;
+	private UsuarioOracle usuarioOracle;	
 	
 	@Autowired
 	public UsuarioServiceImpl(UsuarioHibernate usuarioHibernate) {
@@ -67,14 +67,12 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
 		Busqueda filtro = Busqueda.forClass(Usuario.class);
 		filtro.add(Restrictions.eq("usuario", usuario.getUsuario()));
 		List<Usuario> usuarios = usuarioHibernate.buscar(filtro);
-		if(usuarios.size() == 0)
-		{
+		if(usuarios.size() == 0){
 			usuario.setClave("*****");
 			crear(usuario);
 			return usuario;
 		}
-		else
-		{
+		else{
 			Usuario usu = usuarios.get(0);
 			usu.setCargo(usuario.getCargo());
 			usu.setDescCargo(usuario.getDescCargo());
@@ -82,20 +80,16 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
 			return usu;
 		}
 	}	
-	
-	//TODO: Validar
+
 	public Usuario obtenerUsuarioXRegistro(Usuario usuario){
 		Busqueda filtro = Busqueda.forClass(Usuario.class);
 		
 		if (usuario != null) {
-		
-			if (usuario.getUsuario() != null) {
+			if (usuario.getUsuario() != null) 
 				filtro.add(Restrictions.eq("usuario", usuario.getUsuario()));
-			}
-			
-			if (usuario.getClave() != null) {
+						
+			if (usuario.getClave() != null) 
 				filtro.add(Restrictions.eq("clave", usuario.getClave()));
-			}
 		}			
 		List<Usuario> lstUsuarios = usuarioHibernate.buscar(filtro);
 		
@@ -140,11 +134,5 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
 		filtro.addOrder(Order.asc("apePat"));
 		filtro.addOrder(Order.asc("apeMat"));
 		return this.usuarioHibernate.buscar(filtro);		
-	}
-
-	@Override
-	public List<Usuario> buscar(Busqueda filtro) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

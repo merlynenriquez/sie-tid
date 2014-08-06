@@ -6,6 +6,6 @@ import pe.gob.mininter.dirandro.model.Usuario;
 
 public interface SeguridadService extends Serializable {
 
-	Usuario login(String usuario, String clave);
+	public Usuario login(String usuario, String clave);
 	
 }

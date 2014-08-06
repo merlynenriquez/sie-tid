@@ -1,0 +1,12 @@
+<B>
+$usuario.apePat ${usuario.apeMat}, $usuario.nombres<br />
+#if( $null.isNull($usuario.policia.unidad) )
+	$usuario.policia.unidad
+#end
+</B>
+
+<p>
+Cargo: ${usuario.cargo} - ${usuario.descCargo}<br />
+Oficina: ${usuario.oficina.codigo} - ${usuario.oficina.nombre}<br />
+Rol: ${usuario.rol.codigo} - ${usuario.rol.nombre}<br />
+</p>

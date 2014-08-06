@@ -8,12 +8,8 @@ import pe.gob.mininter.dirandro.dao.hibernate.ValorHibernate;
 import pe.gob.mininter.dirandro.model.Valor;
 
 @Repository
-public class ValorHibernateImpl extends
-		BaseHibernateImpl<Valor, Long> implements ValorHibernate {
+public class ValorHibernateImpl extends BaseHibernateImpl<Valor, Long> implements ValorHibernate {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8732601810781607133L;
 
 	@Autowired

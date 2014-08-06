@@ -6,6 +6,6 @@ import pe.gob.mininter.dirandro.model.Rol;
 
 public interface RolService extends BaseService<Rol, Long> {
 	
-	List<Rol> buscar(Rol lista);
+	public List<Rol> buscar(Rol lista);
 
 }
