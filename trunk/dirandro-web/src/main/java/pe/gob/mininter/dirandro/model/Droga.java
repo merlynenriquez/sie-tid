@@ -1,10 +1,22 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -13,19 +25,18 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_DROGAS")
-public class Droga implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Droga extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 791716717760796752L;
 
 	@Id
 	@SequenceGenerator(name="EXP_DROGAS_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DROGAS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
+	private Long id;
 
 	@Column(length=1600)
 	private String observacion;
@@ -55,22 +66,22 @@ public class Droga implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor cfgValor1;
+	private Valor tipoMedida;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA_MUESTRA")
-	private Valor cfgValor2;
+	private Valor tipoMedidaMuestra;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DROGA")
-	private Valor cfgValor3;
+	private Valor tipoDroga;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor4;
+	private Valor situaccion;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -87,16 +98,6 @@ public class Droga implements Serializable {
 	@JoinColumn(name="DESTINO", nullable=false)
 	private Pais mntPais2;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to HojaremisionMuestra
 	@OneToMany(mappedBy="expDroga")
 	private List<HojaremisionMuestra> hrHojaremisionMuestras;
@@ -104,32 +105,16 @@ public class Droga implements Serializable {
 	public Droga() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public String getObservacion() {
-		return this.observacion;
+		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
@@ -137,7 +122,7 @@ public class Droga implements Serializable {
 	}
 
 	public BigDecimal getPesoBruto() {
-		return this.pesoBruto;
+		return pesoBruto;
 	}
 
 	public void setPesoBruto(BigDecimal pesoBruto) {
@@ -145,7 +130,7 @@ public class Droga implements Serializable {
 	}
 
 	public BigDecimal getPesoMuestra() {
-		return this.pesoMuestra;
+		return pesoMuestra;
 	}
 
 	public void setPesoMuestra(BigDecimal pesoMuestra) {
@@ -153,7 +138,7 @@ public class Droga implements Serializable {
 	}
 
 	public BigDecimal getPesoNeto() {
-		return this.pesoNeto;
+		return pesoNeto;
 	}
 
 	public void setPesoNeto(BigDecimal pesoNeto) {
@@ -161,7 +146,7 @@ public class Droga implements Serializable {
 	}
 
 	public BigDecimal getTipoCambio() {
-		return this.tipoCambio;
+		return tipoCambio;
 	}
 
 	public void setTipoCambio(BigDecimal tipoCambio) {
@@ -169,7 +154,7 @@ public class Droga implements Serializable {
 	}
 
 	public BigDecimal getValorDolares() {
-		return this.valorDolares;
+		return valorDolares;
 	}
 
 	public void setValorDolares(BigDecimal valorDolares) {
@@ -177,7 +162,7 @@ public class Droga implements Serializable {
 	}
 
 	public BigDecimal getValorSoles() {
-		return this.valorSoles;
+		return valorSoles;
 	}
 
 	public void setValorSoles(BigDecimal valorSoles) {
@@ -185,61 +170,47 @@ public class Droga implements Serializable {
 	}
 
 	public List<DetDroga> getExpDetDrogas() {
-		return this.expDetDrogas;
+		return expDetDrogas;
 	}
 
 	public void setExpDetDrogas(List<DetDroga> expDetDrogas) {
 		this.expDetDrogas = expDetDrogas;
 	}
 
-	public DetDroga addExpDetDroga(DetDroga expDetDroga) {
-		getExpDetDrogas().add(expDetDroga);
-		expDetDroga.setExpDroga(this);
-
-		return expDetDroga;
+	public Valor getTipoMedida() {
+		return tipoMedida;
 	}
 
-	public DetDroga removeExpDetDroga(DetDroga expDetDroga) {
-		getExpDetDrogas().remove(expDetDroga);
-		expDetDroga.setExpDroga(null);
-
-		return expDetDroga;
+	public void setTipoMedida(Valor tipoMedida) {
+		this.tipoMedida = tipoMedida;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getTipoMedidaMuestra() {
+		return tipoMedidaMuestra;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTipoMedidaMuestra(Valor tipoMedidaMuestra) {
+		this.tipoMedidaMuestra = tipoMedidaMuestra;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getTipoDroga() {
+		return tipoDroga;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTipoDroga(Valor tipoDroga) {
+		this.tipoDroga = tipoDroga;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getSituaccion() {
+		return situaccion;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
-	}
-
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
-	}
-
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
+	public void setSituaccion(Valor situaccion) {
+		this.situaccion = situaccion;
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -247,7 +218,7 @@ public class Droga implements Serializable {
 	}
 
 	public Pais getMntPais1() {
-		return this.mntPais1;
+		return mntPais1;
 	}
 
 	public void setMntPais1(Pais mntPais1) {
@@ -255,49 +226,26 @@ public class Droga implements Serializable {
 	}
 
 	public Pais getMntPais2() {
-		return this.mntPais2;
+		return mntPais2;
 	}
 
 	public void setMntPais2(Pais mntPais2) {
 		this.mntPais2 = mntPais2;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
-		return this.hrHojaremisionMuestras;
+		return hrHojaremisionMuestras;
 	}
 
-	public void setHrHojaremisionMuestras(List<HojaremisionMuestra> hrHojaremisionMuestras) {
+	public void setHrHojaremisionMuestras(
+			List<HojaremisionMuestra> hrHojaremisionMuestras) {
 		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
 	}
 
-	public HojaremisionMuestra addHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().add(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setExpDroga(this);
-
-		return hrHojaremisionMuestra;
-	}
-
-	public HojaremisionMuestra removeHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().remove(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setExpDroga(null);
-
-		return hrHojaremisionMuestra;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

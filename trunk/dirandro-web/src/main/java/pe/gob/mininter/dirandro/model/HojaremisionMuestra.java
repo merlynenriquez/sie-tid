@@ -1,9 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,14 +23,18 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="HR_HOJAREMISION_MUESTRA")
-public class HojaremisionMuestra implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class HojaremisionMuestra extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6116438175392487199L;
 
 	@Id
 	@SequenceGenerator(name="HR_HOJAREMISION_MUESTRA_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HR_HOJAREMISION_MUESTRA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(name="CAN_PESO_ANALISIS", precision=10, scale=2)
 	private BigDecimal canPesoAnalisis;
@@ -36,17 +51,13 @@ public class HojaremisionMuestra implements Serializable {
 	@Column(precision=5)
 	private BigDecimal cantidad;
 
-	private Timestamp creacion;
-
 	@Column(length=400)
 	private String descripcion;
-
-	private Timestamp edicion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="UNIDAD_MEDIDA")
-	private Valor cfgValor;
+	private Valor unidadMedida;
 
 	//bi-directional many-to-one association to Droga
 	@ManyToOne
@@ -63,29 +74,19 @@ public class HojaremisionMuestra implements Serializable {
 	@JoinColumn(name="HOJAREMISION")
 	private Hojaremision hrHojaremision;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR")
-	private Usuario segUsuario2;
-
 	public HojaremisionMuestra() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public BigDecimal getCanPesoAnalisis() {
-		return this.canPesoAnalisis;
+		return canPesoAnalisis;
 	}
 
 	public void setCanPesoAnalisis(BigDecimal canPesoAnalisis) {
@@ -93,7 +94,7 @@ public class HojaremisionMuestra implements Serializable {
 	}
 
 	public BigDecimal getCanPesoBruto() {
-		return this.canPesoBruto;
+		return canPesoBruto;
 	}
 
 	public void setCanPesoBruto(BigDecimal canPesoBruto) {
@@ -101,7 +102,7 @@ public class HojaremisionMuestra implements Serializable {
 	}
 
 	public BigDecimal getCanPesoDevuelto() {
-		return this.canPesoDevuelto;
+		return canPesoDevuelto;
 	}
 
 	public void setCanPesoDevuelto(BigDecimal canPesoDevuelto) {
@@ -109,7 +110,7 @@ public class HojaremisionMuestra implements Serializable {
 	}
 
 	public BigDecimal getCanPesoNeto() {
-		return this.canPesoNeto;
+		return canPesoNeto;
 	}
 
 	public void setCanPesoNeto(BigDecimal canPesoNeto) {
@@ -117,47 +118,31 @@ public class HojaremisionMuestra implements Serializable {
 	}
 
 	public BigDecimal getCantidad() {
-		return this.cantidad;
+		return cantidad;
 	}
 
 	public void setCantidad(BigDecimal cantidad) {
 		this.cantidad = cantidad;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getEdicion() {
-		return this.edicion;
+	public Valor getUnidadMedida() {
+		return unidadMedida;
 	}
 
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
-	public Valor getCfgValor() {
-		return this.cfgValor;
-	}
-
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setUnidadMedida(Valor unidadMedida) {
+		this.unidadMedida = unidadMedida;
 	}
 
 	public Droga getExpDroga() {
-		return this.expDroga;
+		return expDroga;
 	}
 
 	public void setExpDroga(Droga expDroga) {
@@ -165,7 +150,7 @@ public class HojaremisionMuestra implements Serializable {
 	}
 
 	public Especie getExpEspecie() {
-		return this.expEspecie;
+		return expEspecie;
 	}
 
 	public void setExpEspecie(Especie expEspecie) {
@@ -173,27 +158,17 @@ public class HojaremisionMuestra implements Serializable {
 	}
 
 	public Hojaremision getHrHojaremision() {
-		return this.hrHojaremision;
+		return hrHojaremision;
 	}
 
 	public void setHrHojaremision(Hojaremision hrHojaremision) {
 		this.hrHojaremision = hrHojaremision;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

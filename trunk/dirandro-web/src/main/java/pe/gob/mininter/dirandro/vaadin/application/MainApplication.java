@@ -12,7 +12,7 @@ import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.PanelLogin;
-import pe.gob.mininter.dirandro.vaadin.panel.panelTest;
+import pe.gob.mininter.dirandro.vaadin.panel.PanelPrincipal;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
 import com.vaadin.Application;
@@ -62,8 +62,8 @@ public class MainApplication extends Application {
 	{
 		windowHarec.removeAllComponents();
 		
-		panelTest panelPrincipal = new panelTest();
-		//PanelPrincipal panelPrincipal = new PanelPrincipal();
+		//panelTest panelPrincipal = new panelTest();
+		PanelPrincipal panelPrincipal = new PanelPrincipal();
 		//panelPrincipal.setFlagConsulta(flagConsulta);
 		//panelPrincipal.prepararPanelPrincipal();
 		

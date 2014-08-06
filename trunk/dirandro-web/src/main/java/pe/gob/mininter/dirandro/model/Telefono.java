@@ -1,10 +1,22 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -13,22 +25,21 @@ import java.util.List;
  */
 @Entity
 @Table(name="PER_TELEFONO")
-public class Telefono implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Telefono extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2382445968562609353L;
 
 	@Id
 	@SequenceGenerator(name="PER_TELEFONO_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_TELEFONO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=50)
 	private String alcance;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(precision=16)
 	private BigDecimal frecuencia;
@@ -46,65 +57,39 @@ public class Telefono implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO", nullable=false)
-	private Valor cfgValor1;
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor2;
+	private Valor estado;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
 	private ModeloMarca mntModeloMarca;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	public Telefono() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getAlcance() {
-		return this.alcance;
+		return alcance;
 	}
 
 	public void setAlcance(String alcance) {
 		this.alcance = alcance;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public BigDecimal getFrecuencia() {
-		return this.frecuencia;
+		return frecuencia;
 	}
 
 	public void setFrecuencia(BigDecimal frecuencia) {
@@ -112,7 +97,7 @@ public class Telefono implements Serializable {
 	}
 
 	public String getNumero() {
-		return this.numero;
+		return numero;
 	}
 
 	public void setNumero(String numero) {
@@ -120,7 +105,7 @@ public class Telefono implements Serializable {
 	}
 
 	public String getSerie() {
-		return this.serie;
+		return serie;
 	}
 
 	public void setSerie(String serie) {
@@ -128,65 +113,41 @@ public class Telefono implements Serializable {
 	}
 
 	public List<DetPerTelExp> getExpDetPerTelExps() {
-		return this.expDetPerTelExps;
+		return expDetPerTelExps;
 	}
 
 	public void setExpDetPerTelExps(List<DetPerTelExp> expDetPerTelExps) {
 		this.expDetPerTelExps = expDetPerTelExps;
 	}
 
-	public DetPerTelExp addExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
-		getExpDetPerTelExps().add(expDetPerTelExp);
-		expDetPerTelExp.setPerTelefono(this);
-
-		return expDetPerTelExp;
+	public Valor getTipo() {
+		return tipo;
 	}
 
-	public DetPerTelExp removeExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
-		getExpDetPerTelExps().remove(expDetPerTelExp);
-		expDetPerTelExp.setPerTelefono(null);
-
-		return expDetPerTelExp;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
-	}
-
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
-	}
-
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	public ModeloMarca getMntModeloMarca() {
-		return this.mntModeloMarca;
+		return mntModeloMarca;
 	}
 
 	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
 		this.mntModeloMarca = mntModeloMarca;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

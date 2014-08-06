@@ -1,10 +1,23 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -13,22 +26,21 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_DET_EXPEDIENTE_PERSONA")
-public class DetExpedientePersona implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class DetExpedientePersona extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3388910551739102700L;
 
 	@Id
 	@SequenceGenerator(name="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(name="\"ALIAS\"", length=400)
 	private String alias;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
-
-	private Timestamp edicion;
 
 	@Column(name="ESTADO_DATO", precision=16)
 	private BigDecimal estadoDato;
@@ -55,12 +67,12 @@ public class DetExpedientePersona implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor1;
+	private Valor situacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PARTICIPACION")
-	private Valor cfgValor2;
+	private Valor participacion;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -82,53 +94,27 @@ public class DetExpedientePersona implements Serializable {
 	@JoinColumn(name="INVOLUCRADO")
 	private Persona perPersona;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
-
 	public DetExpedientePersona() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getAlias() {
-		return this.alias;
+		return alias;
 	}
 
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public BigDecimal getEstadoDato() {
-		return this.estadoDato;
+		return estadoDato;
 	}
 
 	public void setEstadoDato(BigDecimal estadoDato) {
@@ -136,7 +122,7 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public Timestamp getIntervencion() {
-		return this.intervencion;
+		return intervencion;
 	}
 
 	public void setIntervencion(Timestamp intervencion) {
@@ -144,7 +130,7 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public BigDecimal getOcupacion() {
-		return this.ocupacion;
+		return ocupacion;
 	}
 
 	public void setOcupacion(BigDecimal ocupacion) {
@@ -152,7 +138,7 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public BigDecimal getRequisitoria() {
-		return this.requisitoria;
+		return requisitoria;
 	}
 
 	public void setRequisitoria(BigDecimal requisitoria) {
@@ -160,7 +146,7 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public BigDecimal getTipoParticipacion() {
-		return this.tipoParticipacion;
+		return tipoParticipacion;
 	}
 
 	public void setTipoParticipacion(BigDecimal tipoParticipacion) {
@@ -168,67 +154,39 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public List<AbogadoPersona> getExpAbogadoPersonas() {
-		return this.expAbogadoPersonas;
+		return expAbogadoPersonas;
 	}
 
 	public void setExpAbogadoPersonas(List<AbogadoPersona> expAbogadoPersonas) {
 		this.expAbogadoPersonas = expAbogadoPersonas;
 	}
 
-	public AbogadoPersona addExpAbogadoPersona(AbogadoPersona expAbogadoPersona) {
-		getExpAbogadoPersonas().add(expAbogadoPersona);
-		expAbogadoPersona.setExpDetExpedientePersona(this);
-
-		return expAbogadoPersona;
-	}
-
-	public AbogadoPersona removeExpAbogadoPersona(AbogadoPersona expAbogadoPersona) {
-		getExpAbogadoPersonas().remove(expAbogadoPersona);
-		expAbogadoPersona.setExpDetExpedientePersona(null);
-
-		return expAbogadoPersona;
-	}
-
 	public List<DetCrimen> getExpDetCrimens() {
-		return this.expDetCrimens;
+		return expDetCrimens;
 	}
 
 	public void setExpDetCrimens(List<DetCrimen> expDetCrimens) {
 		this.expDetCrimens = expDetCrimens;
 	}
 
-	public DetCrimen addExpDetCrimen(DetCrimen expDetCrimen) {
-		getExpDetCrimens().add(expDetCrimen);
-		expDetCrimen.setExpDetExpedientePersona(this);
-
-		return expDetCrimen;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public DetCrimen removeExpDetCrimen(DetCrimen expDetCrimen) {
-		getExpDetCrimens().remove(expDetCrimen);
-		expDetCrimen.setExpDetExpedientePersona(null);
-
-		return expDetCrimen;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getParticipacion() {
+		return participacion;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
-	}
-
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
-	}
-
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setParticipacion(Valor participacion) {
+		this.participacion = participacion;
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -236,7 +194,7 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public Organizacion getExpOrganizacion() {
-		return this.expOrganizacion;
+		return expOrganizacion;
 	}
 
 	public void setExpOrganizacion(Organizacion expOrganizacion) {
@@ -244,7 +202,7 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public Empresa getPerEmpresa() {
-		return this.perEmpresa;
+		return perEmpresa;
 	}
 
 	public void setPerEmpresa(Empresa perEmpresa) {
@@ -252,27 +210,17 @@ public class DetExpedientePersona implements Serializable {
 	}
 
 	public Persona getPerPersona() {
-		return this.perPersona;
+		return perPersona;
 	}
 
 	public void setPerPersona(Persona perPersona) {
 		this.perPersona = perPersona;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,9 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,14 +23,18 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="EXP_INSTALACION")
-public class Instalacion implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Instalacion extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3029123281985069021L;
 
 	@Id
 	@SequenceGenerator(name="EXP_INSTALACION_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_INSTALACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(name="ALTURA_MT", precision=4)
 	private BigDecimal alturaMt;
@@ -27,13 +42,8 @@ public class Instalacion implements Serializable {
 	@Column(name="ANCHO_MT", precision=4)
 	private BigDecimal anchoMt;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(length=400)
 	private String descripcion;
-
-	private Timestamp edicion;
 
 	@Column(name="LARGO_MT", precision=4)
 	private BigDecimal largoMt;
@@ -53,12 +63,12 @@ public class Instalacion implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO")
-	private Valor cfgValor1;
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor2;
+	private Valor situacion;
 
 	//bi-directional many-to-one association to CentroPoblado
 	@ManyToOne
@@ -75,16 +85,6 @@ public class Instalacion implements Serializable {
 	@JoinColumn(name="ORGANIZACION")
 	private Organizacion expOrganizacion;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="UBICACION")
@@ -93,16 +93,16 @@ public class Instalacion implements Serializable {
 	public Instalacion() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public BigDecimal getAlturaMt() {
-		return this.alturaMt;
+		return alturaMt;
 	}
 
 	public void setAlturaMt(BigDecimal alturaMt) {
@@ -110,39 +110,23 @@ public class Instalacion implements Serializable {
 	}
 
 	public BigDecimal getAnchoMt() {
-		return this.anchoMt;
+		return anchoMt;
 	}
 
 	public void setAnchoMt(BigDecimal anchoMt) {
 		this.anchoMt = anchoMt;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public BigDecimal getLargoMt() {
-		return this.largoMt;
+		return largoMt;
 	}
 
 	public void setLargoMt(BigDecimal largoMt) {
@@ -150,7 +134,7 @@ public class Instalacion implements Serializable {
 	}
 
 	public String getLatitud() {
-		return this.latitud;
+		return latitud;
 	}
 
 	public void setLatitud(String latitud) {
@@ -158,7 +142,7 @@ public class Instalacion implements Serializable {
 	}
 
 	public String getLongitud() {
-		return this.longitud;
+		return longitud;
 	}
 
 	public void setLongitud(String longitud) {
@@ -166,7 +150,7 @@ public class Instalacion implements Serializable {
 	}
 
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -174,31 +158,31 @@ public class Instalacion implements Serializable {
 	}
 
 	public BigDecimal getZonaProduccion() {
-		return this.zonaProduccion;
+		return zonaProduccion;
 	}
 
 	public void setZonaProduccion(BigDecimal zonaProduccion) {
 		this.zonaProduccion = zonaProduccion;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getTipo() {
+		return tipo;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
 	public CentroPoblado getExpCentroPoblado() {
-		return this.expCentroPoblado;
+		return expCentroPoblado;
 	}
 
 	public void setExpCentroPoblado(CentroPoblado expCentroPoblado) {
@@ -206,7 +190,7 @@ public class Instalacion implements Serializable {
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -214,35 +198,25 @@ public class Instalacion implements Serializable {
 	}
 
 	public Organizacion getExpOrganizacion() {
-		return this.expOrganizacion;
+		return expOrganizacion;
 	}
 
 	public void setExpOrganizacion(Organizacion expOrganizacion) {
 		this.expOrganizacion = expOrganizacion;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
-	}
-
 	public Distrito getUbgDistrito() {
-		return this.ubgDistrito;
+		return ubgDistrito;
 	}
 
 	public void setUbgDistrito(Distrito ubgDistrito) {
 		this.ubgDistrito = ubgDistrito;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

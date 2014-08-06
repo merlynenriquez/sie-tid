@@ -1,9 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -12,25 +24,24 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="EXP_MUNICIONES")
-public class Municione implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Municione extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5539914583114696827L;
 
 	@Id
 	@SequenceGenerator(name="EXP_MUNICIONES_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_MUNICIONES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(precision=10)
 	private BigDecimal calibre;
 
-	@Column(nullable=false)
-	private Timestamp creacion;
-
 	@Column(length=50)
 	private String descripcion;
-
-	private Timestamp edicion;
 
 	@Column(name="EMPRESA_PROPIETARIA", precision=16)
 	private BigDecimal empresaPropietaria;
@@ -53,17 +64,17 @@ public class Municione implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor cfgValor1;
+	private Valor tipoMedida;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO")
-	private Valor cfgValor2;
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor3;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -80,61 +91,35 @@ public class Municione implements Serializable {
 	@JoinColumn(name="PERSONA")
 	private Persona perPersona;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario2;
-
 	public Municione() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public BigDecimal getCalibre() {
-		return this.calibre;
+		return calibre;
 	}
 
 	public void setCalibre(BigDecimal calibre) {
 		this.calibre = calibre;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public BigDecimal getEmpresaPropietaria() {
-		return this.empresaPropietaria;
+		return empresaPropietaria;
 	}
 
 	public void setEmpresaPropietaria(BigDecimal empresaPropietaria) {
@@ -142,7 +127,7 @@ public class Municione implements Serializable {
 	}
 
 	public BigDecimal getMarca() {
-		return this.marca;
+		return marca;
 	}
 
 	public void setMarca(BigDecimal marca) {
@@ -150,7 +135,7 @@ public class Municione implements Serializable {
 	}
 
 	public BigDecimal getMedida() {
-		return this.medida;
+		return medida;
 	}
 
 	public void setMedida(BigDecimal medida) {
@@ -158,7 +143,7 @@ public class Municione implements Serializable {
 	}
 
 	public String getObservacion() {
-		return this.observacion;
+		return observacion;
 	}
 
 	public void setObservacion(String observacion) {
@@ -166,7 +151,7 @@ public class Municione implements Serializable {
 	}
 
 	public BigDecimal getPropietario() {
-		return this.propietario;
+		return propietario;
 	}
 
 	public void setPropietario(BigDecimal propietario) {
@@ -174,39 +159,39 @@ public class Municione implements Serializable {
 	}
 
 	public BigDecimal getSituacion() {
-		return this.situacion;
+		return situacion;
 	}
 
 	public void setSituacion(BigDecimal situacion) {
 		this.situacion = situacion;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getTipoMedida() {
+		return tipoMedida;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTipoMedida(Valor tipoMedida) {
+		this.tipoMedida = tipoMedida;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getTipo() {
+		return tipo;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -214,7 +199,7 @@ public class Municione implements Serializable {
 	}
 
 	public ModeloMarca getMntModeloMarca() {
-		return this.mntModeloMarca;
+		return mntModeloMarca;
 	}
 
 	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
@@ -222,27 +207,17 @@ public class Municione implements Serializable {
 	}
 
 	public Persona getPerPersona() {
-		return this.perPersona;
+		return perPersona;
 	}
 
 	public void setPerPersona(Persona perPersona) {
 		this.perPersona = perPersona;
 	}
 
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

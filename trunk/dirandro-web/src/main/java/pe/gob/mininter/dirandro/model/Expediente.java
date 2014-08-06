@@ -105,22 +105,22 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_FINALIDAD")
-	private Valor cfgValor1;
+	private Valor tipoFinalidad;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CUENCA")
-	private Valor cfgValor2;
+	private Valor cuenca;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TABLA_INTERVINIENTE")
-	private Valor cfgValor3;
+	private Valor tablaInterviniente;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DIRECCION")
-	private Valor cfgValor4;
+	private Valor tipoDireccion;
 
 	//bi-directional many-to-one association to CentroPoblado
 	@ManyToOne
@@ -200,9 +200,9 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 
 	public Expediente() {
 	}
-
+ 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -210,7 +210,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public String getAsunto() {
-		return this.asunto;
+		return asunto;
 	}
 
 	public void setAsunto(String asunto) {
@@ -218,7 +218,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public String getAutogenerado() {
-		return this.autogenerado;
+		return autogenerado;
 	}
 
 	public void setAutogenerado(String autogenerado) {
@@ -226,7 +226,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public BigDecimal getCodigoInterviniente() {
-		return this.codigoInterviniente;
+		return codigoInterviniente;
 	}
 
 	public void setCodigoInterviniente(BigDecimal codigoInterviniente) {
@@ -234,7 +234,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -242,7 +242,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public BigDecimal getDiasAtencion() {
-		return this.diasAtencion;
+		return diasAtencion;
 	}
 
 	public void setDiasAtencion(BigDecimal diasAtencion) {
@@ -250,7 +250,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public String getDireccionHecho() {
-		return this.direccionHecho;
+		return direccionHecho;
 	}
 
 	public void setDireccionHecho(String direccionHecho) {
@@ -258,7 +258,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Timestamp getFechaRegistro() {
-		return this.fechaRegistro;
+		return fechaRegistro;
 	}
 
 	public void setFechaRegistro(Timestamp fechaRegistro) {
@@ -266,7 +266,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Timestamp getHoraHecho() {
-		return this.horaHecho;
+		return horaHecho;
 	}
 
 	public void setHoraHecho(Timestamp horaHecho) {
@@ -274,7 +274,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public String getNombreCaso() {
-		return this.nombreCaso;
+		return nombreCaso;
 	}
 
 	public void setNombreCaso(String nombreCaso) {
@@ -282,7 +282,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public String getReferenciaHecho() {
-		return this.referenciaHecho;
+		return referenciaHecho;
 	}
 
 	public void setReferenciaHecho(String referenciaHecho) {
@@ -290,237 +290,112 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public List<Adjunto> getExpAdjuntos() {
-		return this.expAdjuntos;
+		return expAdjuntos;
 	}
 
 	public void setExpAdjuntos(List<Adjunto> expAdjuntos) {
 		this.expAdjuntos = expAdjuntos;
 	}
 
-	public Adjunto addExpAdjunto(Adjunto expAdjunto) {
-		getExpAdjuntos().add(expAdjunto);
-		expAdjunto.setExpExpediente(this);
-
-		return expAdjunto;
-	}
-
-	public Adjunto removeExpAdjunto(Adjunto expAdjunto) {
-		getExpAdjuntos().remove(expAdjunto);
-		expAdjunto.setExpExpediente(null);
-
-		return expAdjunto;
-	}
-
 	public List<DetExpedientePersona> getExpDetExpedientePersonas() {
-		return this.expDetExpedientePersonas;
+		return expDetExpedientePersonas;
 	}
 
-	public void setExpDetExpedientePersonas(List<DetExpedientePersona> expDetExpedientePersonas) {
+	public void setExpDetExpedientePersonas(
+			List<DetExpedientePersona> expDetExpedientePersonas) {
 		this.expDetExpedientePersonas = expDetExpedientePersonas;
 	}
 
-	public DetExpedientePersona addExpDetExpedientePersona(DetExpedientePersona expDetExpedientePersona) {
-		getExpDetExpedientePersonas().add(expDetExpedientePersona);
-		expDetExpedientePersona.setExpExpediente(this);
-
-		return expDetExpedientePersona;
-	}
-
-	public DetExpedientePersona removeExpDetExpedientePersona(DetExpedientePersona expDetExpedientePersona) {
-		getExpDetExpedientePersonas().remove(expDetExpedientePersona);
-		expDetExpedientePersona.setExpExpediente(null);
-
-		return expDetExpedientePersona;
-	}
-
 	public List<DetPerArmExp> getExpDetPerArmExps() {
-		return this.expDetPerArmExps;
+		return expDetPerArmExps;
 	}
 
 	public void setExpDetPerArmExps(List<DetPerArmExp> expDetPerArmExps) {
 		this.expDetPerArmExps = expDetPerArmExps;
 	}
 
-	public DetPerArmExp addExpDetPerArmExp(DetPerArmExp expDetPerArmExp) {
-		getExpDetPerArmExps().add(expDetPerArmExp);
-		expDetPerArmExp.setExpExpediente(this);
-
-		return expDetPerArmExp;
-	}
-
-	public DetPerArmExp removeExpDetPerArmExp(DetPerArmExp expDetPerArmExp) {
-		getExpDetPerArmExps().remove(expDetPerArmExp);
-		expDetPerArmExp.setExpExpediente(null);
-
-		return expDetPerArmExp;
-	}
-
 	public List<DetPerInmExp> getExpDetPerInmExps() {
-		return this.expDetPerInmExps;
+		return expDetPerInmExps;
 	}
 
 	public void setExpDetPerInmExps(List<DetPerInmExp> expDetPerInmExps) {
 		this.expDetPerInmExps = expDetPerInmExps;
 	}
 
-	public DetPerInmExp addExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
-		getExpDetPerInmExps().add(expDetPerInmExp);
-		expDetPerInmExp.setExpExpediente(this);
-
-		return expDetPerInmExp;
-	}
-
-	public DetPerInmExp removeExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
-		getExpDetPerInmExps().remove(expDetPerInmExp);
-		expDetPerInmExp.setExpExpediente(null);
-
-		return expDetPerInmExp;
-	}
-
 	public List<DetPerTelExp> getExpDetPerTelExps() {
-		return this.expDetPerTelExps;
+		return expDetPerTelExps;
 	}
 
 	public void setExpDetPerTelExps(List<DetPerTelExp> expDetPerTelExps) {
 		this.expDetPerTelExps = expDetPerTelExps;
 	}
 
-	public DetPerTelExp addExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
-		getExpDetPerTelExps().add(expDetPerTelExp);
-		expDetPerTelExp.setExpExpediente(this);
-
-		return expDetPerTelExp;
-	}
-
-	public DetPerTelExp removeExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
-		getExpDetPerTelExps().remove(expDetPerTelExp);
-		expDetPerTelExp.setExpExpediente(null);
-
-		return expDetPerTelExp;
-	}
-
 	public List<DetPerVehExp> getExpDetPerVehExps() {
-		return this.expDetPerVehExps;
+		return expDetPerVehExps;
 	}
 
 	public void setExpDetPerVehExps(List<DetPerVehExp> expDetPerVehExps) {
 		this.expDetPerVehExps = expDetPerVehExps;
 	}
 
-	public DetPerVehExp addExpDetPerVehExp(DetPerVehExp expDetPerVehExp) {
-		getExpDetPerVehExps().add(expDetPerVehExp);
-		expDetPerVehExp.setExpExpediente(this);
-
-		return expDetPerVehExp;
-	}
-
-	public DetPerVehExp removeExpDetPerVehExp(DetPerVehExp expDetPerVehExp) {
-		getExpDetPerVehExps().remove(expDetPerVehExp);
-		expDetPerVehExp.setExpExpediente(null);
-
-		return expDetPerVehExp;
-	}
-
 	public List<Documento> getExpDocumentos() {
-		return this.expDocumentos;
+		return expDocumentos;
 	}
 
 	public void setExpDocumentos(List<Documento> expDocumentos) {
 		this.expDocumentos = expDocumentos;
 	}
 
-	public Documento addExpDocumento(Documento expDocumento) {
-		getExpDocumentos().add(expDocumento);
-		expDocumento.setExpExpediente(this);
-
-		return expDocumento;
-	}
-
-	public Documento removeExpDocumento(Documento expDocumento) {
-		getExpDocumentos().remove(expDocumento);
-		expDocumento.setExpExpediente(null);
-
-		return expDocumento;
-	}
-
 	public List<Droga> getExpDrogas() {
-		return this.expDrogas;
+		return expDrogas;
 	}
 
 	public void setExpDrogas(List<Droga> expDrogas) {
 		this.expDrogas = expDrogas;
 	}
 
-	public Droga addExpDroga(Droga expDroga) {
-		getExpDrogas().add(expDroga);
-		expDroga.setExpExpediente(this);
-
-		return expDroga;
-	}
-
-	public Droga removeExpDroga(Droga expDroga) {
-		getExpDrogas().remove(expDroga);
-		expDroga.setExpExpediente(null);
-
-		return expDroga;
-	}
-
 	public List<Especie> getExpEspecies() {
-		return this.expEspecies;
+		return expEspecies;
 	}
 
 	public void setExpEspecies(List<Especie> expEspecies) {
 		this.expEspecies = expEspecies;
 	}
 
-	public Especie addExpEspecy(Especie expEspecy) {
-		getExpEspecies().add(expEspecy);
-		expEspecy.setExpExpediente(this);
-
-		return expEspecy;
+	public Valor getTipoFinalidad() {
+		return tipoFinalidad;
 	}
 
-	public Especie removeExpEspecy(Especie expEspecy) {
-		getExpEspecies().remove(expEspecy);
-		expEspecy.setExpExpediente(null);
-
-		return expEspecy;
+	public void setTipoFinalidad(Valor tipoFinalidad) {
+		this.tipoFinalidad = tipoFinalidad;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getCuenca() {
+		return cuenca;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setCuenca(Valor cuenca) {
+		this.cuenca = cuenca;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getTablaInterviniente() {
+		return tablaInterviniente;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTablaInterviniente(Valor tablaInterviniente) {
+		this.tablaInterviniente = tablaInterviniente;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getTipoDireccion() {
+		return tipoDireccion;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
-	}
-
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
-	}
-
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
+	public void setTipoDireccion(Valor tipoDireccion) {
+		this.tipoDireccion = tipoDireccion;
 	}
 
 	public CentroPoblado getExpCentroPoblado() {
-		return this.expCentroPoblado;
+		return expCentroPoblado;
 	}
 
 	public void setExpCentroPoblado(CentroPoblado expCentroPoblado) {
@@ -528,7 +403,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Dependencia getExpDependencia() {
-		return this.expDependencia;
+		return expDependencia;
 	}
 
 	public void setExpDependencia(Dependencia expDependencia) {
@@ -536,7 +411,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Entidad getExpEntidad() {
-		return this.expEntidad;
+		return expEntidad;
 	}
 
 	public void setExpEntidad(Entidad expEntidad) {
@@ -544,7 +419,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Estado getExpEstado() {
-		return this.expEstado;
+		return expEstado;
 	}
 
 	public void setExpEstado(Estado expEstado) {
@@ -552,7 +427,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Expediente getExpExpediente() {
-		return this.expExpediente;
+		return expExpediente;
 	}
 
 	public void setExpExpediente(Expediente expExpediente) {
@@ -560,29 +435,15 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public List<Expediente> getExpExpedientes() {
-		return this.expExpedientes;
+		return expExpedientes;
 	}
 
 	public void setExpExpedientes(List<Expediente> expExpedientes) {
 		this.expExpedientes = expExpedientes;
 	}
 
-	public Expediente addExpExpediente(Expediente expExpediente) {
-		getExpExpedientes().add(expExpediente);
-		expExpediente.setExpExpediente(this);
-
-		return expExpediente;
-	}
-
-	public Expediente removeExpExpediente(Expediente expExpediente) {
-		getExpExpedientes().remove(expExpediente);
-		expExpediente.setExpExpediente(null);
-
-		return expExpediente;
-	}
-
 	public TipoHecho getExpTipoHecho() {
-		return this.expTipoHecho;
+		return expTipoHecho;
 	}
 
 	public void setExpTipoHecho(TipoHecho expTipoHecho) {
@@ -590,7 +451,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Integrante getOrgIntegrante() {
-		return this.orgIntegrante;
+		return orgIntegrante;
 	}
 
 	public void setOrgIntegrante(Integrante orgIntegrante) {
@@ -598,7 +459,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Distrito getUbgDistrito() {
-		return this.ubgDistrito;
+		return ubgDistrito;
 	}
 
 	public void setUbgDistrito(Distrito ubgDistrito) {
@@ -606,179 +467,67 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public List<ExpedienteDelito> getExpExpedienteDelitos() {
-		return this.expExpedienteDelitos;
+		return expExpedienteDelitos;
 	}
 
 	public void setExpExpedienteDelitos(List<ExpedienteDelito> expExpedienteDelitos) {
 		this.expExpedienteDelitos = expExpedienteDelitos;
 	}
 
-	public ExpedienteDelito addExpExpedienteDelito(ExpedienteDelito expExpedienteDelito) {
-		getExpExpedienteDelitos().add(expExpedienteDelito);
-		expExpedienteDelito.setExpExpediente(this);
-
-		return expExpedienteDelito;
-	}
-
-	public ExpedienteDelito removeExpExpedienteDelito(ExpedienteDelito expExpedienteDelito) {
-		getExpExpedienteDelitos().remove(expExpedienteDelito);
-		expExpedienteDelito.setExpExpediente(null);
-
-		return expExpedienteDelito;
-	}
-
 	public List<Explosivo> getExpExplosivos() {
-		return this.expExplosivos;
+		return expExplosivos;
 	}
 
 	public void setExpExplosivos(List<Explosivo> expExplosivos) {
 		this.expExplosivos = expExplosivos;
 	}
 
-	public Explosivo addExpExplosivo(Explosivo expExplosivo) {
-		getExpExplosivos().add(expExplosivo);
-		expExplosivo.setExpExpediente(this);
-
-		return expExplosivo;
-	}
-
-	public Explosivo removeExpExplosivo(Explosivo expExplosivo) {
-		getExpExplosivos().remove(expExplosivo);
-		expExplosivo.setExpExpediente(null);
-
-		return expExplosivo;
-	}
-
 	public List<Importe> getExpImportes() {
-		return this.expImportes;
+		return expImportes;
 	}
 
 	public void setExpImportes(List<Importe> expImportes) {
 		this.expImportes = expImportes;
 	}
 
-	public Importe addExpImporte(Importe expImporte) {
-		getExpImportes().add(expImporte);
-		expImporte.setExpExpediente(this);
-
-		return expImporte;
-	}
-
-	public Importe removeExpImporte(Importe expImporte) {
-		getExpImportes().remove(expImporte);
-		expImporte.setExpExpediente(null);
-
-		return expImporte;
-	}
-
 	public List<Instalacion> getExpInstalacions() {
-		return this.expInstalacions;
+		return expInstalacions;
 	}
 
 	public void setExpInstalacions(List<Instalacion> expInstalacions) {
 		this.expInstalacions = expInstalacions;
 	}
 
-	public Instalacion addExpInstalacion(Instalacion expInstalacion) {
-		getExpInstalacions().add(expInstalacion);
-		expInstalacion.setExpExpediente(this);
-
-		return expInstalacion;
-	}
-
-	public Instalacion removeExpInstalacion(Instalacion expInstalacion) {
-		getExpInstalacions().remove(expInstalacion);
-		expInstalacion.setExpExpediente(null);
-
-		return expInstalacion;
-	}
-
 	public List<Municione> getExpMuniciones() {
-		return this.expMuniciones;
+		return expMuniciones;
 	}
 
 	public void setExpMuniciones(List<Municione> expMuniciones) {
 		this.expMuniciones = expMuniciones;
 	}
 
-	public Municione addExpMunicione(Municione expMunicione) {
-		getExpMuniciones().add(expMunicione);
-		expMunicione.setExpExpediente(this);
-
-		return expMunicione;
-	}
-
-	public Municione removeExpMunicione(Municione expMunicione) {
-		getExpMuniciones().remove(expMunicione);
-		expMunicione.setExpExpediente(null);
-
-		return expMunicione;
-	}
-
 	public List<Ruta> getExpRutas() {
-		return this.expRutas;
+		return expRutas;
 	}
 
 	public void setExpRutas(List<Ruta> expRutas) {
 		this.expRutas = expRutas;
 	}
 
-	public Ruta addExpRuta(Ruta expRuta) {
-		getExpRutas().add(expRuta);
-		expRuta.setExpExpediente(this);
-
-		return expRuta;
-	}
-
-	public Ruta removeExpRuta(Ruta expRuta) {
-		getExpRutas().remove(expRuta);
-		expRuta.setExpExpediente(null);
-
-		return expRuta;
-	}
-
 	public List<Hojaremision> getHrHojaremisions() {
-		return this.hrHojaremisions;
+		return hrHojaremisions;
 	}
 
 	public void setHrHojaremisions(List<Hojaremision> hrHojaremisions) {
 		this.hrHojaremisions = hrHojaremisions;
 	}
 
-	public Hojaremision addHrHojaremision(Hojaremision hrHojaremision) {
-		getHrHojaremisions().add(hrHojaremision);
-		hrHojaremision.setExpExpediente(this);
-
-		return hrHojaremision;
-	}
-
-	public Hojaremision removeHrHojaremision(Hojaremision hrHojaremision) {
-		getHrHojaremisions().remove(hrHojaremision);
-		hrHojaremision.setExpExpediente(null);
-
-		return hrHojaremision;
-	}
-
 	public List<NoIdentificado> getPerNoIdentificados() {
-		return this.perNoIdentificados;
+		return perNoIdentificados;
 	}
 
 	public void setPerNoIdentificados(List<NoIdentificado> perNoIdentificados) {
 		this.perNoIdentificados = perNoIdentificados;
-	}
-
-	public NoIdentificado addPerNoIdentificado(NoIdentificado perNoIdentificado) {
-		getPerNoIdentificados().add(perNoIdentificado);
-		perNoIdentificado.setExpExpediente(this);
-
-		return perNoIdentificado;
-	}
-
-	public NoIdentificado removePerNoIdentificado(NoIdentificado perNoIdentificado) {
-		getPerNoIdentificados().remove(perNoIdentificado);
-		perNoIdentificado.setExpExpediente(null);
-
-		return perNoIdentificado;
 	}
 
 	@Override

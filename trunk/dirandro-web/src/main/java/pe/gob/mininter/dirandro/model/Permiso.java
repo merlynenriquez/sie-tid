@@ -35,17 +35,17 @@ public class Permiso extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO", nullable=false)
-	private Valor cfgValor;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Opcion
 	@ManyToOne
 	@JoinColumn(name="OPCION", nullable=false)
-	private Opcion segOpcion;
+	private Opcion opcion;
 
 	//bi-directional many-to-one association to Rol
 	@ManyToOne
 	@JoinColumn(name="ROL", nullable=false)
-	private Rol segRol;
+	private Rol rol;
 
 	public Permiso() {
 	}
@@ -56,30 +56,31 @@ public class Permiso extends AuditoriaBean implements Validador, Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	} 
+	
+	public Opcion getOpcion() {
+		return opcion;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public void setOpcion(Opcion opcion) {
+		this.opcion = opcion;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public Opcion getSegOpcion() {
-		return this.segOpcion;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
-	public void setSegOpcion(Opcion segOpcion) {
-		this.segOpcion = segOpcion;
+	public Rol getRol() {
+		return rol;
 	}
 
-	public Rol getSegRol() {
-		return this.segRol;
-	}
-
-	public void setSegRol(Rol segRol) {
-		this.segRol = segRol;
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 	@Override

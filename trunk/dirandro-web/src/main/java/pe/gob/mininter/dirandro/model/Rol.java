@@ -57,15 +57,6 @@ public class Rol extends AuditoriaBean implements Validador, Serializable {
 	@Transient
 	private Map<String, List<Opcion>> opciones;
 	
-/*
-	//bi-directional many-to-one association to Rol
-	@OneToMany(mappedBy="segRol")
-	private List<Rol> segRols;
-
-	//bi-directional many-to-one association to Permiso
-		@OneToMany(mappedBy="segRol")
-		private List<Permiso> segPermisos;
-*/
 	public Rol() {
 	}
 	public Long getId() {
@@ -79,15 +70,13 @@ public class Rol extends AuditoriaBean implements Validador, Serializable {
 	}
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-	 
+	}	 
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
- 
+	} 
 	public String getNombre() {
 		return nombre;
 	}

@@ -1,8 +1,17 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
 
 
 /**
@@ -11,8 +20,12 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="SEQ_TABLA")
-public class Tabla implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Tabla  implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 243193776159587957L;
 
 	@Id
 	@SequenceGenerator(name="SEQ_TABLA_TABLA_GENERATOR", sequenceName="SEQ_")
@@ -40,6 +53,12 @@ public class Tabla implements Serializable {
 
 	public void setUltimoId(BigDecimal ultimoId) {
 		this.ultimoId = ultimoId;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

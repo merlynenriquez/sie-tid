@@ -1,10 +1,22 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
+import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
@@ -13,20 +25,21 @@ import java.util.List;
  */
 @Entity
 @Table(name="EXP_INMUEBLE")
-public class Inmueble implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Inmueble extends AuditoriaBean implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5949075490786538492L;
 
 	@Id
 	@SequenceGenerator(name="EXP_INMUEBLE_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_INMUEBLE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=30)
 	private String codigo;
-
-	@Column(nullable=false)
-	private Timestamp creacion;
 
 	@Column(length=400)
 	private String descripcion;
@@ -36,8 +49,6 @@ public class Inmueble implements Serializable {
 
 	@Column(length=400)
 	private String direccion;
-
-	private Timestamp edicion;
 
 	@Column(length=100)
 	private String latitud;
@@ -73,17 +84,7 @@ public class Inmueble implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DIRECCION")
-	private Valor cfgValor;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
-	private Usuario segUsuario1;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario2;
+	private Valor tipoDireccion;
 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
@@ -93,32 +94,24 @@ public class Inmueble implements Serializable {
 	public Inmueble() {
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getCodigo() {
-		return this.codigo;
+		return codigo;
 	}
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
-	public Timestamp getCreacion() {
-		return this.creacion;
-	}
-
-	public void setCreacion(Timestamp creacion) {
-		this.creacion = creacion;
-	}
-
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -126,7 +119,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public BigDecimal getDimension() {
-		return this.dimension;
+		return dimension;
 	}
 
 	public void setDimension(BigDecimal dimension) {
@@ -134,23 +127,15 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getDireccion() {
-		return this.direccion;
+		return direccion;
 	}
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
-	public Timestamp getEdicion() {
-		return this.edicion;
-	}
-
-	public void setEdicion(Timestamp edicion) {
-		this.edicion = edicion;
-	}
-
 	public String getLatitud() {
-		return this.latitud;
+		return latitud;
 	}
 
 	public void setLatitud(String latitud) {
@@ -158,7 +143,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getLongitud() {
-		return this.longitud;
+		return longitud;
 	}
 
 	public void setLongitud(String longitud) {
@@ -166,7 +151,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getNroInscripcion() {
-		return this.nroInscripcion;
+		return nroInscripcion;
 	}
 
 	public void setNroInscripcion(String nroInscripcion) {
@@ -174,7 +159,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getObservaciones() {
-		return this.observaciones;
+		return observaciones;
 	}
 
 	public void setObservaciones(String observaciones) {
@@ -182,7 +167,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getOficinaRegistral() {
-		return this.oficinaRegistral;
+		return oficinaRegistral;
 	}
 
 	public void setOficinaRegistral(String oficinaRegistral) {
@@ -190,7 +175,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getResolucion() {
-		return this.resolucion;
+		return resolucion;
 	}
 
 	public void setResolucion(String resolucion) {
@@ -198,7 +183,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public String getUrbanizacion() {
-		return this.urbanizacion;
+		return urbanizacion;
 	}
 
 	public void setUrbanizacion(String urbanizacion) {
@@ -206,7 +191,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public BigDecimal getValorBien() {
-		return this.valorBien;
+		return valorBien;
 	}
 
 	public void setValorBien(BigDecimal valorBien) {
@@ -214,7 +199,7 @@ public class Inmueble implements Serializable {
 	}
 
 	public BigDecimal getValorTerreno() {
-		return this.valorTerreno;
+		return valorTerreno;
 	}
 
 	public void setValorTerreno(BigDecimal valorTerreno) {
@@ -222,57 +207,33 @@ public class Inmueble implements Serializable {
 	}
 
 	public List<DetPerInmExp> getExpDetPerInmExps() {
-		return this.expDetPerInmExps;
+		return expDetPerInmExps;
 	}
 
 	public void setExpDetPerInmExps(List<DetPerInmExp> expDetPerInmExps) {
 		this.expDetPerInmExps = expDetPerInmExps;
 	}
 
-	public DetPerInmExp addExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
-		getExpDetPerInmExps().add(expDetPerInmExp);
-		expDetPerInmExp.setExpInmueble(this);
-
-		return expDetPerInmExp;
+	public Valor getTipoDireccion() {
+		return tipoDireccion;
 	}
 
-	public DetPerInmExp removeExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
-		getExpDetPerInmExps().remove(expDetPerInmExp);
-		expDetPerInmExp.setExpInmueble(null);
-
-		return expDetPerInmExp;
-	}
-
-	public Valor getCfgValor() {
-		return this.cfgValor;
-	}
-
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
-	}
-
-	public Usuario getSegUsuario1() {
-		return this.segUsuario1;
-	}
-
-	public void setSegUsuario1(Usuario segUsuario1) {
-		this.segUsuario1 = segUsuario1;
-	}
-
-	public Usuario getSegUsuario2() {
-		return this.segUsuario2;
-	}
-
-	public void setSegUsuario2(Usuario segUsuario2) {
-		this.segUsuario2 = segUsuario2;
+	public void setTipoDireccion(Valor tipoDireccion) {
+		this.tipoDireccion = tipoDireccion;
 	}
 
 	public Distrito getUbgDistrito() {
-		return this.ubgDistrito;
+		return ubgDistrito;
 	}
 
 	public void setUbgDistrito(Distrito ubgDistrito) {
 		this.ubgDistrito = ubgDistrito;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

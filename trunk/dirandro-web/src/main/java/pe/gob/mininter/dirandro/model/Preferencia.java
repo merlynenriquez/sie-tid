@@ -1,7 +1,18 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import pe.gob.mininter.dirandro.util.Validador;
 
 
 /**
@@ -10,14 +21,18 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="SEG_PREFERENCIA")
-public class Preferencia implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Preferencia implements Validador, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 106538572203965223L;
 
 	@Id
 	@SequenceGenerator(name="SEG_PREFERENCIA_ID_GENERATOR", sequenceName="SEQ_")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_PREFERENCIA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
-	private long id;
+	private Long id;
 
 	@Column(length=500)
 	private String ancho;
@@ -85,6 +100,12 @@ public class Preferencia implements Serializable {
 
 	public void setSegUsuario(Usuario segUsuario) {
 		this.segUsuario = segUsuario;
+	}
+
+	@Override
+	public void validar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
