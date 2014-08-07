@@ -90,7 +90,8 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
 						
 			if (usuario.getClave() != null) 
 				filtro.add(Restrictions.eq("clave", usuario.getClave()));
-		}			
+		}
+		//filtro.addOrder(Order.asc(""));
 		List<Usuario> lstUsuarios = usuarioHibernate.buscar(filtro);
 		
 		if (!lstUsuarios.isEmpty()) 

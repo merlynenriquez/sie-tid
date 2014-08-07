@@ -99,7 +99,7 @@ public class MainApplication extends Application {
 			resolverException(event.getThrowable().getCause(), defaultMessage);
 			super.terminalError(event);
 		}
-		resolverException(event.getThrowable().getCause(), defaultMessage);
+		
 		super.terminalError(event);
 	}
 	

@@ -35,19 +35,19 @@
 	</bean>-->
 	
     
-    <!-- Jndi para Tomcat
+    <!-- Jndi para Tomcat-->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/mininterDB"/>
+		<property name="jndiName" value="java:comp/env/jdbc/Dirandro"/>
 	</bean> 
-	 -->
-	<bean id="dataSource"
+	<!-- 
+		<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@172.22.0.19:1521:BDTRAMITE" />
+		<property name="url" value="jdbc:oracle:thin:@192.168.56.101:1521:xe" />
 		<property name="username" value="SIETID" />
 		<property name="password" value="sietid" />
 	</bean>	
-
+	 -->
 	<!-- <bean id="dataSourceExterno" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:jdbc/mininterDB"/>
 	</bean> -->

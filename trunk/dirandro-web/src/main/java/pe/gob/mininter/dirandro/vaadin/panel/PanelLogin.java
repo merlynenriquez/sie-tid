@@ -237,9 +237,11 @@ public class PanelLogin extends CustomComponent implements ClickListener {
 		try {
 			login();
 		} catch ( BaseException e) {
+			logger.debug("baseex");
 			com.vaadin.terminal.Terminal.ErrorEvent errorEvent = new HarecErrorEvent(e);
 			mainApplication.terminalError(errorEvent);
 		} catch (Exception e) {
+			logger.debug("generico");
 			InesperadoException inesperadoException = new InesperadoException(Constante.CODIGO_MENSAJE.ERROR_GENERICO, null, e);
 			com.vaadin.terminal.Terminal.ErrorEvent errorEvent = new HarecErrorEvent(inesperadoException);
 			mainApplication.terminalError(errorEvent);
