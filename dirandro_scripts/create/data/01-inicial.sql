@@ -69,3 +69,5 @@ INSERT INTO SIETID.CFG_VALOR (ID,LISTA,CODIGO,NOMBRE,DESCRIPCION,ORDEN,ESTADO,CR
 INSERT INTO SIETID.CFG_VALOR (ID,LISTA,CODIGO,NOMBRE,DESCRIPCION,ORDEN,ESTADO,CREADOR,CREACION) VALUES (52,8,'COMI','Comisaría','Comisarias',3,'A',1,SYSDATE);
 INSERT INTO SIETID.CFG_VALOR (ID,LISTA,CODIGO,NOMBRE,DESCRIPCION,ORDEN,ESTADO,CREADOR,CREACION) VALUES (54,8,'DIRE','Directa','Comisarias',4,'A',1,SYSDATE);
 insert into sietid.cfg_valor (id,lista,codigo,nombre,descripcion,orden,estado,creador,creacion) VALUES (55,8,'PENI','Penitenciaría','Establecimiento Penitenciario',5,'A',1,sysdate);
+
+commit;
