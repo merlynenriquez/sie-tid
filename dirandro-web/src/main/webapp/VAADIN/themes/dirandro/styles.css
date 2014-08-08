@@ -1,0 +1,338 @@
+@import url(../reindeer/styles.css);
+
+/* Global font styles */
+.v-app,
+.v-window,
+.v-popupview-popup,
+.v-tooltip,
+.v-app input,
+.v-app select,
+.v-app button,
+.v-app textarea,
+.v-window input,
+.v-window select,
+.v-window button,
+.v-window textarea,
+.v-popupview-popup input,
+.v-popupview-popup select,
+.v-popupview-popup button,
+.v-popupview-popup textarea,
+.v-filterselect-suggestpopup,
+.v-datefield-popup,
+.v-contextmenu,
+.v-Notification,
+.v-menubar-submenu,
+.v-drag-element,
+.v-table-header-drag {
+	font-family: Verdana, Arial, Helvetica, Tahoma, sans-serif;
+	font-size: 10px;
+	line-height: normal;
+}
+.v-button-caption {
+	color: #222;
+	text-shadow: #fff 0 1px 0;
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 16px;
+}
+.v-menubar {
+	height: 23px;
+	background: #323336 repeat-x;
+	background-image: url(common/img/vertical-sprites.png);
+	-background-image: url(common/img/vertical-sprites-ie6.png);
+	background-position: left -383px;
+	color: #FFFFFF;
+	text-shadow: rgba(0,0,0,.9) 0 1px 0;
+	padding: 0 8px;
+}
+.datefilterpopup .v-button-caption {
+	display: inline-block;
+	background: none;
+	height: 12px;
+	padding: 0;
+	padding-top: 2px;
+	font-size: 12px;
+	font-weight: normal;
+	font-size: 10px;
+}
+.v-popupbutton-popup {
+	font-family: Verdana, Arial, Helvetica, Tahoma, sans-serif;
+	font-size: 10px;
+	line-height: normal;
+	color: #222;
+	
+	background: #f8f8f9;
+	border: none;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+}
+.v-button-wrap,
+.v-disabled.v-button .v-button-wrap {
+	padding: 4px 10px 0 5px;
+}
+/*
+.v-button-wrap,
+.v-disabled.v-button .v-button-wrap {
+	display: block;
+	height: 22px;
+	padding: 4px 10px 0 5px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-image: url(button/img/button-sprites.png);
+	-background-image: url(button/img/button-sprites-ie6.png);
+	background-position: right -130px;
+}
+*/
+.v-button-link .v-button-caption,
+.v-nativebutton-link .v-nativebutton-caption {
+	line-height: inherit;
+	font-weight: normal;
+	color: #1b699f;
+	font-size: 10px;
+	text-shadow: none;
+}
+/* Default & white style */
+.v-table-header-wrap,
+.white .v-table-header-wrap,
+.v-table-footer-wrap,
+.white .v-table-footer-wrap,
+.v-table-header-drag {
+	text-transform: capitalize;
+}
+/*
+.v-table-header-wrap,
+.white .v-table-header-wrap,
+.v-table-footer-wrap,
+.white .v-table-footer-wrap,
+.v-table-header-drag {
+	border-color: #c2c3c4;
+	background: transparent repeat-x;
+	background-image: url(common/img/vertical-sprites.png);
+	-background-image: url(common/img/vertical-sprites-ie6.png);
+	background-position: left -925px;
+	height: 20px;
+	text-transform: capitalize;
+	font-size: 10px;
+	font-weight: bold;
+	color: #222;
+	text-shadow: #f3f5f8 0 1px 0;
+	line-height: normal;
+}
+*/
+.v-table .v-selected,
+.black .v-table .v-selected {
+	background: #007DC5 repeat-x; /* We can't include this in the sprite, since we don't know the row height */
+	color: #fff;
+	text-shadow: #3b5a7a 0 1px 0;
+}
+
+.v-tabsheet-tabitem,
+.v-tabsheet-spacertd div {
+	text-shadow: #fff 0 0px 0;
+}
+/*
+.v-tabsheet-tabitem,
+.v-tabsheet-spacertd div {
+	border: none;
+	height: 32px;
+	background: transparent repeat-x;
+  background-image: url(common/img/vertical-sprites.png);
+  -background-image: url(common/img/vertical-sprites-ie6.png);
+  background-position: left -1238px;
+	padding: 0;
+	color: #222;
+	text-shadow: #fff 0 0px 0;
+}
+*/
+
+.v-window-outerheader {
+
+	padding: 12px 32px 0 14px;
+	height: 25px;
+
+	background: #00529B repeat-x;
+        background-position: left -1896px;
+
+}
+
+/* -------------------------- */
+
+.v-label-newLabel {
+ font-size: 16px;
+ font-weight: bold;
+ padding-top: 10px;
+}
+
+.fieldRequired {
+	background-color: #FCFFB0;
+}
+
+/* Lay the options horizontally */
+.v-select-optiongroup-horizontal .v-select-option {
+    display: inline-block;
+}
+
+/* Avoid wrapping if the layout is too tight */
+.v-select-optiongroup-horizontal {
+    white-space: nowrap;
+}
+
+/* Some extra spacing is needed */
+.v-select-optiongroup-horizontal
+  .v-select-option.v-radiobutton {
+    padding-right: 10px;
+}
+
+.v-textfield-align-center {
+   text-align: center;
+}
+
+.v-caption-bold .v-captiontext{
+	font-weight: bold;
+}
+	
+.v-loading-indicator,
+.v-loading-indicator-delay,
+.v-loading-indicator-wait {
+   width: 100%;  
+   height: 100%;  
+   margin: 0;  
+   background-position: 50%;  
+   background-color: gray;  
+   background-repeat: no-repeat;  
+   background-attachment: fixed;   
+   opacity: .8;  
+   -ms-filter: alpha(opacity=80);  
+   filter: alpha(opacity=80);  
+}
+
+.v-label-bold {
+	font-weight: bold;
+}
+
+.sizeBoldLabel {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.boldRojo {
+	font-weight: bold;
+	color: #b91919;
+}
+
+.rojo {
+	color: #b91919;
+}
+
+.v-table-cell-content-azul {
+    background: #264170;
+    color: #FFFFFF;
+}
+
+.v-table-cell-content-rojo {
+    background: #C53636;
+    color: #FFFFFF;
+}
+.v-table-cell-content-textorojo {
+    color: #C53636;
+}
+
+.v-table-cell-content-amarillo {
+    background: #C9BC2B;
+    color: #FFFFFF;
+}
+
+.v-table-cell-content-verde {
+    background: #45A210;
+    color: #FFFFFF;
+}
+
+.v-textfield-upMe {
+    text-transform: uppercase;
+}
+
+input.v-textfield-prompt,
+textarea.v-textarea-prompt {
+	font-style: italic;
+	color: #999;
+}
+
+.v-filterselect-prompt .v-filterselect-input {
+	font-style: italic;
+	color: #999;
+}
+
+.v-disabled {
+	opacity: .8;
+	filter: alpha(opacity=80);
+	cursor: default;
+}
+
+.v-menubar-menuitem-menu-bar-float-right {
+	float: right;
+	*float: none;
+}
+
+.v-select-optiongroup-vertical span {
+	margin-bottom: 5px;
+}
+.label-background{
+	background-color: #FDBD2C; /* #D6B342; */
+}
+
+.no-toolbar .gwt-RichTextToolbar-bottom { display: none;}
+
+.no-toolbar .gwt-RichTextToolbar-top { display: none;}
+
+.v-filterselect-combobox-to-autocompletedbutton{
+	border:none !important;
+	background-image:none !important;
+	-background-image: none !important;
+}
+
+.combobox-to-autocompletedbutton .v-filterselect-input{
+	border:1px solid #bcbdbe !important;	
+	background-image: url(common/img/vertical-sprites.png) !important;
+	-background-image: url(common/img/vertical-sprites-ie6.png) !important;
+	-moz-border-radius: 3px !important;
+	-webkit-border-radius: 3px !important;
+	border-radius: 3px !important;
+	background-position: left -1853px !important;
+	background-repeat: repeat-x !important;
+	height:15px !important;
+	
+}
+
+.combobox-to-autocompletedbutton .v-filterselect-button{
+	display:none!important;
+
+}
+
+.v-textfield.center {
+    text-align: center;
+}
+
+.v-richtextarea .gwt-HTML {
+	height: 100%;
+	background-color: #F7F7F7;
+}
+
+.backColor{ 
+	background: white;
+}
+
+.v-app .v-customlayout {
+    overflow: auto;
+}
+
+.novscroll {
+	overflow-x: hidden;
+}
+
+.v-panel-content.v-panel-content-light.v-panel-content-novscroll {
+	overflow-y: hidden !important;
+	overflow-x: auto;
+}
