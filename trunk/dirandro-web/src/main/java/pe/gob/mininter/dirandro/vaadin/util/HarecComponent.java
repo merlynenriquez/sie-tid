@@ -13,31 +13,29 @@ import com.vaadin.ui.CustomComponent;
 public abstract class HarecComponent extends CustomComponent {
 
 	private static final long serialVersionUID = 1355120342779674844L;
-	
+
 	private List<Opcion> acciones;
 	private String height;
 	public boolean modificaAltura = false;
-	
-	public HarecComponent(List<Opcion> acciones, String height){
+
+	public HarecComponent(List<Opcion> acciones, String height) {
 		this.acciones = acciones;
 		this.height = height;
 	}
-	
+
 	public abstract void postConstruct();
-	
-	protected Opcion obtenerAccion(String codigo)
-	{
-		if(acciones == null)
-		{
-			//TODO lanza excepcion
+
+	protected Opcion obtenerAccion(String codigo) {
+		if (acciones == null) {
+			// TODO lanza excepcion
 		}
 		Opcion opcion = new Opcion();
 		opcion.setCodigo(codigo);
 		int index = acciones.indexOf(opcion);
-		if(index!=-1){
-			Opcion accion = acciones.get(index);		
+		if (index != -1) {
+			Opcion accion = acciones.get(index);
 			return accion;
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -47,52 +45,57 @@ public abstract class HarecComponent extends CustomComponent {
 		super.attach();
 		setHeight(height);
 	}
-	
-	public static String getString(AbstractTextField txtInput){
-		String valor=(String)txtInput.getValue();
-		if(valor!=null){
+
+	public static String getString(AbstractTextField txtInput) {
+		String valor = (String) txtInput.getValue();
+		if (valor != null) {
 			return valor.trim();
 		}
 		return null;
 	}
-	public static String getString(TextChangeEvent txtInput){
-		String valor=txtInput.getText();
-		if(valor!=null){
+
+	public static String getString(TextChangeEvent txtInput) {
+		String valor = txtInput.getText();
+		if (valor != null) {
 			return valor;
 		}
 		return null;
 	}
-	public static Integer getInteger(AbstractTextField txtInput){
-		String valor=(String)txtInput.getValue();
-		if(valor!=null&&!StringUtils.isEmpty(valor)){
-			if(StringUtils.isNumeric(valor))
-			return Integer.parseInt(valor);
+
+	public static Integer getInteger(AbstractTextField txtInput) {
+		String valor = (String) txtInput.getValue();
+		if (valor != null && !StringUtils.isEmpty(valor)) {
+			if (StringUtils.isNumeric(valor))
+				return Integer.parseInt(valor);
 		}
 		return null;
 	}
-	public static Integer getInteger(TextChangeEvent txtInput){
-		String valor=txtInput.getText();
-		if(valor!=null&&!StringUtils.isEmpty(valor)){
-			if(StringUtils.isNumeric(valor))
-			return Integer.parseInt(valor);
+
+	public static Integer getInteger(TextChangeEvent txtInput) {
+		String valor = txtInput.getText();
+		if (valor != null && !StringUtils.isEmpty(valor)) {
+			if (StringUtils.isNumeric(valor))
+				return Integer.parseInt(valor);
 		}
 		return null;
 	}
-	public static Long getLong(AbstractTextField txtInput){
-		String valor=(String)txtInput.getValue();
-		if(valor!=null&&!StringUtils.isEmpty(valor)){
-			if(StringUtils.isNumeric(valor))
-			return Long.parseLong(valor);
+
+	public static Long getLong(AbstractTextField txtInput) {
+		String valor = (String) txtInput.getValue();
+		if (valor != null && !StringUtils.isEmpty(valor)) {
+			if (StringUtils.isNumeric(valor))
+				return Long.parseLong(valor);
 		}
 		return null;
 	}
-	public static Long getLong(TextChangeEvent txtInput){
-		String valor=txtInput.getText();
-		if(valor!=null&&!StringUtils.isEmpty(valor)){
-			if(StringUtils.isNumeric(valor))
-			return Long.parseLong(valor);
+
+	public static Long getLong(TextChangeEvent txtInput) {
+		String valor = txtInput.getText();
+		if (valor != null && !StringUtils.isEmpty(valor)) {
+			if (StringUtils.isNumeric(valor))
+				return Long.parseLong(valor);
 		}
 		return null;
 	}
-	
+
 }

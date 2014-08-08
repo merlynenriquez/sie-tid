@@ -70,108 +70,57 @@ public class MainApplication extends Application {
 		
 		windowHarec.setCaption("Dirandro");
 		windowHarec.getContent().setHeight("100%");
-		windowHarec.getLayout().setMargin(false);
 		windowHarec.addComponent(panelPrincipal);
 
 	}
 	
 	@Override
 	public void terminalError(com.vaadin.terminal.Terminal.ErrorEvent event) {
+		
 		String defaultMessage = "Mensaje no especificado";
-		if(event.getThrowable().getCause() instanceof NotificacionException)
-		{
-			resolverNotificacionException((NotificacionException)event.getThrowable().getCause(), defaultMessage);
-		}
-		if(event.getThrowable().getCause() instanceof MensajeException)
-		{
+		if (event.getThrowable().getCause() instanceof NotificacionException) {
+			resolverNotificacionException((NotificacionException) event.getThrowable().getCause(), defaultMessage);
+		}else if (event.getThrowable().getCause() instanceof MensajeException) {
 			resolverMensajeException((MensajeException) event.getThrowable().getCause(), defaultMessage);
-		}
-		else if(event.getThrowable().getCause() instanceof AlertaException)
-		{
+		} else if (event.getThrowable().getCause() instanceof AlertaException) {
 			resolverAlertaException((AlertaException) event.getThrowable().getCause(), defaultMessage);
-		}
-		else if(event.getThrowable().getCause() instanceof ErrorException)
-		{
+		} else if (event.getThrowable().getCause() instanceof ErrorException) {
 			resolverErrorException((ErrorException) event.getThrowable().getCause(), defaultMessage);
-		}
-		else
-		{
+		} else {
 			resolverException(event.getThrowable().getCause(), defaultMessage);
 			super.terminalError(event);
 		}
-		
-		super.terminalError(event);
 	}
 	
-	private void resolverNotificacionException(NotificacionException notificacionException,
-			String defaultMessage) {
+	private void resolverNotificacionException(NotificacionException notificacionException, String defaultMessage) {
 		
-		String mensaje = messageSource.getMessage(
-        		notificacionException.getCodigoMensaje(), 
-        		notificacionException.getArgs(), 
-        		defaultMessage, this.getLocale());
-		
-		windowHarec.showNotification(
-				notificacionException.getTitulo(),
-				mensaje,
-                Notification.TYPE_TRAY_NOTIFICATION);
+		String mensaje = messageSource.getMessage(notificacionException.getCodigoMensaje(), notificacionException.getArgs(), defaultMessage, this.getLocale());
+		windowHarec.showNotification(notificacionException.getTitulo(), mensaje, Notification.TYPE_TRAY_NOTIFICATION);
 		logger.info("HAREC Notificación [" + notificacionException.getTitulo() + "=" + mensaje + "]");
 	}
 	
-	private void resolverAlertaException(AlertaException alertaException,
-			String defaultMessage) {
-		
-		String mensaje = messageSource.getMessage(
-				alertaException.getCodigoMensaje(), 
-				alertaException.getArgs(), 
-        		defaultMessage, this.getLocale());
-		
-		windowHarec.showNotification(
-				alertaException.getTitulo(),
-				mensaje,
-                Notification.TYPE_WARNING_MESSAGE);
+	private void resolverAlertaException(AlertaException alertaException, String defaultMessage) {
+		String mensaje = messageSource.getMessage(alertaException.getCodigoMensaje(), alertaException.getArgs(), defaultMessage, this.getLocale());
+		windowHarec.showNotification(alertaException.getTitulo(), mensaje, Notification.TYPE_WARNING_MESSAGE);
 		logger.info("HAREC Alerta [" + alertaException.getTitulo() + "=" + mensaje + "]");
 	}
 	
-	private void resolverMensajeException(MensajeException mensajeException,
-			String defaultMessage) {
+	private void resolverMensajeException(MensajeException mensajeException, String defaultMessage) {
 		
-		String mensaje = messageSource.getMessage(
-				mensajeException.getCodigoMensaje(), 
-				mensajeException.getArgs(), 
-        		defaultMessage, this.getLocale());
-		
-		windowHarec.showNotification(
-				mensajeException.getTitulo(),
-				mensaje,
-                Notification.TYPE_HUMANIZED_MESSAGE);
+		String mensaje = messageSource.getMessage(mensajeException.getCodigoMensaje(), mensajeException.getArgs(), defaultMessage, this.getLocale());
+		windowHarec.showNotification(mensajeException.getTitulo(), mensaje, Notification.TYPE_HUMANIZED_MESSAGE);
 		logger.info("HAREC Mensaje [" + mensajeException.getTitulo() + "=" + mensaje + "]");
 	}
 	
-	private void resolverErrorException(ErrorException errorException,
-			String defaultMessage) {
+	private void resolverErrorException(ErrorException errorException, String defaultMessage) {
 		
-		String mensaje = messageSource.getMessage(
-				errorException.getCodigoMensaje(), 
-				errorException.getArgs(), 
-        		defaultMessage, this.getLocale());
-		
-		windowHarec.showNotification(
-				errorException.getTitulo(),
-				mensaje,
-                Notification.TYPE_ERROR_MESSAGE);		
-		
+		String mensaje = messageSource.getMessage(errorException.getCodigoMensaje(), errorException.getArgs(), defaultMessage, this.getLocale());
+		windowHarec.showNotification(errorException.getTitulo(), mensaje, Notification.TYPE_ERROR_MESSAGE);
 		logger.error("HAREC Error [" + errorException.getTitulo() + "=" + mensaje + "]", errorException);
 	}
 	
 	private void resolverException(Throwable cause, String defaultMessage) {
-		windowHarec.showNotification(
-                "ERROR inesperado",
-                messageSource.getMessage(
-                		Constante.CODIGO_MENSAJE.ERROR_GENERICO , 
-                		null, 
-                		defaultMessage, this.getLocale()),
-                Notification.TYPE_ERROR_MESSAGE);
+		windowHarec.showNotification("ERROR inesperado", messageSource.getMessage(Constante.CODIGO_MENSAJE.ERROR_GENERICO , null, defaultMessage, this.getLocale()), Notification.TYPE_ERROR_MESSAGE);
 		logger.error("HAREC: Error inesperado", cause);
 	}
 	

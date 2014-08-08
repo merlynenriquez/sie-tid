@@ -176,7 +176,8 @@ public class PanelLogin extends CustomComponent implements ClickListener {
 		
 		lblUsuario.setStyleName("bold");
 		lblClave.setStyleName("bold");
-		txtUsuario.setValue("admin");		
+		txtUsuario.setValue("menriquez");
+		txtClave.setValue("a");
 		txtCaptcha.setImmediate(true);		
 		window = windowHarec;
 		
@@ -266,7 +267,7 @@ public class PanelLogin extends CustomComponent implements ClickListener {
 		MainApplication mainApplication = (MainApplication)getApplication();
 		String username = txtUsuario.getValue().toString();
 		String password = txtClave.getValue().toString();
-		
+		logger.debug("llegaste a entrar");
         if(StringUtils.isBlank(username))
         	throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Usuario"});
                 
@@ -281,6 +282,7 @@ public class PanelLogin extends CustomComponent implements ClickListener {
         username = username.toLowerCase();
         String hash512 = HarecUtil.returnSHA512(password);
         Usuario usuario = seguridadService.login(username, hash512);
+        logger.debug(usuario.toString());
         
         if(usuario != null){
         	WebApplicationContext context = ((WebApplicationContext) getApplication().getContext());

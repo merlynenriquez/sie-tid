@@ -211,12 +211,22 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 		    			}
 		            }
 		        });
-				
+				//Menu 1
 				if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DELITO)){
 					titulo = "Mantenimiento de Delitos";
 					width = "950px";
 					harecComponent = new panelTest(acciones, "340px");
 				}
+				
+				
+				
+				//Menu Configuracion 
+				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
+					titulo = "Mantenimiento de Lista y/o Valores";
+					width = "950px";
+					harecComponent = new PanelAdminListaValores(acciones, "950px");
+				}
+				
 				/*/ *
 				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_LOV)){
 					titulo = "Mantenimiento de Lista y/o Valores";
