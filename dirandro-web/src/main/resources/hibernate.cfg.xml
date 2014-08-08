@@ -4,7 +4,8 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>		
+		<property name="show_sql">true</property>
 		
 		<mapping class="pe.gob.mininter.dirandro.model.Lista" />
 		<mapping class="pe.gob.mininter.dirandro.model.Parametro" />
