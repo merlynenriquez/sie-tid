@@ -26,6 +26,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.AbstractBeanContainer.BeanIdResolver;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.ui.AbstractTextField.TextChangeEventMode;
@@ -428,7 +429,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 	}
 	
 	private void cargarListas(List<Lista> listas, boolean flagLimpiar){
-		BeanContainer<Long, Lista> container=new BeanContainer<Long, Lista>(Lista.class);
+		/*BeanContainer<Long, Lista> container=new BeanContainer<Long, Lista>(Lista.class);
 		container.setBeanIdResolver(new BeanIdResolver<Long, Lista>() {
 
 			private static final long serialVersionUID = 1609951986289481102L;
@@ -440,7 +441,24 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 			
 		});
 		container.addAll(listas);
-		container.setBeanIdProperty("id");
+		container.setBeanIdProperty("id");*/
+		IndexedContainer container = new IndexedContainer();
+		
+		container.addContainerProperty("id", Long.class,  null);
+		container.addContainerProperty("codigo", String.class, null);
+		container.addContainerProperty("nombre", String.class, null);			
+		container.addContainerProperty("descripcion", String.class, null);
+		container.addContainerProperty("estado", String.class, null);
+		
+		int con=1;
+		for (Lista lista: listas) {
+			Item item = container.addItem(con++);
+            item.getItemProperty("id").setValue(lista.getId());
+            item.getItemProperty("codigo").setValue(lista.getCodigo());
+            item.getItemProperty("nombre").setValue(lista.getNombre());
+            item.getItemProperty("descripcion").setValue(lista.getDescripcion());
+            item.getItemProperty("estado").setValue(lista.getEstado());
+		}
 		
 		tblListas.setContainerDataSource(container);
 		tblListas.setVisibleColumns(new Object[]{"id", "codigo", "nombre", "estado"});
@@ -465,13 +483,13 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 	
 	private void cargarValores(List<Valor> valores, boolean flagLimpiar)
 	{
-		BeanContainer<Long, Valor> container=new BeanContainer<Long, Valor>(Valor.class);
+		/*BeanContainer<Long, Valor> container=new BeanContainer<Long, Valor>(Valor.class);
 		container.setBeanIdResolver(new BeanIdResolver<Long, Valor>() {
 
 
-			/**
+			*//**
 			 * 
-			 */
+			 *//*
 			private static final long serialVersionUID = 5857217093293296343L;
 
 			@Override
@@ -481,7 +499,32 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 			
 		});
 		container.addAll(valores);
-		container.setBeanIdProperty("id");
+		container.setBeanIdProperty("id");*/
+		
+		IndexedContainer container = new IndexedContainer();
+		
+		container.addContainerProperty("id", Long.class,  null);
+		container.addContainerProperty("codigo", String.class, null);
+		container.addContainerProperty("nombre", String.class, null);	
+		container.addContainerProperty("orden", Integer.class, null);	
+		container.addContainerProperty("descripcion", String.class, null);
+		container.addContainerProperty("estado", String.class, null);
+		container.addContainerProperty("lista.codigo", String.class, null);
+		container.addContainerProperty("lista.id", Long.class, null);
+		
+		int con=1;
+		for (Valor valor: valores) {
+			Item item = container.addItem(con++);
+            item.getItemProperty("id").setValue(valor.getId());
+            item.getItemProperty("codigo").setValue(valor.getCodigo());
+            item.getItemProperty("nombre").setValue(valor.getNombre());
+            item.getItemProperty("orden").setValue(valor.getOrden());
+            item.getItemProperty("descripcion").setValue(valor.getDescripcion());
+            item.getItemProperty("estado").setValue(valor.getEstado());
+            item.getItemProperty("lista.codigo").setValue(valor.getLista().getCodigo());
+            item.getItemProperty("lista.id").setValue(valor.getLista().getId());
+		}
+		
 		tblValores.setContainerDataSource(container);
 		tblValores.setVisibleColumns(new Object[]{"codigo", "nombre", "orden", "estado"});
 		tblValores.setColumnWidth("id", 16);

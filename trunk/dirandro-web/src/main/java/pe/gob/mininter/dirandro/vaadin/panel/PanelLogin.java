@@ -267,7 +267,7 @@ public class PanelLogin extends CustomComponent implements ClickListener {
 		MainApplication mainApplication = (MainApplication)getApplication();
 		String username = txtUsuario.getValue().toString();
 		String password = txtClave.getValue().toString();
-		logger.debug("llegaste a entrar");
+		
         if(StringUtils.isBlank(username))
         	throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Usuario"});
                 
@@ -282,14 +282,12 @@ public class PanelLogin extends CustomComponent implements ClickListener {
         username = username.toLowerCase();
         String hash512 = HarecUtil.returnSHA512(password);
         Usuario usuario = seguridadService.login(username, hash512);
-        logger.debug(usuario.toString());
         
         if(usuario != null){
         	WebApplicationContext context = ((WebApplicationContext) getApplication().getContext());
             WebBrowser webBrowser = context.getBrowser();
     		usuario.setTerminal(webBrowser.getAddress());
-    		System.out.println("terminal:"+usuario.getTerminal());
-        	
+    		
         	ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
     		HttpServletRequest request = requestAttributes.getRequest();
     		HttpSession session = request.getSession(true);
