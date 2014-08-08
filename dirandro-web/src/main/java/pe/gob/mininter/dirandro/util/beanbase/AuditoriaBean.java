@@ -20,7 +20,7 @@ public class AuditoriaBean extends BeanBase {
 	 */
 	private static final long serialVersionUID = -9163371034756898686L;
 	
-	@ManyToOne(fetch= FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false, insertable = true, updatable = false)
 	private Usuario creador;
 	
@@ -28,7 +28,7 @@ public class AuditoriaBean extends BeanBase {
 	@Temporal( TemporalType.TIMESTAMP)
 	private Date creacion;
 	
-	@ManyToOne(fetch= FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "EDITOR", insertable = false, updatable = true)
 	private Usuario editor;
 	

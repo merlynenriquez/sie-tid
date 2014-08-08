@@ -94,10 +94,10 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
 			if (valor.getEstado() != null)
 				filtro.add(Restrictions.ilike("estado",valor.getEstado(), MatchMode.ANYWHERE));
 		
-			if (valor.getLista() != null) {
+			/*if (valor.getLista() != null) {
 				filtro.createAlias("lista", "l");
 				filtro.add(Restrictions.eq("l.id", valor.getLista().getId()));
-			}
+			}*/
 		}
 		filtro.addOrder(Order.asc("id"));
 		return valorHibernate.buscar(filtro);

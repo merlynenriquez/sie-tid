@@ -225,10 +225,10 @@ public abstract class Constante {
 
 		public final static String KEY_PADRE = "padre";
 
-		// Menu Nro 1
+		// Menu Nro 1 (Mantenimientos)
 		public final static String CODIGO_MNT_DELITO = "MANT_DELITO";
 		public final static String CODIGO_ADMIN_PARM = "ADMIN_PARM";
-		public final static String CODIGO_ADMIN_LOV = "ADMIN_LOV";
+		
 		public final static String CODIGO_ADMIN_ROL_MEMB = "ADMIN_ROL_MEMB";
 		public final static String CODIGO_ADMIN_OPCION = "ADMIN_OPCION";
 		public final static String CODIGO_ADMIN_PERM = "ADMIN_PERM";
@@ -257,7 +257,10 @@ public abstract class Constante {
 		public final static String CODIGO_EXP_BND = "EXP_BND";
 
 		// Menu Nro 3
-		public final static String CODIGO_BOARD = "REP_BOARD";
+		public final static String CODIGO_BSQ_PERSONA = "BSQ_PERSONA";
+		
+		// Menu Nro 5
+		public final static String CODIGO_CFG_LOV = "CFG_LISTA";
 
 		// Opciones de Acciones
 		public static abstract class ACCION {

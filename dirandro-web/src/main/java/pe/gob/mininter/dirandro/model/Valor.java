@@ -1,10 +1,10 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -39,26 +45,30 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	@Column(length=500)
 	private String descripcion;
 	
-	@Column(length=2)
+	@Column(nullable=false, length=2)
 	private String estado;
 
 	@Column(nullable=false, length=100)
 	private String nombre;
 
 	@Column(precision=8)
-	private BigDecimal orden;
- 
+	private Integer orden;
+
 	//bi-directional many-to-one association to Lista
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="LISTA", nullable=false)
 	private Lista lista;
-
+	
 	public Valor() {
-		
 	}
 	
+	public Valor(Long id) {
+		this.id = id;
+	}
+
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
@@ -66,7 +76,7 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getCodigo() {
-		return codigo;
+		return this.codigo;
 	}
 
 	public void setCodigo(String codigo) {
@@ -74,7 +84,7 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getDescripcion() {
-		return descripcion;
+		return this.descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -82,7 +92,7 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getEstado() {
-		return estado;
+		return this.estado;
 	}
 
 	public void setEstado(String estado) {
@@ -90,18 +100,18 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getOrden() {
-		return orden;
+	public Integer getOrden() {
+		return this.orden;
 	}
 
-	public void setOrden(BigDecimal orden) {
+	public void setOrden(Integer orden) {
 		this.orden = orden;
 	}
 
@@ -114,8 +124,39 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	}
 	
 	@Override
-	public void validar() {
-		// TODO Auto-generated method stub
-		
+	public int hashCode() {
+		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(3, 7);
+		hashCodeBuilder.append(id);
+		return hashCodeBuilder.toHashCode();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj instanceof Valor) {
+			Valor bean = (Valor) obj;
+			equals = (new EqualsBuilder().append(id, bean.id)).isEquals();
+		}
+		return equals;
+	}
+
+	@Override
+	public void validar() {
+		if(StringUtils.isBlank(codigo))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Código"});
+		}
+		if(StringUtils.isBlank(nombre))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}
+		if(StringUtils.isBlank(estado))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Valor"});
+		}
+		if(lista == null || lista.getId() == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		}
+	}	
 }
