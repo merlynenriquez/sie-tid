@@ -40,7 +40,7 @@ public class MainApplication extends Application {
 		
 		messageSource = Injector.obtenerServicio(MessageSource.class);
 		logger.debug(" messages " + messageSource) ;
-		//TODO setTheme("harec");
+		setTheme("dirandro");
 		
 		windowHarec = new Window();	
 		
