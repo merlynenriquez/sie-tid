@@ -274,10 +274,10 @@ public class PanelLogin extends CustomComponent implements ClickListener {
         if(StringUtils.isBlank(password))        
         	throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Password"});
 
-        if (!tptCaptcha.verifyCaptchaCode((String) txtCaptcha.getValue())){
+        /*if (!tptCaptcha.verifyCaptchaCode((String) txtCaptcha.getValue())){
         	tptCaptcha.generateCaptchaCode(5);
         	throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Captcha Valido"});
-        }
+        }*/
 		
         username = username.toLowerCase();
         String hash512 = HarecUtil.returnSHA512(password);

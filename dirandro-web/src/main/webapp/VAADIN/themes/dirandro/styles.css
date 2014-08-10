@@ -336,3 +336,8 @@ textarea.v-textarea-prompt {
 	overflow-y: hidden !important;
 	overflow-x: auto;
 }
+
+.v-app .v-customlayout > div{
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
