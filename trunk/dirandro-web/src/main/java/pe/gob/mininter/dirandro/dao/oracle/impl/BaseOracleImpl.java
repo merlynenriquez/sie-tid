@@ -8,14 +8,11 @@ import pe.gob.mininter.dirandro.dao.oracle.BaseOracle;
 
 public class BaseOracleImpl implements BaseOracle {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -771641799162451923L;
 
 	protected JdbcTemplate jdbcTemplate;
 	
-	@Value("SIIC")
+	@Value("SIETID")
 	private String schema;
 
 	@Override

@@ -214,6 +214,9 @@ public abstract class Constante {
 		public static final String VALIDAR_LOGIN = "validar.login";
 		public static final String VALIDAR_DEPENDENCIA = "validar.dependencia";
 		
+		public final static String VALIDAR_PARAMETRO_EXISTENTE_CODIGO = "validar.parametro.existente.codigo";
+		public final static String VALIDAR_PARAMETRO_EXISTENTE_NOMBRE = "validar.parametro.existente.nombre";
+		
 	}
 
 	public static abstract class SESION {
@@ -227,19 +230,46 @@ public abstract class Constante {
 
 		// Menu Nro 1 (Mantenimientos)
 		public final static String CODIGO_MNT_DELITO = "MANT_DELITO";
-		public final static String CODIGO_ADMIN_PARM = "ADMIN_PARM";
+		public final static String CODIGO_MNT_EMPRESA = "MANT_EMPRESA";
+		public final static String CODIGO_MNT_LETRADO = "MANT_LETRADO";
+		public final static String CODIGO_MNT_HECHOS = "MANT_HECHOS";
+		public final static String CODIGO_MNT_DEPENDEN = "MANT_DEPENDEN";
+		public final static String CODIGO_MNT_ESPECIE = "MANT_ESPECIE";
+		public final static String CODIGO_MNT_ESTADO = "MANT_ESTADO";
+		public final static String CODIGO_MNT_PAIS = "MANT_PAIS";
+		public final static String CODIGO_MNT_MODELO = "MANT_MODELO";
+		public final static String CODIGO_MNT_ENTIDAD = "MANT_ENTIDAD";
+		public final static String CODIGO_MNT_POLICIA = "MANT_POLICIA";
 		
-		// Menu Nro 2
+		// Menu Nro 2 (Registro Principal)
 		public final static String CODIGO_EXP_REG_PP = "EXP_REG_PP";
 		public final static String CODIGO_EXP_BND = "EXP_BND";
 
-		// Menu Nro 3
+		// Menu Nro 3 (Busqueda de Tablas)
+		public final static String CODIGO_BSQ_VEHICULO = "BSQ_VEHICULO";
+		public final static String CODIGO_BSQ_INMUEBLE = "BSQ_INMUEBLE";
 		public final static String CODIGO_BSQ_PERSONA = "BSQ_PERSONA";
-		
-		// Menu Nro 5
+		public final static String CODIGO_BSQ_TELEFONO = "BSQ_TELEFONO";
+		public final static String CODIGO_BSQ_ARMA = "BSQ_ARMA";
+		public final static String CODIGO_BSQ_ORGANIZAC = "BSQ_ORGANIZAC";
+		public final static String CODIGO_BSQ_NA = "BSQ_NA";
+		public final static String CODIGO_BSQ_DOCUMENTO = "BSQ_DOCUMENTO";
+				
+		// Menu Nro 4 (Seguridad de Usuarios)
+		public final static String CODIGO_SEG_PERMISO = "SEG_PERMISO";
+		public final static String CODIGO_SEG_USUARIO = "SEG_USUARIO";
+		public final static String CODIGO_SEG_OPCION = "SEG_OPCION";
+		public final static String CODIGO_SEG_EQUIPO = "SEG_EQUIPO";
+		public final static String CODIGO_SEG_ROL = "SEG_ROL";
+				
+		// Menu Nro 5 (Configuracion)
 		public final static String CODIGO_CFG_LOV = "CFG_LISTA";
-
-		// Opciones de Acciones
+		public final static String CODIGO_CFG_PARAMETRO = "CFG_PARAM";
+		
+		// Menu Nro 6 (Configuracion)
+		public final static String CODIGO_RPT_ATESTADO = "RPT_ATESTADO";
+		
+		// Opciones de Acciones de los Botones
 		public static abstract class ACCION {
 			public static final String REGISTRA_REQUERIMIENTO = "REQ_REG_GRABAR";
 		}

@@ -54,40 +54,5 @@ public interface BaseService<Entidad, TipoLlave> extends Serializable {
 	 * @param list - Lista de las entidades a eliminar.
 	 */	
 	public void eliminarTodos(List<Entidad> list);	
-	
-	/**
-	 * Obtener una lista de cualquier entidad
-	 * @return Lista de Entidades segun la clase
-	 */
-	public List<Entidad> obtenerTodos();
 		
-	/**
-	 * Obtiene el recurso (Entidad) segun su indentificador (codigo) 
-	 * 
-	 * @param id - indentificador para buscar
-	 * @return Entidad según el codigo enviado.
-	 */
-	public Entidad obtenerPorCodigo(String codigo);
-	
-	
-	
-	
-	
-	
-
-	
-
-	
-	
-	
-
-	
-
-	
-	
-	
-
-	
-	
-	
 }

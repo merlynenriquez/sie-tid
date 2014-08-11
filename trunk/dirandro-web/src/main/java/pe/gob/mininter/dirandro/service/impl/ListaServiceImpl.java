@@ -102,12 +102,5 @@ public class ListaServiceImpl extends BaseServiceImpl<Lista, Long> implements Li
 		filtro.add(Restrictions.eq("l.id",id));
 		//valorHibernate.eliminarTodos(valorHibernate.buscar(filtro));
 		listaHibernate.eliminarXId(id);
-	}
-
-	@Override
-	public List<Lista> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+	}	
 }

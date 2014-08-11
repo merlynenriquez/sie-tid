@@ -13,12 +13,14 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.BaseHibernate;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
+@Transactional
 public abstract class BaseHibernateImpl <Entidad extends Serializable, TipoLlave extends Serializable> extends HibernateTransactionManager implements BaseHibernate<Entidad, TipoLlave> {
 
 	private static final long serialVersionUID = -553083254621919950L;
@@ -29,11 +31,11 @@ public abstract class BaseHibernateImpl <Entidad extends Serializable, TipoLlave
 	
 	@Autowired
 	public SessionFactory sessionFactory;
-	/*
-    public void setSessionFactory(SessionFactory sessionFactory) {
+	
+    /*public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-    }
-*/
+    }*/
+
 	protected Session getSession() {
     	return sessionFactory.getCurrentSession();
     }

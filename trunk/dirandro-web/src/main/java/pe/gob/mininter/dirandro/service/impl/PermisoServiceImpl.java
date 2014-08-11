@@ -100,10 +100,4 @@ public class PermisoServiceImpl extends BaseServiceImpl<Permiso, Long>
 		}
 	}
 
-	@Override
-	public List<Permiso> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

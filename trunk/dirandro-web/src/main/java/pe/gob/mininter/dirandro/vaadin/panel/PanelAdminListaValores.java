@@ -1,5 +1,6 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -9,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Lista;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ListaService;
 import pe.gob.mininter.dirandro.service.ParametroService;
@@ -251,9 +253,6 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		
 		tblListas.addListener(new ValueChangeListener() {
 			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 2869400278578730206L;
 
 			@Override
@@ -285,6 +284,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 					Valor valor = new Valor();
 					valor.setLista(lista);
 					List<Valor> valores = valorService.buscar(valor);
+					logger.debug("valores"+valores.size());
 					cargarValores(valores, true);
 
 					habilitarEdicion("valor",false);
@@ -299,7 +299,6 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		tblValores.setImmediate(true);
 		tblValores.setNullSelectionAllowed(true);
 		tblValores.setNullSelectionItemId(null);
-		
 		tblValores.addListener(new ValueChangeListener() {
 			
 			/**
@@ -337,18 +336,18 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 			}
 		});
 		
-		//Parametro parametro = parametroService.obtener(Constante.PARAMETRO.ESTADO_LOV);
+		Parametro parametro = parametroService.obtener(Constante.PARAMETRO.ESTADO_LOV);
 		
-		//estados = parametro.getValor().split(",");
-		//BeanItemContainer<String> bicEstados = new BeanItemContainer<String>(String.class, Arrays.asList(estados));
+		estados = parametro.getValor().split(",");
+		BeanItemContainer<String> bicEstados = new BeanItemContainer<String>(String.class, Arrays.asList(estados));
 		
 		BeanItemContainer<Lista> bicListas = new BeanItemContainer<Lista>(Lista.class,  listas);
 		
-		/*cbmEstadoLista.setInputPrompt("Estado");
+		cbmEstadoLista.setInputPrompt("Estado");
 		cbmEstadoLista.setContainerDataSource(bicEstados);
 
 		cboEstadoValor.setInputPrompt("Estado");
-		cboEstadoValor.setContainerDataSource(bicEstados);*/
+		cboEstadoValor.setContainerDataSource(bicEstados);
 		
 		cboLista.setInputPrompt("Lista");
 		cboLista.setContainerDataSource(bicListas);
@@ -427,19 +426,6 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 	}
 	
 	private void cargarListas(List<Lista> listas, boolean flagLimpiar){
-		/*BeanContainer<Long, Lista> container=new BeanContainer<Long, Lista>(Lista.class);
-		container.setBeanIdResolver(new BeanIdResolver<Long, Lista>() {
-
-			private static final long serialVersionUID = 1609951986289481102L;
-
-			@Override
-			public Long getIdForBean(Lista bean) {
-				return bean.getId();
-			}
-			
-		});
-		container.addAll(listas);
-		container.setBeanIdProperty("id");*/
 		IndexedContainer container = new IndexedContainer();
 		
 		container.addContainerProperty("id", Long.class,  null);
@@ -468,37 +454,17 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		tblListas.setColumnHeader("codigo", "Codigo");
 		tblListas.setColumnHeader("nombre", "Nombre");
 		tblListas.setColumnHeader("estado", "Estado");
-		
-		if(flagLimpiar)
-		{
+
+		if (flagLimpiar) {
 			txtFiltroIdLista.setValue("");
 			txtFiltroCodigoLista.setValue("");
 			txtFiltroNombreLista.setValue("");
 			txtFiltroEstadoLista.setValue("");
 		}
-		
+
 	}
 	
-	private void cargarValores(List<Valor> valores, boolean flagLimpiar)
-	{
-		/*BeanContainer<Long, Valor> container=new BeanContainer<Long, Valor>(Valor.class);
-		container.setBeanIdResolver(new BeanIdResolver<Long, Valor>() {
-
-
-			*//**
-			 * 
-			 *//*
-			private static final long serialVersionUID = 5857217093293296343L;
-
-			@Override
-			public Long getIdForBean(Valor bean) {
-				return bean.getId();
-			}
-			
-		});
-		container.addAll(valores);
-		container.setBeanIdProperty("id");*/
-		
+	private void cargarValores(List<Valor> valores, boolean flagLimpiar){
 		IndexedContainer container = new IndexedContainer();
 		
 		container.addContainerProperty("id", Long.class,  null);
@@ -981,7 +947,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		// cbmEstadoLista
 		cbmEstadoLista = new ComboBox();
 		cbmEstadoLista.setImmediate(false);
-		cbmEstadoLista.setWidth("150px");
+		cbmEstadoLista.setWidth("145px");
 		cbmEstadoLista.setHeight("-1px");
 		pnlListaFila1.addComponent(cbmEstadoLista);
 		
@@ -1204,7 +1170,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		// cboLista
 		cboLista = new ComboBox();
 		cboLista.setImmediate(false);
-		cboLista.setWidth("320px");
+		cboLista.setWidth("315px");
 		cboLista.setHeight("-1px");
 		pnlValorFila1.addComponent(cboLista);
 		
@@ -1242,7 +1208,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		// cboEstadoValor
 		cboEstadoValor = new ComboBox();
 		cboEstadoValor.setImmediate(false);
-		cboEstadoValor.setWidth("150px");
+		cboEstadoValor.setWidth("145px");
 		cboEstadoValor.setHeight("-1px");
 		pnlValorFila2.addComponent(cboEstadoValor);
 		
@@ -1265,7 +1231,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		txtNombreValor.setStyleName("fieldRequired");
 		txtNombreValor.setCaption("Nombre:");
 		txtNombreValor.setImmediate(false);
-		txtNombreValor.setWidth("200px");
+		txtNombreValor.setWidth("180px");
 		txtNombreValor.setHeight("-1px");
 		txtNombreValor.setInputPrompt("Nombre de valor segun la Lista");
 		pnlValorFila3.addComponent(txtNombreValor);
@@ -1275,7 +1241,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		txtOrdenValor = new TextField();
 		txtOrdenValor.setCaption("Orden:");
 		txtOrdenValor.setImmediate(false);
-		txtOrdenValor.setWidth("115px");
+		txtOrdenValor.setWidth("130px");
 		txtOrdenValor.setHeight("-1px");
 		txtOrdenValor.setInputPrompt("Orden de presentación");
 		pnlValorFila3.addComponent(txtOrdenValor);
@@ -1297,7 +1263,7 @@ public class PanelAdminListaValores extends HarecComponent implements TextChange
 		txtDescripcionValor = new TextField();
 		txtDescripcionValor.setCaption("Descripción:");
 		txtDescripcionValor.setImmediate(false);
-		txtDescripcionValor.setWidth("320px");
+		txtDescripcionValor.setWidth("315px");
 		txtDescripcionValor.setHeight("-1px");
 		txtDescripcionValor.setInputPrompt("Descripción breve del parametro");
 		pnlValorFila4.addComponent(txtDescripcionValor);

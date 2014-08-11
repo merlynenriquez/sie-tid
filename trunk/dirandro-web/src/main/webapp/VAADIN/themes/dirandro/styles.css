@@ -328,6 +328,10 @@ textarea.v-textarea-prompt {
     overflow: auto;
 }
 
+.v-captiontext {
+	font-weight: bold;
+}
+
 .novscroll {
 	overflow-x: hidden;
 }
