@@ -229,31 +229,8 @@ public abstract class Constante {
 		public final static String CODIGO_MNT_DELITO = "MANT_DELITO";
 		public final static String CODIGO_ADMIN_PARM = "ADMIN_PARM";
 		
-		public final static String CODIGO_ADMIN_ROL_MEMB = "ADMIN_ROL_MEMB";
-		public final static String CODIGO_ADMIN_OPCION = "ADMIN_OPCION";
-		public final static String CODIGO_ADMIN_PERM = "ADMIN_PERM";
-		public final static String CODIGO_CORREO = "COD_CORREO";// FIXME
-		public final static String CODIGO_ORG_EQUIPO = "ORG_EQUIPO";
-		public final static String CODIGO_SEG_OPCION = "SEG_OPCION";
-		public final static String CODIGO_CFG_REGLA = "CFG_REGLA";
-		public final static String CODIGO_ESTADO_EXP = "ESTADO_EXP";
-		public final static String CODIGO_CFG_EMPRESA = "CFG_EMPRESA";
-		public final static String CODIGO_EXP_DELITO = "EXP_DELITO";
-		public final static String CODIGO_CFG_ENTIDAD = "CFG_ENTIDAD";
-		public final static String CODIGO_ADMIN_PERSONA = "ADMIN_PERSONA";
-		public final static String CODIGO_EXP_BANDA = "EXP_BANDA";
-		public final static String CODIGO_EXP_INMUEBLE = "EXP_INMUEBLE";
-		public final static String CODIGO_EXP_ARMA = "EXP_ARMA";
-		public final static String CODIGO_EXP_TELEFONO = "EXP_TELEFONO";
-		public final static String CODIGO_ADMIN_DROGA = "ADMIN_DROGA";
-		public final static String CODIGO_ADMIN_MARCA = "ADMIN_MARCA";
-		public final static String CODIGO_ADMIN_USUARIO = "ADMIN_USUARIO";
-		public final static String CODIGO_ADMIN_DEPENDENCIA = "ADMIN_DEPENDEN";
-		public final static String CODIGO_ADMIN_POLICIA = "ADMIN_POLICIA";
-		public final static String CODIGO_ADMIN_VEHICULO = "ADMIN_VEHICULO";
-
 		// Menu Nro 2
-		public final static String CODIGO_EXP_REG = "EXP_REG";
+		public final static String CODIGO_EXP_REG_PP = "EXP_REG_PP";
 		public final static String CODIGO_EXP_BND = "EXP_BND";
 
 		// Menu Nro 3
