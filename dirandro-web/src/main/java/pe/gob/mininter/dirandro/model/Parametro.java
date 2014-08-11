@@ -11,7 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -45,6 +50,9 @@ public class Parametro extends AuditoriaBean implements Validador, Serializable 
 	@ManyToOne
 	@JoinColumn(name="ESTADO", nullable=false)
 	private Valor estado;
+	
+	@Transient
+	private String codigoAnterior;
 
 	public Parametro() {
 	}
@@ -89,10 +97,27 @@ public class Parametro extends AuditoriaBean implements Validador, Serializable 
 		this.estado = estado;
 	}
 
-	@Override
-	public void validar() {
-		// TODO Auto-generated method stub
-		
+	public String getCodigoAnterior() {
+		return codigoAnterior;
 	}
 
+	public void setCodigoAnterior(String codigoAnterior) {
+		this.codigoAnterior = codigoAnterior;
+	}
+
+	@Override
+	public void validar() {
+		if(StringUtils.isBlank(codigo)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Código"});
+		}
+		if(StringUtils.isBlank(nombre)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}
+		if(StringUtils.isBlank(valor)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Valor"});
+		}
+		if(estado == null || estado.getId() == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		}
+	}
 }

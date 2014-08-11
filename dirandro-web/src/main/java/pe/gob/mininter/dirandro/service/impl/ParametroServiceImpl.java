@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ParametroHibernate;
+import pe.gob.mininter.dirandro.dao.oracle.ParametroOracle;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.service.ParametroService;
@@ -21,9 +22,11 @@ import pe.gob.mininter.dirandro.util.Constante;
 public class ParametroServiceImpl extends BaseServiceImpl<Parametro, String> implements ParametroService {
 
 	private static final long serialVersionUID = -2615092658998593825L;
+	
+	protected enum TipoOperacion{CREAR,ACTUALIZAR,ELIMINAR}
 
 	@Autowired
-	//private ParametroOracle parametroOracle;
+	private ParametroOracle parametroOracle;
 	
 	private ParametroHibernate parametroHibernate;
 	
@@ -36,14 +39,14 @@ public class ParametroServiceImpl extends BaseServiceImpl<Parametro, String> imp
 	@Override	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(Parametro parametro) {
-		//validarReglaNegocio(parametro,Constante.OPERACION.CREAR_REGISTRO); 
+		validarReglaNegocio(parametro,TipoOperacion.CREAR); 
 		super.crear(parametro);
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void actualizar(Parametro parametro) {		
-		//validarReglaNegocio(parametro,Constante.OPERACION.ACTUALIZAR_REGISTRO);	
+	public void actualizar(Parametro parametro) {
+		validarReglaNegocio(parametro,TipoOperacion.ACTUALIZAR);
 		//parametroOracle.actualizar(parametro);
 	}
 	
@@ -52,7 +55,6 @@ public class ParametroServiceImpl extends BaseServiceImpl<Parametro, String> imp
 	public void eliminar(Parametro parametro) {
 		eliminarXId(parametro.getCodigo());
 	}
-	
 
 	@Override
 	public List<Parametro> buscar(Parametro parametro) {
@@ -70,45 +72,45 @@ public class ParametroServiceImpl extends BaseServiceImpl<Parametro, String> imp
 			if (parametro.getEstado() != null && parametro.getEstado().getNombre() != null) {
 				filtro.createAlias("estado", "e");
 				filtro.createAlias("e.lista", "l");
-				filtro.add(Restrictions.eq("l.codigo",
-						Constante.LISTA.CODIGO.ESTADO));
+				filtro.add(Restrictions.eq("l.codigo", Constante.LISTA.CODIGO.ESTADO));
 				filtro.add(Restrictions.ilike("e.nombre",parametro.getEstado().getNombre(), MatchMode.ANYWHERE));
 			}
-
 		}
 		filtro.addOrder(Order.asc("codigo"));
 		return parametroHibernate.buscar(filtro);
-	}
-		
-	/*protected void validarReglaNegocio(Parametro parametro, String tipoOperacion){
+	}	
+	
+	protected void validarReglaNegocio(Parametro parametro, TipoOperacion tipoOperacion) {
 		parametro.setCodigo(parametro.getCodigo().trim().toUpperCase());
-		if (tipoOperacion.equals("CREAR")) {
+		if (tipoOperacion.equals(TipoOperacion.CREAR)) {
 			if (parametroHibernate.contiene(parametro.getCodigo())) {
-				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE, new Object[] { parametro.getCodigo() });
+				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_CODIGO, new Object[] { parametro.getCodigo() });
 			}
-		}else {
+		} else {
 			if(!parametro.getCodigoAnterior().equalsIgnoreCase(parametro.getCodigo())){
 				Busqueda filtroCodigo = Busqueda.forClass(Parametro.class);
 				filtroCodigo.add(Restrictions.eq("codigo", parametro.getCodigo().trim()).ignoreCase());
 				filtroCodigo.add(Restrictions.not(Restrictions.eq("codigo", parametro.getCodigoAnterior().trim()).ignoreCase()));
 				List<Parametro> parametroCodigo = parametroHibernate.buscar(filtroCodigo);
 				if (parametroCodigo.size() > 0) {
-					throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE, new Object[] { parametro.getCodigo() });
+					throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_CODIGO, new Object[] { parametro.getCodigo() });
 				}
 			}
 		}
-		
+				
 		Busqueda filtroNombre = Busqueda.forClass(Parametro.class);
 		filtroNombre.add(Restrictions.eq("nombre", parametro.getNombre().trim()).ignoreCase());
-		List<Parametro> parametroNombre = parametroHibernate.buscar(filtroNombre);
+		List<Parametro> parametroNombre=parametroHibernate.buscar(filtroNombre);
 		
-		
-	}*/
-
-	@Override
-	public List<Parametro> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		if (parametroNombre.size() > 0) {
+			if (tipoOperacion.equals(TipoOperacion.CREAR)) {
+				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_NOMBRE, new Object[] { parametro.getNombre() });
+			} else {
+				if (!parametroNombre.get(0).getCodigo().equalsIgnoreCase(parametro.getCodigo())) {
+					throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_NOMBRE, new Object[] { parametro.getNombre() });
+				}
+			}
+		}
 	}
 
 }

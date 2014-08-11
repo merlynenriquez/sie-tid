@@ -12,7 +12,5 @@ public interface ValorService extends BaseService<Valor, Long> {
 	
 	public Valor obtenerValor(String lista, String valor);
 	
-	public List<Valor> obtenerxVector(Long valor1);
-	
 	public List<Valor> obtenerListaSalida(String codigoLista);
 }

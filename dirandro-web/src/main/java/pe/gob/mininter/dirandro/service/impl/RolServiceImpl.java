@@ -17,8 +17,7 @@ import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
-public class RolServiceImpl extends BaseServiceImpl<Rol, Long>
-		implements RolService {
+public class RolServiceImpl extends BaseServiceImpl<Rol, Long> implements RolService {
 
 	/**
 	 * 
@@ -105,12 +104,6 @@ public class RolServiceImpl extends BaseServiceImpl<Rol, Long>
 		filtroM.add(Restrictions.eq("r.id",id));
 		membresiaHibernate.eliminarTodos(membresiaHibernate.buscar(filtroM));*/
 		rolHibernate.eliminarXId(id);
-	}
-
-	@Override
-	public List<Rol> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -86,7 +86,6 @@ public abstract class BaseServiceImpl<Entidad, TipoLlave> implements BaseService
 		}
 	}
 	
-	@Override
 	public Entidad obtenerPorCodigo(String codigo){
 		Busqueda filtro = Busqueda.forClass(domainClass);
 		
@@ -124,4 +123,16 @@ public abstract class BaseServiceImpl<Entidad, TipoLlave> implements BaseService
 	protected void agregarValorEstado(Busqueda filtro, String codigoLista, String codigoValor){
 		agregarValor(filtro, "l", codigoLista, "estado", "e", codigoValor);
 	}
+	
+	protected void validarReglaNegocio(Entidad object,TipoOperacion tipoOperacion){
+		logger.debug("Iniciando validarReglaNegocio en BaseServiceImpl");
+		logger.debug("finalizando validarReglaNegocio en BaseServiceImpl");
+	}
+	
+	protected void validarReglaNegocioEliminar(Entidad object){
+		logger.debug("Iniciando validarReglaNegocioEliminar en BaseServiceImpl");
+		logger.debug("finalizando validarReglaNegocioEliminar en BaseServiceImpl");
+	}
+	
+	protected enum TipoOperacion{CREAR,ACTUALIZAR,ELIMINAR}
 }

@@ -100,10 +100,4 @@ public class OpcionServiceImpl extends BaseServiceImpl<Opcion, Long> implements 
 		return null;
 	}
 
-	@Override
-	public List<Opcion> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

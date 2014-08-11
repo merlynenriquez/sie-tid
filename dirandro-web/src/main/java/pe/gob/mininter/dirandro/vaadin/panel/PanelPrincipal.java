@@ -101,8 +101,8 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("usuario", usuario);
-		String htmlData = plantillaVelocity.enviarFormato(hashmap, "toolUsuario.vm");
-		//String htmlData = "test";
+		plantillaVelocity = new PlantillaVelocity();
+		String htmlData = plantillaVelocity.enviarFormato(hashmap, "toolUsuario.vm");	
 		mniUsuario = mnuPrincipal.addItem(usuario.getUsuario(), new ThemeResource("../runo/icons/16/user.png"), null);
 		mniCerrarSesion = mniUsuario.addItem("Cerrar Sesión", new ThemeResource("../runo/icons/16/cancel.png"),this);
 		
@@ -171,27 +171,48 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 		}
 		else if(selectedItem instanceof HarecMenuItem){
 			
-			//Ventanas Generadas
+			//Lista de Ventanas Generadas
 			HarecMenuItem selectedHarecItem = (HarecMenuItem) selectedItem;
 			List<Opcion> acciones = selectedHarecItem.getAcciones();
 			String codigo = selectedHarecItem.getCodigo();
 			
 			//Paneles Estaticos
-			if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
-				lblTituloPanel.setValue("<h2>Bandeja de Trabajo</h2>");
-				/*PanelBandeja panelBandeja = new PanelBandeja(acciones);
-				panelBandeja.setFlagConsulta(flagConsulta);*/
-				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent( new PanelAdminListaValores(acciones, "-1px"), "top" );
-				
-			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_PP)){
+			/**
+			 * Menu Registro de Parte Policial
+			 */
+			if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_PP)){
 				lblTituloPanel.setValue("<h2>Parte Policial</h2>");
 				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent( new PanelRegistroParte(acciones, "-1px"), "top" );
-				
+				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
 			}
 			
-			//Ventanas
+			/**
+			 * Menu Registro de Mantenimientos
+			 */
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DELITO)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_EMPRESA)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+			}
+			
+			/**
+			 * Menu de Configuracion
+			 */
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
+				lblTituloPanel.setValue("<h2>Administracion de Lista y Valores</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelAdminListaValores(acciones, "-1px"), "top");
+			}else if (StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_PARAMETRO)){
+				lblTituloPanel.setValue("<h2>Administracion de Parametros</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelGestionParametro(acciones, "-1px"), "top");
+			}
+			
+			//Ventanas Flotantes
 			else {
 				String titulo = "Sin título";
 				String width = "-1.0";
@@ -202,8 +223,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				harecWindow.setCodigo(codigo);				
 				
 				//Verifica que la ventana no esté abierta caso contrario termina la ejecución.
-				if(ventanasAbiertas.contains(harecWindow))
-				{
+				if(ventanasAbiertas.contains(harecWindow)){
 					int index = ventanasAbiertas.indexOf(harecWindow);
 					ventanasAbiertas.get(index).focus();
 					return;
@@ -223,20 +243,13 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 		    			}
 		            }
 		        });
+				
 				//Menu 1
 				if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DELITO)){
 					titulo = "Mantenimiento de Delitos";
 					width = "950px";
 				}
 				
-				
-				
-				//Menu Configuracion 
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
-					titulo = "Mantenimiento de Lista y/o Valores";
-					width = "950px";
-					harecComponent = new PanelAdminListaValores(acciones, "650px");
-				}
 				
 				/*/ *
 				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_LOV)){

@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ValorHibernate;
-import pe.gob.mininter.dirandro.dao.oracle.ValorOracle;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ValorService;
@@ -20,18 +19,11 @@ import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
-public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
-		ValorService {
+public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements ValorService {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6023109311267834442L;
 
 	private ValorHibernate valorHibernate;
-
-	@Autowired
-	private ValorOracle valorOracle;
 	
 	@Autowired
 	public ValorServiceImpl(ValorHibernate valorHibernate) {
@@ -93,11 +85,11 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
 		
 			if (valor.getEstado() != null)
 				filtro.add(Restrictions.ilike("estado",valor.getEstado(), MatchMode.ANYWHERE));
-		
-			/*if (valor.getLista() != null) {
+			
+			if (valor.getLista() != null) {
 				filtro.createAlias("lista", "l");
 				filtro.add(Restrictions.eq("l.id", valor.getLista().getId()));
-			}*/
+			}
 		}
 		filtro.addOrder(Order.asc("id"));
 		return valorHibernate.buscar(filtro);
@@ -123,11 +115,6 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
 	}
 
 	@Override
-	public List<Valor> obtenerxVector(Long valor1) {
-		return valorOracle.obtenerxVector(valor1);
-	}
-
-	@Override
 	public List<Valor> obtenerListaSalida(String codigoLista) {
 		Busqueda filtro = Busqueda.forClass(Valor.class);
 		filtro.createAlias("lista", "l");
@@ -135,12 +122,6 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements
 		filtro.add(Restrictions.eq("estado", Constante.VALOR.CODIGO.ACTIVO));
 		filtro.add(Restrictions.or(Restrictions.eq("codigo", Constante.VALOR.CODIGO.ATESTADO), Restrictions.ilike("codigo", Constante.VALOR.CODIGO.OFICIO)));
 		return valorHibernate.buscar(filtro);
-	}
-
-	@Override
-	public List<Valor> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
