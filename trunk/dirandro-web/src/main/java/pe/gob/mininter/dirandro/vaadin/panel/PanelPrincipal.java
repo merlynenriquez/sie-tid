@@ -182,6 +182,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			 */
 			if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_PP)){
 				lblTituloPanel.setValue("<h2>Parte Policial</h2>");
+				
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
 			}
@@ -201,7 +202,12 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Mantenimiento de Persona</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelMantenPersona(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DEPENDEN)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Dependencias</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenDependencias(acciones, "-1px"), "top");
 			}
+			
 			
 			/**
 			 * Menu de Busqueda
