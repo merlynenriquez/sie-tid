@@ -240,6 +240,7 @@ public abstract class Constante {
 		public final static String CODIGO_MNT_MODELO = "MANT_MODELO";
 		public final static String CODIGO_MNT_ENTIDAD = "MANT_ENTIDAD";
 		public final static String CODIGO_MNT_POLICIA = "MANT_POLICIA";
+		public final static String CODIGO_MNT_PERSONA = "MANT_PERSONA";
 		
 		// Menu Nro 2 (Registro Principal)
 		public final static String CODIGO_EXP_REG_PP = "EXP_REG_PP";

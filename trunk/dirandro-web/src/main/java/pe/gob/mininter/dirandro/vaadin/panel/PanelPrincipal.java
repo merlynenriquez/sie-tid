@@ -197,6 +197,19 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_PERSONA)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Persona</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenPersona(acciones, "-1px"), "top");
+			}
+			
+			/**
+			 * Menu de Busqueda
+			 */
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_PERSONA)){
+				lblTituloPanel.setValue("<h2>Busqueda de Personas en los Expedientes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscaPersona(acciones, "-1px"), "top");
 			}
 			
 			/**
@@ -205,11 +218,11 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
 				lblTituloPanel.setValue("<h2>Administracion de Lista y Valores</h2>");
 				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelAdminListaValores(acciones, "-1px"), "top");
+				pnlContenido.addComponent(new PanelConfigListaValores(acciones, "-1px"), "top");
 			}else if (StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_PARAMETRO)){
 				lblTituloPanel.setValue("<h2>Administracion de Parametros</h2>");
 				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelGestionParametro(acciones, "-1px"), "top");
+				pnlContenido.addComponent(new PanelConfigParametro(acciones, "-1px"), "top");
 			}
 			
 			//Ventanas Flotantes
@@ -248,16 +261,14 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DELITO)){
 					titulo = "Mantenimiento de Delitos";
 					width = "950px";
+				}else {
+					//TODO: Mapear la Bandeja de Expedientes
+					System.out.println("Bandeja de Expedientes");
 				}
 				
 				
-				/*/ *
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_LOV)){
-					titulo = "Mantenimiento de Lista y/o Valores";
-					width = "950px";
-					height = "-1.0";
-					harecComponent = new PanelAdminListaValores(acciones);
-				}
+				/*
+				
 				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_ROL_MEMB)){
 					titulo = "Mantenimiento de Roles de Usuario";
 					width = "950px";
@@ -288,18 +299,8 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 					height = "-1.0";
 					harecComponent = new PanelAdminEstadoExpediente(acciones);
 				}
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_PERSONA)){
-					titulo = "Mantenimiento de Personas";
-					width = "950px";
-					height = "-1.0";
-					harecComponent = new PanelAdminPersonas(acciones);
-				}
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_EMPRESA)){
-					titulo = "Mantenimiento de Empresas";
-					width = "950px";
-					height = "-1.0";
-					harecComponent = new PanelAdminEmpresas(acciones);
-				}				
+				
+				
 				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_DELITO)){
 					titulo = "Mantenimiento de Delitos";
 					width = "950px";
@@ -317,31 +318,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 					width = "950px";
 					height = "-1.0";
 					harecComponent = new PanelAdminEntidades(acciones);
-				}
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_ARMA)){
-					titulo = "Mantenimiento de Armas";
-					width = "950px";
-					height = "-1.0";
-					harecComponent = new PanelAdminArmas(acciones);
-				}
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_TELEFONO)){
-					titulo = "Mantenimiento de Teléfono";
-					width = "700px";
-					height = "-1.0";
-					harecComponent = new PanelAdminTelefonos(acciones);
-				}
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_INMUEBLE)){
-					titulo = "Mantenimiento de Inmuebles";
-					width = "950px";
-					height = "-1.0";
-					harecComponent = new PanelAdminInmuebles(acciones);
-				}
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_MARCA)){
-					titulo = "Mantenimiento de Marcas";
-					width = "750px";
-					height = "-1.0";
-					harecComponent = new PanelAdminModeloMarca(acciones);
-				}
+				}			
 				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_ADMIN_DROGA)){
 					titulo = "Expediente de Drogas";
 					width = "950px";
@@ -380,22 +357,8 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 					width = "1150px";
 					height = "-1.0";
 					harecComponent = new PanelRegistroExpediente(acciones);
-				}
-				
-				//Armado del Menu Tercera Columna
-				
-				else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BOARD)){
-					titulo = "Reporte de Delitos";
-					width = "850px";
-					height = "-1.0";
-					harecComponent = new PanelReporteDelitos(acciones);
-				}
-				* /
-				else{
-					//TODO enviar mensaje de opcion no mapeada.
-				}*/
-				
-				
+				}				
+				*/				
 				
 				harecWindow.addComponent(harecComponent);
 				harecWindow.setCaption(titulo);
