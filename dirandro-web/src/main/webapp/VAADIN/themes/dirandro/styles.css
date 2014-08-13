@@ -167,7 +167,7 @@
 }
 
 .fieldRequired {
-	background-color: #FCFFB0;
+	background-color: #FFFFB8;
 }
 
 /* Lay the options horizontally */
@@ -328,10 +328,6 @@ textarea.v-textarea-prompt {
     overflow: auto;
 }
 
-.v-captiontext {
-	font-weight: bold;
-}
-
 .novscroll {
 	overflow-x: hidden;
 }
@@ -345,3 +341,78 @@ textarea.v-textarea-prompt {
   overflow-y: auto !important;
   overflow-x: auto !important;
 }
+
+/* Revert line-height for heading elements inside labels */
+.v-label h1,
+.v-label h2,
+.v-label h3,
+.v-label h4,
+.v-label h5,
+.v-label h6 {
+	line-height: normal;
+	font-weight: bold;
+	color: #44698b;
+} 
+
+.v-label h2 {
+	font-weight: bolder;
+}
+
+/**********************
+ * Default & white styles
+ **********************/
+.v-label-h1,
+.v-label-h2,
+.v-caption-h1,
+.v-caption-h2,
+.white .v-label-h1,
+.white .v-label-h2,
+.white .v-caption-h1,
+.white .v-caption-h2 {
+	font-family: Helvetica, Arial, "Lucida Grande", Geneva, Tahoma, Verdana, sans-serif;
+	font-size: 13px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #44698b;
+	letter-spacing: -0.002em;
+	text-shadow: #fff 0 -1px 1px;
+}
+
+.comboRequired {
+	background: red !important;;
+    color: #000000 !important;;
+    border: medium none !important;;
+    height: 16px !important;;
+    border-color: #A2A3A4 #BCBDBE #D2D3D4 !important;;
+    border-left: 1px solid #BCBDBE !important;;
+    border-right: 1px solid #BCBDBE !important;;
+    border-style: solid !important;;
+    border-width: 1px !important;;
+    height: 13px !important;;
+    line-height: normal !important;;
+    margin: 0 !important;;
+}
+
+.textfield-read-only{ 
+	background: #F2F2F2;
+}
+
+
+
+/**********************
+ * Combobox Requeried
+.v-app .v-filterselect-input,.v-window .v-filterselect-input,.v-popupview-popup .v-filterselect-input {
+    background: #7FA6C0;
+    color: #000000;
+    border: medium none;
+    height: 16px;
+    border-color: #A2A3A4 #BCBDBE #D2D3D4;
+    border-left: 1px solid #BCBDBE;
+    border-right: 1px solid #BCBDBE;
+    border-style: solid;
+    border-width: 1px;
+    height: 13px;
+    line-height: normal;
+    margin: 0;
+}
+ **********************/  

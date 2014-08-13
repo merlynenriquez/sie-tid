@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Usuario;
 
@@ -168,10 +169,9 @@ public abstract class HarecUtil {
 			}
 		}
 		return map;
-	}
+	}*/
 	
-	public static Map<String, List<Dependencia>> ordenarDependencias(List<Dependencia> dependencias)
-	{		
+	public static Map<String, List<Dependencia>> ordenarDependencias(List<Dependencia> dependencias){		
 		Map<String, List<Dependencia>> map = new HashMap<String, List<Dependencia>>();
 		List<Dependencia> list = null;
 		
@@ -201,7 +201,7 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
-	
+	/*
 	public static Map<String, List<Equipo>> ordenarEquipos(List<Equipo> equipos){
 		Map<String, List<Equipo>> map = new HashMap<String, List<Equipo>>();
 		List<Equipo> list2=null;

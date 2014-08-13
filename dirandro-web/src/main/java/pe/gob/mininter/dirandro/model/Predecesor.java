@@ -38,12 +38,12 @@ public class Predecesor extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
 	@JoinColumn(name="DEPENDENCIA")
-	private Dependencia expDependencia1;
+	private Dependencia dependencia;
 
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
 	@JoinColumn(name="PREDECESOR")
-	private Dependencia expDependencia2;
+	private Dependencia predecedor;
 
 	public Predecesor() {
 	}
@@ -55,21 +55,21 @@ public class Predecesor extends AuditoriaBean implements Validador, Serializable
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Dependencia getExpDependencia1() {
-		return expDependencia1;
+	
+	public Dependencia getDependencia() {
+		return dependencia;
 	}
 
-	public void setExpDependencia1(Dependencia expDependencia1) {
-		this.expDependencia1 = expDependencia1;
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
 	}
 
-	public Dependencia getExpDependencia2() {
-		return expDependencia2;
+	public Dependencia getPredecedor() {
+		return predecedor;
 	}
 
-	public void setExpDependencia2(Dependencia expDependencia2) {
-		this.expDependencia2 = expDependencia2;
+	public void setPredecedor(Dependencia predecedor) {
+		this.predecedor = predecedor;
 	}
 
 	@Override
