@@ -356,6 +356,7 @@ textarea.v-textarea-prompt {
 
 .v-label h2 {
 	font-weight: bolder;
+	font-size: 17px;
 }
 
 /**********************
@@ -374,7 +375,7 @@ textarea.v-textarea-prompt {
 	line-height: 30px;
 	font-weight: bold;
 	color: #44698b;
-	letter-spacing: -0.002em;
+	letter-spacing: -0.0002em;
 	text-shadow: #fff 0 -1px 1px;
 }
 
