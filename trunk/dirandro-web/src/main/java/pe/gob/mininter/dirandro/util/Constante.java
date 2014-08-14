@@ -234,6 +234,7 @@ public abstract class Constante {
 		public final static String CODIGO_MNT_LETRADO = "MANT_LETRADO";
 		public final static String CODIGO_MNT_HECHOS = "MANT_HECHOS";
 		public final static String CODIGO_MNT_DEPENDEN = "MANT_DEPENDEN";
+		public final static String CODIGO_MNT_POBLADO = "MANT_POBLADO";
 		public final static String CODIGO_MNT_ESPECIE = "MANT_ESPECIE";
 		public final static String CODIGO_MNT_ESTADO = "MANT_ESTADO";
 		public final static String CODIGO_MNT_PAIS = "MANT_PAIS";

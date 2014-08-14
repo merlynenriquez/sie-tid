@@ -47,68 +47,53 @@ public class Estado extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO", nullable=false)
-	private Valor estado;
-
+	private Valor estadoExpediente;
 
 	public Estado() {
 	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getCodigo() {
 		return codigo;
 	}
 
-
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-	public Valor getEstado() {
-		return estado;
+	public Valor getEstadoExpediente() {
+		return estadoExpediente;
 	}
 
-
-	public void setEstado(Valor estado) {
-		this.estado = estado;
+	public void setEstadoExpediente(Valor estadoExpediente) {
+		this.estadoExpediente = estadoExpediente;
 	}
-
 
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub
-		
 	}
-
-
 }
