@@ -574,7 +574,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		tabSheet_1 = new TabSheet();
 		tabSheet_1.setImmediate(true);
 		tabSheet_1.setWidth("800px");
-		tabSheet_1.setHeight("-1px");
+		tabSheet_1.setHeight("320px");
 		
 		// verticalLayout_10
 		verticalLayout_10 = buildVerticalLayout_10();
@@ -770,7 +770,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		pnlPersona3.setImmediate(false);
 		pnlPersona3.setWidth("-1px");
 		pnlPersona3.setHeight("-1px");
-		pnlPersona3.setMargin(false);
+		pnlPersona3.setMargin(true);
 		pnlPersona3.setSpacing(true);
 		
 		// btnGrabar
@@ -799,7 +799,8 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		verticalLayout_2.setImmediate(false);
 		verticalLayout_2.setWidth("519px");
 		verticalLayout_2.setHeight("-1px");
-		verticalLayout_2.setMargin(false);
+		verticalLayout_2.setMargin(true);
+		verticalLayout_2.setSpacing(true);
 		
 		// horizontalLayout_2
 		horizontalLayout_2 = buildHorizontalLayout_2();
@@ -809,7 +810,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		tblIdentificaciones = new Table();
 		tblIdentificaciones.setImmediate(false);
 		tblIdentificaciones.setWidth("399px");
-		tblIdentificaciones.setHeight("-1px");
+		tblIdentificaciones.setHeight("200px");
 		verticalLayout_2.addComponent(tblIdentificaciones);
 		
 		return verticalLayout_2;
@@ -823,6 +824,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		horizontalLayout_2.setWidth("381px");
 		horizontalLayout_2.setHeight("-1px");
 		horizontalLayout_2.setMargin(false);
+		horizontalLayout_2.setSpacing(true);
 		
 		// cmbTipodoc
 		cmbTipodoc = new ComboBox();
@@ -830,6 +832,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		cmbTipodoc.setImmediate(false);
 		cmbTipodoc.setWidth("-1px");
 		cmbTipodoc.setHeight("-1px");
+		cmbTipodoc.setRequired(true);
 		horizontalLayout_2.addComponent(cmbTipodoc);
 		
 		// txtNumero
@@ -838,6 +841,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		txtNumero.setImmediate(false);
 		txtNumero.setWidth("-1px");
 		txtNumero.setHeight("-1px");
+		txtNumero.setRequired(true);
 		horizontalLayout_2.addComponent(txtNumero);
 		
 		// btnNuevo
