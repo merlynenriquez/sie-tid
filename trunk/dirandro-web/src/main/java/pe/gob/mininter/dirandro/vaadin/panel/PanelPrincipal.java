@@ -210,9 +210,9 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelMantenPolicia(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_EMPRESA)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				lblTituloPanel.setValue("<h2>Mantenimiento de Empresa</h2>");
 				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+				pnlContenido.addComponent(new PanelMantenEmpresa(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ENTIDAD)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Entidades</h2>");
 				pnlContenido.removeAllComponents();
