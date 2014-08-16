@@ -1,3 +1,7 @@
 /** Creacion de Secuencias **/
 
 
+-- DROP SEQUENCE SEQ_PERSONA;
+CREATE SEQUENCE SEQ_PERSONA START WITH 1;
+
+
