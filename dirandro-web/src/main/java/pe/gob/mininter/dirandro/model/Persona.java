@@ -33,7 +33,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -5500204306148416617L;
 
 	@Id
-	@SequenceGenerator(name="PER_PERSONA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_PERSONA_ID_GENERATOR", sequenceName="SEQ_PERSONA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
