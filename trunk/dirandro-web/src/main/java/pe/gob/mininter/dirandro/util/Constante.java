@@ -27,62 +27,16 @@ public abstract class Constante {
 
 	public static abstract class LISTA {
 		public static abstract class CODIGO {
-			public final static String MARCAS_TIPO = "MARCAS_TIPO";
+			public final static String DOCUMENTO_TIPO = "DOCUMENTO_TIPO";
 			public final static String ESTADO = "REGISTRO_ESTADO";
-			public final static String TIPO_OPCION = "OPCION_TIPO";
-			public final static String MEMBRESIA_TIPO = "MEMBRESIA_TIPO";
-			public final static String DOI_TIPO = "DOI_TIPO";
+			public final static String OPCION_TIPO = "OPCION_TIPO";
 			public final static String TELEFONO_TIPO = "TELEFONO_TIPO";
-			public final static String INTERPOS_CANAL = "INTERPOS_CANAL";
 			public final static String ADJUNTO_TIPO = "ADJUNTO_TIPO";
-			public final static String PRODUCTO_TIPO = "PRODUCTO_TIPO";
-			public final static String PERSONA_ORIGEN = "PERSONA_ORIGEN";
-			public final static String TIPO_REGLA = "REGLA_CATEGORIA";
-			public final static String AGRUPACION_TIPO = "AGRUPACION_TIPO";
-			public final static String TAREA_AMBITO = "TAREA_AMBITO";
-			public final static String EVENTO = "EVENTO";
-			public final static String EVENTO_TIPO = "EVENTO_TIPO";
-			public final static String DICTAMEN = "DICTAMEN";
-			public final static String FUNDAMENTO = "FUNDAMENTO";
-			public final static String DICTAMEN_TIPO = "DICTAMEN_TIPO";
-			public final static String OPERACION_FUENTE = "OPER_FUENTE";
-			public final static String OPERACION_TIPO = "OPER_TIPO";
-			public final static String MONEDA_TIPO = "MONEDA";
-			public final static String PROCEDENCIA = "ENTIDAD_TIPO";
-			public final static String PERSONA_TIPO = "DOCUMENTO_TIPO";
-			public final static String PERSONA_ESTADO_CIVIL = "ESTADO_CIVIL";
-			public final static String PERSONA_TIPO_PAISES = "PAISES";
-			public final static String COD_PROCESAL = "CODIGO_PROCESAL";
-			public final static String PARTICIPACION = "PARTICIPACION";
-			public final static String SIT_INVOLUCRADO = "SITUACION_AUTOR";
-			public final static String CARGO_TIPO = "CARGO_TIPO";
-			public final static String GRADO_TIPO = "GRADO_TIPO";
-			public final static String DROGA_TIPO = "DROGA_TIPO";
-			public final static String PRIORIDAD = "PRIORIDAD_EXP";
-			public final static String FINALIDAD = "FINALIDAD_EXP";
-			public final static String DOCUMENTO_TIPO = "DOCUMENTO_EXP";
-			public final static String TRANSMISION_TIPO = "TRANSMISION";
-			public final static String CILINDRAJE_TIPO = "CILINDRAJE";
-			public final static String VEHICULO_TIPO = "TIPO_VEHICULO";
-			public final static String VEHICULO_SIT = "VEHICULO_SIT";
-			public final static String ESTADO_GENERAL = "ESTADO_OBJETOS";
-			public final static String AÑO_VEHICULO = "PERIODO";
-			public final static String COLOR_VEHICULO = "COLORES";
-			public final static String DIRECCION_TIPO = "TIPO_DIRECCION";
-			public final static String CLASIF_ARMA = "ARMA_CLASIF";
-			public final static String EST_SERIE = "SERIE_EST";
-			public final static String CALIBRE_TIPO = "CALIBRE";
-			public final static String FUNCION_TIPO = "TIPO_FUNCION";
-			public final static String MEDIDA_TIPO = "TIPO_MEDIDA";
-			public final static String ESPECIE_TIPO = "TIPO_ESPECIE";
-			public final static String MEDIOS_TIPO = "TIPO_MEDIOS";
-			public final static String MOVIL_TIPO = "TIPO_MOVIL";
-			public final static String TABLA = "TABLAS";
-			public final static String RUTA_PRIORIDAD = "PRIORIDAD_RUTA";
-			public final static String ESTADO_ASIGNACION = "ASIGNACION_EST";
-			public final static String PER_ORIENT_SEX = "ORIENT_SEX_PER";
-			public final static String ESTADO_RUTA = "ESTADO_MOV_EXP";
-			
+			public final static String MONEDA = "MONEDA";
+			public final static String TABLAS = "TABLAS";
+			public final static String ENTIDAD_TIPO = "ENTIDAD_TIPO";
+			public final static String SIGLAS_DOC = "SIGLAS_DOC";
+			public final static String ESTADO_CIVIL = "ESTADO_CIVIL";
 		}
 	}
 
