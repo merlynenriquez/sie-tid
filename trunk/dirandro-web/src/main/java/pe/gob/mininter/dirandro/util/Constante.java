@@ -258,8 +258,8 @@ public abstract class Constante {
 		public final static String CODIGO_BSQ_DOCUMENTO = "BSQ_DOCUMENTO";
 				
 		// Menu Nro 4 (Seguridad de Usuarios)
-		public final static String CODIGO_SEG_PERMISO = "SEG_PERMISO";
 		public final static String CODIGO_SEG_USUARIO = "SEG_USUARIO";
+		public final static String CODIGO_SEG_PERMISO = "SEG_PERMISO";
 		public final static String CODIGO_SEG_OPCION = "SEG_OPCION";
 		public final static String CODIGO_SEG_EQUIPO = "SEG_EQUIPO";
 		public final static String CODIGO_SEG_ROL = "SEG_ROL";
@@ -373,6 +373,7 @@ public abstract class Constante {
 		public static final ThemeResource RECEIVE = new ThemeResource("img/receive.png");
 		public static final ThemeResource COPY = new ThemeResource("img/copy.png");
 		public static final ThemeResource RELOAD = new ThemeResource("img/reload.png");
+		public static final ThemeResource CREATE = new ThemeResource("img/create.png");
 		
 		public static final ThemeResource DELITO = new ThemeResource("img/delito.png");
 		public static final ThemeResource INVOLUCRADO = new ThemeResource("img/involucrado.png");

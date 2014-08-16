@@ -182,7 +182,6 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			 */
 			if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_PP)){
 				lblTituloPanel.setValue("<h2>Parte Policial</h2>");
-				
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
 			}
@@ -194,30 +193,14 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
-			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_EMPRESA)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_HECHOS)){
+				lblTituloPanel.setValue("<h2>Tipos del Hecho</h2>");
 				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+				//TODO: Crear Panel
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_PERSONA)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Persona</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelMantenPersona(acciones, "-1px"), "top");
-			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DEPENDEN)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Dependencias</h2>");
-				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelMantenDependencias(acciones, "-1px"), "top");
-			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ESTADO)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Estados del Expediente</h2>");
-				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelMantenEstado(acciones, "-1px"), "top");
-			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_PAIS)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Paises</h2>");
-				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelMantenPais(acciones, "-1px"), "top");
-			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_POBLADO)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Centros Poblados</h2>");
-				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelMantenPoblado(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_LETRADO)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Letrado</h2>");
 				pnlContenido.removeAllComponents();
@@ -226,8 +209,43 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Mantenimiento de Policia</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelMantenPolicia(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_EMPRESA)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ENTIDAD)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Entidades</h2>");
+				pnlContenido.removeAllComponents();
+				//TODO: Crear Panel
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DEPENDEN)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Dependencias</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenDependencias(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_POBLADO)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Centros Poblados</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenPoblado(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DELITO)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				pnlContenido.removeAllComponents();
+				//TODO: Crear Panel
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ESTADO)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Estados del Expediente</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenEstado(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_PAIS)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Paises</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenPais(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_MODELO)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				pnlContenido.removeAllComponents();
+				//TODO: Crear Panel
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ESPECIE)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
+				pnlContenido.removeAllComponents();
+				//TODO: Crear Panel
 			}
-			
 			
 			/**
 			 * Menu de Busqueda
@@ -239,16 +257,38 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			}
 			
 			/**
+			 * Menu de Seguridad
+			 */
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_SEG_USUARIO)){
+				lblTituloPanel.setValue("<h2>Administración de Usuarios</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelSegUsuario(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_SEG_OPCION)){
+				lblTituloPanel.setValue("<h2>Administración de Opciones</h2>");
+				pnlContenido.removeAllComponents();
+				//TODO: Crear Panel
+			}
+			
+			/**
 			 * Menu de Configuracion
 			 */
-			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
-				lblTituloPanel.setValue("<h2>Administracion de Lista y Valores</h2>");
-				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelConfigListaValores(acciones, "-1px"), "top");
-			}else if (StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_PARAMETRO)){
+			else if (StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_PARAMETRO)){
 				lblTituloPanel.setValue("<h2>Administracion de Parametros</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelConfigParametro(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_CFG_LOV)){
+				lblTituloPanel.setValue("<h2>Administracion de Lista y Valores</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelConfigListaValores(acciones, "-1px"), "top");
+			}
+			
+			/**
+			 * Menu de Reportes
+			 */
+			else if (StringUtils.equals(codigo, Constante.OPCION.CODIGO_RPT_ATESTADO)){
+				lblTituloPanel.setValue("<h2>Reporte del Atestado</h2>");
+				pnlContenido.removeAllComponents();
+				//TODO: Crear Panel
 			}
 			
 			//Ventanas Flotantes

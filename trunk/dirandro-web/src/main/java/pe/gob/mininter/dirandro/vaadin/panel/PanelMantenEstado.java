@@ -127,6 +127,7 @@ public class PanelMantenEstado extends HarecComponent implements TextChangeListe
 					txtCodigo.setValue(item.getItemProperty("codigo").getValue());
 					txtNombre.setValue(item.getItemProperty("nombre").getValue());
 					txtDescripcion.setValue(item.getItemProperty("descripcion").getValue());
+					
 					cmbEstado.setValue((Valor)item.getItemProperty("estado").getValue());
 				}
 			}
