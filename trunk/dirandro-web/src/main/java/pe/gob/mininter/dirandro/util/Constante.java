@@ -199,6 +199,7 @@ public abstract class Constante {
 		
 		// Menu Nro 2 (Registro Principal)
 		public final static String CODIGO_EXP_REG_PP = "EXP_REG_PP";
+		public final static String CODIGO_EXP_REG_HR = "EXP_REG_HR";
 		public final static String CODIGO_EXP_BND = "EXP_BND";
 
 		// Menu Nro 3 (Busqueda de Tablas)
@@ -210,6 +211,7 @@ public abstract class Constante {
 		public final static String CODIGO_BSQ_ORGANIZAC = "BSQ_ORGANIZAC";
 		public final static String CODIGO_BSQ_NA = "BSQ_NA";
 		public final static String CODIGO_BSQ_DOCUMENTO = "BSQ_DOCUMENTO";
+		public final static String CODIGO_BSQ_HOJADEREMISION = "BSQ_HR";
 				
 		// Menu Nro 4 (Seguridad de Usuarios)
 		public final static String CODIGO_SEG_USUARIO = "SEG_USUARIO";
