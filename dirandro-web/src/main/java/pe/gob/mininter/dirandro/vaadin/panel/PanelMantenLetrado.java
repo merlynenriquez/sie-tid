@@ -87,6 +87,8 @@ public class PanelMantenLetrado extends HarecComponent {
 		
 	}
 	public void postConstruct() {
+		cmbTipoDoc.setEnabled(false);
+		
 	}
 	
 
@@ -117,7 +119,7 @@ public class PanelMantenLetrado extends HarecComponent {
 		pnlPrincipal = new HorizontalLayout();
 		pnlPrincipal.setStyleName("backColor");
 		pnlPrincipal.setImmediate(false);
-		pnlPrincipal.setWidth("680px");
+		pnlPrincipal.setWidth("-1px");
 		pnlPrincipal.setHeight("320px");
 		pnlPrincipal.setMargin(true);
 		pnlPrincipal.setSpacing(true);
@@ -141,7 +143,7 @@ public class PanelMantenLetrado extends HarecComponent {
 		pnlLista.setImmediate(false);
 		pnlLista.setWidth("-1px");
 		pnlLista.setHeight("-1px");
-		pnlLista.setMargin(false);
+		pnlLista.setMargin(true);
 		
 		// lblFiltro
 		lblFiltro = new Label();
@@ -210,7 +212,7 @@ public class PanelMantenLetrado extends HarecComponent {
 		pnlDatos.setStyleName("h2");
 		pnlDatos.setImmediate(false);
 		pnlDatos.setWidth("-1px");
-		pnlDatos.setHeight("320px");
+		pnlDatos.setHeight("-1px");
 		pnlDatos.setMargin(false);
 		
 		// lblLetrado

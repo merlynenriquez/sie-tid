@@ -30,7 +30,7 @@ public class Estado extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 4210782498533438412L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ESTADO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_ESTADO_ID_GENERATOR", sequenceName="SEQ_ESTADO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ESTADO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
