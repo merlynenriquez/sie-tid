@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Usuario;
 
 public abstract class HarecUtil {
@@ -198,6 +199,37 @@ public abstract class HarecUtil {
 				}
 			}
 		}		
+		return map;
+	}
+	
+
+	public static Map<String, List<Persona>> ordenarPersonas(List<Persona> personas){
+		Map<String, List<Persona>> map = new HashMap<String, List<Persona>>();
+		List<Persona> list = null;
+		
+		for (Persona persona : personas) {
+			if(persona.getPerPersona() == null){
+				if(map.get(Constante.OPCION.KEY_PADRE)==null){
+					list = new ArrayList<Persona>();
+					list.add(persona);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				} else {
+					list = (List<Persona>) map.get(Constante.OPCION.KEY_PADRE);
+					list.add(persona);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				}
+			}else{
+				if (map.get(persona.getPerPersona().getId().toString()) == null) {
+					list = new ArrayList<Persona>();
+					list.add(persona);
+					map.put(persona.getPerPersona().getId().toString(), list);
+				} else {
+					list = (List<Persona>) map.get(persona.getPerPersona().getId().toString());
+					list.add(persona);
+					map.put(persona.getPerPersona().getId().toString(), list);
+				}
+			}
+		}
 		return map;
 	}
 	
