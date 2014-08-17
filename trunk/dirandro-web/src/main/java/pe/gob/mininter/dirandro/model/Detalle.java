@@ -28,7 +28,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 2783567751765001502L;
 
 	@Id
-	@SequenceGenerator(name="PER_DETALLE_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_DETALLE_ID_GENERATOR", sequenceName="SEQ_DETALLE")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_DETALLE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -57,77 +57,77 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_RAZA")
-	private Valor cfgValor1;
+	private Valor tipoRaza;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_OREJA", nullable=false)
-	private Valor cfgValor2;
+	private Valor tipoOreja;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="COLOR_CABELLO")
-	private Valor cfgValor3;
+	private Valor colorCabello;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="COLOR_OJO")
-	private Valor cfgValor4;
+	private Valor colorOjo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="COLOR_PIEL")
-	private Valor cfgValor5;
+	private Valor colorPiel;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_OJO")
-	private Valor cfgValor6;
+	private Valor tipoOjo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_NARIZ", nullable=false)
-	private Valor cfgValor7;
+	private Valor tipoNariz;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_LABIO")
-	private Valor cfgValor8;
+	private Valor tipoLabio;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_CEJA")
-	private Valor cfgValor9;
+	private Valor tipoCeja;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_CABELLO")
-	private Valor cfgValor10;
+	private Valor tipoCabello;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PROFESION", nullable=false)
-	private Valor cfgValor11;
+	private Valor profesion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="FORMA_CARA")
-	private Valor cfgValor12;
+	private Valor formaCara;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="FORMA_BOCA", nullable=false)
-	private Valor cfgValor13;
+	private Valor formaBoca;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CORTE_CABELLO")
-	private Valor cfgValor14;
+	private Valor corteCabello;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CONTEXTURA", nullable=false)
-	private Valor cfgValor15;
+	private Valor contextura;
 
 	//bi-directional many-to-one association to NoIdentificado
 	@ManyToOne
@@ -137,7 +137,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
 	public Detalle() {
 	}
@@ -205,125 +205,125 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	public void setVestimenta(String vestimenta) {
 		this.vestimenta = vestimenta;
 	}
-
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	
+	public Valor getTipoRaza() {
+		return tipoRaza;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setTipoRaza(Valor tipoRaza) {
+		this.tipoRaza = tipoRaza;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getTipoOreja() {
+		return tipoOreja;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTipoOreja(Valor tipoOreja) {
+		this.tipoOreja = tipoOreja;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getColorCabello() {
+		return colorCabello;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setColorCabello(Valor colorCabello) {
+		this.colorCabello = colorCabello;
 	}
 
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
+	public Valor getColorOjo() {
+		return colorOjo;
 	}
 
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
+	public void setColorOjo(Valor colorOjo) {
+		this.colorOjo = colorOjo;
 	}
 
-	public Valor getCfgValor5() {
-		return this.cfgValor5;
+	public Valor getColorPiel() {
+		return colorPiel;
 	}
 
-	public void setCfgValor5(Valor cfgValor5) {
-		this.cfgValor5 = cfgValor5;
+	public void setColorPiel(Valor colorPiel) {
+		this.colorPiel = colorPiel;
 	}
 
-	public Valor getCfgValor6() {
-		return this.cfgValor6;
+	public Valor getTipoOjo() {
+		return tipoOjo;
 	}
 
-	public void setCfgValor6(Valor cfgValor6) {
-		this.cfgValor6 = cfgValor6;
+	public void setTipoOjo(Valor tipoOjo) {
+		this.tipoOjo = tipoOjo;
 	}
 
-	public Valor getCfgValor7() {
-		return this.cfgValor7;
+	public Valor getTipoNariz() {
+		return tipoNariz;
 	}
 
-	public void setCfgValor7(Valor cfgValor7) {
-		this.cfgValor7 = cfgValor7;
+	public void setTipoNariz(Valor tipoNariz) {
+		this.tipoNariz = tipoNariz;
 	}
 
-	public Valor getCfgValor8() {
-		return this.cfgValor8;
+	public Valor getTipoLabio() {
+		return tipoLabio;
 	}
 
-	public void setCfgValor8(Valor cfgValor8) {
-		this.cfgValor8 = cfgValor8;
+	public void setTipoLabio(Valor tipoLabio) {
+		this.tipoLabio = tipoLabio;
 	}
 
-	public Valor getCfgValor9() {
-		return this.cfgValor9;
+	public Valor getTipoCeja() {
+		return tipoCeja;
 	}
 
-	public void setCfgValor9(Valor cfgValor9) {
-		this.cfgValor9 = cfgValor9;
+	public void setTipoCeja(Valor tipoCeja) {
+		this.tipoCeja = tipoCeja;
 	}
 
-	public Valor getCfgValor10() {
-		return this.cfgValor10;
+	public Valor getTipoCabello() {
+		return tipoCabello;
 	}
 
-	public void setCfgValor10(Valor cfgValor10) {
-		this.cfgValor10 = cfgValor10;
+	public void setTipoCabello(Valor tipoCabello) {
+		this.tipoCabello = tipoCabello;
 	}
 
-	public Valor getCfgValor11() {
-		return this.cfgValor11;
+	public Valor getProfesion() {
+		return profesion;
 	}
 
-	public void setCfgValor11(Valor cfgValor11) {
-		this.cfgValor11 = cfgValor11;
+	public void setProfesion(Valor profesion) {
+		this.profesion = profesion;
 	}
 
-	public Valor getCfgValor12() {
-		return this.cfgValor12;
+	public Valor getFormaCara() {
+		return formaCara;
 	}
 
-	public void setCfgValor12(Valor cfgValor12) {
-		this.cfgValor12 = cfgValor12;
+	public void setFormaCara(Valor formaCara) {
+		this.formaCara = formaCara;
 	}
 
-	public Valor getCfgValor13() {
-		return this.cfgValor13;
+	public Valor getFormaBoca() {
+		return formaBoca;
 	}
 
-	public void setCfgValor13(Valor cfgValor13) {
-		this.cfgValor13 = cfgValor13;
+	public void setFormaBoca(Valor formaBoca) {
+		this.formaBoca = formaBoca;
 	}
 
-	public Valor getCfgValor14() {
-		return this.cfgValor14;
+	public Valor getCorteCabello() {
+		return corteCabello;
 	}
 
-	public void setCfgValor14(Valor cfgValor14) {
-		this.cfgValor14 = cfgValor14;
+	public void setCorteCabello(Valor corteCabello) {
+		this.corteCabello = corteCabello;
 	}
 
-	public Valor getCfgValor15() {
-		return this.cfgValor15;
+	public Valor getContextura() {
+		return contextura;
 	}
 
-	public void setCfgValor15(Valor cfgValor15) {
-		this.cfgValor15 = cfgValor15;
+	public void setContextura(Valor contextura) {
+		this.contextura = contextura;
 	}
 
 	public NoIdentificado getPerNoIdentificado() {
@@ -334,12 +334,12 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 		this.perNoIdentificado = perNoIdentificado;
 	}
 
-	public Persona getPerPersona() {
-		return this.perPersona;
+	public Persona getPersona() {
+		return this.persona;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersona(Persona perPersona) {
+		this.persona = perPersona;
 	}
 
 	@Override

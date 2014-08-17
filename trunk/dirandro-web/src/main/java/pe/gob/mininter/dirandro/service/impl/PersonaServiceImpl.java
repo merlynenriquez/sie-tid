@@ -1,8 +1,10 @@
 package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 
 @Service
 public class PersonaServiceImpl extends BaseServiceImpl<Persona, Long> implements PersonaService{
@@ -116,5 +119,12 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona, Long> implement
 		*/
 		}		
 		return personaHibernate.buscar(filtro);		
+	}
+
+	@Override
+	public Map<String, List<Persona>> listarPersonas() {
+		Busqueda filtro = Busqueda.forClass(Persona.class);
+		filtro.addOrder(Order.asc("nombres")); 
+		return HarecUtil.ordenarPersonas( personaHibernate.buscar(filtro) );
 	}
 }
