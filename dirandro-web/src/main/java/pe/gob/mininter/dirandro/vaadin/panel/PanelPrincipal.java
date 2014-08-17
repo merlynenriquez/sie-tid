@@ -185,6 +185,11 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
 			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_HR)){
+						lblTituloPanel.setValue("<h2>Hoja de Remisión</h2>");
+						pnlContenido.removeAllComponents();
+						pnlContenido.addComponent(new PanelRegistroHojaRem(acciones, "-1px"), "top");
+			}
 			
 			/**
 			 * Menu Registro de Mantenimientos
@@ -192,7 +197,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DELITO)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Delitos</h2>");
 				pnlContenido.removeAllComponents();
-				pnlContenido.addComponent(new PanelRegistroParte(acciones, "-1px"), "top");
+				pnlContenido.addComponent(new PanelMantenDelito(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_HECHOS)){
 				lblTituloPanel.setValue("<h2>Tipos del Hecho</h2>");
 				pnlContenido.removeAllComponents();
@@ -254,6 +259,16 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Busqueda de Personas en los Expedientes</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBuscaPersona(acciones, "-1px"), "top");
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_HOJADEREMISION)){
+				lblTituloPanel.setValue("<h2>Busqueda de Hoja de Remisión</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarHojaRem(acciones, "-1px"), "top");	
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_ORGANIZAC)){
+					lblTituloPanel.setValue("<h2>Busqueda de Organizaciones</h2>");
+					pnlContenido.removeAllComponents();
+					pnlContenido.addComponent(new PanelBuscarOrganizacion(acciones, "-1px"), "top");	
 			}
 			
 			/**
