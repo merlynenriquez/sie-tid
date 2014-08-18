@@ -347,6 +347,5 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 		{
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
 		}*/
-		System.out.println( " NO VALIDA XQ TODO ES OPCIONAL validando " );
 	}
 }

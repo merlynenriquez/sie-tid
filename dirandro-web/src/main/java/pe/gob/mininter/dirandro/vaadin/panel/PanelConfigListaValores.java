@@ -214,9 +214,7 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 		postConstruct();
 	}
 	
-	public void postConstruct() {	
-		
-		pnlAdminListaValor.setStyleName("backColor");
+	public void postConstruct() {
 		
 		lblIdLista.setValue("");
 		lblIdValor.setValue("");
@@ -816,7 +814,7 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 		
 		// lblFiltroBusqueda
 		lblFiltroBusqueda = new Label();
-		lblFiltroBusqueda.setStyleName("h1");
+		lblFiltroBusqueda.setStyleName("h2");
 		lblFiltroBusqueda.setImmediate(false);
 		lblFiltroBusqueda.setWidth("100.0%");
 		lblFiltroBusqueda.setHeight("-1px");
@@ -893,7 +891,7 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 		
 		// lblGrabarLista
 		lblGrabarLista = new Label();
-		lblGrabarLista.setStyleName("h1");
+		lblGrabarLista.setStyleName("h2");
 		lblGrabarLista.setImmediate(false);
 		lblGrabarLista.setWidth("100.0%");
 		lblGrabarLista.setHeight("-1px");
@@ -1069,7 +1067,6 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 		
 		// lblValores
 		lblValores = new Label();
-		lblValores.setStyleName("h1");
 		lblValores.setImmediate(false);
 		lblValores.setWidth("100.0%");
 		lblValores.setHeight("-1px");
@@ -1137,7 +1134,7 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 		
 		// lblGrabarValor
 		lblGrabarValor = new Label();
-		lblGrabarValor.setStyleName("h1");
+		lblGrabarValor.setStyleName("h2");
 		lblGrabarValor.setImmediate(false);
 		lblGrabarValor.setWidth("100.0%");
 		lblGrabarValor.setHeight("-1px");

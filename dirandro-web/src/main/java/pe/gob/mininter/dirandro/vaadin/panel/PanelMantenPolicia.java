@@ -119,7 +119,7 @@ public class PanelMantenPolicia extends HarecComponent {
 	private HorizontalLayout buildPnlPrincipal() {
 		// common part: create layout
 		pnlPrincipal = new HorizontalLayout();
-		pnlPrincipal.setStyleName("backColor");
+		pnlPrincipal.setStyleName("whiteBackGround");
 		pnlPrincipal.setImmediate(false);
 		pnlPrincipal.setWidth("680px");
 		pnlPrincipal.setHeight("380px");
