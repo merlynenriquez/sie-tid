@@ -152,7 +152,6 @@ public class PanelMantenDependencias extends HarecComponent implements ClickList
 
 	@Override
 	public void postConstruct() {
-		pnlPrincipal.setStyleName("backColor");
 		
 		btnCrear.addListener((ClickListener)this);
 		btnEliminar.addListener((ClickListener)this);
@@ -496,6 +495,7 @@ public class PanelMantenDependencias extends HarecComponent implements ClickList
 	private HorizontalLayout buildPnlPrincipal() {
 		// common part: create layout
 		pnlPrincipal = new HorizontalLayout();
+		pnlPrincipal.setStyleName("whiteBackGround");
 		pnlPrincipal.setImmediate(false);
 		pnlPrincipal.setWidth("-1px");
 		pnlPrincipal.setHeight("-1px");

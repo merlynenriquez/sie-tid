@@ -84,7 +84,7 @@ public class PanelBuscaPersona extends HarecComponent {
 	}
 	
 	public void postConstruct() {
-		pnlPrincipal.setStyleName("backColor");
+		
 		txtnro.setValue("41564250");
 		List<Persona> personas = null;
 		Persona e= new Persona();
@@ -210,6 +210,7 @@ public class PanelBuscaPersona extends HarecComponent {
 	private VerticalLayout buildPnlPrincipal() {
 		// common part: create layout
 		pnlPrincipal = new VerticalLayout();
+		pnlPrincipal.setStyleName("whiteBackGround");
 		pnlPrincipal.setImmediate(false);
 		pnlPrincipal.setWidth("800px");
 		pnlPrincipal.setHeight("-1px");

@@ -110,7 +110,7 @@ public class PanelMantenPoblado extends HarecComponent {
 	private HorizontalLayout buildPnlPrincipal() {
 		// common part: create layout
 		pnlPrincipal = new HorizontalLayout();
-		pnlPrincipal.setStyleName("backColor");
+		pnlPrincipal.setStyleName("whiteBackGround");
 		pnlPrincipal.setImmediate(false);
 		pnlPrincipal.setWidth("-1px");
 		pnlPrincipal.setHeight("-1px");

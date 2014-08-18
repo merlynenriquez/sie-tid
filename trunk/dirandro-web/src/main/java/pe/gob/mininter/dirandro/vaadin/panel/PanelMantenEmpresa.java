@@ -106,7 +106,7 @@ public class PanelMantenEmpresa extends HarecComponent {
 	private HorizontalLayout buildPnlPrincipal() {
 		// common part: create layout
 		pnlPrincipal = new HorizontalLayout();
-		pnlPrincipal.setStyleName("backColor");
+		pnlPrincipal.setStyleName("whiteBackGround");
 		pnlPrincipal.setImmediate(false);
 		pnlPrincipal.setWidth("900px");
 		pnlPrincipal.setHeight("380px");

@@ -22,26 +22,16 @@ import com.vaadin.ui.Window.Notification;
 //@Configurable
 public class MainApplication extends Application {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 4844959612603416132L;
 	private static final Log logger = LogFactory.getLog(MainApplication.class);
 	
 	private Window windowHarec;
-	
 	private MessageSource messageSource;
 	
-	private boolean flagConsulta;
-
 	@Override
-	public void init() {	
-		
+	public void init() {
 		messageSource = Injector.obtenerServicio(MessageSource.class);
-		logger.debug(" messages " + messageSource) ;
 		setTheme("dirandro");
-		
 		windowHarec = new Window();	
 		
 		Usuario usuario = HarecUtil.obtenerUsuarioSesion();
@@ -55,14 +45,12 @@ public class MainApplication extends Application {
 		}
 		
 		setMainWindow(windowHarec);
-		
 	}
 	
 	public void cargarPanelPrincipal(){
 		windowHarec.removeAllComponents();
 
 		PanelPrincipal panelPrincipal = new PanelPrincipal();
-		panelPrincipal.setFlagConsulta(flagConsulta);
 		panelPrincipal.prepararPanelPrincipal();
 		
 		panelPrincipal.setWidth("100%");
@@ -71,7 +59,6 @@ public class MainApplication extends Application {
 		windowHarec.setCaption("Dirandro");
 		windowHarec.getContent().setHeight("100%");
 		windowHarec.addComponent(panelPrincipal);
-
 	}
 	
 	@Override

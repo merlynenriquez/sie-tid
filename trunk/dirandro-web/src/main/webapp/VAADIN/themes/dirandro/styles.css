@@ -320,8 +320,8 @@ textarea.v-textarea-prompt {
 	background-color: #F7F7F7;
 }
 
-.backColor{ 
-	background: white;
+.whiteBackGround {
+	background: #FBFBFB;
 }
 
 .v-app .v-customlayout {
