@@ -362,6 +362,7 @@ public abstract class Constante {
 	public static abstract class EXCEPTION {
 		public final static String FOREING_KEY = "ORA-02292";
 	}
+	
 
 	public static final String NUEVA_LINEA = System.getProperty("line.separator");
 
