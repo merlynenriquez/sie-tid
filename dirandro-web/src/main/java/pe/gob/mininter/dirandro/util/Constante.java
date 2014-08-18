@@ -198,6 +198,7 @@ public abstract class Constante {
 
 		public final static String KEY_PADRE = "padre";
 
+		public final static String CODIGO_SEG_CLAVE = "SEG_CLAVE";
 		// Menu Nro 1 (Mantenimientos)
 		public final static String CODIGO_MNT_DELITO = "MANT_DELITO";
 		public final static String CODIGO_MNT_EMPRESA = "MANT_EMPRESA";
