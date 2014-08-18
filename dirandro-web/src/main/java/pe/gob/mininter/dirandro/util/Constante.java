@@ -187,6 +187,12 @@ public abstract class Constante {
 		public final static String VALIDAR_PARAMETRO_EXISTENTE_CODIGO = "validar.parametro.existente.codigo";
 		public final static String VALIDAR_PARAMETRO_EXISTENTE_NOMBRE = "validar.parametro.existente.nombre";
 		
+		/**
+		 * @@author mhurtado
+		 */
+		public static final String VALIDAR_VEHICULO_EXISTENTE= "validar.vehiculo.existente";
+		public static final String VALIDAR_INMUEBLE_EXISTENTE= "validar.inmueble.existente";
+		
 	}
 
 	public static abstract class SESION {
