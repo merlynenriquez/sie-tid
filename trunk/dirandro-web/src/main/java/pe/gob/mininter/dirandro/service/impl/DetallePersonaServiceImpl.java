@@ -35,8 +35,13 @@ public class DetallePersonaServiceImpl  extends BaseServiceImpl<Detalle, Long>  
 
 	@Override
 	public void crear(Detalle object) {
-		object.validar();
-		detallePersonaHibernate.crear(object);
+		try {
+			object.validar();
+			System.out.println( "insertar detalle persona " );
+			super.crear(object);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -40,7 +44,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	private String fechalugarUltvez;
 
 	@Column(precision=3, scale=2)
-	private BigDecimal peso;
+	private Double peso;
 
 	@Column(name="RASGO_FACIAL", length=400)
 	private String rasgoFacial;
@@ -166,11 +170,11 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 		this.fechalugarUltvez = fechalugarUltvez;
 	}
 
-	public BigDecimal getPeso() {
+	public Double getPeso() {
 		return this.peso;
 	}
 
-	public void setPeso(BigDecimal peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 
@@ -344,7 +348,10 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		/*if(StringUtils.isBlank( nombres ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}*/
+		System.out.println( " NO VALIDA XQ TODO ES OPCIONAL validando " );
 	}
 }

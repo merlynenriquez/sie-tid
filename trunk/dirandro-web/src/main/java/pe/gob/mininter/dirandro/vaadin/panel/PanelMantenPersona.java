@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import pe.gob.mininter.dirandro.model.Correo;
@@ -275,10 +276,27 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	
 	private List<Valor> lTipoDocPersona;
 	private List<Valor> lEstadoCivil;
+	
+	private List<Valor> lTipoCeja;
+	private List<Valor> lTipoOreja;
+	private List<Valor> lColorPiel;
+	private List<Valor> lContextura;
+	private List<Valor> lTipoCabello;
+	private List<Valor> lTipoRaza;
+	private List<Valor> lColorCabello;
+	private List<Valor> lCorteCabello;
+	private List<Valor> lTipoOjo;
+	private List<Valor> lColorOjo;
+	private List<Valor> lTipoNariz;
+	private List<Valor> lFormaCara;
+	private List<Valor> lTipoLabio;
+	private List<Valor> lFormaBoca;
+	private List<Valor> lProfesion;
+	
 	private List<Persona> lPersonas; 
 	private Persona persona;
 	private Detalle detalle;
-	private boolean flagNuevaPersona;
+	private boolean flagNuevaPersona, flagNuevoDetalle;
 	
 	public PanelMantenPersona(List<Opcion> acciones, String height) {
 		super(acciones, height);
@@ -302,6 +320,23 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		//Inicializar listas 
 		lTipoDocPersona = valorService.obtenerLista(Constante.LISTA.CODIGO.DOCUMENTO_TIPO);	
 		lEstadoCivil = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO_CIVIL);
+		
+		lTipoCabello = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_CABELLO);
+		lTipoCeja = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_CEJA);
+		lTipoLabio = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_LABIO);
+		lTipoNariz = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_NARIZ);
+		lTipoOjo = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_OJO);
+		lTipoOreja = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_OREJA);
+		lTipoRaza = valorService.obtenerLista(Constante.LISTA.CODIGO.TIPO_RAZA);
+		lColorCabello = valorService.obtenerLista(Constante.LISTA.CODIGO.COLOR_CABELLO);
+		lColorOjo = valorService.obtenerLista(Constante.LISTA.CODIGO.COLOR_OJO);
+		lColorPiel = valorService.obtenerLista(Constante.LISTA.CODIGO.COLOR_PIEL);
+		lContextura = valorService.obtenerLista(Constante.LISTA.CODIGO.CONTEXTURA);
+		lCorteCabello = valorService.obtenerLista(Constante.LISTA.CODIGO.CORTE_CABELLO);
+		lFormaBoca = valorService.obtenerLista(Constante.LISTA.CODIGO.FORMA_BOCA);
+		lFormaCara = valorService.obtenerLista(Constante.LISTA.CODIGO.FORMA_CARA);
+		lProfesion = valorService.obtenerLista(Constante.LISTA.CODIGO.PROFESION);
+		
 		lPersonas = personaService.buscar( null );
 		
 		//inicializar paneles
@@ -311,7 +346,6 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		inicializaPanelParentezco();
 		inicializaPanelDirecciones();
 		inicializaPanelCorreo();
-		 
 	
 	}
 	
@@ -390,10 +424,12 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	
 	public void llenaPanelDetalle(){
 		if( detalle != null ){
+			flagNuevoDetalle = false;
 			txaDetRazgoFacial.setValue( detalle.getRasgoFacial() );
 			//TODO completar
 		}else{
 			detalle = new Detalle();
+			flagNuevoDetalle = true;
 		}
 	}
 	
@@ -591,13 +627,67 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	
 	public void inicializaPanelDetalle(){
 
-		List<Valor> contextura = null;
-		Valor v= new Valor();
-		v.setCodigo("1");
-		v.setNombre("Delgado");
-		contextura=new ArrayList<Valor>();
-		contextura.add(v);
-		cargarListaContextura(contextura, true);
+		logger.debug(" inicializaPanelDetalle() ");
+		
+		cmbDetTipoCabello.setInputPrompt("Tipo de cabello");
+		cmbDetTipoCabello.setItemCaptionPropertyId("nombre");
+		cmbDetTipoCabello.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoCabello));
+		
+		cmbDetTipoCeja.setInputPrompt("Tipo de ceja");
+		cmbDetTipoCeja.setItemCaptionPropertyId("nombre");
+		cmbDetTipoCeja.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoCeja));
+		
+		cmbDetTipoLabio.setInputPrompt("Tipo de labio");
+		cmbDetTipoLabio.setItemCaptionPropertyId("nombre");
+		cmbDetTipoLabio.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoLabio));
+		
+		cmbDetTipoNariz.setInputPrompt("Tipo de nariz");
+		cmbDetTipoNariz.setItemCaptionPropertyId("nombre");
+		cmbDetTipoNariz.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoNariz));
+		
+		cmbDetTipoOjo.setInputPrompt("Tipo de ojo");
+		cmbDetTipoOjo.setItemCaptionPropertyId("nombre");
+		cmbDetTipoOjo.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoOjo));
+		
+		cmbDetTipoOreja.setInputPrompt("Tipo de oreja");
+		cmbDetTipoOreja.setItemCaptionPropertyId("nombre");
+		cmbDetTipoOreja.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoOreja));
+		
+		cmbDetTipoRaza.setInputPrompt("Tipo de raza");
+		cmbDetTipoRaza.setItemCaptionPropertyId("nombre");
+		cmbDetTipoRaza.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lTipoRaza));
+		
+		cmbDetColorCabello.setInputPrompt("Color de cabello");
+		cmbDetColorCabello.setItemCaptionPropertyId("nombre");
+		cmbDetColorCabello.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lColorCabello));
+		
+		cmbDetColorOjo.setInputPrompt("Color de ojo");
+		cmbDetColorOjo.setItemCaptionPropertyId("nombre");
+		cmbDetColorOjo.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lColorOjo));
+		
+		cmbDetPiel.setInputPrompt("Color de piel");
+		cmbDetPiel.setItemCaptionPropertyId("nombre");
+		cmbDetPiel.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lColorPiel));
+		
+		cmbDetCorteCabello.setInputPrompt("Corte de cabello");
+		cmbDetCorteCabello.setItemCaptionPropertyId("nombre");
+		cmbDetCorteCabello.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lCorteCabello));
+		
+		cmbDetFormaBoca.setInputPrompt("Forma de boca");
+		cmbDetFormaBoca.setItemCaptionPropertyId("nombre");
+		cmbDetFormaBoca.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lFormaBoca));
+		
+		cmbDetFormaCara.setInputPrompt("Forma de cara");
+		cmbDetFormaCara.setItemCaptionPropertyId("nombre");
+		cmbDetFormaCara.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lFormaCara));
+		
+		cmbDetProfesion.setInputPrompt("Profesiones");
+		cmbDetProfesion.setItemCaptionPropertyId("nombre");
+		cmbDetProfesion.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lProfesion));
+		
+		cmbDetContextura.setItemCaptionPropertyId("nombre");
+		cmbDetContextura.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lContextura));
+				
 		btnDetGrabar.addListener((ClickListener)this);
 	}
 	
@@ -641,37 +731,40 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	
 	public void registrarDetallePersona(){
 		
-		//detalle = new Detalle();
-		detalle.setCalzado( txtDetCalzado.getValue().toString() );
-		detalle.setColorCabello( (Valor)cmbDetColorCabello.getValue() );
-		detalle.setColorOjo( (Valor)cmbDetColorOjo.getValue() );
-		detalle.setColorPiel( (Valor)cmbDetPiel.getValue() );
-		detalle.setContextura( (Valor)cmbDetContextura.getValue());
-		detalle.setCorteCabello( (Valor)cmbDetCorteCabello.getValue());
-		detalle.setFechalugarUltvez( txaDetUltVisto.getValue().toString() );
-		detalle.setFormaBoca( (Valor)cmbDetFormaBoca.getValue());
-		detalle.setFormaCara((Valor)cmbDetFormaCara.getValue() );
 		//detalle.setId(id);
 		//detalle.setPerNoIdentificado(perNoIdentificado);
-		//detalle.setPerPersona(perPersona);
-		detalle.setPeso( new BigDecimal( txtDetPeso.getValue().toString() ));
-		detalle.setProfesion((Valor)cmbDetProfesion.getValue() );
-		detalle.setRasgoFacial(txaDetRazgoFacial.getValue().toString() );
+		detalle.setPersona(persona);
+		detalle.setPeso( !StringUtils.isEmpty( txtDetPeso.getValue().toString() ) ? Double.parseDouble( txtDetPeso.getValue().toString() ) : null );
+		detalle.setTalla( !StringUtils.isEmpty( txtDetTalla.getValue().toString() ) ?  new BigDecimal(txtDetTalla.getValue().toString()) : null );
+		detalle.setRasgoFacial( txaDetRazgoFacial.getValue().toString() );
 		detalle.setSenas( txaDetSenias.getValue().toString() );
-		detalle.setTalla( new BigDecimal( txtDetTalla.getValue().toString()));
+		detalle.setCalzado( txtDetCalzado.getValue().toString() );
+		detalle.setVestimenta( txaDetVestimenta.getValue().toString() );
+		detalle.setFechalugarUltvez( txaDetUltVisto.getValue().toString() );
+		
+		detalle.setColorCabello( (Valor)cmbDetColorCabello.getValue());
+		detalle.setColorOjo( (Valor)cmbDetColorOjo.getValue());
+		detalle.setColorPiel( (Valor)cmbDetPiel.getValue());
+		detalle.setContextura( (Valor)cmbDetContextura.getValue());
+		detalle.setCorteCabello( (Valor)cmbDetCorteCabello.getValue());
+		detalle.setFormaBoca( (Valor)cmbDetFormaBoca.getValue());
+		detalle.setFormaCara((Valor)cmbDetFormaCara.getValue());
 		detalle.setTipoCabello((Valor)cmbDetTipoCabello.getValue());
+		detalle.setProfesion((Valor)cmbDetProfesion.getValue());
 		detalle.setTipoCeja((Valor)cmbDetTipoCeja.getValue());
 		detalle.setTipoLabio((Valor)cmbDetTipoLabio.getValue());
 		detalle.setTipoNariz((Valor)cmbDetTipoNariz.getValue());
 		detalle.setTipoOjo((Valor)cmbDetTipoOjo.getValue());
 		detalle.setTipoOreja((Valor)cmbDetTipoOreja.getValue());
 		detalle.setTipoRaza((Valor)cmbDetTipoRaza.getValue());
-		detalle.setVestimenta( txaDetVestimenta.getValue().toString() );
 		
-		if(flagNuevaPersona)
-			detallePersonaService.crear( detalle );
-		else
+		if(flagNuevoDetalle){
+			logger.debug("Listo para insert ");
+			detallePersonaService.crear( detalle );	
+		}else{
+			logger.debug("Listo para update ");
 			detallePersonaService.actualizar( detalle );
+		}
 		
 	}
 	
@@ -693,13 +786,6 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		getWindow().addWindow(window);
 	}
 	
-	private void cargarListaContextura(List<Valor> contextura, boolean flagLimpiar){
-		BeanItemContainer<Valor> bicListas = new BeanItemContainer<Valor>(Valor.class,  contextura);
-		logger.debug("dato "+bicListas.size());
-		cmbDetContextura.setContainerDataSource(bicListas);
-		cmbDetContextura.setItemCaptionPropertyId("nombre");
-	}
-
 	private void cargarListasCorreos(List<Correo> correos, boolean flagLimpiar){
 		 IndexedContainer container = new IndexedContainer();
          container.addContainerProperty("Correo", String.class, null);
