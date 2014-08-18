@@ -37,6 +37,22 @@ public abstract class Constante {
 			public final static String ENTIDAD_TIPO = "ENTIDAD_TIPO";
 			public final static String SIGLAS_DOC = "SIGLAS_DOC";
 			public final static String ESTADO_CIVIL = "ESTADO_CIVIL";
+			public final static String TIPO_CEJA = "TIPO_CEJA";
+			public final static String TIPO_OREJA = "TIPO_OREJA";
+			public final static String COLOR_PIEL = "COLOR_PIEL";
+			public final static String CONTEXTURA = "CONTEXTURA";
+			public final static String TIPO_CABELLO = "TIPO_CABELLO";
+			public final static String TIPO_RAZA = "TIPO_RAZA";
+			public final static String COLOR_CABELLO = "COLOR_CABELLO";
+			public final static String CORTE_CABELLO = "CORTE_CABELLO";
+			public final static String TIPO_OJO = "TIPO_OJO";
+			public final static String COLOR_OJO = "COLOR_OJO";
+			public final static String TIPO_NARIZ = "TIPO_NARIZ";
+			public final static String FORMA_CARA = "FORMA_CARA";
+			public final static String TIPO_LABIO = "TIPO_LABIO";
+			public final static String FORMA_BOCA = "FORMA_BOCA";
+			public final static String PROFESION = "PROFESION";
+
 		}
 	}
 
