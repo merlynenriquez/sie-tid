@@ -38,7 +38,7 @@ public class DetallePersonaServiceImpl  extends BaseServiceImpl<Detalle, Long>  
 		try {
 			object.validar();
 			System.out.println( "insertar detalle persona " );
-			super.crear(object);	
+			detallePersonaHibernate.crear(object);	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

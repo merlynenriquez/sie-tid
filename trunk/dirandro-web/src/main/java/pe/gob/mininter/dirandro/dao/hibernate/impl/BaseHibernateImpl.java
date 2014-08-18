@@ -61,6 +61,7 @@ public abstract class BaseHibernateImpl <Entidad extends Serializable, TipoLlave
 	@Override
 	public void crear(Entidad t) {
 		getSession().save(t);
+		getSession().flush();
 	}
 	
 	@Override

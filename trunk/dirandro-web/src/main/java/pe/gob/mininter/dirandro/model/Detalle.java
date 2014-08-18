@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.StringUtils;
-
-import pe.gob.mininter.dirandro.exception.ValidacionException;
-import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -43,7 +38,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	@Column(name="FECHALUGAR_ULTVEZ", length=2000)
 	private String fechalugarUltvez;
 
-	@Column(precision=3, scale=2)
+	@Column
 	private Double peso;
 
 	@Column(name="RASGO_FACIAL", length=400)
@@ -52,8 +47,8 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	@Column(length=2000)
 	private String senas;
 
-	@Column(precision=3, scale=2)
-	private BigDecimal talla;
+	@Column
+	private Double talla;
 
 	@Column(length=2000)
 	private String vestimenta;
@@ -65,7 +60,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO_OREJA", nullable=false)
+	@JoinColumn(name="TIPO_OREJA")
 	private Valor tipoOreja;
 
 	//bi-directional many-to-one association to Valor
@@ -90,7 +85,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO_NARIZ", nullable=false)
+	@JoinColumn(name="TIPO_NARIZ")
 	private Valor tipoNariz;
 
 	//bi-directional many-to-one association to Valor
@@ -110,7 +105,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="PROFESION", nullable=false)
+	@JoinColumn(name="PROFESION")
 	private Valor profesion;
 
 	//bi-directional many-to-one association to Valor
@@ -120,7 +115,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="FORMA_BOCA", nullable=false)
+	@JoinColumn(name="FORMA_BOCA")
 	private Valor formaBoca;
 
 	//bi-directional many-to-one association to Valor
@@ -130,7 +125,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="CONTEXTURA", nullable=false)
+	@JoinColumn(name="CONTEXTURA")
 	private Valor contextura;
 
 	//bi-directional many-to-one association to NoIdentificado
@@ -194,11 +189,11 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 		this.senas = senas;
 	}
 
-	public BigDecimal getTalla() {
+	public Double getTalla() {
 		return this.talla;
 	}
 
-	public void setTalla(BigDecimal talla) {
+	public void setTalla(Double talla) {
 		this.talla = talla;
 	}
 
