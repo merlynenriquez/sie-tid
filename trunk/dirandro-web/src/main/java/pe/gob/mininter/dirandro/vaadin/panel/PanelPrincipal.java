@@ -169,6 +169,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
     		session.invalidate();
 			getWindow().getApplication().close();
 		}
+		
 		else if(selectedItem instanceof HarecMenuItem){
 			
 			//Lista de Ventanas Generadas
@@ -190,6 +191,16 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 						pnlContenido.removeAllComponents();
 						pnlContenido.addComponent(new PanelRegistroHojaRem(acciones, "-1px"), "top");
 			}
+			/**
+			 * Menu Cambio de clave
+			 */
+			
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_SEG_CLAVE)){
+				lblTituloPanel.setValue("<h2>Cambio de Clave</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelSegCambioClave(acciones, "-1px"), "top");
+			}
+			
 			
 			/**
 			 * Menu Registro de Mantenimientos
