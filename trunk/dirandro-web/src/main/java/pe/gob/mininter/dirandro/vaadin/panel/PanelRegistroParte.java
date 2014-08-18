@@ -374,6 +374,15 @@ public class PanelRegistroParte extends HarecComponent implements  ClickListener
 	private Label lblNroPartePolicial;
 	private static final long serialVersionUID = -4639683924066371051L;
 	
+	/**
+	 * @author mhurtado
+	 * 
+	 */
+	
+	private PanelVehiculoExpediente panelVehiculoExpediente = new PanelVehiculoExpediente();
+	private PanelEspecie panelEspecies =  new PanelEspecie();	
+	private PanelInmuebleExpediente panelInmuebleExpediente =  new PanelInmuebleExpediente();
+	
 	private Test pnlTest;
 	/**
 	 * The constructor should first build the main layout, set the
@@ -508,6 +517,18 @@ public class PanelRegistroParte extends HarecComponent implements  ClickListener
 		// pnlInstalaciones
 		pnlInstalaciones = buildPnlInstalaciones();
 		tabSheet_1.addTab(pnlInstalaciones, "Instalaciones", null);
+		
+		/**
+		 * @@author mhurtado
+		 */
+		// pnlVehiculo		
+		tabSheet_1.addTab(panelVehiculoExpediente.buildMainLayout(), "Vehiculo", null);
+		
+		// pnlEspecie		
+		tabSheet_1.addTab(panelEspecies.buildMainLayout(), "Especies", null);
+		
+		// pnlInmueble		
+		tabSheet_1.addTab(panelInmuebleExpediente.buildMainLayout(), "Inmueble", null);
 		
 		return tabSheet_1;
 	}
