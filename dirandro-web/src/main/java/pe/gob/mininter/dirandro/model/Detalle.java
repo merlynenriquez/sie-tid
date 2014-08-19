@@ -41,7 +41,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	@Column
 	private Double peso;
 
-	@Column(name="RASGO_FACIAL", length=400)
+	@Column(name="RASGO_FACIAL", length=4000)
 	private String rasgoFacial;
 
 	@Column(length=2000)

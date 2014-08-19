@@ -69,7 +69,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="NACIONALIDAD")
-	private Valor nacionalidad;
+	private Pais nacionalidad;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -157,12 +157,12 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	public void setOrientacionSexual(Valor orientacionSexual) {
 		this.orientacionSexual = orientacionSexual;
 	}
-
-	public Valor getNacionalidad() {
+	
+	public Pais getNacionalidad() {
 		return nacionalidad;
 	}
 
-	public void setNacionalidad(Valor nacionalidad) {
+	public void setNacionalidad(Pais nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
 

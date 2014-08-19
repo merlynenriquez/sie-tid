@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,20 +38,17 @@ public class CentroPoblado extends AuditoriaBean implements Validador, Serializa
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CATEGORIA")
-	private Valor cfgValor;
+	private Valor categoria;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor estado;
 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="DISTRITO")
-	private Distrito ubgDistrito;
-
-	//bi-directional many-to-one association to Expediente
-	@OneToMany(mappedBy="expCentroPoblado")
-	private List<Expediente> expExpedientes;
-
-	//bi-directional many-to-one association to Instalacion
-	@OneToMany(mappedBy="expCentroPoblado")
-	private List<Instalacion> expInstalacions;
+	private Distrito ubicacion;
 
 	public CentroPoblado() {
 	}
@@ -74,64 +69,28 @@ public class CentroPoblado extends AuditoriaBean implements Validador, Serializa
 		this.nombre = nombre;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public Valor getCategoria() {
+		return categoria;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setCategoria(Valor categoria) {
+		this.categoria = categoria;
 	}
 
-	public Distrito getUbgDistrito() {
-		return this.ubgDistrito;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setUbgDistrito(Distrito ubgDistrito) {
-		this.ubgDistrito = ubgDistrito;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
-	public List<Expediente> getExpExpedientes() {
-		return this.expExpedientes;
+	public Distrito getUbicacion() {
+		return ubicacion;
 	}
 
-	public void setExpExpedientes(List<Expediente> expExpedientes) {
-		this.expExpedientes = expExpedientes;
-	}
-
-	public Expediente addExpExpediente(Expediente expExpediente) {
-		getExpExpedientes().add(expExpediente);
-		expExpediente.setExpCentroPoblado(this);
-
-		return expExpediente;
-	}
-
-	public Expediente removeExpExpediente(Expediente expExpediente) {
-		getExpExpedientes().remove(expExpediente);
-		expExpediente.setExpCentroPoblado(null);
-
-		return expExpediente;
-	}
-
-	public List<Instalacion> getExpInstalacions() {
-		return this.expInstalacions;
-	}
-
-	public void setExpInstalacions(List<Instalacion> expInstalacions) {
-		this.expInstalacions = expInstalacions;
-	}
-
-	public Instalacion addExpInstalacion(Instalacion expInstalacion) {
-		getExpInstalacions().add(expInstalacion);
-		expInstalacion.setExpCentroPoblado(this);
-
-		return expInstalacion;
-	}
-
-	public Instalacion removeExpInstalacion(Instalacion expInstalacion) {
-		getExpInstalacions().remove(expInstalacion);
-		expInstalacion.setExpCentroPoblado(null);
-
-		return expInstalacion;
+	public void setUbicacion(Distrito ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 
 	@Override

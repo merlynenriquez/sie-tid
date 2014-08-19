@@ -1,7 +1,7 @@
 package pe.gob.mininter.dirandro.dao.hibernate;
 
-import pe.gob.mininter.dirandro.model.Parentezco;
+import pe.gob.mininter.dirandro.model.Parentesco;
 
-public interface ParentescoHibernate extends BaseHibernate<Parentezco, Long> {
+public interface ParentescoHibernate extends BaseHibernate<Parentesco, Long> {
 
 }

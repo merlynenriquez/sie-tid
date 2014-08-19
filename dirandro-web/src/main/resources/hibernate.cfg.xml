@@ -60,7 +60,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.Imagen" />
 		<mapping class="pe.gob.mininter.dirandro.model.Letrado" />
 		<mapping class="pe.gob.mininter.dirandro.model.NoIdentificado" />
-		<mapping class="pe.gob.mininter.dirandro.model.Parentezco" />
+		<mapping class="pe.gob.mininter.dirandro.model.Parentesco" />
 		<mapping class="pe.gob.mininter.dirandro.model.Persona" />
 		<mapping class="pe.gob.mininter.dirandro.model.Policia" />
 		<mapping class="pe.gob.mininter.dirandro.model.Telefono" />

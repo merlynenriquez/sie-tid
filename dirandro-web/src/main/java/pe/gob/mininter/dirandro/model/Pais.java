@@ -32,10 +32,16 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(nullable=false, length=200)
+	@Column(nullable=false, length=400)
 	private String nombre;
+	
+	@Column(length=400)
+	private String nacionalidad;
 
-	private Integer estado;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor estado;
 	
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
@@ -69,12 +75,20 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 	public void setMntPais(Pais mntPais) {
 		this.mntPais = mntPais;
 	}
-	 
-	public Integer getEstado() {
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+	public Valor getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Integer estado) {
+	public void setEstado(Valor estado) {
 		this.estado = estado;
 	}
 
