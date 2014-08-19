@@ -32,13 +32,14 @@ public class Pais implements Serializable {
 	@Column(nullable=false, length=400)
 	private String nombre;
 
-	//bi-directional one-to-one association to Droga
-	@OneToOne(mappedBy="mntPais1")
-	private Droga expDroga;
+	//bi-directional many-to-one association to Droga
+	@OneToMany(mappedBy="mntPais1")
+	private List<Droga> expDrogas1;
+
 
 	//bi-directional many-to-one association to Droga
-	@OneToMany(mappedBy="mntPais2")
-	private List<Droga> expDrogas;
+	@OneToMany(mappedBy="mntPais3")
+	private List<Droga> expDrogas2;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -63,10 +64,6 @@ public class Pais implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
-
-	//bi-directional one-to-one association to Persona
-	@OneToOne(mappedBy="mntPais")
-	private Persona perPersona;
 
 	public Pais() {
 	}
@@ -111,34 +108,48 @@ public class Pais implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Droga getExpDroga() {
-		return this.expDroga;
+	public List<Droga> getExpDrogas1() {
+		return this.expDrogas1;
 	}
 
-	public void setExpDroga(Droga expDroga) {
-		this.expDroga = expDroga;
+	public void setExpDrogas1(List<Droga> expDrogas1) {
+		this.expDrogas1 = expDrogas1;
 	}
 
-	public List<Droga> getExpDrogas() {
-		return this.expDrogas;
+	public Droga addExpDrogas1(Droga expDrogas1) {
+		getExpDrogas1().add(expDrogas1);
+		expDrogas1.setMntPais1(this);
+
+		return expDrogas1;
 	}
 
-	public void setExpDrogas(List<Droga> expDrogas) {
-		this.expDrogas = expDrogas;
+	public Droga removeExpDrogas1(Droga expDrogas1) {
+		getExpDrogas1().remove(expDrogas1);
+		expDrogas1.setMntPais1(null);
+
+		return expDrogas1;
 	}
 
-	public Droga addExpDroga(Droga expDroga) {
-		getExpDrogas().add(expDroga);
-		expDroga.setMntPais2(this);
-
-		return expDroga;
+	public List<Droga> getExpDrogas2() {
+		return this.expDrogas2;
 	}
 
-	public Droga removeExpDroga(Droga expDroga) {
-		getExpDrogas().remove(expDroga);
-		expDroga.setMntPais2(null);
+	public void setExpDrogas2(List<Droga> expDrogas2) {
+		this.expDrogas2 = expDrogas2;
+	}
 
-		return expDroga;
+	public Droga addExpDrogas2(Droga expDrogas2) {
+		getExpDrogas2().add(expDrogas2);
+		expDrogas2.setMntPais3(this);
+
+		return expDrogas2;
+	}
+
+	public Droga removeExpDrogas2(Droga expDrogas2) {
+		getExpDrogas2().remove(expDrogas2);
+		expDrogas2.setMntPais3(null);
+
+		return expDrogas2;
 	}
 
 	public Valor getCfgValor() {
@@ -193,14 +204,6 @@ public class Pais implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
-	}
-
-	public Persona getPerPersona() {
-		return this.perPersona;
-	}
-
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
 	}
 
 }
