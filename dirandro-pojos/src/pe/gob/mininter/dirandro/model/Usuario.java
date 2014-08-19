@@ -482,14 +482,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="segUsuario2")
 	private List<NoIdentificado> perNoIdentificados2;
 
-	//bi-directional many-to-one association to Parentezco
-	@OneToMany(mappedBy="segUsuario1")
-	private List<Parentezco> perParentezcos1;
-
-	//bi-directional many-to-one association to Parentezco
-	@OneToMany(mappedBy="segUsuario2")
-	private List<Parentezco> perParentezcos2;
-
 	//bi-directional many-to-one association to Persona
 	@OneToMany(mappedBy="segUsuario1")
 	private List<Persona> perPersonas1;
@@ -598,6 +590,14 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to Provincia
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Provincia> ubgProvincias2;
+
+	//bi-directional many-to-one association to PerParentesco
+	@OneToMany(mappedBy="segUsuario1")
+	private List<Parentesco> perParentescos1;
+
+	//bi-directional many-to-one association to PerParentesco
+	@OneToMany(mappedBy="segUsuario2")
+	private List<Parentesco> perParentescos2;
 
 	public Usuario() {
 	}
@@ -3080,50 +3080,6 @@ public class Usuario implements Serializable {
 		return perNoIdentificados2;
 	}
 
-	public List<Parentezco> getPerParentezcos1() {
-		return this.perParentezcos1;
-	}
-
-	public void setPerParentezcos1(List<Parentezco> perParentezcos1) {
-		this.perParentezcos1 = perParentezcos1;
-	}
-
-	public Parentezco addPerParentezcos1(Parentezco perParentezcos1) {
-		getPerParentezcos1().add(perParentezcos1);
-		perParentezcos1.setSegUsuario1(this);
-
-		return perParentezcos1;
-	}
-
-	public Parentezco removePerParentezcos1(Parentezco perParentezcos1) {
-		getPerParentezcos1().remove(perParentezcos1);
-		perParentezcos1.setSegUsuario1(null);
-
-		return perParentezcos1;
-	}
-
-	public List<Parentezco> getPerParentezcos2() {
-		return this.perParentezcos2;
-	}
-
-	public void setPerParentezcos2(List<Parentezco> perParentezcos2) {
-		this.perParentezcos2 = perParentezcos2;
-	}
-
-	public Parentezco addPerParentezcos2(Parentezco perParentezcos2) {
-		getPerParentezcos2().add(perParentezcos2);
-		perParentezcos2.setSegUsuario2(this);
-
-		return perParentezcos2;
-	}
-
-	public Parentezco removePerParentezcos2(Parentezco perParentezcos2) {
-		getPerParentezcos2().remove(perParentezcos2);
-		perParentezcos2.setSegUsuario2(null);
-
-		return perParentezcos2;
-	}
-
 	public List<Persona> getPerPersonas1() {
 		return this.perPersonas1;
 	}
@@ -3624,6 +3580,50 @@ public class Usuario implements Serializable {
 		ubgProvincias2.setSegUsuario2(null);
 
 		return ubgProvincias2;
+	}
+
+	public List<Parentesco> getPerParentescos1() {
+		return this.perParentescos1;
+	}
+
+	public void setPerParentescos1(List<Parentesco> perParentescos1) {
+		this.perParentescos1 = perParentescos1;
+	}
+
+	public Parentesco addPerParentescos1(Parentesco perParentescos1) {
+		getPerParentescos1().add(perParentescos1);
+		perParentescos1.setSegUsuario1(this);
+
+		return perParentescos1;
+	}
+
+	public Parentesco removePerParentescos1(Parentesco perParentescos1) {
+		getPerParentescos1().remove(perParentescos1);
+		perParentescos1.setSegUsuario1(null);
+
+		return perParentescos1;
+	}
+
+	public List<Parentesco> getPerParentescos2() {
+		return this.perParentescos2;
+	}
+
+	public void setPerParentescos2(List<Parentesco> perParentescos2) {
+		this.perParentescos2 = perParentescos2;
+	}
+
+	public Parentesco addPerParentescos2(Parentesco perParentescos2) {
+		getPerParentescos2().add(perParentescos2);
+		perParentescos2.setSegUsuario2(this);
+
+		return perParentescos2;
+	}
+
+	public Parentesco removePerParentescos2(Parentesco perParentescos2) {
+		getPerParentescos2().remove(perParentescos2);
+		perParentescos2.setSegUsuario2(null);
+
+		return perParentescos2;
 	}
 
 }

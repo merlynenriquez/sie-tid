@@ -122,14 +122,6 @@ public class Persona implements Serializable {
 	@OneToMany(mappedBy="perPersona")
 	private List<NoIdentificado> perNoIdentificados;
 
-	//bi-directional many-to-one association to Parentezco
-	@OneToMany(mappedBy="perPersona1")
-	private List<Parentezco> perParentezcos1;
-
-	//bi-directional many-to-one association to Parentezco
-	@OneToMany(mappedBy="perPersona2")
-	private List<Parentezco> perParentezcos2;
-
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ORIENTACION_SEXUAL")
@@ -137,18 +129,18 @@ public class Persona implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="NACIONALIDAD")
+	@JoinColumn(name="ESTADO_CIVIL")
 	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="ESTADO_CIVIL")
+	@JoinColumn(name="TIPO_DOCUMENTO")
 	private Valor cfgValor3;
 
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="TIPO_DOCUMENTO")
-	private Valor cfgValor4;
+	//bi-directional one-to-one association to Pais
+	@OneToOne
+	@JoinColumn(name="ID", nullable=false, insertable=false, updatable=false)
+	private Pais mntPais;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
@@ -177,6 +169,14 @@ public class Persona implements Serializable {
 	//bi-directional many-to-one association to Policia
 	@OneToMany(mappedBy="perPersona")
 	private List<Policia> perPolicias;
+
+	//bi-directional many-to-one association to PerParentesco
+	@OneToMany(mappedBy="perPersona1")
+	private List<Parentesco> perParentescos1;
+
+	//bi-directional many-to-one association to PerParentesco
+	@OneToMany(mappedBy="perPersona2")
+	private List<Parentesco> perParentescos2;
 
 	public Persona() {
 	}
@@ -671,50 +671,6 @@ public class Persona implements Serializable {
 		return perNoIdentificado;
 	}
 
-	public List<Parentezco> getPerParentezcos1() {
-		return this.perParentezcos1;
-	}
-
-	public void setPerParentezcos1(List<Parentezco> perParentezcos1) {
-		this.perParentezcos1 = perParentezcos1;
-	}
-
-	public Parentezco addPerParentezcos1(Parentezco perParentezcos1) {
-		getPerParentezcos1().add(perParentezcos1);
-		perParentezcos1.setPerPersona1(this);
-
-		return perParentezcos1;
-	}
-
-	public Parentezco removePerParentezcos1(Parentezco perParentezcos1) {
-		getPerParentezcos1().remove(perParentezcos1);
-		perParentezcos1.setPerPersona1(null);
-
-		return perParentezcos1;
-	}
-
-	public List<Parentezco> getPerParentezcos2() {
-		return this.perParentezcos2;
-	}
-
-	public void setPerParentezcos2(List<Parentezco> perParentezcos2) {
-		this.perParentezcos2 = perParentezcos2;
-	}
-
-	public Parentezco addPerParentezcos2(Parentezco perParentezcos2) {
-		getPerParentezcos2().add(perParentezcos2);
-		perParentezcos2.setPerPersona2(this);
-
-		return perParentezcos2;
-	}
-
-	public Parentezco removePerParentezcos2(Parentezco perParentezcos2) {
-		getPerParentezcos2().remove(perParentezcos2);
-		perParentezcos2.setPerPersona2(null);
-
-		return perParentezcos2;
-	}
-
 	public Valor getCfgValor1() {
 		return this.cfgValor1;
 	}
@@ -739,12 +695,12 @@ public class Persona implements Serializable {
 		this.cfgValor3 = cfgValor3;
 	}
 
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
+	public Pais getMntPais() {
+		return this.mntPais;
 	}
 
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
+	public void setMntPais(Pais mntPais) {
+		this.mntPais = mntPais;
 	}
 
 	public Persona getPerPersona() {
@@ -821,6 +777,50 @@ public class Persona implements Serializable {
 		perPolicia.setPerPersona(null);
 
 		return perPolicia;
+	}
+
+	public List<Parentesco> getPerParentescos1() {
+		return this.perParentescos1;
+	}
+
+	public void setPerParentescos1(List<Parentesco> perParentescos1) {
+		this.perParentescos1 = perParentescos1;
+	}
+
+	public Parentesco addPerParentescos1(Parentesco perParentescos1) {
+		getPerParentescos1().add(perParentescos1);
+		perParentescos1.setPerPersona1(this);
+
+		return perParentescos1;
+	}
+
+	public Parentesco removePerParentescos1(Parentesco perParentescos1) {
+		getPerParentescos1().remove(perParentescos1);
+		perParentescos1.setPerPersona1(null);
+
+		return perParentescos1;
+	}
+
+	public List<Parentesco> getPerParentescos2() {
+		return this.perParentescos2;
+	}
+
+	public void setPerParentescos2(List<Parentesco> perParentescos2) {
+		this.perParentescos2 = perParentescos2;
+	}
+
+	public Parentesco addPerParentescos2(Parentesco perParentescos2) {
+		getPerParentescos2().add(perParentescos2);
+		perParentescos2.setPerPersona2(this);
+
+		return perParentescos2;
+	}
+
+	public Parentesco removePerParentescos2(Parentesco perParentescos2) {
+		getPerParentescos2().remove(perParentescos2);
+		perParentescos2.setPerPersona2(null);
+
+		return perParentescos2;
 	}
 
 }

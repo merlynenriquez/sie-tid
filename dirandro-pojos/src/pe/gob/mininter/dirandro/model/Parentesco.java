@@ -6,17 +6,17 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the PER_PARENTEZCO database table.
+ * The persistent class for the PER_PARENTESCO database table.
  * 
  */
 @Entity
-@Table(name="PER_PARENTEZCO")
-public class Parentezco implements Serializable {
+@Table(name="PER_PARENTESCO")
+public class Parentesco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PER_PARENTEZCO_ID_GENERATOR", sequenceName="SEQ_")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_PARENTEZCO_ID_GENERATOR")
+	@SequenceGenerator(name="PER_PARENTESCO_ID_GENERATOR", sequenceName="SEQ_")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_PARENTESCO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
 
@@ -35,12 +35,12 @@ public class Parentezco implements Serializable {
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA")
+	@JoinColumn(name="PERSONA_PARIENTE")
 	private Persona perPersona1;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA_PARIENTE")
+	@JoinColumn(name="PERSONA")
 	private Persona perPersona2;
 
 	//bi-directional many-to-one association to Usuario
@@ -53,7 +53,7 @@ public class Parentezco implements Serializable {
 	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
-	public Parentezco() {
+	public Parentesco() {
 	}
 
 	public long getId() {

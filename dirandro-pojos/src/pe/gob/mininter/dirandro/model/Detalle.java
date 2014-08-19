@@ -34,7 +34,7 @@ public class Detalle implements Serializable {
 	@Column(precision=3, scale=2)
 	private BigDecimal peso;
 
-	@Column(name="RASGO_FACIAL", length=400)
+	@Column(name="RASGO_FACIAL", length=4000)
 	private String rasgoFacial;
 
 	@Column(length=2000)
@@ -53,7 +53,7 @@ public class Detalle implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO_OREJA", nullable=false)
+	@JoinColumn(name="TIPO_OREJA")
 	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Valor
@@ -78,7 +78,7 @@ public class Detalle implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO_NARIZ", nullable=false)
+	@JoinColumn(name="TIPO_NARIZ")
 	private Valor cfgValor7;
 
 	//bi-directional many-to-one association to Valor
@@ -98,7 +98,7 @@ public class Detalle implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="PROFESION", nullable=false)
+	@JoinColumn(name="PROFESION")
 	private Valor cfgValor11;
 
 	//bi-directional many-to-one association to Valor
@@ -108,7 +108,7 @@ public class Detalle implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="FORMA_BOCA", nullable=false)
+	@JoinColumn(name="FORMA_BOCA")
 	private Valor cfgValor13;
 
 	//bi-directional many-to-one association to Valor
@@ -118,7 +118,7 @@ public class Detalle implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="CONTEXTURA", nullable=false)
+	@JoinColumn(name="CONTEXTURA")
 	private Valor cfgValor15;
 
 	//bi-directional many-to-one association to NoIdentificado
