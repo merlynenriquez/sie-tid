@@ -37,7 +37,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class PanelConfigEntidad extends HarecComponent implements TextChangeListener, ClickListener {
+public class PanelMantenEntidad extends HarecComponent implements TextChangeListener, ClickListener {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -134,7 +134,7 @@ public class PanelConfigEntidad extends HarecComponent implements TextChangeList
 	
 	private String codigo;
 
-	public PanelConfigEntidad(List<Opcion> acciones, String height) {
+	public PanelMantenEntidad(List<Opcion> acciones, String height) {
 		super(acciones, height);
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
