@@ -91,12 +91,12 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
 	@JoinColumn(name="PROCEDENCIA")
-	private Pais mntPais1;
+	private Pais procedencia;
 
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
 	@JoinColumn(name="DESTINO", nullable=false)
-	private Pais mntPais2;
+	private Pais destino;
 
 	//bi-directional many-to-one association to HojaremisionMuestra
 	@OneToMany(mappedBy="expDroga")
@@ -217,20 +217,20 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.expExpediente = expExpediente;
 	}
 
-	public Pais getMntPais1() {
-		return mntPais1;
+	public Pais getProcedencia() {
+		return procedencia;
 	}
 
-	public void setMntPais1(Pais mntPais1) {
-		this.mntPais1 = mntPais1;
+	public void setProcedencia(Pais procedencia) {
+		this.procedencia = procedencia;
 	}
 
-	public Pais getMntPais2() {
-		return mntPais2;
+	public Pais getDestino() {
+		return destino;
 	}
 
-	public void setMntPais2(Pais mntPais2) {
-		this.mntPais2 = mntPais2;
+	public void setDestino(Pais destino) {
+		this.destino = destino;
 	}
 
 	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {

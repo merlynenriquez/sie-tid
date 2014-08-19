@@ -42,16 +42,16 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	@Column(name="ANCHO_MT", precision=4)
 	private BigDecimal anchoMt;
 
-	@Column(length=400)
+	@Column(length=4000)
 	private String descripcion;
 
 	@Column(name="LARGO_MT", precision=4)
 	private BigDecimal largoMt;
 
-	@Column(length=100)
+	@Column(length=40)
 	private String latitud;
 
-	@Column(length=100)
+	@Column(length=40)
 	private String longitud;
 
 	@Column(length=400)

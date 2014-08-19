@@ -43,6 +43,11 @@ public class Provincia extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Distrito
 	@OneToMany(mappedBy="ubgProvincia")
 	private List<Distrito> ubgDistritos;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor estado;
 
 	//bi-directional many-to-one association to Departamento
 	@ManyToOne
@@ -82,6 +87,14 @@ public class Provincia extends AuditoriaBean implements Validador, Serializable 
 
 	public void setUbgDepartamento(Departamento ubgDepartamento) {
 		this.ubgDepartamento = ubgDepartamento;
+	}
+
+	public Valor getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	@Override

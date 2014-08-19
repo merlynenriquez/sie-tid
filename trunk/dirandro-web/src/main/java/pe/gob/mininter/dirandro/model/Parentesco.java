@@ -17,12 +17,12 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
- * The persistent class for the PER_PARENTEZCO database table.
+ * The persistent class for the PER_PARENTESCO database table.
  * 
  */
 @Entity
-@Table(name="PER_PARENTEZCO")
-public class Parentezco extends AuditoriaBean implements Validador, Serializable {
+@Table(name="PARENTESCO")
+public class Parentesco extends AuditoriaBean implements Validador, Serializable {
 	
 	/**
 	 * 
@@ -30,8 +30,8 @@ public class Parentezco extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = -1946559235893710683L;
 
 	@Id
-	@SequenceGenerator(name="PER_PARENTEZCO_ID_GENERATOR", sequenceName="SEQ_PARENTESCO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_PARENTEZCO_ID_GENERATOR")
+	@SequenceGenerator(name="PARENTESCO_ID_GENERATOR", sequenceName="SEQ_PARENTESCO")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PARENTESCO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
@@ -53,7 +53,7 @@ public class Parentezco extends AuditoriaBean implements Validador, Serializable
 	@JoinColumn(name="PERSONA_PARIENTE")
 	private Persona pariente;
 
-	public Parentezco() {
+	public Parentesco() {
 	}
 
 	public Long getId() {

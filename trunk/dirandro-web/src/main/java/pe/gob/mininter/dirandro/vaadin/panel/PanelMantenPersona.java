@@ -15,7 +15,7 @@ import pe.gob.mininter.dirandro.model.Direccion;
 import pe.gob.mininter.dirandro.model.Distrito;
 import pe.gob.mininter.dirandro.model.Identificacion;
 import pe.gob.mininter.dirandro.model.Opcion;
-import pe.gob.mininter.dirandro.model.Parentezco;
+import pe.gob.mininter.dirandro.model.Parentesco;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.CorreoService;
@@ -308,8 +308,8 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	private List<Persona> lPersonas;
 	private List<Correo> lCorreos;
 	private List<Direccion> lDirecciones;
-	private List<Parentezco> lparentescos;
-	private Parentezco parentesco;
+	private List<Parentesco> lparentescos;
+	private Parentesco parentesco;
 	private Persona persona;
 	private Detalle detalle;
 	private Correo correo;
@@ -481,7 +481,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 					limpiar("parentesco");
 				}else {
 					Item item = tblParentescos.getItem(tblParentescos.getValue());
-					llenarCamposParentezco( (Parentezco)item.getItemProperty("ParentescoObj").getValue() );
+					llenarCamposParentezco( (Parentesco)item.getItemProperty("ParentescoObj").getValue() );
 				}
 			}
 		});
@@ -667,14 +667,14 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		
 		IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("Paterno", String.class, null);
-        container.addContainerProperty("ParentescoObj", Parentezco.class, null);
+        container.addContainerProperty("ParentescoObj", Parentesco.class, null);
         container.addContainerProperty("Materno", String.class, null);                        
         container.addContainerProperty("Nombre", String.class, null);
         container.addContainerProperty("Parentesco", String.class, null);
         
         if( lparentescos != null){
 	         int con=1;
-	         for (Parentezco parentezco: lparentescos) {
+	         for (Parentesco parentezco: lparentescos) {
 	        	 Item item = container.addItem(con++);
 				 item.getItemProperty("Paterno").setValue(parentezco.getPariente().getApePaterno());
 				 item.getItemProperty("Materno").setValue(parentezco.getPariente().getApeMaterno());
@@ -747,12 +747,12 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	}
 
 	
-	private void llenarCamposParentezco( Parentezco parentesco ){
+	private void llenarCamposParentezco( Parentesco parentesco ){
 		flagNuevoParentezco = true ;
 		this.parentesco = parentesco ;
 		cmbParPariente.setValue( parentesco.getPariente() );
 		cmbParTipoParentesco.setValue( parentesco.getTipoRelacion() );
-		txtParNacionalidad.setValue( parentesco.getPariente().getNacionalidad()!= null ? parentesco.getPariente().getNacionalidad().getDescripcion() : "" );
+		txtParNacionalidad.setValue( parentesco.getPariente().getNacionalidad()!= null ? parentesco.getPariente().getNacionalidad().getNombre() : "" );
 		txtParNumero.setValue( parentesco.getPariente().getNroDocumento() );
 		txtParTipoDocumento.setValue( parentesco.getPariente().getTipoDocumento() != null ?  parentesco.getPariente().getTipoDocumento().getDescripcion() : "" );
 	}
@@ -921,7 +921,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 
 		if(nombre.equals("parentesco")){
 			flagNuevoParentezco=true;
-			parentesco = new Parentezco();
+			parentesco = new Parentesco();
 			cmbParPariente.setValue( null );
 			cmbParTipoParentesco.setValue( null );
 			txtParTipoDocumento.setValue( "" );
@@ -1100,7 +1100,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
          tblIdentificaciones.setContainerDataSource(container);
 	}
 	
-	private void cargarListasParentesco(List<Parentezco> parentescos, boolean flagLimpiar)
+	private void cargarListasParentesco(List<Parentesco> parentescos, boolean flagLimpiar)
 	{
 		 IndexedContainer container = new IndexedContainer();
          container.addContainerProperty("Paterno", String.class, null);
@@ -1109,7 +1109,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
          container.addContainerProperty("Parentesco", String.class, null);
          
          int con=1;
-         for (Parentezco lista: parentescos) {
+         for (Parentesco lista: parentescos) {
                  Item item = container.addItem(con++);
 			     item.getItemProperty("Paterno").setValue(lista.getPariente().getApePaterno());
 			     item.getItemProperty("Materno").setValue(lista.getPariente().getApeMaterno());
