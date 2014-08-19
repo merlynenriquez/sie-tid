@@ -77,15 +77,15 @@ public class Droga implements Serializable {
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
 
-	//bi-directional one-to-one association to Pais
-	@OneToOne
-	@JoinColumn(name="ID", nullable=false, insertable=false, updatable=false)
+	//bi-directional many-to-one association to Pais
+	@ManyToOne
+	@JoinColumn(name="DESTINO")
 	private Pais mntPais1;
 
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
-	@JoinColumn(name="MNT_ID")
-	private Pais mntPais2;
+	@JoinColumn(name="PROCENDECIA")
+	private Pais mntPais3;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -254,12 +254,12 @@ public class Droga implements Serializable {
 		this.mntPais1 = mntPais1;
 	}
 
-	public Pais getMntPais2() {
-		return this.mntPais2;
+	public Pais getMntPais3() {
+		return this.mntPais3;
 	}
 
-	public void setMntPais2(Pais mntPais2) {
-		this.mntPais2 = mntPais2;
+	public void setMntPais3(Pais mntPais3) {
+		this.mntPais3 = mntPais3;
 	}
 
 	public Usuario getSegUsuario1() {

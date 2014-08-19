@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -27,9 +26,6 @@ public class Provincia implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(precision=16)
-	private BigDecimal estado;
-
 	@Column(nullable=false, length=100)
 	private String nombre;
 
@@ -37,10 +33,10 @@ public class Provincia implements Serializable {
 	@OneToMany(mappedBy="ubgProvincia")
 	private List<Distrito> ubgDistritos;
 
-	//bi-directional one-to-one association to Valor
-	@OneToOne
-	@JoinColumn(name="ID", nullable=false, insertable=false, updatable=false)
-	private Valor cfgValor;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -84,14 +80,6 @@ public class Provincia implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public BigDecimal getEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(BigDecimal estado) {
-		this.estado = estado;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -121,13 +109,13 @@ public class Provincia implements Serializable {
 
 		return ubgDistrito;
 	}
-
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	
+	public Valor getCfgValor2() {
+		return this.cfgValor2;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setCfgValor2(Valor cfgValor2) {
+		this.cfgValor2 = cfgValor2;
 	}
 
 	public Usuario getSegUsuario1() {
