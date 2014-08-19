@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     05/08/2014 05:18:58 p.m.                     */
+/* Created on:     19/08/2014 10:41:05 a.m.                     */
 /*==============================================================*/
 
 
@@ -108,6 +108,9 @@ alter table SIETID.EXP_CENTRO_POBLADO
 
 alter table SIETID.EXP_CENTRO_POBLADO
    drop constraint FK_EXP_POBLADO_EDITOR;
+
+alter table SIETID.EXP_CENTRO_POBLADO
+   drop constraint FK_EXP_POBLADO_ESTADO;
 
 alter table SIETID.EXP_DELITO
    drop constraint FK_EXP_DELITO_CODIGO_PROCESAL;
@@ -716,6 +719,9 @@ alter table MNT_PAISES
    drop constraint FK_MNT_PAIS_EDITOR;
 
 alter table MNT_PAISES
+   drop constraint FK_MNT_PAIS_ESTADO;
+
+alter table MNT_PAISES
    drop constraint FK_MNT_PAIS_PADRE;
 
 alter table SIETID.MNT_TIPO_ESPECIE
@@ -898,19 +904,19 @@ alter table SIETID.PER_NO_IDENTIFICADOS
 alter table SIETID.PER_NO_IDENTIFICADOS
    drop constraint FK_PER_NO_IDENT_ORIENT;
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    drop constraint FK_PERSONA_PARENTESCO;
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    drop constraint FK_PER_PARENTESCO_CREADOR;
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    drop constraint FK_PER_PARENTESTCO_EDITOR;
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    drop constraint FK_PER_PARENTEZCO_RELACION;
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    drop constraint FK_PER_PARIENTE;
 
 alter table SIETID.PER_PERSONA
@@ -1033,11 +1039,17 @@ alter table SIETID.UBG_DEPARTAMENTO
 alter table SIETID.UBG_DEPARTAMENTO
    drop constraint FK_UBG_DEPARTAMENTO_EDITOR;
 
+alter table SIETID.UBG_DEPARTAMENTO
+   drop constraint FK_UBG_DEPARTAMENTO_ESTADO;
+
 alter table SIETID.UBG_DISTRITO
    drop constraint FK_UBG_DISTRITO_CREADOR;
 
 alter table SIETID.UBG_DISTRITO
    drop constraint FK_UBG_DISTRITO_EDITOR;
+
+alter table SIETID.UBG_DISTRITO
+   drop constraint FK_UBG_DISTRITO_ESTADO;
 
 alter table SIETID.UBG_DISTRITO
    drop constraint FK_UBG_DISTRITO_PROVINCIA;
@@ -1050,6 +1062,9 @@ alter table SIETID.UBG_PROVINCIA
 
 alter table SIETID.UBG_PROVINCIA
    drop constraint FK_UBG_PROVINCIA_EDITOR;
+
+alter table SIETID.UBG_PROVINCIA
+   drop constraint FK_UBG_PROVINCIA_ESTADO;
 
 drop index SIETID.UNQ_CODIGO_LISTA;
 
@@ -1323,10 +1338,10 @@ alter table SIETID.PER_NO_IDENTIFICADOS
 
 drop table SIETID.PER_NO_IDENTIFICADOS cascade constraints;
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    drop primary key cascade;
 
-drop table SIETID.PER_PARENTEZCO cascade constraints;
+drop table SIETID.PER_PARENTESCO cascade constraints;
 
 alter table SIETID.PER_PERSONA
    drop primary key cascade;

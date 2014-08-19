@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     05/08/2014 05:18:58 p.m.                     */
+/* Created on:     19/08/2014 10:41:05 a.m.                     */
 /*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
@@ -207,17 +207,25 @@ create table SIETID.EXP_ARMAS
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_ARMAS is
+'Tabla que guarda la información de las armas incautadas y registradas en un expediente							
+';
+
 comment on column SIETID.EXP_ARMAS.ID is
-'Identificador del arma';
+'Identificador de la tabla EXP_ARMA (código autogenerado)
+';
 
 comment on column SIETID.EXP_ARMAS.MARCA is
-'Identificador de la marca';
+'Identificador de la marca del arma
+';
 
 comment on column SIETID.EXP_ARMAS.MODELO is
-'Identificador del modelo';
+'Identificador del modelo del arma
+';
 
 comment on column SIETID.EXP_ARMAS.CLASIFICACION is
-'Identificador de la clasificación: escopeta, fusil, revolver';
+'Identificador de la clasificación: escopeta, fusil, revolver
+';
 
 comment on column SIETID.EXP_ARMAS.EST_SERIE is
 'Identificador del estado de la serie del arma';
@@ -231,6 +239,22 @@ comment on column SIETID.EXP_ARMAS.NRO_LICENCIA is
 comment on column SIETID.EXP_ARMAS.CALIBRE is
 'Número de calibre del arma';
 
+comment on column SIETID.EXP_ARMAS.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_ARMAS.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_ARMAS.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_ARMAS.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
+
 alter table SIETID.EXP_ARMAS
    add constraint PK_EXP_ARMAS primary key (ID);
 
@@ -243,6 +267,7 @@ create table SIETID.EXP_CENTRO_POBLADO
    NOMBRE               NVARCHAR2(200)       not null,
    CATEGORIA            NUMBER(16),
    DISTRITO             NUMBER(16),
+   ESTADO               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -495,6 +520,46 @@ create table SIETID.EXP_DET_LLAMADAS
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_DET_LLAMADAS is
+'Tabla que guarda la información del registro de llamadas del teléfono (CDR) incautado y registrado en un expediente							
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.ID is
+'Identificador de la tabla EXP_DET_PER_TEL_LLAMADAS (código autogenerado)
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.EXP_PER_TEL is
+'Identificador de la tabla del expediente - telefono incautado
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.FECHA_HORA is
+'Fecha y hora de inicio de la llamada
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.DURACION is
+'Duración de la llamada (en segundos)
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.NUMERO_MARCADO is
+'Número marcado
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_DET_LLAMADAS.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
+
 alter table SIETID.EXP_DET_LLAMADAS
    add constraint PK_EXP_DET_LLAMADAS primary key (ID);
 
@@ -519,23 +584,33 @@ create table SIETID.EXP_DET_PER_ARM_EXP
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_DET_PER_ARM_EXP is
+'Tabla que guarda la información del arma incautada y registrada en un expediente							
+';
+
 comment on column SIETID.EXP_DET_PER_ARM_EXP.ID is
-'Identificador';
+'Identificador de la tabla EXP_DET_PER_ARM_EXP (código autogenerado)
+';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.PERSONA is
-'Identificador de la persona';
+'Identificador de la persona a la que le fue incautada el arma
+';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.ARMA is
-'Identificador del arma';
+'Identificador del arma
+';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.EXPEDIENTE is
-'Identificador del expediente';
+'Identificador del expediente asociado a la incautación
+';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.PROPIETARIO is
-'Identificador del propietario';
+'Identificador del propietario del arma en la incautación
+';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.EMPRESA_PROPIETARIA is
-'Identificador de la empresa';
+'Identificador de la empresa propietaria del arma en la incautación
+';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.OBSERVACION is
 'Observaciones';
@@ -547,7 +622,24 @@ comment on column SIETID.EXP_DET_PER_ARM_EXP.CANTIDAD_MUNICION is
 'Cantidad de munición encontrada cargada en el arma';
 
 comment on column SIETID.EXP_DET_PER_ARM_EXP.ESTADO is
-'estado de conservacion';
+'Estado del arma incautada (operativo: si / no)
+';
+
+comment on column SIETID.EXP_DET_PER_ARM_EXP.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_ARM_EXP.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_ARM_EXP.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_DET_PER_ARM_EXP.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_DET_PER_ARM_EXP
    add constraint PK_EXP_DET_PER_ARM_EXP primary key (ID);
@@ -570,23 +662,53 @@ create table SIETID.EXP_DET_PER_INM_EXP
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_DET_PER_INM_EXP is
+'Tabla que guarda la información del inmueble intervenido asociado a un expediente							
+';
+
 comment on column SIETID.EXP_DET_PER_INM_EXP.ID is
-'Identificador';
+'Identificador de la tabla inmuebles-expediente (código autogenerado)
+';
 
 comment on column SIETID.EXP_DET_PER_INM_EXP.INMUEBLE is
-'Identificador del inmueble';
+'Identificador del inmueble a relacionar con el expediente
+';
 
 comment on column SIETID.EXP_DET_PER_INM_EXP.EXPEDIENTE is
-'Identificador del expediente';
+'Identificador del expediente al que se relaciona el inmueble
+';
 
 comment on column SIETID.EXP_DET_PER_INM_EXP.PROPIETARIO is
-'Identificador del propietario';
+'Identificador del propietario  del inmueble en la intervención 
+';
 
 comment on column SIETID.EXP_DET_PER_INM_EXP.NUMERO_PISOS is
-'Número de pisos del inmueble';
+'Número de pisos del inmueble en la intervención 
+';
 
 comment on column SIETID.EXP_DET_PER_INM_EXP.TIPO_USO is
-'Tipo de uso del inmueble para el expediente';
+'Tipo de uso del inmueble  en la intervención para el expediente
+';
+
+comment on column SIETID.EXP_DET_PER_INM_EXP.SITUACION is
+'Situación del inmueble en la intervención para el expediente
+';
+
+comment on column SIETID.EXP_DET_PER_INM_EXP.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_INM_EXP.CREACION is
+'Fecha y hora del sistema en que se relaizó el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_INM_EXP.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_DET_PER_INM_EXP.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_DET_PER_INM_EXP
    add constraint PK_EXP_DET_PER_INM_EXP primary key (ID);
@@ -611,31 +733,55 @@ create table SIETID.EXP_DET_PER_TEL_EXP
 );
 
 comment on table SIETID.EXP_DET_PER_TEL_EXP is
-'esta tabla se utiliza  para registrar tanto numeros telefonicos como equipos fisicos';
+'Tabla que guarda la información del telefono incautado asociado a un expediente';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.ID is
-'Identificador';
+'Identificador de la tabla EXP_DET_PER_TEL_EXP (código autogenerado)
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.PERSONA is
-'Identificador de la persona';
+'Identificador de la persona asociada al teléfono incautado
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.TELEFONO is
-'Identificador del teléfono';
+'Identificador del teléfono incautado
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.EXPEDIENTE is
-'Identificador del expediente';
+'Identificador del expediente
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.IMEI is
-'Identificador internacional de identidad del equipo móvil';
+'Identificador internacional de identidad del equipo móvil
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.DUENO is
-'Identificador del dueño';
+'Identificador del dueño registrado del teléfono incautado
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.SITUACION is
-'Identificador de la situación del teléfono';
+'Identificador de la situación del teléfono
+';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.ESTADO is
-'Identificador del estado operativo del equipo: operativo / no operativo';
+'Estado del teléfono incautado (operativo: si / no)
+';
+
+comment on column SIETID.EXP_DET_PER_TEL_EXP.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_TEL_EXP.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_TEL_EXP.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_DET_PER_TEL_EXP.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    add constraint PK_EXP_DET_PER_TEL_EXP primary key (ID);
@@ -662,11 +808,17 @@ create table SIETID.EXP_DET_PER_VEH_EXP
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_DET_PER_VEH_EXP is
+'Tabla que guarda la información del vehículo incautado y registrado en un expediente							
+';
+
 comment on column SIETID.EXP_DET_PER_VEH_EXP.ID is
-'Identificador';
+'Identificador de la tabla EXP_DET_PER_VEH_EXP (código autogenerado)
+';
 
 comment on column SIETID.EXP_DET_PER_VEH_EXP.PERSONA is
-'Identificador de la persona a la que le fue incautado el vehículo';
+'Identificador de la persona a la que le fue incautado el vehículo
+';
 
 comment on column SIETID.EXP_DET_PER_VEH_EXP.PROPIETARIO is
 'Propietario del vehiculo';
@@ -675,10 +827,12 @@ comment on column SIETID.EXP_DET_PER_VEH_EXP.VEHICULO is
 'Identificador del vehículo';
 
 comment on column SIETID.EXP_DET_PER_VEH_EXP.EXPEDIENTE is
-'Identificador del expediente';
+'Identificador del expediente asociado a la incautación del vehículo
+';
 
 comment on column SIETID.EXP_DET_PER_VEH_EXP.SITUACION_LEGAL is
-'Identificador de la situación legal del vehículo';
+'Identificador de la situación legal del vehículo
+';
 
 comment on column SIETID.EXP_DET_PER_VEH_EXP.ESTADO_MOTOR is
 'Identificador del estado del motor del vehículo';
@@ -695,6 +849,22 @@ comment on column SIETID.EXP_DET_PER_VEH_EXP.PLACA_MONTADA is
 comment on column SIETID.EXP_DET_PER_VEH_EXP.ESTADO is
 'Identificador del estado del vehículo
 condicion en que se encuentra. buen estado, usado, malogrado. etc';
+
+comment on column SIETID.EXP_DET_PER_VEH_EXP.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_VEH_EXP.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_DET_PER_VEH_EXP.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_DET_PER_VEH_EXP.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_DET_PER_VEH_EXP
    add constraint PK_EXP_DET_PER_VEH_EXP primary key (ID);
@@ -788,14 +958,14 @@ create table SIETID.EXP_DROGAS
    PESO_BRUTO           NUMBER(10,2),
    PESO_NETO            NUMBER(10,2),
    EXPEDIENTE           NUMBER(16),
+   PROCENDECIA          NUMBER(16),
+   DESTINO              NUMBER(16),
    SITUACION            NUMBER(16),
    TIPO_MEDIDA_MUESTRA  NUMBER(16),
    PESO_MUESTRA         NUMBER(10,2),
    VALOR_SOLES          NUMBER(10,2),
    VALOR_DOLARES        NUMBER(10,2),
    TIPO_CAMBIO          NUMBER(10,2),
-   PROCEDENCIA          NUMBER(16),
-   DESTINO              NUMBER(16)           not null,
    OBSERVACION          NVARCHAR2(800),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -805,12 +975,6 @@ create table SIETID.EXP_DROGAS
 
 comment on table SIETID.EXP_DROGAS is
 'Tipo de Droga (Ref. a la tabla GEN_DECOMISO_INCAUTACION) marihuana,pbc, cocaina';
-
-comment on column SIETID.EXP_DROGAS.PROCEDENCIA is
-'fk tabla paises';
-
-comment on column SIETID.EXP_DROGAS.DESTINO is
-'fk tabla paises';
 
 alter table SIETID.EXP_DROGAS
    add constraint PK_EXP_DROGAS primary key (ID);
@@ -836,11 +1000,17 @@ create table SIETID.EXP_ENTIDAD
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_ENTIDAD is
+'Tabla que guarda la información de las entidades intervinientes (juzgados, fiscalias, letrados, OJ)							
+';
+
 comment on column SIETID.EXP_ENTIDAD.ID is
-'Identificador de la entidad';
+'Identificador de la tabla EXP_ENTIDAD (código autogenerado)
+';
 
 comment on column SIETID.EXP_ENTIDAD.TIPO is
-'Identificador del tipo de entidad: juzgafos, comisarias';
+'Identificador del tipo de entidad: juzgados, comisarias
+';
 
 comment on column SIETID.EXP_ENTIDAD.NOMBRE is
 'Nombre de la entidad';
@@ -862,6 +1032,22 @@ comment on column SIETID.EXP_ENTIDAD.CORREO is
 
 comment on column SIETID.EXP_ENTIDAD.ESTADO is
 'Identificador del estado de la entidad';
+
+comment on column SIETID.EXP_ENTIDAD.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_ENTIDAD.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_ENTIDAD.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_ENTIDAD.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_ENTIDAD
    add constraint PK_EXP_ENTIDAD primary key (ID);
@@ -887,33 +1073,63 @@ create table SIETID.EXP_ESPECIE
 );
 
 comment on table SIETID.EXP_ESPECIE is
-'Para el tipo de incautacion de documentos se está cosiderando libros contables, recibos , vouchers, etc';
+'Tabla que almacena la información de las especies incautadas y registradas en un expediente, se considera una especie a todo objeto incautado que no sea (droga, arma, vehículo o  explosivo)							
+';
 
 comment on column SIETID.EXP_ESPECIE.ID is
-'Identificador';
+'Identificador de la tabla especie (código autogenerado)
+';
 
 comment on column SIETID.EXP_ESPECIE.TIPO_ESPECIE is
-'Tipo especie: define el tipo/familia de articulo o bien embargado';
+'Id del tipo de especie el cual define el tipo/familia: "electrodomésticos, ropa, víveres, etc"
+';
 
 comment on column SIETID.EXP_ESPECIE.TIPO_MEDIDA is
-'Medida del articulo embargado';
+'Id del valor de la unidad de medida de la especie (kg, ml, unidad)
+';
 
 comment on column SIETID.EXP_ESPECIE.MEDIDA is
-'Valor de la medida del articulo embargado
+'Valor de la medida de la especie en base al tipo de medida establecido
+
 ';
 
 comment on column SIETID.EXP_ESPECIE.NOMBRE is
-'Nombre del articulo';
+'Nombre de la especie
+';
 
 comment on column SIETID.EXP_ESPECIE.EXPEDIENTE is
-'Identificador del expediente al que pertenece';
+'Identificador del expediente al que pertenece la especie registrada
+';
 
 comment on column SIETID.EXP_ESPECIE.SITUACION is
-'Situacion de la especie: incautada / devuelta
+'"Identificador de la situación de la especie: incautada / devuelta
+"
+
 ';
 
 comment on column SIETID.EXP_ESPECIE.ESTADO is
-'estado de concervacion';
+'Estado de la especie incautada (operativo: si / no)
+';
+
+comment on column SIETID.EXP_ESPECIE.SERIE is
+'Número de serie de la especie
+';
+
+comment on column SIETID.EXP_ESPECIE.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_ESPECIE.CREACION is
+'Fecha y hora del sistema en que se relaizó el registro.
+';
+
+comment on column SIETID.EXP_ESPECIE.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_ESPECIE.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_ESPECIE
    add constraint PK_EXP_ESPECIE primary key (ID);
@@ -1099,29 +1315,41 @@ create table SIETID.EXP_EXPLOSIVOS
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_EXPLOSIVOS is
+'Tabla que guarda la información del explosivo incautado y registrado en un expediente							
+';
+
 comment on column SIETID.EXP_EXPLOSIVOS.ID is
-'Identificador';
+'Identificador de la tabla EXP_EXPLOSIVOS (código autogenerado)
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.TIPO is
-'Identificador del tipo de explosivo (familia): alto orden / bajo orden';
+'Identificador del tipo de explosivo (familia): alto orden / bajo orden
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.PERSONA is
-'id de persona';
+'Identificador de la persona a la que le fue incautada el explosivo
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.EXPEDIENTE is
-'id de expediente';
+'Identificador del expediente asociado a la incautación
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.PROPIETARIO is
-'id de propietario';
+'Identificador del propietario del explosivo en la incautación
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.EMPRESA_PROPIETARIA is
-'id empresa propietaria';
+'Identificador de la empresa propietaria del explosivo en la incautación
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.TIPO_DESCRIPCION is
-'Identificador del tipo de descripción del explosivo: Explosivo plastico, TNT';
+'Identificador del tipo de descripción del explosivo: Explosivo plástico, TNT
+';
 
 comment on column SIETID.EXP_EXPLOSIVOS.DESCRIPCION is
-'Descripción del explosivo
+'"Descripción del explosivo
+"
 ';
 
 comment on column SIETID.EXP_EXPLOSIVOS.MARCA is
@@ -1130,6 +1358,11 @@ comment on column SIETID.EXP_EXPLOSIVOS.MARCA is
 comment on column SIETID.EXP_EXPLOSIVOS.SERIE is
 'Serie del explosivo';
 
+comment on column SIETID.EXP_EXPLOSIVOS.OBSERVACION is
+'Observación del explosivo
+
+';
+
 comment on column SIETID.EXP_EXPLOSIVOS.TIPO_MEDIDA is
 'cartuchos, kg, unidades';
 
@@ -1137,7 +1370,28 @@ comment on column SIETID.EXP_EXPLOSIVOS.MEDIDA is
 'valor del explosivo incautado en base a su tipo de medida';
 
 comment on column SIETID.EXP_EXPLOSIVOS.ESTADO is
-'estado de concervacion';
+'estado de conservación (operativo: si / no)
+';
+
+comment on column SIETID.EXP_EXPLOSIVOS.SITUACION is
+'Estado del explosivo incautado 
+';
+
+comment on column SIETID.EXP_EXPLOSIVOS.CREADOR is
+'Id del usuario del sistema que ha realizado el registro.
+';
+
+comment on column SIETID.EXP_EXPLOSIVOS.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_EXPLOSIVOS.EDITOR is
+'Id del usuario del sistema que ha realizado la modificación del registro.
+';
+
+comment on column SIETID.EXP_EXPLOSIVOS.EDICION is
+'Fecha y hora del sistema en que se realizó la modificación del registro.
+';
 
 alter table SIETID.EXP_EXPLOSIVOS
    add constraint PK_EXP_EXPLOSIVOS primary key (ID);
@@ -1193,53 +1447,85 @@ create table SIETID.EXP_INMUEBLE
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_INMUEBLE is
+'Tabla que almacena la información del inmueble							
+';
+
 comment on column SIETID.EXP_INMUEBLE.ID is
-'Identificador';
+'Identificador de la tabla inmuebles (código autogenerado)
+';
 
 comment on column SIETID.EXP_INMUEBLE.CODIGO is
-'Código del inmueble';
+'Código del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.DESCRIPCION is
 'Descripción del inmueble';
 
 comment on column SIETID.EXP_INMUEBLE.TIPO_DIRECCION is
-'Tipo de dirección clasificación: Jr, Av, Calle, Mz';
+'Identificador del tipo de dirección clasificación: Jr., Av., Calle, Mz, Lt
+';
 
 comment on column SIETID.EXP_INMUEBLE.DIRECCION is
-'Descripción de la dirección';
+'Descripción de la dirección del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.URBANIZACION is
-'Urbanización';
+'Descripción de la urbanización del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.UBICACION is
-'Identificador de la ubicación';
+'Identificador de la ubicación del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.NRO_INSCRIPCION is
-'Número de inscripción del inmueble';
+'Número de inscripción del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.OFICINA_REGISTRAL is
 'Oficina registral del inmueble (SUNARP)';
 
 comment on column SIETID.EXP_INMUEBLE.RESOLUCION is
-'Resolución del inmueble';
+'Número de resolución del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.VALOR_BIEN is
-'Valor del inmueble';
+'Valor del inmueble en soles
+';
 
 comment on column SIETID.EXP_INMUEBLE.VALOR_TERRENO is
-'Valor del terreno';
+'Valor del terreno en soles
+';
 
 comment on column SIETID.EXP_INMUEBLE.OBSERVACIONES is
-'Observacion del inmueble';
+'Observación del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.LONGITUD is
-'Longitud : georeferenciación del inmueble';
+'Longitud: georeferenciación del inmueble
+';
 
 comment on column SIETID.EXP_INMUEBLE.LATITUD is
 'Latitud : georeferenciación del inmueble';
 
 comment on column SIETID.EXP_INMUEBLE.DIMENSION is
 'Dimensión en m2 del inmueble';
+
+comment on column SIETID.EXP_INMUEBLE.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_INMUEBLE.CREACION is
+'Fecha y hora del sistema en que se relaizó el registro.
+';
+
+comment on column SIETID.EXP_INMUEBLE.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_INMUEBLE.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_INMUEBLE
    add constraint PK_EXP_INMUEBLE primary key (ID);
@@ -1254,11 +1540,11 @@ create table SIETID.EXP_INSTALACION
    TIPO                 NUMBER(16),
    ORGANIZACION         NUMBER(16),
    NOMBRE               NVARCHAR2(200),
-   DESCRIPCION          NVARCHAR2(200),
+   DESCRIPCION          NVARCHAR2(2000),
    CENTRO_POBLADO       NUMBER(16),
    SITUACION            NUMBER(16),
-   LONGITUD             NVARCHAR2(50),
-   LATITUD              NVARCHAR2(50),
+   LONGITUD             NVARCHAR2(20),
+   LATITUD              NVARCHAR2(20),
    LARGO_MT             NUMBER(4),
    ANCHO_MT             NUMBER(4),
    ALTURA_MT            NUMBER(4),
@@ -1298,23 +1584,80 @@ create table SIETID.EXP_MUNICIONES
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_MUNICIONES is
+'Tabla que guarda la información de las municiones incautadas y registradas en un expediente							
+';
+
 comment on column SIETID.EXP_MUNICIONES.ID is
-'Identificador de la municion';
+'Identificador de la tabla EXP_MUNICIONES (código autogenerado)
+';
+
+comment on column SIETID.EXP_MUNICIONES.EXPEDIENTE is
+'Identificador del expediente asociado a la munición incautada
+';
+
+comment on column SIETID.EXP_MUNICIONES.PERSONA is
+'Identificador de la persona a la que le fue incautada la munición
+';
+
+comment on column SIETID.EXP_MUNICIONES.PROPIETARIO is
+'Persona propietaria de la munición en la incautación
+';
+
+comment on column SIETID.EXP_MUNICIONES.EMPRESA_PROPIETARIA is
+'Empresa propietaria de la munición en la incautación
+';
 
 comment on column SIETID.EXP_MUNICIONES.CALIBRE is
-'Calibre de las municion';
+'Calibre de la munición incautada
+';
 
 comment on column SIETID.EXP_MUNICIONES.TIPO is
-'identificador del tipo de municion';
+'Identificador del tipo de munición
+';
+
+comment on column SIETID.EXP_MUNICIONES.DESCRIPCION is
+'Descripción de la munición
+';
 
 comment on column SIETID.EXP_MUNICIONES.MARCA is
 'Identificador de la marca de la municion';
 
+comment on column SIETID.EXP_MUNICIONES.OBSERVACION is
+'Activo o Inactivo
+';
+
+comment on column SIETID.EXP_MUNICIONES.TIPO_MEDIDA is
+'Tipo de medida de la munición (unidades, caserinas, rafagas)
+';
+
+comment on column SIETID.EXP_MUNICIONES.MEDIDA is
+'Valor del tipo de medida de la munición
+';
+
 comment on column SIETID.EXP_MUNICIONES.ESTADO is
-'estado de concervacion';
+'Estado de la munición incautada (operativo: si / no)
+';
 
 comment on column SIETID.EXP_MUNICIONES.SITUACION is
-'situacion de la tabla general de situaciones';
+'situacion de la tabla general de situaciones
+';
+
+comment on column SIETID.EXP_MUNICIONES.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_MUNICIONES.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_MUNICIONES.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_MUNICIONES.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_MUNICIONES
    add constraint PK_EXP_MUNICIONES primary key (ID);
@@ -1530,17 +1873,25 @@ create table SIETID.EXP_VEHICULO
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.EXP_VEHICULO is
+'Tabla que almacena la información del vehículo							
+';
+
 comment on column SIETID.EXP_VEHICULO.ID is
-'Identificador ';
+'Identificador de la tabla EXP_VEHICULO (código autogenerado)
+';
 
 comment on column SIETID.EXP_VEHICULO.TIPO_TAMANO is
-'Identificador del tipo de tamaño del vehículo';
+'Identificador del tipo de tamaño del vehículo
+';
 
 comment on column SIETID.EXP_VEHICULO.TRANSMISION is
-'Identificador del tipo de transmisión del vehiculo';
+'Identificador del tipo de transmisión del vehículo
+';
 
 comment on column SIETID.EXP_VEHICULO.CILINDROS is
-'Identificador de la cilindrada del vehículo';
+'Identificador de la cilindrada del vehículo
+';
 
 comment on column SIETID.EXP_VEHICULO.SERIE_MOTOR is
 'Número de serie del motor del vehículo';
@@ -1568,6 +1919,22 @@ comment on column SIETID.EXP_VEHICULO.PROPIETARIO is
 
 comment on column SIETID.EXP_VEHICULO.MODELO_ESPECIFICO is
 'Descripción del modelo específico del vehículo';
+
+comment on column SIETID.EXP_VEHICULO.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_VEHICULO.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.EXP_VEHICULO.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_VEHICULO.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.EXP_VEHICULO
    add constraint PK_EXP_VEHICULO primary key (ID);
@@ -1655,17 +2022,41 @@ create table SIETID.MNT_MODELO_MARCA
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.MNT_MODELO_MARCA is
+'Tabla que guarda la información de marcas / modelos							
+';
+
 comment on column SIETID.MNT_MODELO_MARCA.ID is
-'Identificador';
+'Identificador de la tabla EXP_MOD_MARCA (código autogenerado)
+';
 
 comment on column SIETID.MNT_MODELO_MARCA.NOMBRE is
-'Nombre o descripción';
+'Nombre o descripción del modelo / marca
+';
 
 comment on column SIETID.MNT_MODELO_MARCA.TIPO is
-'Identificador del tipo';
+'Identificador del tipo de marca/modelo
+';
 
 comment on column SIETID.MNT_MODELO_MARCA.PADRE is
-'Identificador de referencia circular a un identificador padre';
+'Identificador de referencia circular a un identificador padre
+';
+
+comment on column SIETID.MNT_MODELO_MARCA.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.MNT_MODELO_MARCA.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.MNT_MODELO_MARCA.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.MNT_MODELO_MARCA.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.MNT_MODELO_MARCA
    add constraint PK_MNT_MODELO_MARCA primary key (ID);
@@ -1677,7 +2068,9 @@ create table MNT_PAISES
 (
    ID                   NUMBER(16)           not null,
    PADRE                NUMBER(16),
-   NOMBRE               NVARCHAR2(100)       not null,
+   NOMBRE               NVARCHAR2(200)       not null,
+   NACIONALIDAD         NVARCHAR2(200),
+   ESTADO               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -1704,14 +2097,37 @@ create table SIETID.MNT_TIPO_ESPECIE
    EDICION              TIMESTAMP
 );
 
+comment on table SIETID.MNT_TIPO_ESPECIE is
+'Tabla que almacena la clasificación de tipo de especies							
+';
+
 comment on column SIETID.MNT_TIPO_ESPECIE.ID is
-'Identificador';
+'Identificador de la tabla tipos de especie (código autogenerado)
+';
 
 comment on column SIETID.MNT_TIPO_ESPECIE.NOMBRE is
-'Nombre o descripción';
+'Nombre o descripción del tipo de especie
+';
 
 comment on column SIETID.MNT_TIPO_ESPECIE.PADRE is
-'Referencia circular de pertenencia a un grupo o padre';
+'Referencia circular de pertenencia a un grupo o padre
+';
+
+comment on column SIETID.MNT_TIPO_ESPECIE.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.MNT_TIPO_ESPECIE.CREACION is
+'Fecha y hora del sistema en que se relaizó el registro.
+';
+
+comment on column SIETID.MNT_TIPO_ESPECIE.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.MNT_TIPO_ESPECIE.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.MNT_TIPO_ESPECIE
    add constraint PK_MNT_TIPO_ESPECIE primary key (ID);
@@ -1805,25 +2221,25 @@ create table SIETID.PER_DETALLE
 (
    ID                   NUMBER(16)           not null,
    PERSONA              NUMBER(16),
-   TALLA                DECIMAL(3, 2),
-   PESO                 DECIMAL(3, 2),
-   CONTEXTURA           NUMBER(16)           not null,
+   TALLA                NUMBER(3, 2),
+   PESO                 NUMBER(3, 2),
+   CONTEXTURA           NUMBER(16),
    TIPO_CABELLO         NUMBER(16),
    COLOR_CABELLO        NUMBER(16),
    TIPO_OJO             NUMBER(16),
    COLOR_OJO            NUMBER(16),
-   TIPO_NARIZ           NUMBER(16)           not null,
+   TIPO_NARIZ           NUMBER(16),
    FORMA_CARA           NUMBER(16),
    TIPO_LABIO           NUMBER(16),
-   FORMA_BOCA           NUMBER(16)           not null,
+   FORMA_BOCA           NUMBER(16),
    TIPO_CEJA            NUMBER(16),
-   TIPO_OREJA           NUMBER(16)           not null,
+   TIPO_OREJA           NUMBER(16),
    COLOR_PIEL           NUMBER(16),
    TIPO_RAZA            NUMBER(16),
    SENAS                NVARCHAR2(1000),
-   RASGO_FACIAL         NVARCHAR2(200),
+   RASGO_FACIAL         NVARCHAR2(2000),
    CALZADO              NVARCHAR2(10),
-   PROFESION            NUMBER(16)           not null,
+   PROFESION            NUMBER(16),
    CORTE_CABELLO        NUMBER(16),
    VESTIMENTA           NVARCHAR2(1000),
    FECHALUGAR_ULTVEZ    NVARCHAR2(1000),
@@ -2191,9 +2607,9 @@ alter table SIETID.PER_NO_IDENTIFICADOS
    add constraint PK_PER_NO_IDENTIFICADOS primary key (ID);
 
 /*==============================================================*/
-/* Table: PER_PARENTEZCO                                        */
+/* Table: PER_PARENTESCO                                        */
 /*==============================================================*/
-create table SIETID.PER_PARENTEZCO 
+create table SIETID.PER_PARENTESCO 
 (
    ID                   NUMBER(16)           not null,
    PERSONA              NUMBER(16),
@@ -2206,38 +2622,38 @@ create table SIETID.PER_PARENTEZCO
    EDICION              TIMESTAMP
 );
 
-comment on table SIETID.PER_PARENTEZCO is
+comment on table SIETID.PER_PARENTESCO is
 'Tabla de parentesco';
 
-comment on column SIETID.PER_PARENTEZCO.ID is
+comment on column SIETID.PER_PARENTESCO.ID is
 'Identificador';
 
-comment on column SIETID.PER_PARENTEZCO.PERSONA is
+comment on column SIETID.PER_PARENTESCO.PERSONA is
 'Identificador de persona';
 
-comment on column SIETID.PER_PARENTEZCO.PERSONA_PARIENTE is
+comment on column SIETID.PER_PARENTESCO.PERSONA_PARIENTE is
 'Identificador del pariente con el que se tiene vínculo de consanguinidad o afinidad';
 
-comment on column SIETID.PER_PARENTEZCO.TIPO_RELACION is
+comment on column SIETID.PER_PARENTESCO.TIPO_RELACION is
 'Tipo de relación o parentesco';
 
-comment on column SIETID.PER_PARENTEZCO.OBSERVACION is
+comment on column SIETID.PER_PARENTESCO.OBSERVACION is
 'Observación';
 
-comment on column SIETID.PER_PARENTEZCO.CREADOR is
+comment on column SIETID.PER_PARENTESCO.CREADOR is
 'Usuario creador';
 
-comment on column SIETID.PER_PARENTEZCO.CREACION is
+comment on column SIETID.PER_PARENTESCO.CREACION is
 'Fecha creación';
 
-comment on column SIETID.PER_PARENTEZCO.EDITOR is
+comment on column SIETID.PER_PARENTESCO.EDITOR is
 'Usuario Editor';
 
-comment on column SIETID.PER_PARENTEZCO.EDICION is
+comment on column SIETID.PER_PARENTESCO.EDICION is
 'Fecha edición';
 
-alter table SIETID.PER_PARENTEZCO
-   add constraint PK_PER_PARENTEZCO primary key (ID);
+alter table SIETID.PER_PARENTESCO
+   add constraint PK_PER_PARENTESCO primary key (ID);
 
 /*==============================================================*/
 /* Table: PER_PERSONA                                           */
@@ -2253,8 +2669,8 @@ create table SIETID.PER_PERSONA
    SEXO                 NCHAR(1),
    FEC_NACIMIENTO       DATE,
    ESTADO_CIVIL         NUMBER(16),
-   NACIONALIDAD         NUMBER(16),
    LUGAR_NACIMIENTO     NUMBER(16),
+   NACIONALIDAD         NUMBER(16),
    PERSONA              NUMBER(16),
    ORIENTACION_SEXUAL   NUMBER(16),
    CREADOR              NUMBER(16)           not null,
@@ -2293,11 +2709,11 @@ comment on column SIETID.PER_PERSONA.FEC_NACIMIENTO is
 comment on column SIETID.PER_PERSONA.ESTADO_CIVIL is
 'Estado civil';
 
-comment on column SIETID.PER_PERSONA.NACIONALIDAD is
-'Nacionalidad';
-
 comment on column SIETID.PER_PERSONA.LUGAR_NACIMIENTO is
 'Lugar de nacimiento de la persona';
+
+comment on column SIETID.PER_PERSONA.NACIONALIDAD is
+'Nacionalidad de la persona';
 
 comment on column SIETID.PER_PERSONA.PERSONA is
 'Identificador de la persona';
@@ -2394,31 +2810,54 @@ create table SIETID.PER_TELEFONO
 );
 
 comment on table SIETID.PER_TELEFONO is
-'Al registrar, en la interfaz dejar libre para marca y modelo,  en caso no se conozca que quede en una opcion "Sin identificar" o en caso solo se tenga el numero del telefono';
+'Tabla que almacena la información de los números telefónicos';
 
 comment on column SIETID.PER_TELEFONO.ID is
-'Identificador';
+'Identificador de la tabla telefonos (código autogenerado)
+';
 
 comment on column SIETID.PER_TELEFONO.TIPO is
-'Identificador del tipo de teléfono: fijo / móvil';
+'Identificador del tipo de teléfono: fijo / móvil
+';
 
 comment on column SIETID.PER_TELEFONO.NUMERO is
-'Número de teléfono';
+'Número de teléfono
+';
 
 comment on column SIETID.PER_TELEFONO.ESTADO is
-'Valor del estado de teléfono (fisico, malogrado, usado)';
+'Valor del estado de teléfono (fisico, malogrado, usado)
+';
 
 comment on column SIETID.PER_TELEFONO.SERIE is
-'Número de serie del equipo telefónico';
+'Número de serie del equipo telefónico
+';
 
 comment on column SIETID.PER_TELEFONO.MARCA is
-'Marca del Equipo';
+'Marca del equipo
+';
 
 comment on column SIETID.PER_TELEFONO.ALCANCE is
-'radio o distancia de alcance';
+'Radio o distancia de alcance
+';
 
 comment on column SIETID.PER_TELEFONO.FRECUENCIA is
 'tipo de frecuencia';
+
+comment on column SIETID.PER_TELEFONO.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.PER_TELEFONO.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.PER_TELEFONO.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.PER_TELEFONO.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
 
 alter table SIETID.PER_TELEFONO
    add constraint PK_PER_TELEFONO primary key (ID);
@@ -2608,6 +3047,7 @@ create table SIETID.UBG_DEPARTAMENTO
 (
    ID                   NUMBER(16)           not null,
    NOMBRE               NVARCHAR2(50)        not null,
+   ESTADO               NUMBER(16)           not null,
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -2625,6 +3065,7 @@ create table SIETID.UBG_DISTRITO
    ID                   NUMBER(16)           not null,
    PROVINCIA            NUMBER(16)           not null,
    NOMBRE               NVARCHAR2(50)        not null,
+   ESTADO               NUMBER(16),
    CODIGO_HOST          NVARCHAR2(7),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -2643,6 +3084,7 @@ create table SIETID.UBG_PROVINCIA
    ID                   NUMBER(16)           not null,
    DEPARTAMENTO         NUMBER(16)           not null,
    NOMBRE               NVARCHAR2(50)        not null,
+   ESTADO               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -2791,6 +3233,10 @@ alter table SIETID.EXP_CENTRO_POBLADO
 alter table SIETID.EXP_CENTRO_POBLADO
    add constraint FK_EXP_POBLADO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_CENTRO_POBLADO
+   add constraint FK_EXP_POBLADO_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DELITO
    add constraint FK_EXP_DELITO_CODIGO_PROCESAL foreign key (TIPO_CODIGO)
@@ -3081,7 +3527,7 @@ alter table SIETID.EXP_DROGAS
       references SIETID.EXP_EXPEDIENTE (ID);
 
 alter table SIETID.EXP_DROGAS
-   add constraint FK_EXP_DROGAS_PROCEDENCIA foreign key (PROCEDENCIA)
+   add constraint FK_EXP_DROGAS_PROCEDENCIA foreign key (PROCENDECIA)
       references MNT_PAISES (ID);
 
 alter table SIETID.EXP_DROGAS
@@ -3601,6 +4047,10 @@ alter table MNT_PAISES
       references SIETID.SEG_USUARIO (ID);
 
 alter table MNT_PAISES
+   add constraint FK_MNT_PAIS_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table MNT_PAISES
    add constraint FK_MNT_PAIS_PADRE foreign key (PADRE)
       references MNT_PAISES (ID);
 
@@ -3844,23 +4294,23 @@ alter table SIETID.PER_NO_IDENTIFICADOS
    add constraint FK_PER_NO_IDENT_ORIENT foreign key (ORIENT_SEXUAL)
       references SIETID.CFG_VALOR (ID);
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    add constraint FK_PERSONA_PARENTESCO foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    add constraint FK_PER_PARENTESCO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    add constraint FK_PER_PARENTESTCO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    add constraint FK_PER_PARENTEZCO_RELACION foreign key (TIPO_RELACION)
       references SIETID.CFG_VALOR (ID);
 
-alter table SIETID.PER_PARENTEZCO
+alter table SIETID.PER_PARENTESCO
    add constraint FK_PER_PARIENTE foreign key (PERSONA_PARIENTE)
       references SIETID.PER_PERSONA (ID);
 
@@ -3886,7 +4336,7 @@ alter table SIETID.PER_PERSONA
 
 alter table SIETID.PER_PERSONA
    add constraint FK_PER_PERSONA_NACIONALIDAD foreign key (NACIONALIDAD)
-      references SIETID.CFG_VALOR (ID);
+      references MNT_PAISES (ID);
 
 alter table SIETID.PER_PERSONA
    add constraint FK_PER_PERSONA_ORIENTACION foreign key (ORIENTACION_SEXUAL)
@@ -4024,6 +4474,10 @@ alter table SIETID.UBG_DEPARTAMENTO
    add constraint FK_UBG_DEPARTAMENTO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
+alter table SIETID.UBG_DEPARTAMENTO
+   add constraint FK_UBG_DEPARTAMENTO_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
 alter table SIETID.UBG_DISTRITO
    add constraint FK_UBG_DISTRITO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -4031,6 +4485,10 @@ alter table SIETID.UBG_DISTRITO
 alter table SIETID.UBG_DISTRITO
    add constraint FK_UBG_DISTRITO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.UBG_DISTRITO
+   add constraint FK_UBG_DISTRITO_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.UBG_DISTRITO
    add constraint FK_UBG_DISTRITO_PROVINCIA foreign key (PROVINCIA)
@@ -4048,3 +4506,6 @@ alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
+alter table SIETID.UBG_PROVINCIA
+   add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);

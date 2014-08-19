@@ -1,3 +1,10 @@
+--Usuarios
+INSERT INTO SIETID.SEG_USUARIO (ID, NOMBRES, APE_PAT, APE_MAT, USUARIO, CLAVE, CARGO, DESC_CARGO) VALUES (1, 'Merlyn', 'Enriquez', 'Ordoñez', 'menriquez', '1f40fc92da241694750979ee6cf582f2d5d7d28e18335de05abc54d0560e0f5302860c652bf08d560252aa5e74210546f369fbbbce8c12cfc7957b2652fe9a75', 'Admimistrador', 'Administrador del Sistema');
+INSERT INTO SIETID.SEG_USUARIO (ID, NOMBRES, APE_PAT, APE_MAT, USUARIO, CLAVE, CARGO, DESC_CARGO) VALUES (2, 'Elvis', 'Campos', 'Mori', 'ecampos', '1f40fc92da241694750979ee6cf582f2d5d7d28e18335de05abc54d0560e0f5302860c652bf08d560252aa5e74210546f369fbbbce8c12cfc7957b2652fe9a75', 'Admimistrador', 'Administrador del Sistema');
+
+--Preferencias de la Bandeja
+INSERT INTO SIETID.SEG_PREFERENCIA (ID,USUARIO,TABLA,COLUMNA,ANCHO,COLAPSO) values ('1','1','requerimiento','ans|id|autogenerado|dependencia|tipoFinalidad|equipo|asunto|fechaRegistro|diasAtencion|estado|lugarHecho|horaHecho|direccionHecho|jurisdiccion|','60|60|100|100|100|100|100|100|100|100|100|100|100|100|','0|0|0|0|1|0|1|0|0|1|0|0|1|0|');
+
 --Listas
 INSERT INTO SIETID.CFG_LISTA (ID,CODIGO,NOMBRE,DESCRIPCION,ESTADO,CREADOR,CREACION) VALUES (1,'REGISTRO_ESTADO','Estado de registro','Estado de registro','A',1,SYSDATE);
 INSERT INTO SIETID.CFG_LISTA (ID,CODIGO,NOMBRE,DESCRIPCION,ESTADO,CREADOR,CREACION) VALUES (2,'OPCION_TIPO','Tipo de opción','Tipo de opción','A',1,SYSDATE);
