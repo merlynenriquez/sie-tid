@@ -21,7 +21,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  * 
  */
 @Entity
-@Table(name="PARENTESCO")
+@Table(name="PER_PARENTESCO")
 public class Parentesco extends AuditoriaBean implements Validador, Serializable {
 	
 	/**
