@@ -456,7 +456,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	}
 	
 	public void inicializaPanelDirecciones(){
-		
+		limpiar("direccion");
 		//carga lista de direcciones 
 		tblDirDirecciones.addListener(new ValueChangeListener() {			 
 			@Override
@@ -476,7 +476,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	}
 	
 	public void inicializaPanelCorreo(){
-		
+		limpiar("correo");
 		//carga lista de personas 
 		tblCorrCorreos.addListener(new ValueChangeListener() {
 			 
@@ -583,7 +583,6 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	}
 	
 	public void llenaPanelDetalle(){
-		logger.debug( "detalle " + detalle  );
 		if( detalle != null ){
 			flagNuevoDetalle = false;
 			
@@ -858,6 +857,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		direccion.setDireccion( txtDirDireccion.getValue().toString());
 		direccion.setReferencia( txtDirReferencia.getValue().toString());
 		direccion.setUbgDistrito( (Distrito)cmbDirDistrito.getValue() );
+		direccion.setPersona(persona);
 		if(flagNuevaDireccion)
 			direccionService.crear( direccion);
 		else
