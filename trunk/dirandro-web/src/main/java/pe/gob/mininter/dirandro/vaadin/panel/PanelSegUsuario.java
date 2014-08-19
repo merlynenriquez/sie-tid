@@ -876,7 +876,8 @@ public class PanelSegUsuario extends HarecComponent implements ClickListener, Te
 		
 		// btnAgregarPolicia
 		btnAgregarPolicia = new Button();
-		btnAgregarPolicia.setImmediate(false);
+		btnAgregarPolicia.setCaption("Button");
+		btnAgregarPolicia.setImmediate(true);
 		btnAgregarPolicia.setWidth("-1px");
 		btnAgregarPolicia.setHeight("-1px");
 		horizontalLayout_1.addComponent(btnAgregarPolicia);

@@ -398,7 +398,12 @@ textarea.v-textarea-prompt {
 	background: #F2F2F2;
 }
 
-
+.center_area .h2 {
+  padding-top: 1px;
+  padding-right: 15px;
+  padding-bottom: 1px;
+  padding-left: 10px;
+}
 
 /**********************
  * Combobox Requeried
