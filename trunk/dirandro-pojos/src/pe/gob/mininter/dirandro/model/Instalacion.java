@@ -30,7 +30,7 @@ public class Instalacion implements Serializable {
 	@Column(nullable=false)
 	private Timestamp creacion;
 
-	@Column(length=400)
+	@Column(length=4000)
 	private String descripcion;
 
 	private Timestamp edicion;
@@ -38,10 +38,10 @@ public class Instalacion implements Serializable {
 	@Column(name="LARGO_MT", precision=4)
 	private BigDecimal largoMt;
 
-	@Column(length=100)
+	@Column(length=40)
 	private String latitud;
 
-	@Column(length=100)
+	@Column(length=40)
 	private String longitud;
 
 	@Column(length=400)

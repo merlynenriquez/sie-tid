@@ -3,6 +3,7 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -26,12 +27,20 @@ public class Provincia implements Serializable {
 
 	private Timestamp edicion;
 
+	@Column(precision=16)
+	private BigDecimal estado;
+
 	@Column(nullable=false, length=100)
 	private String nombre;
 
 	//bi-directional many-to-one association to Distrito
 	@OneToMany(mappedBy="ubgProvincia")
 	private List<Distrito> ubgDistritos;
+
+	//bi-directional one-to-one association to Valor
+	@OneToOne
+	@JoinColumn(name="ID", nullable=false, insertable=false, updatable=false)
+	private Valor cfgValor;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -75,6 +84,14 @@ public class Provincia implements Serializable {
 		this.edicion = edicion;
 	}
 
+	public BigDecimal getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(BigDecimal estado) {
+		this.estado = estado;
+	}
+
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -103,6 +120,14 @@ public class Provincia implements Serializable {
 		ubgDistrito.setUbgProvincia(null);
 
 		return ubgDistrito;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public Usuario getSegUsuario1() {

@@ -54,7 +54,6 @@
 		<class>pe.gob.mininter.dirandro.model.Imagen</class>
 		<class>pe.gob.mininter.dirandro.model.Letrado</class>
 		<class>pe.gob.mininter.dirandro.model.NoIdentificado</class>
-		<class>pe.gob.mininter.dirandro.model.Parentezco</class>
 		<class>pe.gob.mininter.dirandro.model.Persona</class>
 		<class>pe.gob.mininter.dirandro.model.Policia</class>
 		<class>pe.gob.mininter.dirandro.model.Telefono</class>
@@ -67,5 +66,6 @@
 		<class>pe.gob.mininter.dirandro.model.Departamento</class>
 		<class>pe.gob.mininter.dirandro.model.Distrito</class>
 		<class>pe.gob.mininter.dirandro.model.Provincia</class>
+		<class>pe.gob.mininter.dirandro.model.Parentesco</class>
 	</persistence-unit>
 </persistence>

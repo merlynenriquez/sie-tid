@@ -86,8 +86,12 @@ public class Valor implements Serializable {
 	private List<Arma> expArmas3;
 
 	//bi-directional many-to-one association to CentroPoblado
-	@OneToMany(mappedBy="cfgValor")
-	private List<CentroPoblado> expCentroPoblados;
+	@OneToMany(mappedBy="cfgValor1")
+	private List<CentroPoblado> expCentroPoblados1;
+
+	//bi-directional many-to-one association to CentroPoblado
+	@OneToMany(mappedBy="cfgValor2")
+	private List<CentroPoblado> expCentroPoblados2;
 
 	//bi-directional many-to-one association to Delito
 	@OneToMany(mappedBy="cfgValor1")
@@ -333,6 +337,10 @@ public class Valor implements Serializable {
 	@OneToMany(mappedBy="cfgValor")
 	private List<ModeloMarca> mntModeloMarcas;
 
+	//bi-directional many-to-one association to Pais
+	@OneToMany(mappedBy="cfgValor")
+	private List<Pais> mntPaises;
+
 	//bi-directional many-to-one association to Equipo
 	@OneToMany(mappedBy="cfgValor1")
 	private List<Equipo> orgEquipos1;
@@ -421,10 +429,6 @@ public class Valor implements Serializable {
 	@OneToMany(mappedBy="cfgValor")
 	private List<NoIdentificado> perNoIdentificados;
 
-	//bi-directional many-to-one association to Parentezco
-	@OneToMany(mappedBy="cfgValor")
-	private List<Parentezco> perParentezcos;
-
 	//bi-directional many-to-one association to Persona
 	@OneToMany(mappedBy="cfgValor1")
 	private List<Persona> perPersonas1;
@@ -436,10 +440,6 @@ public class Valor implements Serializable {
 	//bi-directional many-to-one association to Persona
 	@OneToMany(mappedBy="cfgValor3")
 	private List<Persona> perPersonas3;
-
-	//bi-directional many-to-one association to Persona
-	@OneToMany(mappedBy="cfgValor4")
-	private List<Persona> perPersonas4;
 
 	//bi-directional many-to-one association to Policia
 	@OneToMany(mappedBy="cfgValor1")
@@ -472,6 +472,22 @@ public class Valor implements Serializable {
 	//bi-directional many-to-one association to Rol
 	@OneToMany(mappedBy="cfgValor")
 	private List<Rol> segRols;
+
+	//bi-directional many-to-one association to Departamento
+	@OneToMany(mappedBy="cfgValor")
+	private List<Departamento> ubgDepartamentos;
+
+	//bi-directional many-to-one association to Distrito
+	@OneToMany(mappedBy="cfgValor")
+	private List<Distrito> ubgDistritos;
+
+	//bi-directional one-to-one association to Provincia
+	@OneToOne(mappedBy="cfgValor")
+	private Provincia ubgProvincia;
+
+	//bi-directional many-to-one association to PerParentesco
+	@OneToMany(mappedBy="cfgValor")
+	private List<Parentesco> perParentescos;
 
 	public Valor() {
 	}
@@ -718,26 +734,48 @@ public class Valor implements Serializable {
 		return expArmas3;
 	}
 
-	public List<CentroPoblado> getExpCentroPoblados() {
-		return this.expCentroPoblados;
+	public List<CentroPoblado> getExpCentroPoblados1() {
+		return this.expCentroPoblados1;
 	}
 
-	public void setExpCentroPoblados(List<CentroPoblado> expCentroPoblados) {
-		this.expCentroPoblados = expCentroPoblados;
+	public void setExpCentroPoblados1(List<CentroPoblado> expCentroPoblados1) {
+		this.expCentroPoblados1 = expCentroPoblados1;
 	}
 
-	public CentroPoblado addExpCentroPoblado(CentroPoblado expCentroPoblado) {
-		getExpCentroPoblados().add(expCentroPoblado);
-		expCentroPoblado.setCfgValor(this);
+	public CentroPoblado addExpCentroPoblados1(CentroPoblado expCentroPoblados1) {
+		getExpCentroPoblados1().add(expCentroPoblados1);
+		expCentroPoblados1.setCfgValor1(this);
 
-		return expCentroPoblado;
+		return expCentroPoblados1;
 	}
 
-	public CentroPoblado removeExpCentroPoblado(CentroPoblado expCentroPoblado) {
-		getExpCentroPoblados().remove(expCentroPoblado);
-		expCentroPoblado.setCfgValor(null);
+	public CentroPoblado removeExpCentroPoblados1(CentroPoblado expCentroPoblados1) {
+		getExpCentroPoblados1().remove(expCentroPoblados1);
+		expCentroPoblados1.setCfgValor1(null);
 
-		return expCentroPoblado;
+		return expCentroPoblados1;
+	}
+
+	public List<CentroPoblado> getExpCentroPoblados2() {
+		return this.expCentroPoblados2;
+	}
+
+	public void setExpCentroPoblados2(List<CentroPoblado> expCentroPoblados2) {
+		this.expCentroPoblados2 = expCentroPoblados2;
+	}
+
+	public CentroPoblado addExpCentroPoblados2(CentroPoblado expCentroPoblados2) {
+		getExpCentroPoblados2().add(expCentroPoblados2);
+		expCentroPoblados2.setCfgValor2(this);
+
+		return expCentroPoblados2;
+	}
+
+	public CentroPoblado removeExpCentroPoblados2(CentroPoblado expCentroPoblados2) {
+		getExpCentroPoblados2().remove(expCentroPoblados2);
+		expCentroPoblados2.setCfgValor2(null);
+
+		return expCentroPoblados2;
 	}
 
 	public List<Delito> getExpDelitos1() {
@@ -2082,6 +2120,28 @@ public class Valor implements Serializable {
 		return mntModeloMarca;
 	}
 
+	public List<Pais> getMntPaises() {
+		return this.mntPaises;
+	}
+
+	public void setMntPaises(List<Pais> mntPaises) {
+		this.mntPaises = mntPaises;
+	}
+
+	public Pais addMntPais(Pais mntPais) {
+		getMntPaises().add(mntPais);
+		mntPais.setCfgValor(this);
+
+		return mntPais;
+	}
+
+	public Pais removeMntPais(Pais mntPais) {
+		getMntPaises().remove(mntPais);
+		mntPais.setCfgValor(null);
+
+		return mntPais;
+	}
+
 	public List<Equipo> getOrgEquipos1() {
 		return this.orgEquipos1;
 	}
@@ -2566,28 +2626,6 @@ public class Valor implements Serializable {
 		return perNoIdentificado;
 	}
 
-	public List<Parentezco> getPerParentezcos() {
-		return this.perParentezcos;
-	}
-
-	public void setPerParentezcos(List<Parentezco> perParentezcos) {
-		this.perParentezcos = perParentezcos;
-	}
-
-	public Parentezco addPerParentezco(Parentezco perParentezco) {
-		getPerParentezcos().add(perParentezco);
-		perParentezco.setCfgValor(this);
-
-		return perParentezco;
-	}
-
-	public Parentezco removePerParentezco(Parentezco perParentezco) {
-		getPerParentezcos().remove(perParentezco);
-		perParentezco.setCfgValor(null);
-
-		return perParentezco;
-	}
-
 	public List<Persona> getPerPersonas1() {
 		return this.perPersonas1;
 	}
@@ -2652,28 +2690,6 @@ public class Valor implements Serializable {
 		perPersonas3.setCfgValor3(null);
 
 		return perPersonas3;
-	}
-
-	public List<Persona> getPerPersonas4() {
-		return this.perPersonas4;
-	}
-
-	public void setPerPersonas4(List<Persona> perPersonas4) {
-		this.perPersonas4 = perPersonas4;
-	}
-
-	public Persona addPerPersonas4(Persona perPersonas4) {
-		getPerPersonas4().add(perPersonas4);
-		perPersonas4.setCfgValor4(this);
-
-		return perPersonas4;
-	}
-
-	public Persona removePerPersonas4(Persona perPersonas4) {
-		getPerPersonas4().remove(perPersonas4);
-		perPersonas4.setCfgValor4(null);
-
-		return perPersonas4;
 	}
 
 	public List<Policia> getPerPolicias1() {
@@ -2850,6 +2866,80 @@ public class Valor implements Serializable {
 		segRol.setCfgValor(null);
 
 		return segRol;
+	}
+
+	public List<Departamento> getUbgDepartamentos() {
+		return this.ubgDepartamentos;
+	}
+
+	public void setUbgDepartamentos(List<Departamento> ubgDepartamentos) {
+		this.ubgDepartamentos = ubgDepartamentos;
+	}
+
+	public Departamento addUbgDepartamento(Departamento ubgDepartamento) {
+		getUbgDepartamentos().add(ubgDepartamento);
+		ubgDepartamento.setCfgValor(this);
+
+		return ubgDepartamento;
+	}
+
+	public Departamento removeUbgDepartamento(Departamento ubgDepartamento) {
+		getUbgDepartamentos().remove(ubgDepartamento);
+		ubgDepartamento.setCfgValor(null);
+
+		return ubgDepartamento;
+	}
+
+	public List<Distrito> getUbgDistritos() {
+		return this.ubgDistritos;
+	}
+
+	public void setUbgDistritos(List<Distrito> ubgDistritos) {
+		this.ubgDistritos = ubgDistritos;
+	}
+
+	public Distrito addUbgDistrito(Distrito ubgDistrito) {
+		getUbgDistritos().add(ubgDistrito);
+		ubgDistrito.setCfgValor(this);
+
+		return ubgDistrito;
+	}
+
+	public Distrito removeUbgDistrito(Distrito ubgDistrito) {
+		getUbgDistritos().remove(ubgDistrito);
+		ubgDistrito.setCfgValor(null);
+
+		return ubgDistrito;
+	}
+
+	public Provincia getUbgProvincia() {
+		return this.ubgProvincia;
+	}
+
+	public void setUbgProvincia(Provincia ubgProvincia) {
+		this.ubgProvincia = ubgProvincia;
+	}
+
+	public List<Parentesco> getPerParentescos() {
+		return this.perParentescos;
+	}
+
+	public void setPerParentescos(List<Parentesco> perParentescos) {
+		this.perParentescos = perParentescos;
+	}
+
+	public Parentesco addPerParentesco(Parentesco perParentesco) {
+		getPerParentescos().add(perParentesco);
+		perParentesco.setCfgValor(this);
+
+		return perParentesco;
+	}
+
+	public Parentesco removePerParentesco(Parentesco perParentesco) {
+		getPerParentescos().remove(perParentesco);
+		perParentesco.setCfgValor(null);
+
+		return perParentesco;
 	}
 
 }

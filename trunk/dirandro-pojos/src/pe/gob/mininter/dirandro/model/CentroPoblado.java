@@ -32,7 +32,12 @@ public class CentroPoblado implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CATEGORIA")
-	private Valor cfgValor;
+	private Valor cfgValor1;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -92,12 +97,20 @@ public class CentroPoblado implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public Valor getCfgValor1() {
+		return this.cfgValor1;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setCfgValor1(Valor cfgValor1) {
+		this.cfgValor1 = cfgValor1;
+	}
+
+	public Valor getCfgValor2() {
+		return this.cfgValor2;
+	}
+
+	public void setCfgValor2(Valor cfgValor2) {
+		this.cfgValor2 = cfgValor2;
 	}
 
 	public Usuario getSegUsuario1() {

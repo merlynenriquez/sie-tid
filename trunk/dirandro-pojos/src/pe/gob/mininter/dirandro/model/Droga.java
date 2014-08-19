@@ -77,14 +77,14 @@ public class Droga implements Serializable {
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
 
-	//bi-directional many-to-one association to Pais
-	@ManyToOne
-	@JoinColumn(name="PROCEDENCIA")
+	//bi-directional one-to-one association to Pais
+	@OneToOne
+	@JoinColumn(name="ID", nullable=false, insertable=false, updatable=false)
 	private Pais mntPais1;
 
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
-	@JoinColumn(name="DESTINO", nullable=false)
+	@JoinColumn(name="MNT_ID")
 	private Pais mntPais2;
 
 	//bi-directional many-to-one association to Usuario

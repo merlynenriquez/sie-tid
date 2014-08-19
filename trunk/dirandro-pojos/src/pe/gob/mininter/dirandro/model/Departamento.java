@@ -29,6 +29,11 @@ public class Departamento implements Serializable {
 	@Column(nullable=false, length=100)
 	private String nombre;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO", nullable=false)
+	private Valor cfgValor;
+
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
@@ -76,6 +81,14 @@ public class Departamento implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public Usuario getSegUsuario1() {

@@ -60,6 +60,11 @@ public class Distrito implements Serializable {
 	@OneToMany(mappedBy="ubgDistrito")
 	private List<Persona> perPersonas;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor cfgValor;
+
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="EDITOR")
@@ -270,6 +275,14 @@ public class Distrito implements Serializable {
 		perPersona.setUbgDistrito(null);
 
 		return perPersona;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public Usuario getSegUsuario1() {
