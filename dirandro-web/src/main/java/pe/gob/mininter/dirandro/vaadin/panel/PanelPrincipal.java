@@ -211,7 +211,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ENTIDAD)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Entidades</h2>");
 				pnlContenido.removeAllComponents();
-				//TODO: Crear Panel
+				pnlContenido.addComponent(new PanelMantenEntidad(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_DEPENDEN)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Dependencias</h2>");
 				pnlContenido.removeAllComponents();
