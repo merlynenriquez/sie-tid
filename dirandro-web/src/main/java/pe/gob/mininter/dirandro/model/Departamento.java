@@ -1,14 +1,14 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -35,9 +35,9 @@ public class Departamento extends AuditoriaBean implements Validador, Serializab
 	@Column(nullable=false, length=100)
 	private String nombre;
 
-	//bi-directional many-to-one association to Provincia
-	@OneToMany(mappedBy="ubgDepartamento")
-	private List<Provincia> ubgProvincias;
+	@ManyToOne
+	@JoinColumn(name="ESTADO", nullable=false)
+	private Valor estado;
 
 	public Departamento() {
 	}
@@ -58,26 +58,12 @@ public class Departamento extends AuditoriaBean implements Validador, Serializab
 		this.nombre = nombre;
 	}
 	
-	public List<Provincia> getUbgProvincias() {
-		return this.ubgProvincias;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setUbgProvincias(List<Provincia> ubgProvincias) {
-		this.ubgProvincias = ubgProvincias;
-	}
-
-	public Provincia addUbgProvincia(Provincia ubgProvincia) {
-		getUbgProvincias().add(ubgProvincia);
-		ubgProvincia.setUbgDepartamento(this);
-
-		return ubgProvincia;
-	}
-
-	public Provincia removeUbgProvincia(Provincia ubgProvincia) {
-		getUbgProvincias().remove(ubgProvincia);
-		ubgProvincia.setUbgDepartamento(null);
-
-		return ubgProvincia;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 	@Override
