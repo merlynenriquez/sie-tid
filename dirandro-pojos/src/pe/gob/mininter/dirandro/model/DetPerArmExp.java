@@ -69,12 +69,12 @@ public class DetPerArmExp implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="EDITOR")
+	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario1;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="CREADOR", nullable=false)
+	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
 	public DetPerArmExp() {

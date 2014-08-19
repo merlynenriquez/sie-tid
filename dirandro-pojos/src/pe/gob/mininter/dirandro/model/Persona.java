@@ -1,22 +1,10 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -136,11 +124,11 @@ public class Persona implements Serializable {
 
 	//bi-directional many-to-one association to Parentesco
 	@OneToMany(mappedBy="perPersona1")
-	private List<Parentesco> Parentescos1;
+	private List<Parentesco> perParentescos1;
 
 	//bi-directional many-to-one association to Parentesco
 	@OneToMany(mappedBy="perPersona2")
-	private List<Parentesco> Parentescos2;
+	private List<Parentesco> perParentescos2;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -150,17 +138,17 @@ public class Persona implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO_CIVIL")
-	private Valor cfgValor3;
+	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DOCUMENTO")
-	private Valor cfgValor4;
+	private Valor cfgValor3;
 
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
 	@JoinColumn(name="NACIONALIDAD")
-	private Pais mntPais2;
+	private Pais mntPais;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
@@ -683,48 +671,48 @@ public class Persona implements Serializable {
 		return perNoIdentificado;
 	}
 
-	public List<Parentesco> getParentescos1() {
-		return this.Parentescos1;
+	public List<Parentesco> getPerParentescos1() {
+		return this.perParentescos1;
 	}
 
-	public void setParentescos1(List<Parentesco> Parentescos1) {
-		this.Parentescos1 = Parentescos1;
+	public void setPerParentescos1(List<Parentesco> perParentescos1) {
+		this.perParentescos1 = perParentescos1;
 	}
 
-	public Parentesco addParentescos1(Parentesco Parentescos1) {
-		getParentescos1().add(Parentescos1);
-		Parentescos1.setPerPersona1(this);
+	public Parentesco addPerParentescos1(Parentesco perParentescos1) {
+		getPerParentescos1().add(perParentescos1);
+		perParentescos1.setPerPersona1(this);
 
-		return Parentescos1;
+		return perParentescos1;
 	}
 
-	public Parentesco removeParentescos1(Parentesco Parentescos1) {
-		getParentescos1().remove(Parentescos1);
-		Parentescos1.setPerPersona1(null);
+	public Parentesco removePerParentescos1(Parentesco perParentescos1) {
+		getPerParentescos1().remove(perParentescos1);
+		perParentescos1.setPerPersona1(null);
 
-		return Parentescos1;
+		return perParentescos1;
 	}
 
-	public List<Parentesco> getParentescos2() {
-		return this.Parentescos2;
+	public List<Parentesco> getPerParentescos2() {
+		return this.perParentescos2;
 	}
 
-	public void setParentescos2(List<Parentesco> Parentescos2) {
-		this.Parentescos2 = Parentescos2;
+	public void setPerParentescos2(List<Parentesco> perParentescos2) {
+		this.perParentescos2 = perParentescos2;
 	}
 
-	public Parentesco addParentescos2(Parentesco Parentescos2) {
-		getParentescos2().add(Parentescos2);
-		Parentescos2.setPerPersona2(this);
+	public Parentesco addPerParentescos2(Parentesco perParentescos2) {
+		getPerParentescos2().add(perParentescos2);
+		perParentescos2.setPerPersona2(this);
 
-		return Parentescos2;
+		return perParentescos2;
 	}
 
-	public Parentesco removeParentescos2(Parentesco Parentescos2) {
-		getParentescos2().remove(Parentescos2);
-		Parentescos2.setPerPersona2(null);
+	public Parentesco removePerParentescos2(Parentesco perParentescos2) {
+		getPerParentescos2().remove(perParentescos2);
+		perParentescos2.setPerPersona2(null);
 
-		return Parentescos2;
+		return perParentescos2;
 	}
 
 	public Valor getCfgValor1() {
@@ -734,7 +722,15 @@ public class Persona implements Serializable {
 	public void setCfgValor1(Valor cfgValor1) {
 		this.cfgValor1 = cfgValor1;
 	}
-	
+
+	public Valor getCfgValor2() {
+		return this.cfgValor2;
+	}
+
+	public void setCfgValor2(Valor cfgValor2) {
+		this.cfgValor2 = cfgValor2;
+	}
+
 	public Valor getCfgValor3() {
 		return this.cfgValor3;
 	}
@@ -743,20 +739,12 @@ public class Persona implements Serializable {
 		this.cfgValor3 = cfgValor3;
 	}
 
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
+	public Pais getMntPais() {
+		return this.mntPais;
 	}
 
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
-	}
-
-	public Pais getMntPais2() {
-		return this.mntPais2;
-	}
-
-	public void setMntPais2(Pais mntPais2) {
-		this.mntPais2 = mntPais2;
+	public void setMntPais(Pais mntPais) {
+		this.mntPais = mntPais;
 	}
 
 	public Persona getPerPersona() {
