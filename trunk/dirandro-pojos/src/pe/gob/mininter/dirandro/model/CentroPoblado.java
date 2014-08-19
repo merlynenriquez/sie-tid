@@ -31,12 +31,12 @@ public class CentroPoblado implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="CATEGORIA")
+	@JoinColumn(name="ESTADO")
 	private Valor cfgValor1;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="ESTADO")
+	@JoinColumn(name="CATEGORIA")
 	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Usuario

@@ -36,16 +36,16 @@ public class Provincia implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor2;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="EDITOR")
-	private Usuario segUsuario1;
+	private Valor cfgValor;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
+	private Usuario segUsuario1;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
 	//bi-directional many-to-one association to Departamento
@@ -109,13 +109,13 @@ public class Provincia implements Serializable {
 
 		return ubgDistrito;
 	}
-	
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public Usuario getSegUsuario1() {

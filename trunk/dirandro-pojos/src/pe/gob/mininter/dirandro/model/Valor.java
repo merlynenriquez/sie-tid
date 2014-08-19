@@ -431,19 +431,19 @@ public class Valor implements Serializable {
 
 	//bi-directional many-to-one association to Parentesco
 	@OneToMany(mappedBy="cfgValor")
-	private List<Parentesco> Parentescos;
+	private List<Parentesco> perParentescos;
 
 	//bi-directional many-to-one association to Persona
 	@OneToMany(mappedBy="cfgValor1")
 	private List<Persona> perPersonas1;
 
 	//bi-directional many-to-one association to Persona
-	@OneToMany(mappedBy="cfgValor3")
-	private List<Persona> perPersonas3;
+	@OneToMany(mappedBy="cfgValor2")
+	private List<Persona> perPersonas2;
 
 	//bi-directional many-to-one association to Persona
-	@OneToMany(mappedBy="cfgValor4")
-	private List<Persona> perPersonas4;
+	@OneToMany(mappedBy="cfgValor3")
+	private List<Persona> perPersonas3;
 
 	//bi-directional many-to-one association to Policia
 	@OneToMany(mappedBy="cfgValor1")
@@ -486,7 +486,7 @@ public class Valor implements Serializable {
 	private List<Distrito> ubgDistritos;
 
 	//bi-directional many-to-one association to Provincia
-	@OneToMany(mappedBy="cfgValor2")
+	@OneToMany(mappedBy="cfgValor")
 	private List<Provincia> ubgProvincias;
 
 	public Valor() {
@@ -2626,26 +2626,26 @@ public class Valor implements Serializable {
 		return perNoIdentificado;
 	}
 
-	public List<Parentesco> getParentescos() {
-		return this.Parentescos;
+	public List<Parentesco> getPerParentescos() {
+		return this.perParentescos;
 	}
 
-	public void setParentescos(List<Parentesco> Parentescos) {
-		this.Parentescos = Parentescos;
+	public void setPerParentescos(List<Parentesco> perParentescos) {
+		this.perParentescos = perParentescos;
 	}
 
-	public Parentesco addParentesco(Parentesco Parentesco) {
-		getParentescos().add(Parentesco);
-		Parentesco.setCfgValor(this);
+	public Parentesco addPerParentesco(Parentesco perParentesco) {
+		getPerParentescos().add(perParentesco);
+		perParentesco.setCfgValor(this);
 
-		return Parentesco;
+		return perParentesco;
 	}
 
-	public Parentesco removeParentesco(Parentesco Parentesco) {
-		getParentescos().remove(Parentesco);
-		Parentesco.setCfgValor(null);
+	public Parentesco removePerParentesco(Parentesco perParentesco) {
+		getPerParentescos().remove(perParentesco);
+		perParentesco.setCfgValor(null);
 
-		return Parentesco;
+		return perParentesco;
 	}
 
 	public List<Persona> getPerPersonas1() {
@@ -2670,6 +2670,28 @@ public class Valor implements Serializable {
 		return perPersonas1;
 	}
 
+	public List<Persona> getPerPersonas2() {
+		return this.perPersonas2;
+	}
+
+	public void setPerPersonas2(List<Persona> perPersonas2) {
+		this.perPersonas2 = perPersonas2;
+	}
+
+	public Persona addPerPersonas2(Persona perPersonas2) {
+		getPerPersonas2().add(perPersonas2);
+		perPersonas2.setCfgValor2(this);
+
+		return perPersonas2;
+	}
+
+	public Persona removePerPersonas2(Persona perPersonas2) {
+		getPerPersonas2().remove(perPersonas2);
+		perPersonas2.setCfgValor2(null);
+
+		return perPersonas2;
+	}
+
 	public List<Persona> getPerPersonas3() {
 		return this.perPersonas3;
 	}
@@ -2690,28 +2712,6 @@ public class Valor implements Serializable {
 		perPersonas3.setCfgValor3(null);
 
 		return perPersonas3;
-	}
-
-	public List<Persona> getPerPersonas4() {
-		return this.perPersonas4;
-	}
-
-	public void setPerPersonas4(List<Persona> perPersonas4) {
-		this.perPersonas4 = perPersonas4;
-	}
-
-	public Persona addPerPersonas4(Persona perPersonas4) {
-		getPerPersonas4().add(perPersonas4);
-		perPersonas4.setCfgValor4(this);
-
-		return perPersonas4;
-	}
-
-	public Persona removePerPersonas4(Persona perPersonas4) {
-		getPerPersonas4().remove(perPersonas4);
-		perPersonas4.setCfgValor4(null);
-
-		return perPersonas4;
 	}
 
 	public List<Policia> getPerPolicias1() {
@@ -2944,14 +2944,14 @@ public class Valor implements Serializable {
 
 	public Provincia addUbgProvincia(Provincia ubgProvincia) {
 		getUbgProvincias().add(ubgProvincia);
-		ubgProvincia.setCfgValor2(this);
+		ubgProvincia.setCfgValor(this);
 
 		return ubgProvincia;
 	}
 
 	public Provincia removeUbgProvincia(Provincia ubgProvincia) {
 		getUbgProvincias().remove(ubgProvincia);
-		ubgProvincia.setCfgValor2(null);
+		ubgProvincia.setCfgValor(null);
 
 		return ubgProvincia;
 	}

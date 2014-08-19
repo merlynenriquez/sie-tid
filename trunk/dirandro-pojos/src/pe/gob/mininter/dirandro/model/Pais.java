@@ -36,9 +36,8 @@ public class Pais implements Serializable {
 	@OneToMany(mappedBy="mntPais1")
 	private List<Droga> expDrogas1;
 
-
 	//bi-directional many-to-one association to Droga
-	@OneToMany(mappedBy="mntPais3")
+	@OneToMany(mappedBy="mntPais2")
 	private List<Droga> expDrogas2;
 
 	//bi-directional many-to-one association to Valor
@@ -64,6 +63,10 @@ public class Pais implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
+
+	//bi-directional many-to-one association to Persona
+	@OneToMany(mappedBy="mntPais")
+	private List<Persona> perPersonas;
 
 	public Pais() {
 	}
@@ -140,14 +143,14 @@ public class Pais implements Serializable {
 
 	public Droga addExpDrogas2(Droga expDrogas2) {
 		getExpDrogas2().add(expDrogas2);
-		expDrogas2.setMntPais3(this);
+		expDrogas2.setMntPais2(this);
 
 		return expDrogas2;
 	}
 
 	public Droga removeExpDrogas2(Droga expDrogas2) {
 		getExpDrogas2().remove(expDrogas2);
-		expDrogas2.setMntPais3(null);
+		expDrogas2.setMntPais2(null);
 
 		return expDrogas2;
 	}
@@ -204,6 +207,28 @@ public class Pais implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
+	}
+
+	public List<Persona> getPerPersonas() {
+		return this.perPersonas;
+	}
+
+	public void setPerPersonas(List<Persona> perPersonas) {
+		this.perPersonas = perPersonas;
+	}
+
+	public Persona addPerPersona(Persona perPersona) {
+		getPerPersonas().add(perPersona);
+		perPersona.setMntPais(this);
+
+		return perPersona;
+	}
+
+	public Persona removePerPersona(Persona perPersona) {
+		getPerPersonas().remove(perPersona);
+		perPersona.setMntPais(null);
+
+		return perPersona;
 	}
 
 }
