@@ -30,7 +30,7 @@ public class Parentezco extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = -1946559235893710683L;
 
 	@Id
-	@SequenceGenerator(name="PER_PARENTEZCO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_PARENTEZCO_ID_GENERATOR", sequenceName="SEQ_PARENTESCO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_PARENTEZCO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -46,12 +46,12 @@ public class Parentezco extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA_PARIENTE")
-	private Persona perPariente;
+	private Persona pariente;
 
 	public Parentezco() {
 	}
@@ -80,20 +80,20 @@ public class Parentezco extends AuditoriaBean implements Validador, Serializable
 		this.tipoRelacion = tipoRelacion;
 	}
 
-	public Persona getPerPersona() {
-		return perPersona;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
-	public Persona getPerPariente() {
-		return perPariente;
+	public Persona getPariente() {
+		return pariente;
 	}
 
-	public void setPerPariente(Persona perPariente) {
-		this.perPariente = perPariente;
+	public void setPariente(Persona pariente) {
+		this.pariente = pariente;
 	}
 
 	@Override

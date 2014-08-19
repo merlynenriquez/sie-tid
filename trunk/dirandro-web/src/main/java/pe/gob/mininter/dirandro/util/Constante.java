@@ -52,6 +52,7 @@ public abstract class Constante {
 			public final static String TIPO_LABIO = "TIPO_LABIO";
 			public final static String FORMA_BOCA = "FORMA_BOCA";
 			public final static String PROFESION = "PROFESION";
+			public final static String PARENTESCO = "PARENTESCO";
 
 		}
 	}
