@@ -17,8 +17,8 @@
 	</modules>
 
 	<properties>
-		<spring.version>3.2.10.RELEASE</spring.version>
-		<hibernate.version>4.2.15.Final</hibernate.version>
+		<spring.version>3.2.7.RELEASE</spring.version>
+		<hibernate.version>4.2.7.Final</hibernate.version>
 		<aspectj.version>1.6.12</aspectj.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -184,13 +184,13 @@
 		    <version>2.1</version>
 		</dependency>
 
-		<!-- Conexion Oracle -->
+		<!-- Conexion Oracle 
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>1.0</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 		
 		<!-- Test -->
 		<dependency>
