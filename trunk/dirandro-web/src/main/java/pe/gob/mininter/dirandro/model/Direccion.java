@@ -49,7 +49,7 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="DISTRITO")
-	private Distrito ubgDistrito;
+	private Distrito distrito;
 
 	public Direccion() {
 	}
@@ -86,12 +86,12 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 		this.persona = persona;
 	}
 
-	public Distrito getUbgDistrito() {
-		return this.ubgDistrito;
+	public Distrito getDistrito() {
+		return this.distrito;
 	}
 
-	public void setUbgDistrito(Distrito ubgDistrito) {
-		this.ubgDistrito = ubgDistrito;
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	@Override
