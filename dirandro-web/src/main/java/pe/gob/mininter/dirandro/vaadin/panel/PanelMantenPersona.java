@@ -15,6 +15,7 @@ import pe.gob.mininter.dirandro.model.Direccion;
 import pe.gob.mininter.dirandro.model.Distrito;
 import pe.gob.mininter.dirandro.model.Identificacion;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Pais;
 import pe.gob.mininter.dirandro.model.Parentesco;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
@@ -23,6 +24,7 @@ import pe.gob.mininter.dirandro.service.DetallePersonaService;
 import pe.gob.mininter.dirandro.service.DireccionService;
 import pe.gob.mininter.dirandro.service.ParentescoService;
 import pe.gob.mininter.dirandro.service.PersonaService;
+import pe.gob.mininter.dirandro.service.UbigeoService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.vaadin.util.HarecComponent;
@@ -35,6 +37,7 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.data.util.IndexedContainer;
+import com.vaadin.ui.AbstractSelect.Filtering;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -284,9 +287,13 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	private CorreoService correoService;
 	private DireccionService direccionService;
 	private ParentescoService parentescoService;
+	private UbigeoService ubigeoService;
 	
-	private List<Valor> lTipoDocPersona;
-	private List<Valor> lEstadoCivil;
+	private List<Valor> lstTipoDocPersona;
+	private List<Valor> lstEstadoCivil;
+	
+	private List<Pais> lstPaises;
+	private List<Distrito> lstDistritos;
 	
 	private List<Valor> lTipoCeja;
 	private List<Valor> lTipoOreja;
@@ -324,7 +331,8 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		detallePersonaService = Injector.obtenerServicio(DetallePersonaService.class);
 		correoService =  Injector.obtenerServicio(CorreoService.class);
 		direccionService = Injector.obtenerServicio(DireccionService.class);
-		parentescoService = Injector.obtenerServicio( ParentescoService.class );
+		parentescoService = Injector.obtenerServicio(ParentescoService.class );
+		ubigeoService = Injector.obtenerServicio(UbigeoService.class );
 		
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
@@ -341,8 +349,10 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		
 		btnParRegPersona.addListener((ClickListener)this);
 		//Inicializar listas 
-		lTipoDocPersona = valorService.obtenerLista(Constante.LISTA.CODIGO.DOCUMENTO_TIPO);	
-		lEstadoCivil = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO_CIVIL);
+		lstTipoDocPersona = valorService.obtenerLista(Constante.LISTA.CODIGO.DOCUMENTO_TIPO);	
+		lstEstadoCivil = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO_CIVIL);
+		lstPaises = ubigeoService.obtenerPaises();
+		lstDistritos = ubigeoService.obtenerTodos();
 		
 		lPersonas = personaService.buscar( null );
 		
@@ -375,7 +385,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		lFormaCara = valorService.obtenerLista(Constante.LISTA.CODIGO.FORMA_CARA);
 		lProfesion = valorService.obtenerLista(Constante.LISTA.CODIGO.PROFESION);
 		
-		BeanItemContainer<Valor> bicEstados = new BeanItemContainer<Valor>(Valor.class,  lTipoDocPersona);
+		BeanItemContainer<Valor> bicEstados = new BeanItemContainer<Valor>(Valor.class,  lstTipoDocPersona);
 		cmbPerTipoDoc.setInputPrompt("Tipo de Documento");
 		cmbPerTipoDoc.setItemCaptionPropertyId("nombre");
 		cmbPerTipoDoc.setContainerDataSource(bicEstados);
@@ -386,11 +396,17 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		
 		cmbPerEstadoCivil.setInputPrompt("Estado Civil");
 		cmbPerEstadoCivil.setItemCaptionPropertyId("nombre");
-		cmbPerEstadoCivil.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lEstadoCivil ));
+		cmbPerEstadoCivil.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lstEstadoCivil));
+		
+		cmbPerLugarNac.setInputPrompt("Distrito - Provincia - Departamento");
+		cmbPerLugarNac.setItemCaptionPropertyId("nombreCompleto");
+		cmbPerLugarNac.setContainerDataSource(new BeanItemContainer<Distrito>(Distrito.class,  lstDistritos));
+		cmbPerLugarNac.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
 		
 		cmbPerNacionalidad.setInputPrompt("Nacionalidad");
 		cmbPerNacionalidad.setItemCaptionPropertyId("nombre");
-		//TODO cmbNacionalidad.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  valorService.obtenerLista(Constante.LISTA.CODIGO.nac) ));
+		cmbPerNacionalidad.setContainerDataSource(new BeanItemContainer<Pais>(Pais.class, lstPaises));
+		cmbPerNacionalidad.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
 		
 		tblPerPersonas.setSelectable(true);
 		tblPerPersonas.setImmediate(true);
@@ -405,6 +421,8 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		//carga lista de personas 
 		tblPerPersonas.addListener(new ValueChangeListener() {
 			 
+			private static final long serialVersionUID = 1982293287765644219L;
+
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				boolean esModoNuevo = tblPerPersonas.getValue() == null;
@@ -613,17 +631,29 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	
 	private void llenaPanelPersona(){		
 		if( persona != null ){			
-			txtPerNombres.setValue( persona.getNombres() );
-			txtPerApePaterno.setValue( persona.getApePaterno());
-			txtPerApeMaterno.setValue(  persona.getApePaterno() );
-			txtPerNumDoc.setValue( persona.getNroDocumento() );
-			dtPerNacimiento.setValue( persona.getFecNacimiento() );
-			rbPerSexo.setValue( persona.getSexo() );			
-			cmbPerEstadoCivil.select(persona.getEstadoCivil() ); 
-			cmbPerTipoDoc.select( persona.getTipoDocumento() );
-			cmbPerLugarNac.setValue( persona.getUbgDistrito() );
-			cmbPerPersonaVerdadera.setValue( persona.getPerPersona() );
-			cmbPerNacionalidad.setValue( persona.getNacionalidad() );			
+			txtPerNombres.setValue(persona.getNombres());
+			txtPerApePaterno.setValue(persona.getApePaterno());
+			txtPerApeMaterno.setValue(persona.getApePaterno());
+			txtPerNumDoc.setValue(persona.getNroDocumento());
+			dtPerNacimiento.setValue(persona.getFecNacimiento());
+			rbPerSexo.setValue(persona.getSexo());
+			cmbPerEstadoCivil.select(persona.getEstadoCivil());
+			cmbPerTipoDoc.select(persona.getTipoDocumento());
+			cmbPerPersonaVerdadera.setValue(persona.getPerPersona());
+			
+			for (Distrito ubigeo : lstDistritos) {
+				if(ubigeo.getId().equals((Long)persona.getLugarNacimiento().getId())){
+					cmbPerLugarNac.select(ubigeo);
+					break;
+				}
+			}
+			
+			for (Pais pais : lstPaises) {
+				if(pais.getId().equals((Long)persona.getNacionalidad().getId())){
+					cmbPerNacionalidad.select(pais);
+					break;
+				}
+			}
 		}		
 	}
 	
@@ -724,14 +754,14 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
         if(lDirecciones!=null){
         	int con=1;
 	        for (Direccion direccion: lDirecciones) {
-	                Item item = container.addItem(con++);
-	                item.getItemProperty("id").setValue(direccion.getId() );
-	                item.getItemProperty("DireccionObj").setValue(direccion );
-	                item.getItemProperty("Direccion").setValue(direccion.getDireccion());
-				    item.getItemProperty("Referencia").setValue(direccion.getReferencia());
-				    item.getItemProperty("Distrito").setValue(direccion.getUbgDistrito().getNombre());
-				    item.getItemProperty("Provincia").setValue(direccion.getUbgDistrito().getUbgProvincia().getNombre());
-				    item.getItemProperty("Departamento").setValue(direccion.getUbgDistrito().getUbgProvincia().getUbgDepartamento().getNombre());
+                Item item = container.addItem(con++);
+                item.getItemProperty("id").setValue(direccion.getId() );
+                item.getItemProperty("DireccionObj").setValue(direccion );
+                item.getItemProperty("Direccion").setValue(direccion.getDireccion());
+			    item.getItemProperty("Referencia").setValue(direccion.getReferencia());
+			    item.getItemProperty("Distrito").setValue(direccion.getUbgDistrito().getNombre());
+			    item.getItemProperty("Provincia").setValue(direccion.getUbgDistrito().getProvincia().getNombre());
+			    item.getItemProperty("Departamento").setValue(direccion.getUbgDistrito().getProvincia().getDepartamento().getNombre());
 	        }
         }
         tblDirDirecciones.setContainerDataSource(container);
@@ -1002,22 +1032,22 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 	
 	private void registrarPersona(){
 		//Persona per = new Persona();
-		persona.setApeMaterno( txtPerApeMaterno.getValue().toString() );
-		persona.setApePaterno( txtPerApePaterno.getValue().toString() );
-		persona.setEstadoCivil(  (Valor)cmbPerEstadoCivil.getValue() );
-		persona.setFecNacimiento( (Date)dtPerNacimiento.getValue() );
-		persona.setNacionalidad( null );
-		persona.setNombres( txtPerNombres.getValue().toString() );
-		persona.setNroDocumento( txtPerNumDoc.getValue().toString() );
-		//per.setOrientacionSexual( (Valor)cmbper );
+		persona.setApeMaterno(txtPerApeMaterno.getValue().toString() );
+		persona.setApePaterno(txtPerApePaterno.getValue().toString() );
+		persona.setEstadoCivil((Valor) cmbPerEstadoCivil.getValue());
+		persona.setFecNacimiento((Date) dtPerNacimiento.getValue() );
+		persona.setNacionalidad((Pais) cmbPerNacionalidad.getValue() );
+		logger.debug(((Pais) cmbPerNacionalidad.getValue()).getNombre());
+		persona.setNombres(txtPerNombres.getValue().toString() );
+		persona.setNroDocumento(txtPerNumDoc.getValue().toString() );
 		persona.setSexo( rbPerSexo.getValue().toString() );
 		persona.setPerPersona( (Persona)cmbPerPersonaVerdadera.getValue() );
 		persona.setTipoDocumento( (Valor)cmbPerTipoDoc.getValue() );
-		persona.setUbgDistrito( null );
+		persona.setLugarNacimiento((Distrito) cmbPerLugarNac.getValue());
 		if(flagNuevaPersona)
-			personaService.crear( persona );
+			personaService.crear(persona);
 		else
-			personaService.actualizar( persona );
+			personaService.actualizar(persona);
 		refrescar("persona");
 		//TODO algo pra volver a seleccionar la persona en la tabla y que cargue sus datos en los tabs
 	}
@@ -1474,7 +1504,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		cmbPerLugarNac = new ComboBox();
 		cmbPerLugarNac.setCaption("Lugar de Nacimiento:");
 		cmbPerLugarNac.setImmediate(false);
-		cmbPerLugarNac.setWidth("-1px");
+		cmbPerLugarNac.setWidth("280px");
 		cmbPerLugarNac.setHeight("-1px");
 		pnlPersona2.addComponent(cmbPerLugarNac);
 		
@@ -1545,6 +1575,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener 
 		verticalLayout_11.setWidth("-1px");
 		verticalLayout_11.setHeight("-1px");
 		verticalLayout_11.setMargin(false);
+		verticalLayout_11.setSpacing(true);
 		
 		// verticalLayout_9
 		verticalLayout_9 = buildVerticalLayout_9();

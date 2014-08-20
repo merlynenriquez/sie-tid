@@ -89,7 +89,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="LUGAR_NACIMIENTO")
-	private Distrito ubgDistrito;
+	private Distrito lugarNacimiento;
 
 	public Persona() {
 	}
@@ -190,12 +190,12 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 		this.perPersona = perPersona;
 	}
 
-	public Distrito getUbgDistrito() {
-		return ubgDistrito;
+	public Distrito getLugarNacimiento() {
+		return lugarNacimiento;
 	}
 
-	public void setUbgDistrito(Distrito ubgDistrito) {
-		this.ubgDistrito = ubgDistrito;
+	public void setLugarNacimiento(Distrito lugarNacimiento) {
+		this.lugarNacimiento = lugarNacimiento;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -24,9 +25,6 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="UBG_DISTRITO")
 public class Distrito extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4436282812752985025L;
 
 	@Id
@@ -49,7 +47,12 @@ public class Distrito extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Provincia
 	@ManyToOne
 	@JoinColumn(name="PROVINCIA", nullable=false)
-	private Provincia ubgProvincia;
+	private Provincia provincia;
+	
+	@Transient
+	public String getNombreCompleto(){
+		return nombre+", "+provincia.getNombre()+", "+provincia.getDepartamento().getNombre();
+	}
 
 	public Distrito() {
 	}
@@ -78,12 +81,12 @@ public class Distrito extends AuditoriaBean implements Validador, Serializable {
 		this.nombre = nombre;
 	}
 
-	public Provincia getUbgProvincia() {
-		return ubgProvincia;
+	public Provincia getProvincia() {
+		return provincia;
 	}
 
-	public void setUbgProvincia(Provincia ubgProvincia) {
-		this.ubgProvincia = ubgProvincia;
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
 	}
 
 	public Valor getEstado() {

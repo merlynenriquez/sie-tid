@@ -355,6 +355,9 @@ public abstract class Constante {
 		public static final ThemeResource RELOAD = new ThemeResource("img/reload.png");
 		public static final ThemeResource CREATE = new ThemeResource("img/create.png");
 		
+		public static final ThemeResource PASSWORD = new ThemeResource("img/password.png");
+		public static final ThemeResource LOGOUT = new ThemeResource("img/logout.png");
+		
 		public static final ThemeResource DELITO = new ThemeResource("img/delito.png");
 		public static final ThemeResource INVOLUCRADO = new ThemeResource("img/involucrado.png");
 		public static final ThemeResource MONTO = new ThemeResource("img/monto.png");
