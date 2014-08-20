@@ -200,9 +200,29 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
+		if( tipoDocumento == null )
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Tipo de Documento"});
+		}
+		if(StringUtils.isBlank( nroDocumento ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Numero de Documento"});
+		}
 		if(StringUtils.isBlank( nombres ))
 		{
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}
+		if(StringUtils.isBlank( apePaterno ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Apellido Paterno"});
+		}
+		if(StringUtils.isBlank( sexo ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Sexo"});
+		}
+		if( nacionalidad == null || nacionalidad.getId() == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Nacionalidad"});
 		}
 	}
 	

@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -30,7 +34,7 @@ public class Identificacion extends AuditoriaBean implements Validador, Serializ
 	private static final long serialVersionUID = -109588933356103657L;
 
 	@Id
-	@SequenceGenerator(name="PER_IDENTIFICACION_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_IDENTIFICACION_ID_GENERATOR", sequenceName="SEQ_IDENTIFICACION")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_IDENTIFICACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -46,7 +50,7 @@ public class Identificacion extends AuditoriaBean implements Validador, Serializ
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
 	public Identificacion() {
 	}
@@ -75,18 +79,24 @@ public class Identificacion extends AuditoriaBean implements Validador, Serializ
 		this.tipo = tipo;
 	}
 
-	public Persona getPerPersona() {
-		return perPersona;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(StringUtils.isBlank(numero))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Numero"});
+		}
+		if( tipo == null || tipo.getId() == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Tipo de Documento"});
+		}
 	}
 
 }
