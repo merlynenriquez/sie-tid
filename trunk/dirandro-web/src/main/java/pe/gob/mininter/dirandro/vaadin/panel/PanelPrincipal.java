@@ -93,8 +93,8 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 		plantillaVelocity = new PlantillaVelocity();
 		String htmlData = plantillaVelocity.enviarFormato(hashmap, "toolUsuario.vm");	
 		mniUsuario = mnuPrincipal.addItem(usuario.getUsuario(), new ThemeResource("../runo/icons/16/user.png"), null);
-		mniCerrarSesion = mniUsuario.addItem("Cerrar Sesión", new ThemeResource("../runo/icons/16/cancel.png"),this);
-		mniCambiarClave = mniUsuario.addItem("Cambiar Clave", this);
+		mniCerrarSesion = mniUsuario.addItem("Cerrar Sesión", Constante.ICONOS.LOGOUT ,this);
+		mniCambiarClave = mniUsuario.addItem("Cambiar Clave", Constante.ICONOS.PASSWORD, this);
 		mniUsuario.setDescription(htmlData);
 
 		agregarMenu(Constante.OPCION.KEY_PADRE,  usuario.getRol().getOpciones(), null);
