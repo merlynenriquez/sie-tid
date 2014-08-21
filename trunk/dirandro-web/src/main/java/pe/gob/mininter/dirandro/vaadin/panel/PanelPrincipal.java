@@ -246,19 +246,39 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			 * Menu de Busqueda
 			 */
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_PERSONA)){
-				lblTituloPanel.setValue("<h2>Busqueda de Personas en los Expedientes</h2>");
+				lblTituloPanel.setValue("<h2>Búsqueda de Personas en los Expedientes</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBuscaPersona(acciones, "-1px"), "top");
 			}
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_HOJADEREMISION)){
-				lblTituloPanel.setValue("<h2>Busqueda de Hoja de Remisión</h2>");
+				lblTituloPanel.setValue("<h2>Búsqueda de Hoja de Remisión</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBuscarHojaRem(acciones, "-1px"), "top");	
 			}
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_ORGANIZAC)){
-					lblTituloPanel.setValue("<h2>Busqueda de Organizaciones</h2>");
+					lblTituloPanel.setValue("<h2>Búsqueda de Organizaciones</h2>");
 					pnlContenido.removeAllComponents();
 					pnlContenido.addComponent(new PanelBuscarOrganizacion(acciones, "-1px"), "top");	
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_VEHICULO)){
+				lblTituloPanel.setValue("<h2>Búsqueda de Vehículos en los Expedientes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarVehiculo(acciones, "-1px"), "top");
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_INMUEBLE)){
+				lblTituloPanel.setValue("<h2>Búsqueda de Inmuebles en los Expedientes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarInmueble(acciones, "-1px"), "top");
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_TELEFONO)){
+				lblTituloPanel.setValue("<h2>Búsqueda de Teléfonos en los Expedientes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarTelefono(acciones, "-1px"), "top");
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_ARMA)){
+				lblTituloPanel.setValue("<h2>Búsqueda de Armas en los Expedientes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarArmas(acciones, "-1px"), "top");
 			}
 			
 			/**
