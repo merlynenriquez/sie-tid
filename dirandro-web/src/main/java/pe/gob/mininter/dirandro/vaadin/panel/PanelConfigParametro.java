@@ -10,7 +10,7 @@ import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ParametroService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.vaadin.util.HarecComponent;
+import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 import pe.gob.mininter.dirandro.vaadin.util.ValidateLimit;
 
@@ -34,7 +34,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class PanelConfigParametro extends HarecComponent implements TextChangeListener, ClickListener {
+public class PanelConfigParametro extends DirandroComponent implements TextChangeListener, ClickListener {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 

@@ -10,7 +10,7 @@ import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.ui.AbstractTextField;
 import com.vaadin.ui.CustomComponent;
 
-public abstract class HarecComponent extends CustomComponent {
+public abstract class DirandroComponent extends CustomComponent {
 
 	private static final long serialVersionUID = 1355120342779674844L;
 
@@ -18,7 +18,7 @@ public abstract class HarecComponent extends CustomComponent {
 	private String height;
 	public boolean modificaAltura = false;
 
-	public HarecComponent(List<Opcion> acciones, String height) {
+	public DirandroComponent(List<Opcion> acciones, String height) {
 		this.acciones = acciones;
 		this.height = height;
 	}
