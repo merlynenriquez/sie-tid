@@ -53,7 +53,7 @@ public abstract class Constante {
 			public final static String FORMA_BOCA = "FORMA_BOCA";
 			public final static String PROFESION = "PROFESION";
 			public final static String PARENTESCO = "PARENTESCO";
-
+			
 		}
 	}
 
@@ -138,6 +138,7 @@ public abstract class Constante {
 		public final static String ADJUNTOS_PATH = "ADJUNTOS_PATH";
 		public final static String ADJUNTOS_SIZE = "ADJUNTOS_SIZE";
 		public final static String FECHA_ALERTA = "FECHA_ALERTA";
+		public final static String PATH_WINDOW = "PATH_WINDOW";
 	}
 	
 	public static abstract class CODIGO_MENSAJE {

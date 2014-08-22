@@ -766,6 +766,7 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 	private VerticalLayout buildPnlAdminListaValor() {
 		// common part: create layout
 		pnlAdminListaValor = new VerticalLayout();
+		pnlAdminListaValor.setStyleName("whiteBackGround");
 		pnlAdminListaValor.setImmediate(false);
 		pnlAdminListaValor.setWidth("-1px");
 		pnlAdminListaValor.setHeight("-1px");
@@ -787,6 +788,7 @@ public class PanelConfigListaValores extends HarecComponent implements TextChang
 	private HorizontalLayout buildPnlListaContenido() {
 		// common part: create layout
 		pnlListaContenido = new HorizontalLayout();
+		pnlListaContenido.setStyleName("whiteBackGround");
 		pnlListaContenido.setImmediate(false);
 		pnlListaContenido.setWidth("-1px");
 		pnlListaContenido.setHeight("-1px");

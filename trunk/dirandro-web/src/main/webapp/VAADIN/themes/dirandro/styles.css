@@ -394,11 +394,11 @@ textarea.v-textarea-prompt {
     margin: 0 !important;;
 }
 
-.textfield-read-only{ 
+.textfield-read-only { 
 	background: #F2F2F2;
 }
 
-.center_area .h2 {
+.center_area {
   padding-top: 1px;
   padding-right: 15px;
   padding-bottom: 1px;
