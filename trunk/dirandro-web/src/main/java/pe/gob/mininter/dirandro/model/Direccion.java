@@ -30,7 +30,7 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 3112327601705693481L;
 
 	@Id
-	@SequenceGenerator(name="PER_DIRECCION_ID_GENERATOR", sequenceName="SEQ_DIRECCION")
+	@SequenceGenerator(name="PER_DIRECCION_ID_GENERATOR", sequenceName="SEQ_DIRECCION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_DIRECCION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

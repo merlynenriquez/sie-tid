@@ -34,7 +34,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	private static final long serialVersionUID = -3388910551739102700L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

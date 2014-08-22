@@ -25,7 +25,7 @@ public class DetLlamada extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = 8318376794022766132L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_LLAMADAS_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_DET_LLAMADAS_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_LLAMADAS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
