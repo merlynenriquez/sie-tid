@@ -492,7 +492,7 @@ public class PanelConfigParametro extends HarecComponent implements TextChangeLi
 		
 		// lblFiltroBusqueda
 		lblFiltroBusqueda = new Label();
-		lblFiltroBusqueda.setStyleName("h1");
+		lblFiltroBusqueda.setStyleName("h2");
 		lblFiltroBusqueda.setImmediate(false);
 		lblFiltroBusqueda.setWidth("-1px");
 		lblFiltroBusqueda.setHeight("-1px");
@@ -585,7 +585,7 @@ public class PanelConfigParametro extends HarecComponent implements TextChangeLi
 		
 		// lblParametro
 		lblParametro = new Label();
-		lblParametro.setStyleName("h1");
+		lblParametro.setStyleName("h2");
 		lblParametro.setImmediate(false);
 		lblParametro.setWidth("-1px");
 		lblParametro.setHeight("-1px");

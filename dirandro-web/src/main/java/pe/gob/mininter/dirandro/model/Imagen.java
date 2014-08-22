@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -25,24 +24,23 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="PER_IMAGEN")
 public class Imagen extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1186366091631764798L;
 
 	@Id
-	@SequenceGenerator(name="PER_IMAGEN_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_IMAGEN_ID_GENERATOR", sequenceName="SEQ_IMAGEN", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_IMAGEN_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Lob
-	private byte[] imagen;
+	//bi-directional many-to-one association to Adjunto
+	@ManyToOne
+	@JoinColumn(name="IMAGEN")
+	private Adjunto adjunto;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
 	public Imagen() {
 	}
@@ -55,26 +53,25 @@ public class Imagen extends AuditoriaBean implements Validador, Serializable {
 		this.id = id;
 	}
 
-	public byte[] getImagen() {
-		return imagen;
+	public Adjunto getAdjunto() {
+		return adjunto;
 	}
 
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
+	public void setAdjunto(Adjunto adjunto) {
+		this.adjunto = adjunto;
 	}
 
-	public Persona getPerPersona() {
-		return perPersona;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -1,7 +1,8 @@
 package pe.gob.mininter.dirandro.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -28,7 +29,7 @@ public class Adjunto extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ADJUNTO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_ADJUNTO_ID_GENERATOR", sequenceName="SEQ_ADJUNTO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ADJUNTO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -42,29 +43,36 @@ public class Adjunto extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO", nullable=false)
-	private Valor cfgValor;
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;	
+	
+	@Transient
+	private ByteArrayOutputStream outputStream;
 
-	//bi-directional many-to-one association to Anexo
-	@OneToMany(mappedBy="expAdjunto")
-	private List<Anexo> expAnexos;
-
-	//bi-directional many-to-one association to Documento
-	@OneToMany(mappedBy="expAdjunto")
-	private List<Documento> expDocumentos;
+	@Transient
+	private String tipoAdjunto;
+	
+	@Transient
+	private String extension;
+	
+	@Transient
+	private String rutaAdjunto;
+	
+	@Transient
+	private Date fechaCarga;
 
 	public Adjunto() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -83,15 +91,7 @@ public class Adjunto extends AuditoriaBean implements Validador, Serializable {
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
 	}
-
-	public Valor getCfgValor() {
-		return this.cfgValor;
-	}
-
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
-	}
-
+	
 	public Expediente getExpExpediente() {
 		return this.expExpediente;
 	}
@@ -99,49 +99,53 @@ public class Adjunto extends AuditoriaBean implements Validador, Serializable {
 	public void setExpExpediente(Expediente expExpediente) {
 		this.expExpediente = expExpediente;
 	}
-	
-	public List<Anexo> getExpAnexos() {
-		return this.expAnexos;
+
+	public Valor getTipo() {
+		return tipo;
 	}
 
-	public void setExpAnexos(List<Anexo> expAnexos) {
-		this.expAnexos = expAnexos;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
-	public Anexo addExpAnexo(Anexo expAnexo) {
-		getExpAnexos().add(expAnexo);
-		expAnexo.setExpAdjunto(this);
-
-		return expAnexo;
+	public ByteArrayOutputStream getOutputStream() {
+		return outputStream;
 	}
 
-	public Anexo removeExpAnexo(Anexo expAnexo) {
-		getExpAnexos().remove(expAnexo);
-		expAnexo.setExpAdjunto(null);
-
-		return expAnexo;
+	public void setOutputStream(ByteArrayOutputStream outputStream) {
+		this.outputStream = outputStream;
 	}
 
-	public List<Documento> getExpDocumentos() {
-		return this.expDocumentos;
+	public String getTipoAdjunto() {
+		return tipoAdjunto;
 	}
 
-	public void setExpDocumentos(List<Documento> expDocumentos) {
-		this.expDocumentos = expDocumentos;
+	public void setTipoAdjunto(String tipoAdjunto) {
+		this.tipoAdjunto = tipoAdjunto;
 	}
 
-	public Documento addExpDocumento(Documento expDocumento) {
-		getExpDocumentos().add(expDocumento);
-		expDocumento.setExpAdjunto(this);
-
-		return expDocumento;
+	public String getExtension() {
+		return extension;
 	}
 
-	public Documento removeExpDocumento(Documento expDocumento) {
-		getExpDocumentos().remove(expDocumento);
-		expDocumento.setExpAdjunto(null);
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
 
-		return expDocumento;
+	public String getRutaAdjunto() {
+		return rutaAdjunto;
+	}
+
+	public void setRutaAdjunto(String rutaAdjunto) {
+		this.rutaAdjunto = rutaAdjunto;
+	}
+
+	public Date getFechaCarga() {
+		return fechaCarga;
+	}
+
+	public void setFechaCarga(Date fechaCarga) {
+		this.fechaCarga = fechaCarga;
 	}
 
 	@Override
