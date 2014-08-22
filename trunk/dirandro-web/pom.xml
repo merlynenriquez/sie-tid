@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin</artifactId>
-			<version>${vaadin.version}</version>
+			<version>${vaadin.version}</version>			
 		</dependency>
 		
 		<!-- Web -->				
@@ -40,7 +40,6 @@
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
-			
 		</dependency>		
 			
 		<dependency>
@@ -69,12 +68,12 @@
 		   <artifactId>filteringtable</artifactId>
 		   <version>0.8.2</version>
 		</dependency>
-		<dependency>
+		 <dependency>
 		   <groupId>org.vaadin.addons</groupId>
 		   <artifactId>popupbutton</artifactId>
 		   <version>1.2.1</version>
 		</dependency>
-		<dependency>
+		<dependency> 
 		   <groupId>com.vaadin.addon</groupId>
 		   <artifactId>vaadin-charts-vaadin6</artifactId>
 		   <version>1.1.4</version>

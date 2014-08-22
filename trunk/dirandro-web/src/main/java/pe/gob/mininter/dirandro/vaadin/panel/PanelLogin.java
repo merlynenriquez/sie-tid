@@ -19,7 +19,7 @@ import pe.gob.mininter.dirandro.service.SeguridadService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.application.MainApplication;
-import pe.gob.mininter.dirandro.vaadin.util.HarecErrorEvent;
+import pe.gob.mininter.dirandro.vaadin.util.DirandroErrorEvent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
 import com.vaadin.Application;
@@ -239,12 +239,12 @@ public class PanelLogin extends CustomComponent implements ClickListener {
 			login();
 		} catch ( BaseException e) {
 			logger.debug("baseex");
-			com.vaadin.terminal.Terminal.ErrorEvent errorEvent = new HarecErrorEvent(e);
+			com.vaadin.terminal.Terminal.ErrorEvent errorEvent = new DirandroErrorEvent(e);
 			mainApplication.terminalError(errorEvent);
 		} catch (Exception e) {
 			logger.debug("generico");
 			InesperadoException inesperadoException = new InesperadoException(Constante.CODIGO_MENSAJE.ERROR_GENERICO, null, e);
-			com.vaadin.terminal.Terminal.ErrorEvent errorEvent = new HarecErrorEvent(inesperadoException);
+			com.vaadin.terminal.Terminal.ErrorEvent errorEvent = new DirandroErrorEvent(inesperadoException);
 			mainApplication.terminalError(errorEvent);
 		}
 	}

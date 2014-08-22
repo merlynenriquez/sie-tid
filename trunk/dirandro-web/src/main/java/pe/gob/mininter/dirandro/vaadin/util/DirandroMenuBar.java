@@ -7,11 +7,8 @@ import pe.gob.mininter.dirandro.model.Opcion;
 import com.vaadin.terminal.Resource;
 import com.vaadin.ui.MenuBar;
 
-public class HarecMenuBar extends MenuBar {
+public class DirandroMenuBar extends MenuBar {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1427715714828794433L;
 	
 	public HarecMenuItem addItem(String codigo, List<Opcion> opciones, String caption, Command command) {
@@ -23,16 +20,12 @@ public class HarecMenuBar extends MenuBar {
 	
 	public class HarecMenuItem extends MenuItem {
 		
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 5969520527426095863L;
 		
 		private String codigo;
 		private List<Opcion> acciones;
 
-		public HarecMenuItem(String caption, Resource icon,
-				Command command, String codigo, List<Opcion> acciones) {
+		public HarecMenuItem(String caption, Resource icon, Command command, String codigo, List<Opcion> acciones) {
 			super(caption, icon, command);
 			this.codigo = codigo;
 			this.acciones = acciones;
@@ -46,8 +39,7 @@ public class HarecMenuBar extends MenuBar {
 			return acciones;
 		}
 
-		public HarecMenuItem addItem(String codigo, List<Opcion> acciones,
-				String caption, Command command) {
+		public HarecMenuItem addItem(String codigo, List<Opcion> acciones, String caption, Command command) {
 			MenuItem menuItem = super.addItem(caption, command);
 			int index = getChildren().indexOf(menuItem);
 			

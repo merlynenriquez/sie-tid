@@ -7,7 +7,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import com.vaadin.ui.Window;
 
-public class HarecWindow extends Window implements Serializable{
+public class DirandroWindow extends Window implements Serializable{
 
 	/**
 	 * 
@@ -34,8 +34,8 @@ public class HarecWindow extends Window implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		boolean equals = false;
-		if (obj instanceof HarecWindow) {
-			HarecWindow bean = (HarecWindow) obj;
+		if (obj instanceof DirandroWindow) {
+			DirandroWindow bean = (DirandroWindow) obj;
 			equals = (new EqualsBuilder().append(codigo, bean.codigo))
 					.isEquals();
 		}
