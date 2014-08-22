@@ -57,7 +57,7 @@ public class Policia extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
 	public Policia() {
 	}
@@ -110,12 +110,12 @@ public class Policia extends AuditoriaBean implements Validador, Serializable {
 		this.grado = grado;
 	}
 
-	public Persona getPerPersona() {
-		return perPersona;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersona(Persona value) {
+		this.persona = value;
 	}
 
 	@Override
