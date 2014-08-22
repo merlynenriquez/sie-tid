@@ -27,7 +27,7 @@ public class Correo extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -1921706650569597925L;
 
 	@Id
-	@SequenceGenerator(name="PER_CORREO_ID_GENERATOR", sequenceName="SEQ_CORREO")
+	@SequenceGenerator(name="PER_CORREO_ID_GENERATOR", sequenceName="SEQ_CORREO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_CORREO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

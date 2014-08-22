@@ -31,7 +31,7 @@ public class AbogadoPersona extends AuditoriaBean implements Validador, Serializ
 	private static final long serialVersionUID = 6618362410494391936L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ABOGADO_PERSONA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_ABOGADO_PERSONA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ABOGADO_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

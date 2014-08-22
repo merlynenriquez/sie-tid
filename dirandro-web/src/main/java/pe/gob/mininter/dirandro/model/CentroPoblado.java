@@ -27,7 +27,7 @@ public class CentroPoblado extends AuditoriaBean implements Validador, Serializa
 	private static final long serialVersionUID = -510486200814174107L;
 
 	@Id
-	@SequenceGenerator(name="EXP_CENTRO_POBLADO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_CENTRO_POBLADO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_CENTRO_POBLADO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

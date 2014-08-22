@@ -369,7 +369,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 	private StreamResource resource;
 	private long imageSize = 0;
 	private String rutaDocumento;
-	
+	private Embedded image;
 	private boolean flagNuevaPersona, flagNuevoDetalle, flagNuevoCorreo, flagNuevaDireccion, flagNuevoParentesco, flagNuevaIdentificacion;
 	
 	public PanelMantenPersona(List<Opcion> acciones, String height) {
@@ -416,6 +416,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 		inicializaPanelImagen();
 		tabAddListener();
 	}
+	//TODO: restringir JPG, Desborde de la imagen, listar imagenes por persona el progress bar 
 	
 	//TODO: Arreglar para no recargar toda la pantalla
 	private void tabAddListener(){
@@ -425,14 +426,17 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 
 			@Override
 			public void selectedTabChange(SelectedTabChangeEvent event) {
-				String tabName = tabPersona.getTab(event.getTabSheet().getSelectedTab()).getCaption();
+				if( event.getTabSheet().getSelectedTab() != null){
+					String tabName = tabPersona.getTab(event.getTabSheet().getSelectedTab()).getCaption();
 
-				if (tabName.equals("Imagen")) {
-					parametroSize = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_SIZE);
-					if (parametroSize != null) imageSize = new Long(parametroSize.getValor());
-					
-					parametroRuta = parametroService.obtener(Constante.PARAMETRO.PATH_WINDOW);
-					if (parametroRuta != null) rutaDocumento = parametroSize.getValor();
+					if (tabName.equals("Imagen")) {
+						parametroSize = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_SIZE);
+						if (parametroSize != null) imageSize = new Long(parametroSize.getValor());
+						
+						parametroRuta = parametroService.obtener(Constante.PARAMETRO.PATH_WINDOW);
+						if (parametroRuta != null) rutaDocumento = parametroSize.getValor();
+					}
+	
 				}
 			}
 		});
@@ -1167,9 +1171,9 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 			public void valueChange(ValueChangeEvent event) {
 				
 				boolean esModoNuevo = tblImagenes.getValue() == null;
+				limpiar("imagen");
 				if(esModoNuevo){
 					tblImagenes.setValue(null);
-					
 				}else {
 					Item item = tblImagenes.getItem(tblImagenes.getValue());
 					String ruta = item.getItemProperty("adjunto.ruta").getValue().toString();
@@ -1178,7 +1182,7 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 					ext = ext.substring(ext.lastIndexOf('.'), ext.length());
 					String cadena = ruta+"/"+ id+ext;
 					FileResource resource = new FileResource(new File(cadena), getApplication());
-					Embedded image = new Embedded(null, resource);
+					image = new Embedded(null, resource);
 					image.setSizeFull();
 					pnlImgImagen.addComponent(image);
 				}
@@ -1285,12 +1289,13 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 		imagenPer.setAdjunto(imagenAdjunta);
 		imagenService.registrarImagenAdjunta(imagenPer);
 		
+		limpiar("imagen");
 		lstImagenes = imagenService.buscar(imagenPer);
 		llenaPanelImagenes();
 	}
 	
 	public void llenaPanelImagenes(){
-		
+		limpiar("imagen");
 		IndexedContainer container = new IndexedContainer();
 		container.addContainerProperty("id", Long.class, null);
 		container.addContainerProperty("persona", Persona.class, null);
@@ -1380,7 +1385,6 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 			    tab.setEnabled( false );
 			}
 			tabPersona.getTab(0).setEnabled(true);
-			
 		}
 	}
 	
@@ -1469,6 +1473,13 @@ public class PanelMantenPersona extends HarecComponent implements ClickListener,
 			txtIdtNumeroDoc.setValue("");
 			cmbIdtTipodoc.select(null);
 		}
+		
+		if(nombre.equals("imagen")){
+			if(image!=null)
+			pnlImgImagen.removeComponent(image);
+			cmbImgTipo.select(null);
+		}
+		
 	}
 	
 	@Override

@@ -27,7 +27,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 2783567751765001502L;
 
 	@Id
-	@SequenceGenerator(name="PER_DETALLE_ID_GENERATOR", sequenceName="SEQ_DETALLE")
+	@SequenceGenerator(name="PER_DETALLE_ID_GENERATOR", sequenceName="SEQ_DETALLE", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_DETALLE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

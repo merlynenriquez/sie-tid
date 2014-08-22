@@ -32,7 +32,7 @@ public class DetPerTelExp extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = -2597824744398259948L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_PER_TEL_EXP_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_DET_PER_TEL_EXP_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_PER_TEL_EXP_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

@@ -27,7 +27,7 @@ public class Departamento extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = 3557297323113925350L;
 
 	@Id
-	@SequenceGenerator(name="UBG_DEPARTAMENTO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="UBG_DEPARTAMENTO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UBG_DEPARTAMENTO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

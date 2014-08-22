@@ -26,7 +26,7 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 7210926761891471965L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DOCUMENTO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_DOCUMENTO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DOCUMENTO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
