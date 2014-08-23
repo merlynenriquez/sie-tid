@@ -1,7 +1,4 @@
 /*==============================================================*/
-/* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     19/08/2014 10:41:05 a.m.                     */
-/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -2220,9 +2217,9 @@ alter table SIETID.PER_CORREO
 create table SIETID.PER_DETALLE 
 (
    ID                   NUMBER(16)           not null,
-   PERSONA              NUMBER(16),
-   TALLA                NUMBER(3, 2),
-   PESO                 NUMBER(3, 2),
+   PERSONA              NUMBER(16)           not null,
+   TALLA                NUMBER(5, 2),
+   PESO                 NUMBER(5, 2),
    CONTEXTURA           NUMBER(16),
    TIPO_CABELLO         NUMBER(16),
    COLOR_CABELLO        NUMBER(16),
@@ -2244,8 +2241,8 @@ create table SIETID.PER_DETALLE
    VESTIMENTA           NVARCHAR2(1000),
    FECHALUGAR_ULTVEZ    NVARCHAR2(1000),
    PERSONA_NA           NUMBER(16),
-   CREADOR              NUMBER(16),
-   CREACION             TIMESTAMP,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
 );
@@ -2505,10 +2502,10 @@ create table SIETID.PER_IMAGEN
 (
    ID                   NUMBER(16)           not null,
    PERSONA              NUMBER(16),
-   IMAGEN               BLOB,
+   IMAGEN               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
-   EDITOR               NUMBER(16)           not null,
+   EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
 );
 
@@ -2597,8 +2594,8 @@ create table SIETID.PER_NO_IDENTIFICADOS
    APELLIDOS            NVARCHAR2(100),
    ORIENT_SEXUAL        NUMBER(16),
    EDAD_APROX           INTEGER,
-   CREADOR              NUMBER(16),
-   CREACION             TIMESTAMP,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
 );
@@ -4249,6 +4246,10 @@ alter table SIETID.PER_IDENTIFICACION
 alter table SIETID.PER_IDENTIFICACION
    add constraint FK_PER_IDENTIFICACION_TIPO foreign key (TIPO)
       references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.PER_IMAGEN
+   add constraint FK_PER_IMAGEN_ADJUNTO foreign key (IMAGEN)
+      references SIETID.EXP_ADJUNTO (ID);
 
 alter table SIETID.PER_IMAGEN
    add constraint FK_PER_IMAGEN_CREADOR foreign key (CREADOR)
