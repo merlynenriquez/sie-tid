@@ -31,11 +31,20 @@ public class CorreoServiceImpl extends BaseServiceImpl<Correo, Long>
 		super(correoHibernate);
 		this.correoHibernate = correoHibernate;
 	}
-
+ 
 	@Override
-	public List<Correo> obtenerCorreosXPersona(Long idPersona,boolean estadoActivo) {
+	public List<Correo> buscar(Correo correo) {
 		Busqueda filtro = Busqueda.forClass(Correo.class);
-		filtro.add(Restrictions.eq("persona.id", idPersona));
+		
+		if(correo!=null){
+			if(correo.getPersona()!=null){
+				if(correo.getPersona().getId()!=null){
+					filtro.add(Restrictions.eq("persona.id", correo.getPersona().getId()));			
+				}
+			}
+		}
+			
+		
 		/*if(estadoActivo)
 		{
 			filtro.createAlias("estado", "e");

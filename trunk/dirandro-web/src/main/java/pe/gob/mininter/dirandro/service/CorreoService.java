@@ -6,6 +6,9 @@ import pe.gob.mininter.dirandro.model.Correo;
 
 public interface CorreoService extends BaseService<Correo, Long> {
 	
-	public List<Correo> obtenerCorreosXPersona(Long idPersona, boolean estadoActivo);
+	//public List<Correo> obtenerCorreosXPersona(Long idPersona, boolean estadoActivo);
+	
+	public List<Correo> buscar(Correo correo);
+	
 
 }

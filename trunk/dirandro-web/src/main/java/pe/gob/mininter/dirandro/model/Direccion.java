@@ -54,6 +54,11 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 	public Direccion() {
 	}
 
+	public Direccion(Persona persona) {
+		this.persona=persona;
+	}
+
+	
 	public Long getId() {
 		return this.id;
 	}
