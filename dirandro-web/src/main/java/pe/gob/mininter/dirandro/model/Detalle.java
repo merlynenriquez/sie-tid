@@ -135,7 +135,7 @@ public class Detalle extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA")
+	@JoinColumn(name="PERSONA", nullable=false)
 	private Persona persona;
 
 	public Detalle() {
