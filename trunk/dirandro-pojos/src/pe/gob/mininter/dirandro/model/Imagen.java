@@ -25,8 +25,10 @@ public class Imagen implements Serializable {
 
 	private Timestamp edicion;
 
-	@Lob
-	private byte[] imagen;
+	//bi-directional many-to-one association to Adjunto
+	@ManyToOne
+	@JoinColumn(name="IMAGEN")
+	private Adjunto expAdjunto;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
@@ -40,7 +42,7 @@ public class Imagen implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="EDITOR", nullable=false)
+	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
 	public Imagen() {
@@ -70,12 +72,12 @@ public class Imagen implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public byte[] getImagen() {
-		return this.imagen;
+	public Adjunto getExpAdjunto() {
+		return this.expAdjunto;
 	}
 
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
+	public void setExpAdjunto(Adjunto expAdjunto) {
+		this.expAdjunto = expAdjunto;
 	}
 
 	public Persona getPerPersona() {
