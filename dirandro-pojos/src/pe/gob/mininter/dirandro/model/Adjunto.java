@@ -60,6 +60,10 @@ public class Adjunto implements Serializable {
 	@OneToMany(mappedBy="expAdjunto")
 	private List<Documento> expDocumentos;
 
+	//bi-directional many-to-one association to Imagen
+	@OneToMany(mappedBy="expAdjunto")
+	private List<Imagen> perImagens;
+
 	public Adjunto() {
 	}
 
@@ -177,6 +181,28 @@ public class Adjunto implements Serializable {
 		expDocumento.setExpAdjunto(null);
 
 		return expDocumento;
+	}
+
+	public List<Imagen> getPerImagens() {
+		return this.perImagens;
+	}
+
+	public void setPerImagens(List<Imagen> perImagens) {
+		this.perImagens = perImagens;
+	}
+
+	public Imagen addPerImagen(Imagen perImagen) {
+		getPerImagens().add(perImagen);
+		perImagen.setExpAdjunto(this);
+
+		return perImagen;
+	}
+
+	public Imagen removePerImagen(Imagen perImagen) {
+		getPerImagens().remove(perImagen);
+		perImagen.setExpAdjunto(null);
+
+		return perImagen;
 	}
 
 }

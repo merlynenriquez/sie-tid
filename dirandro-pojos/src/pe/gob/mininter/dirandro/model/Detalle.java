@@ -24,6 +24,7 @@ public class Detalle implements Serializable {
 	@Column(length=20)
 	private String calzado;
 
+	@Column(nullable=false)
 	private Timestamp creacion;
 
 	private Timestamp edicion;
@@ -31,7 +32,7 @@ public class Detalle implements Serializable {
 	@Column(name="FECHALUGAR_ULTVEZ", length=2000)
 	private String fechalugarUltvez;
 
-	@Column(precision=3, scale=2)
+	@Column(precision=5, scale=2)
 	private BigDecimal peso;
 
 	@Column(name="RASGO_FACIAL", length=4000)
@@ -40,7 +41,7 @@ public class Detalle implements Serializable {
 	@Column(length=2000)
 	private String senas;
 
-	@Column(precision=3, scale=2)
+	@Column(precision=5, scale=2)
 	private BigDecimal talla;
 
 	@Column(length=2000)
@@ -128,12 +129,12 @@ public class Detalle implements Serializable {
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA")
+	@JoinColumn(name="PERSONA", nullable=false)
 	private Persona perPersona;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="CREADOR")
+	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario1;
 
 	//bi-directional many-to-one association to Usuario

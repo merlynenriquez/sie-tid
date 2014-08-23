@@ -28,6 +28,7 @@ public class NoIdentificado implements Serializable {
 	@Column(length=200)
 	private String apellidos;
 
+	@Column(nullable=false)
 	private Timestamp creacion;
 
 	@Column(name="EDAD_APROX", precision=22)
@@ -64,7 +65,7 @@ public class NoIdentificado implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="CREADOR")
+	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario2;
 
 	public NoIdentificado() {
