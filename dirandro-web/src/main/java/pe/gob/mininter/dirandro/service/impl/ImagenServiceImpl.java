@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +19,7 @@ import pe.gob.mininter.dirandro.model.Imagen;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.ImagenService;
 import pe.gob.mininter.dirandro.util.Busqueda;
+import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
 public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements ImagenService{
@@ -51,7 +53,10 @@ public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements 
 	public List<Imagen> buscar(Imagen imagen) {		
 		Busqueda filtro = Busqueda.forClass(Imagen.class);		
 		if(imagen !=null){			
-			
+			if(imagen.getPersona()!=null){
+				if(imagen.getPersona().getId()!=null)
+				filtro.add(Restrictions.eq("persona.id", imagen.getPersona().getId()));
+			}
 		}						
 		return imagenHibernate.buscar(filtro);		
 	}

@@ -43,6 +43,10 @@ public class Correo extends AuditoriaBean implements Validador, Serializable {
 	public Correo() {
 	}
 
+	public Correo(Persona persona) {
+		this.persona=persona;
+	}
+	
 	public Long getId() {
 		return this.id;
 	}

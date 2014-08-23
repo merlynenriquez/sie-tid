@@ -416,7 +416,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		inicializaPanelImagen();
 		tabAddListener();
 	}
-	//TODO: restringir JPG, Desborde de la imagen, listar imagenes por persona el progress bar 
+	//TODO: restringir JPG, PNG, GIF, Desborde de la imagen, el progress bar 
 	
 	//TODO: Arreglar para no recargar toda la pantalla
 	private void tabAddListener(){
@@ -513,9 +513,9 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 					Item item = tblPerPersonas.getItem(tblPerPersonas.getValue());
 					persona = personaService.obtener( new Long( item.getItemProperty("id").getValue().toString() ));
 					detalle = detallePersonaService.obtenerPorPersona(  new Long( item.getItemProperty("id").getValue().toString() ) );
-					lstCorreos = correoService.obtenerCorreosXPersona( persona.getId() ,  true );
+					lstCorreos = correoService.buscar( new Correo(persona));
 					lstparentescos = parentescoService.obtenerParientesXPersona( persona.getId() , true);
-					lstDirecciones = direccionService.obtenerDireccionesXPersona( persona.getId() , true );
+					lstDirecciones = direccionService.buscar(new Direccion(persona));
 					lstIdentificaciones = identificacionService.obtenerIdentificacionesXPersona( persona.getId() , true );
 					
 					Imagen imagen= new Imagen();
@@ -1067,8 +1067,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 			direccionService.crear( direccion);
 		else
 			direccionService.actualizar( direccion );
+		lstDirecciones = direccionService.buscar(direccion);
 		limpiar("direccion");
-		lstDirecciones = direccionService.obtenerDireccionesXPersona( persona.getId() , true );
 		llenaPanelDirecciones();
 	}
 	
@@ -1138,9 +1138,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 			correoService.crear(correo);
 		else
 			correoService.actualizar(correo);
-		
+		lstCorreos = correoService.buscar(correo);
 		limpiar("correo");
-		lstCorreos = correoService.obtenerCorreosXPersona(persona.getId(), true);
 		llenaPanelCorreos();
 	}
 	
@@ -1478,6 +1477,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 			if(image!=null)
 			pnlImgImagen.removeComponent(image);
 			cmbImgTipo.select(null);
+			lblImgTipo.setValue("");
+			lblImgValor.setValue("");
 		}
 		
 	}

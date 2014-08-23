@@ -32,15 +32,18 @@ public class DireccionServiceImpl extends BaseServiceImpl<Direccion, Long>
 		this.direccionHibernate = direccionHibernate;
 	}
 
+	
+
 	@Override
-	public List<Direccion> obtenerDireccionesXPersona(Long idPersona,boolean estadoActivo) {
+	public List<Direccion> buscar(Direccion direccion) {
 		Busqueda filtro = Busqueda.forClass(Direccion.class);
-		filtro.add(Restrictions.eq("persona.id", idPersona));
-		/*if(estadoActivo)
-		{
-			filtro.createAlias("estado", "e");
-			filtro.add(Restrictions.eq("e.codigo", Constante.VALOR.CODIGO.ACTIVO));
-		}*/
+		if(direccion!=null){
+			if(direccion.getPersona()!=null){
+				if(direccion.getPersona().getId()!=null){
+					filtro.add(Restrictions.eq("persona.id", direccion.getPersona().getId()));			
+				}
+			}
+		}
 		return direccionHibernate.buscar(filtro);
 	}
 
