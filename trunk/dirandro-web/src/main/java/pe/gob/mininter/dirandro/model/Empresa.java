@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -30,7 +34,7 @@ public class Empresa extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 1481913729291306868L;
 
 	@Id
-	@SequenceGenerator(name="PER_EMPRESA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_EMPRESA_ID_GENERATOR", sequenceName="SEQ_EMPRESA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_EMPRESA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -129,8 +133,34 @@ public class Empresa extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if( perPersona == null )
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Persona"});
+		}
+		if(StringUtils.isBlank( razonSocial ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"RazonSocial"});
+		}
+		if(StringUtils.isBlank( ruc ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Ruc"});
+		}
+		if(StringUtils.isBlank( direccion ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Direccion"});
+		}
+		if(StringUtils.isBlank( partidaRegistral ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"PartidaRegistral"});
+		}
+		if(StringUtils.isBlank( telefono ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Telefono"});
+		}		
+		if(estado == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		}
 	}
  
 }

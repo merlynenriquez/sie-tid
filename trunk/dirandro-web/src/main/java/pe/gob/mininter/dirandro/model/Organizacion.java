@@ -13,6 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -31,7 +35,7 @@ public class Organizacion extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = -1911787099919273558L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ORGANIZACION_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_ORGANIZACION_ID_GENERATOR", sequenceName="SEQ_ORGANIZACION")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ORGANIZACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -140,7 +144,18 @@ public class Organizacion extends AuditoriaBean implements Validador, Serializab
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		if(StringUtils.isBlank( nombre ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}
+		if(StringUtils.isBlank( this.zonaOperacion ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"ZonaOperacion"});
+		}
+		if(StringUtils.isBlank( this.descripcion ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Descripcion"});
+		}
 		
 	}
 

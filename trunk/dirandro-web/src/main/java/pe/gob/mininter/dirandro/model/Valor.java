@@ -66,6 +66,10 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	public Valor(Long id) {
 		this.id = id;
 	}
+	
+	public Valor(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public Long getId() {
 		return this.id;

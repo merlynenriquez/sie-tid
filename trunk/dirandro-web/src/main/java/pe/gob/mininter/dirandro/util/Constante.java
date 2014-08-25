@@ -53,6 +53,11 @@ public abstract class Constante {
 			public final static String FORMA_BOCA = "FORMA_BOCA";
 			public final static String PROFESION = "PROFESION";
 			public final static String PARENTESCO = "PARENTESCO";
+			public final static String GRADO = "GRADO";
+			public final static String UNIDAD = "UNIDAD";
+			public final static String CARGO = "CARGO";
+			public final static String TIPO_LETRADO = "TIPO_LETRADO";
+			public final static String SEXO = "SEXO";
 			
 		}
 	}
