@@ -15,6 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -33,7 +37,7 @@ public class Letrado extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -6117520471153540228L;
 
 	@Id
-	@SequenceGenerator(name="PER_LETRADO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_LETRADO_ID_GENERATOR", sequenceName="SEQ_LETRADO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_LETRADO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -98,8 +102,18 @@ public class Letrado extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if( perPersona == null )
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Persona"});
+		}
+		if(StringUtils.isBlank( nroColegiatura ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Colegiatura"});
+		}
+		if(tipo == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Tipo"});
+		}		
 	}
 
 

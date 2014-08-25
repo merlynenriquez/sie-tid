@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -30,7 +34,7 @@ public class Policia extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 5529054350503925440L;
 
 	@Id
-	@SequenceGenerator(name="PER_POLICIA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_POLICIA_ID_GENERATOR", sequenceName="SEQ_POLICIA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_POLICIA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -117,10 +121,29 @@ public class Policia extends AuditoriaBean implements Validador, Serializable {
 	public void setPersona(Persona value) {
 		this.persona = value;
 	}
-
+	
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		if( persona == null )
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Persona"});
+		}
+		if(StringUtils.isBlank( cip ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"CIP"});
+		}
+		if(grado == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Grado"});
+		}
+		if(unidad == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Unidad"});
+		}
+		if(cargo == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Cargo"});
+		}
 		
 	}
 

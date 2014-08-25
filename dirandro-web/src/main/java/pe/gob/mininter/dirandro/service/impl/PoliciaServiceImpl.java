@@ -73,14 +73,32 @@ public class PoliciaServiceImpl extends BaseServiceImpl<Policia, Long> implement
 		
 		Busqueda filtro = Busqueda.forClass(Policia.class);
 		
-		/*
-		if (Policia != null) {
 		
-			if (Policia.getTipoDocumento()!= null) {
-				filtro.createAlias("tipoDocumento", "t");
-				filtro.add(Restrictions.ilike("t.nombre", Policia.getTipoDocumento().getNombre(), MatchMode.ANYWHERE));				
+		if (Policia != null) {
+			
+			filtro.createAlias("persona", "per");
+		
+			if (Policia.getPersona().getNombres() != null && Policia.getPersona().getNombres().length() > 0) {
+				filtro.add(Restrictions.ilike("per.nombres", Policia.getPersona().getNombres(), MatchMode.ANYWHERE));
 			}
 			
+			if (Policia.getPersona().getApePaterno()!= null && Policia.getPersona().getApePaterno().length() > 0) {
+				filtro.add(Restrictions.ilike("per.apePaterno", Policia.getPersona().getApePaterno(), MatchMode.ANYWHERE));
+			}
+			
+			if (Policia.getPersona().getApeMaterno()!= null && Policia.getPersona().getApeMaterno().length() > 0) {
+				filtro.add(Restrictions.ilike("per.apeMaterno", Policia.getPersona().getApeMaterno(), MatchMode.ANYWHERE));
+			}
+			
+			if (Policia.getPersona().getNroDocumento()!= null) {
+				filtro.add(Restrictions.ilike("per.nroDocumento", Policia.getPersona().getNroDocumento(), MatchMode.ANYWHERE));
+			}
+			
+			if (Policia.getCip()!= null) {				
+				filtro.add(Restrictions.ilike("cip", Policia.getCip(), MatchMode.ANYWHERE));				
+			}
+			
+			/*
 			if (Policia.getNroDocumento()!= null) {
 				filtro.add(Restrictions.ilike("nroDocumento",Policia.getNroDocumento(), MatchMode.ANYWHERE));
 			}
@@ -110,9 +128,9 @@ public class PoliciaServiceImpl extends BaseServiceImpl<Policia, Long> implement
 			if (Policia.getNacionalidad()!= null) {
 				filtro.createAlias("nacionalidad", "n");
 				filtro.add(Restrictions.ilike("n.nombre", Policia.getNacionalidad().getNombre(), MatchMode.ANYWHERE));				
-			}
+			}*/
 		
-		}		*/
+		}
 		return PoliciaHibernate.buscar(filtro);		
 	}
 
