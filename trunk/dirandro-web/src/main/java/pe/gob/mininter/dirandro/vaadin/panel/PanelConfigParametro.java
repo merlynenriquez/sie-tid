@@ -280,23 +280,18 @@ public class PanelConfigParametro extends DirandroComponent implements TextChang
 	@Override
 	public void textChange(TextChangeEvent event) {
 		Parametro parametro = new Parametro();
-		if(event.getSource().equals(txtFiltroCodigo))
-		{
-			
-			if(StringUtils.isNotBlank(event.getText()))
-			{
+		if (event.getSource().equals(txtFiltroCodigo)) {
+
+			if (StringUtils.isNotBlank(event.getText())) {
 				parametro.setCodigo(event.getText());
 			}
-			if(StringUtils.isNotBlank(txtFiltroNombre.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroNombre.getValue().toString())) {
 				parametro.setNombre(txtFiltroNombre.getValue().toString());
 			}
-			if(StringUtils.isNotBlank(txtFiltroValor.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroValor.getValue().toString())) {
 				parametro.setValor(txtFiltroValor.getValue().toString());
 			}
-			if(StringUtils.isNotBlank(txtFiltroEstado.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroEstado.getValue().toString())) {
 				Valor estado = new Valor();
 				estado.setNombre(txtFiltroEstado.getValue().toString());
 				parametro.setEstado(estado);
@@ -304,20 +299,16 @@ public class PanelConfigParametro extends DirandroComponent implements TextChang
 		}
 		if(event.getSource().equals(txtFiltroNombre))
 		{
-			if(StringUtils.isNotBlank(txtFiltroCodigo.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroCodigo.getValue().toString())) {
 				parametro.setCodigo(txtFiltroCodigo.getValue().toString());
 			}
-			if(StringUtils.isNotBlank(event.getText()))
-			{
+			if (StringUtils.isNotBlank(event.getText())) {
 				parametro.setNombre(event.getText());
 			}
-			if(StringUtils.isNotBlank(txtFiltroValor.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroValor.getValue().toString())) {
 				parametro.setValor(txtFiltroValor.getValue().toString());
 			}
-			if(StringUtils.isNotBlank(txtFiltroEstado.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroEstado.getValue().toString())) {
 				Valor estado = new Valor();
 				estado.setNombre(txtFiltroEstado.getValue().toString());
 				parametro.setEstado(estado);
@@ -325,20 +316,16 @@ public class PanelConfigParametro extends DirandroComponent implements TextChang
 		}
 		if(event.getSource().equals(txtFiltroValor))
 		{
-			if(StringUtils.isNotBlank(txtFiltroCodigo.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroCodigo.getValue().toString())) {
 				parametro.setCodigo(txtFiltroCodigo.getValue().toString());
 			}
-			if(StringUtils.isNotBlank(txtFiltroNombre.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroNombre.getValue().toString())) {
 				parametro.setNombre(txtFiltroNombre.getValue().toString());
 			}
-			if(StringUtils.isNotBlank(event.getText()))
-			{
+			if (StringUtils.isNotBlank(event.getText())) {
 				parametro.setValor(event.getText());
 			}
-			if(StringUtils.isNotBlank(txtFiltroEstado.getValue().toString()))
-			{
+			if (StringUtils.isNotBlank(txtFiltroEstado.getValue().toString())) {
 				Valor estado = new Valor();
 				estado.setNombre(txtFiltroEstado.getValue().toString());
 				parametro.setEstado(estado);
@@ -373,12 +360,10 @@ public class PanelConfigParametro extends DirandroComponent implements TextChang
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		if(event.getButton().equals(btnGestionParametro))
-		{
+		if (event.getButton().equals(btnGestionParametro)) {
 			buttonClickGestion();
 		}
-		if(event.getButton().equals(btnEliminarParametro))
-		{
+		if (event.getButton().equals(btnEliminarParametro)) {
 			buttonClickEliminar();
 		}
 	}
@@ -392,12 +377,11 @@ public class PanelConfigParametro extends DirandroComponent implements TextChang
 		parametro.setValor(txtValor.getValue().toString().trim());			
 		parametro.setEstado((Valor) cmbEstado.getValue());
 		
-		if(flagNuevo)
-		{
+		if (flagNuevo) {
+			System.out.println("pinta");
 			parametroService.crear(parametro);
-		}
-		else
-		{
+		} else {
+			System.out.println("pinta actualizar");
 			parametro.setCodigoAnterior(codigo);
 			parametroService.actualizar(parametro);
 		}

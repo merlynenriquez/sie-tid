@@ -25,7 +25,7 @@ public class Lista extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -8943186992102390415L;
 
 	@Id
-	@SequenceGenerator(name="CFG_LISTA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="CFG_LISTA_ID_GENERATOR", sequenceName="SEQ_LISTA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CFG_LISTA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=8)
 	private Long id;

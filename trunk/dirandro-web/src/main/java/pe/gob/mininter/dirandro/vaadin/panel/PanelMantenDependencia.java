@@ -41,7 +41,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.TreeTable;
 import com.vaadin.ui.VerticalLayout;
 
-public class PanelMantenDependencias extends DirandroComponent implements ClickListener {
+public class PanelMantenDependencia extends DirandroComponent implements ClickListener {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -131,7 +131,7 @@ public class PanelMantenDependencias extends DirandroComponent implements ClickL
 	
 	private List<Dependencia> lstDependecias;
 	
-	public PanelMantenDependencias(List<Opcion> acciones, String height) {
+	public PanelMantenDependencia(List<Opcion> acciones, String height) {
 		super(acciones, height);
 		valorService = Injector.obtenerServicio(ValorService.class);
 		predecesorService = Injector.obtenerServicio(PredecesorService.class);
@@ -215,10 +215,6 @@ public class PanelMantenDependencias extends DirandroComponent implements ClickL
 					txtCodigo.setValue(item.getItemProperty("codigo").getValue());
 					txtNombre.setValue(item.getItemProperty("nombre").getValue());
 					txtAbreviatura.setValue(item.getItemProperty("abreviatura").getValue());
-					//TODO:REHACER
-					
-					//cmbPadre.select(null);
-					
 					
 					for (Dependencia dependecia : lstDependecias) {
 						if(dependecia.getId().equals((Long)item.getItemProperty("padre.id").getValue())){

@@ -57,7 +57,6 @@ public abstract class Constante {
 			public final static String UNIDAD = "UNIDAD";
 			public final static String CARGO = "CARGO";
 			public final static String TIPO_LETRADO = "TIPO_LETRADO";
-			public final static String SEXO = "SEXO";
 			
 		}
 	}
