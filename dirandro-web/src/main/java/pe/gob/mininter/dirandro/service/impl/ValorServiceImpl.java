@@ -37,9 +37,7 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements Va
 		Busqueda filtro = Busqueda.forClass(Valor.class);
 		filtro.add(Restrictions.eq("codigo", object.getCodigo()));
 		if (valorHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_VALOR_EXISTENTE,
-					new Object[] { object.getCodigo() });
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_VALOR_EXISTENTE, new Object[] { object.getCodigo() });
 		}
 		super.crear(object);
 	}
@@ -52,9 +50,7 @@ public class ValorServiceImpl extends BaseServiceImpl<Valor, Long> implements Va
 		filtro.add(Restrictions.eq("codigo", object.getCodigo()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
 		if (valorHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_VALOR_EXISTENTE,
-					new Object[] { object.getCodigo() });
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_VALOR_EXISTENTE, new Object[] { object.getCodigo() });
 		}
 		valorHibernate.actualizar(object);
 	}

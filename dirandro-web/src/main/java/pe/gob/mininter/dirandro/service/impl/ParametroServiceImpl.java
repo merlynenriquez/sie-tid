@@ -47,7 +47,7 @@ public class ParametroServiceImpl extends BaseServiceImpl<Parametro, String> imp
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(Parametro parametro) {
 		validarReglaNegocio(parametro,TipoOperacion.ACTUALIZAR);
-		//parametroOracle.actualizar(parametro);
+		parametroOracle.actualizar(parametro);
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ public class Parametro extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 2585331288022926733L;
 
 	@Id
-	@SequenceGenerator(name="CFG_PARAMETRO_CODIGO_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="CFG_PARAMETRO_CODIGO_GENERATOR", sequenceName="SEQ_PARAMETRO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CFG_PARAMETRO_CODIGO_GENERATOR")
 	@Column(unique=true, nullable=false, length=30)
 	private String codigo;

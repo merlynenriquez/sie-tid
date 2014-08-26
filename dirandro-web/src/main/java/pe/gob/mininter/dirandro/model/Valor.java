@@ -34,7 +34,7 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 6480705418606133868L;
 
 	@Id
-	@SequenceGenerator(name="CFG_VALOR_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="CFG_VALOR_ID_GENERATOR", sequenceName="SEQ_VALOR")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CFG_VALOR_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -65,6 +65,10 @@ public class Valor extends AuditoriaBean implements Validador, Serializable {
 	
 	public Valor(Long id) {
 		this.id = id;
+	}
+	
+	public Valor(Lista lista) {
+		this.lista = lista;
 	}
 	
 	public Valor(String codigo) {

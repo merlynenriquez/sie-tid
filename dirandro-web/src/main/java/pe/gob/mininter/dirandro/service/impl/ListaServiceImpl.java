@@ -41,15 +41,13 @@ public class ListaServiceImpl extends BaseServiceImpl<Lista, Long> implements Li
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(Lista object) {
-		//object.validar();
+		object.validar();
 		Busqueda filtro = Busqueda.forClass(Lista.class);
 		filtro.add(Restrictions.eq("codigo", object.getCodigo()));
 		if (listaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_LISTA_EXISTENTE,
-					new Object[] { object.getCodigo() });
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_LISTA_EXISTENTE, new Object[] { object.getCodigo() });
 		}
-		//listaHibernate.crear(object);
+		listaHibernate.crear(object);
 		super.crear(object);
 	}
 
@@ -61,9 +59,7 @@ public class ListaServiceImpl extends BaseServiceImpl<Lista, Long> implements Li
 		filtro.add(Restrictions.eq("codigo", object.getCodigo()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
 		if (listaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_LISTA_EXISTENTE,
-					new Object[] { object.getCodigo() });
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_LISTA_EXISTENTE, new Object[] { object.getCodigo() });
 		}
 		listaHibernate.actualizar(object);
 	}
@@ -100,7 +96,6 @@ public class ListaServiceImpl extends BaseServiceImpl<Lista, Long> implements Li
 		Busqueda filtro = Busqueda.forClass(Valor.class);
 		filtro.createAlias("lista", "l");
 		filtro.add(Restrictions.eq("l.id",id));
-		//valorHibernate.eliminarTodos(valorHibernate.buscar(filtro));
 		listaHibernate.eliminarXId(id);
 	}	
 }
