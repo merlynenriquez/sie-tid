@@ -302,7 +302,7 @@ public class PanelMantenLetrado extends DirandroComponent implements TextChangeL
 	}
 		
 	private void cargarWindowRegistro(Long idParte){
-		pnlAgregarPersona = new PanelAgregarPersona(idParte);
+		/*pnlAgregarPersona = new PanelAgregarPersona(null);
 		Window window=new Window(){
 			
 		      protected void close() {
@@ -323,7 +323,7 @@ public class PanelMantenLetrado extends DirandroComponent implements TextChangeL
 		window.setResizable(false);
 		window.setWidth("650px");
 		window.setHeight("-1px");
-		getWindow().addWindow(window);
+		getWindow().addWindow(window);*/
 		
 	}
 		
