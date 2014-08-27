@@ -27,7 +27,7 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="SEG_USUARIO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="SEG_USUARIO_ID_GENERATOR", sequenceName="SEQ_USUARIO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_USUARIO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -61,7 +61,7 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Policia
 	@ManyToOne
 	@JoinColumn(name="POLICIA")
-	private Policia perPolicia;
+	private Policia Policia;
 
 	//bi-directional many-to-one association to Rol
 	@ManyToOne
@@ -145,13 +145,13 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	public void setOficina(Dependencia oficina) {
 		this.oficina = oficina;
 	}
-
-	public Policia getPerPolicia() {
-		return perPolicia;
+	
+	public Policia getPolicia() {
+		return Policia;
 	}
 
-	public void setPerPolicia(Policia perPolicia) {
-		this.perPolicia = perPolicia;
+	public void setPolicia(Policia policia) {
+		Policia = policia;
 	}
 
 	public Rol getRol() {
