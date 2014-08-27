@@ -4,6 +4,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -61,8 +62,20 @@ public class EntidadServiceImpl extends BaseServiceImpl<Entidad, Long> implement
 	}
 
 	@Override
-	public List<Entidad> buscar(Entidad parametro) {
+	public List<Entidad> buscar(Entidad entidad) {
 		Busqueda filtro = Busqueda.forClass(Entidad.class);
+		if(entidad != null) {
+			if(entidad.getTipo() != null) {
+				filtro.createAlias("tipo", "t");
+				if(StringUtils.isNotEmpty(entidad.getTipo().getCodigo())) {
+					filtro.add(Restrictions.eq("t.codigo", entidad.getTipo().getCodigo() ));
+				}
+				
+				/*if(Constante.VALOR.CODIGO.COMI.equals(entidad.getTipo().getCodigo())) {
+					
+				}*/
+			}
+		}
 		/*if (parametro != null) {
 			if (parametro.getCodigo() != null) {
 				filtro.add(Restrictions.ilike("codigo",parametro.getCodigo(), MatchMode.ANYWHERE));
