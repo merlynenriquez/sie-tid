@@ -74,7 +74,6 @@ import com.vaadin.ui.Upload.FinishedEvent;
 import com.vaadin.ui.Upload.StartedEvent;
 import com.vaadin.ui.Upload.SucceededEvent;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 public class PanelMantenPersona extends DirandroComponent implements ClickListener, ValueChangeListener {
 
