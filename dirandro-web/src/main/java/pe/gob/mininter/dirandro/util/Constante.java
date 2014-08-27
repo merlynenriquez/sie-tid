@@ -56,6 +56,7 @@ public abstract class Constante {
 			public final static String GRADO = "GRADO";
 			public final static String CARGO = "CARGO";
 			public final static String TIPO_LETRADO = "TIPO_LETRADO";
+			public static final String PRIORIDAD = "PRIORIDAD";
 			
 		}
 	}
