@@ -124,27 +124,24 @@ public class Policia extends AuditoriaBean implements Validador, Serializable {
 	
 	@Override
 	public void validar() {
-		if( persona == null )
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Persona"});
+		if (persona == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Persona" });
 		}
-		if(StringUtils.isBlank( cip ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"CIP"});
+		if (StringUtils.isBlank(cip)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "CIP" });
 		}
-		if(grado == null)
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Grado"});
+		if (grado == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Grado" });
 		}
-		if(unidad == null)
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Unidad"});
+		if (unidad == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Unidad" });
 		}
-		if(cargo == null)
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Cargo"});
+		if (cargo == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Cargo" });
 		}
-		
 	}
-
+	
+	public String getNombreCompleto(){
+		return this.persona.getNombreCompleto();
+	 }
 }

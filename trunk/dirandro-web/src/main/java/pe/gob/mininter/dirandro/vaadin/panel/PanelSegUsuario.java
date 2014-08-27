@@ -7,12 +7,15 @@ import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Policia;
 import pe.gob.mininter.dirandro.model.Rol;
 import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.service.DependenciaService;
+import pe.gob.mininter.dirandro.service.PoliciaService;
 import pe.gob.mininter.dirandro.service.RolService;
 import pe.gob.mininter.dirandro.service.UsuarioService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.RandomUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.ConfirmDialog;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -132,17 +135,20 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 	private UsuarioService usuarioService;	
 	private RolService rolService;
 	private DependenciaService dependenciasService;
-	//private PoliciaService policiaService;
+	private PoliciaService policiaService;
 	private boolean flagNuevoUsuario;
 	
-	private String hash_512;
+	private List<Policia> lstPolicias;
+	private List<Dependencia> lstDependencias;
+	private List<Rol> lstRoles;
+	private List<Usuario> lstUsuarios;
 	
 	public PanelSegUsuario(List<Opcion> acciones, String height) {
 		super(acciones, height);
 		usuarioService = Injector.obtenerServicio(UsuarioService.class);
 		rolService = Injector.obtenerServicio(RolService.class);
 		dependenciasService = Injector.obtenerServicio(DependenciaService.class);
-		//policiaService = Injector.obtenerServicio(PoliciaService.class);
+		policiaService = Injector.obtenerServicio(PoliciaService.class);
 		
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
@@ -157,8 +163,8 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		btnEliminarUsuario.setIcon(Constante.ICONOS.DELETE);
 		btnAgregarPolicia.setIcon(Constante.ICONOS.CREATE);
 		
-		List<Rol> roles = rolService.buscar(null);
-		BeanItemContainer<Rol> bicRoles = new BeanItemContainer<Rol>(Rol.class,  roles);
+		lstRoles = rolService.buscar(null);
+		BeanItemContainer<Rol> bicRoles = new BeanItemContainer<Rol>(Rol.class,  lstRoles);
 		cmbRol.setInputPrompt("Rol");
 		cmbRol.setContainerDataSource(bicRoles);
 		cmbRol.setItemCaptionPropertyId("nombre");
@@ -166,19 +172,40 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		cmbRol.setImmediate(true);
 		cmbRol.addListener((ValueChangeListener)this);
 				
-		/*List<Policia> policias = policiaService.buscar(null);
-		BeanItemContainer<Policia> bicPolicias = new BeanItemContainer<Policia>(Policia.class,policias);
+		lstPolicias = policiaService.buscar(null);
+		BeanItemContainer<Policia> bicPolicias = new BeanItemContainer<Policia>(Policia.class, lstPolicias);
 		cmbPolicia.setInputPrompt("Policia");
 		cmbPolicia.setContainerDataSource(bicPolicias);
-		cmbPolicia.setItemCaptionPropertyId("policia");
+		cmbPolicia.setItemCaptionPropertyId("nombreCompleto");
 		cmbPolicia.setImmediate(true);
-		cmbPolicia.addListener((ValueChangeListener)this);*/
+		cmbPolicia.addListener( new ValueChangeListener() {
+		
+			private static final long serialVersionUID = 4418094011985520491L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				pintarPersona(event);
+			}
+
+			private void pintarPersona(ValueChangeEvent event) {
+				
+				if( cmbPolicia.getValue() != null){
+					Policia  policia = (Policia) cmbPolicia.getValue();
+					txtApellidoPaterno.setValue(policia.getPersona().getApePaterno());
+					txtApellidoMaterno.setValue(policia.getPersona().getApeMaterno());
+					txtNombres.setValue(policia.getPersona().getNombres());
+					txtCargo.setValue(policia.getCargo().getNombre());
+				}
+			}			
+		});
+		
+		cmbPolicia.addListener((ValueChangeListener)this);
 		
 		cmbOficina.setItemCaptionPropertyId("nombre");
 		cmbOficina.setInputPrompt("Oficina");
 		
-		List<Dependencia> listas = dependenciasService.buscar(null);
-		BeanItemContainer<Dependencia> bicDependencias = new BeanItemContainer<Dependencia>(Dependencia.class,  listas);
+		lstDependencias = dependenciasService.buscar(null);
+		BeanItemContainer<Dependencia> bicDependencias = new BeanItemContainer<Dependencia>(Dependencia.class,  lstDependencias);
 		cmbOficina.setContainerDataSource(bicDependencias);	
 		cmbOficina.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
 		cmbOficina.setImmediate(true);
@@ -206,17 +233,30 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 					limpiar();
 				}else {
 					habilitarBoton(!esModoNuevo);
+					limpiar();
 					Item item = tblUsuarios.getItem(tblUsuarios.getValue());
-					Usuario usuario = usuarioService.obtener((Long)item.getItemProperty("id").getValue());					
-					txtUsuario.setValue(usuario.getUsuario());
-					txtNombres.setValue(usuario.getNombres());
-					txtApellidoPaterno.setValue(usuario.getApePat());
-					txtApellidoMaterno.setValue(usuario.getApeMat());
-					cmbRol.select(usuario.getRol());
-					txtCargo.setValue(usuario.getCargo() != null ? usuario.getCargo() : StringUtils.EMPTY);
-					txtCargoDescripcion.setValue(usuario.getDescCargo()!= null ? usuario.getDescCargo() : StringUtils.EMPTY);
-					cmbOficina.select(usuario.getOficina());
-					//cmbPolicia.select(usuario.getPolicia());
+					txtUsuario.setValue(item.getItemProperty("usuario").getValue());
+					txtNombres.setValue(item.getItemProperty("nombres").getValue());
+					txtApellidoPaterno.setValue(item.getItemProperty("apePat").getValue());
+					txtApellidoMaterno.setValue(item.getItemProperty("apeMat").getValue());
+									
+					for (Policia policia : lstPolicias) {
+						if (policia.getId().equals((Long) item.getItemProperty("id").getValue()))
+							cmbPolicia.select(policia);
+					}
+					
+					for (Dependencia dependencia : lstDependencias) {
+						if (dependencia.getId().equals((Long) item.getItemProperty("oficina.id").getValue()))
+							cmbOficina.select(dependencia);
+					}
+					
+					for (Rol rol : lstRoles) {
+						if (rol.getId().equals((Long) item.getItemProperty("rol.id").getValue()))
+							cmbRol.select(rol);
+					}
+					
+					txtCargo.setValue(item.getItemProperty("cargo").getValue()!= null ? item.getItemProperty("cargo").getValue() : StringUtils.EMPTY);
+					txtCargoDescripcion.setValue(item.getItemProperty("descCargo").getValue() != null ? item.getItemProperty("descCargo").getValue() : StringUtils.EMPTY);
 					habilitarEdicion(esModoNuevo);
 				}
 			}
@@ -279,8 +319,8 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		txtCargo.addListener((TextChangeListener)this);
 		txtFiltroOficina.addListener((TextChangeListener)this);
 		
-		List<Usuario> usuarios = usuarioService.buscar(null);
-		cargarUsuarios(usuarios, true);
+		lstUsuarios = usuarioService.buscar(null);
+		cargarUsuarios(lstUsuarios, true);
 	}
 	
 	private void shortCutEnter(Object sender, Object target){
@@ -439,7 +479,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 			}
 			
 			if (usuario != null) {				
-				List<Usuario> lstUsuarios = usuarioService.buscar(usuario);		
+				lstUsuarios = usuarioService.buscar(usuario);		
 				cargarUsuarios(lstUsuarios, true);
 			}
 		}		
@@ -453,8 +493,12 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		container.addContainerProperty("nombres", String.class, null);
 		container.addContainerProperty("apePat", String.class, null);
 		container.addContainerProperty("apeMat", String.class, null);
-		container.addContainerProperty("cargo", String.class, null);				
+		container.addContainerProperty("cargo", String.class, null);
+		container.addContainerProperty("descCargo", String.class, null);
+		container.addContainerProperty("oficina.id", Long.class, null);
 		container.addContainerProperty("oficina.nombre", String.class, null);
+		container.addContainerProperty("rol.id", Long.class, null);
+		
 		
 		tblUsuarios.setContainerDataSource(container);
 		tblUsuarios.setVisibleColumns(new Object[]{"usuario","nombres","apePat", "apeMat","cargo","oficina.nombre"});
@@ -474,15 +518,18 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		tblUsuarios.setColumnHeader("oficina.nombre", "Oficina");
 		
 		int con=1;
-		for (Usuario entidad: lstUsuarios){
+		for (Usuario usuario: lstUsuarios){
 			Item item = container.addItem(con++);
-			item.getItemProperty("id").setValue(entidad.getId());
-			item.getItemProperty("usuario").setValue(entidad.getUsuario());
-			item.getItemProperty("nombres").setValue(entidad.getNombres());
-			item.getItemProperty("apePat").setValue(entidad.getApePat());
-			item.getItemProperty("apeMat").setValue(entidad.getApeMat());
-			item.getItemProperty("cargo").setValue(entidad.getCargo());
-			item.getItemProperty("oficina.nombre").setValue( entidad.getOficina() == null? null : entidad.getOficina().getNombre());
+			item.getItemProperty("id").setValue(usuario.getId());
+			item.getItemProperty("usuario").setValue(usuario.getUsuario());
+			item.getItemProperty("nombres").setValue(usuario.getNombres());
+			item.getItemProperty("apePat").setValue(usuario.getApePat());
+			item.getItemProperty("apeMat").setValue(usuario.getApeMat());
+			item.getItemProperty("cargo").setValue(usuario.getCargo());
+			item.getItemProperty("descCargo").setValue(usuario.getDescCargo());
+			item.getItemProperty("rol.id").setValue(usuario.getRol() != null ? usuario.getRol().getId() : null);
+			item.getItemProperty("oficina.id").setValue(usuario.getOficina() != null ? usuario.getOficina().getId() : null);
+			item.getItemProperty("oficina.nombre").setValue(usuario.getOficina()!= null ? usuario.getOficina().getNombre() : null);
 		}
 		
 		if(flagLimpiar){							
@@ -510,9 +557,11 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 			object.setCargo(txtCargo.getValue() != null ? txtCargo.getValue().toString() : StringUtils.EMPTY);
 			object.setDescCargo(txtCargoDescripcion.getValue() != null ? txtCargoDescripcion.getValue().toString() : StringUtils.EMPTY);
 			object.setOficina((Dependencia)cmbOficina.getValue());
-			//object.setPolicia((Policia)cmbPolicia.getValue());
+			object.setPolicia((Policia)cmbPolicia.getValue());
 			
 			if(flagNuevoUsuario){
+				String randomPassword = RandomUtil.createWord(8);
+				object.setClave(randomPassword);
 				usuarioService.crear(object);
 			}else{				
 				Item item = tblUsuarios.getItem(tblUsuarios.getValue());
@@ -537,25 +586,30 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 	}
 	
 	private void cargarWindowRegistroPolicia(){
-		pnlMantenPolicia = new PanelMantenPolicia(new ArrayList<Opcion>(), "-1px");
+		pnlMantenPolicia = new PanelMantenPolicia(new ArrayList<Opcion>(), "400px");
+		pnlMantenPolicia.setParent(this.getParent());
+		
 		Window window=new Window(){
 			
 			private static final long serialVersionUID = 1L;
 
-		      protected void close() {
-		    	  getApplication().getMainWindow().removeWindow(getWindow());
-		      }};
+			protected void close() {
+				getApplication().getMainWindow().removeWindow(getWindow());
+			}
+		};
+		      
 		window.setCaption("Registrar Policia");
 		window.addComponent(pnlMantenPolicia);
 		window.setModal(true);
 		window.setResizable(false);
-		window.setWidth("850px");
-		window.setHeight("350px");
+		window.setWidth("1000px");
+		window.setHeight("-1px");
 		getWindow().addWindow(window);
 	}
 	
 	//** Utilitarios **//
 	private void limpiar(){
+		System.out.println("entra a limpiar ");
 		txtFiltroUsuario.setValue("");
 		txtFiltroNombres.setValue("");
 		txtFiltroApePaterno.setValue("");
@@ -577,7 +631,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 	private void refrescar(){
 		habilitarEdicion(false);
 		limpiar();
-		List<Usuario> lstUsuarios = usuarioService.buscar(null);
+		lstUsuarios = usuarioService.buscar(null);
 		cargarUsuarios(lstUsuarios, true);
 	}
 	
@@ -811,6 +865,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		
 		// cmbOficina
 		cmbOficina = new ComboBox();
+		cmbOficina.setCaption("Oficina");
 		cmbOficina.setImmediate(false);
 		cmbOficina.setWidth("204px");
 		cmbOficina.setHeight("-1px");
@@ -870,7 +925,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		cmbPolicia = new ComboBox();
 		cmbPolicia.setCaption("Policia");
 		cmbPolicia.setImmediate(false);
-		cmbPolicia.setWidth("250px");
+		cmbPolicia.setWidth("230px");
 		cmbPolicia.setHeight("-1px");
 		horizontalLayout_1.addComponent(cmbPolicia);
 		
