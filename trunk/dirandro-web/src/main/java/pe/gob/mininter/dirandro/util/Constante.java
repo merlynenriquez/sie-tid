@@ -57,6 +57,11 @@ public abstract class Constante {
 			public final static String CARGO = "CARGO";
 			public final static String TIPO_LETRADO = "TIPO_LETRADO";
 			public static final String PRIORIDAD = "PRIORIDAD";
+			public static final String FINALIDAD = "FINALIDAD";
+			public static final String CUENCA = "CUENCA";
+			public static final String TIPO_INTERVINIENTE = "TIPO_INTER";
+			public static final String DIRECCION_TIPO = "DIRECCION_TIPO";
+			public static final String TIPO_HECHO = "TIPO_HECHO";
 			
 		}
 	}
@@ -124,6 +129,7 @@ public abstract class Constante {
 			public final static String TIP_EQP = "EQP";
 			public final static String TIP_GRP = "GRP";
 			
+			public final static String COMI = "COMI";
 			
 			/*public final static String ENTIDAD = "ENTIDAD";
 			public final static String DEPENDENCIA = "DEPENDENCIA";*/
