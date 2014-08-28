@@ -65,12 +65,12 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Equipo
 	@ManyToOne
 	@JoinColumn(name="EQUIPO", nullable=false)
-	private Equipo orgEquipo;
+	private Equipo equipo;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="INTEGRANTE", nullable=false)
-	private Usuario integrante;
+	private Usuario usuario;
 
 	public Integrante() {
 	}
@@ -122,26 +122,26 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	public void setEstado(Valor estado) {
 		this.estado = estado;
 	}
-
-	public Equipo getOrgEquipo() {
-		return orgEquipo;
-	}
-
-	public void setOrgEquipo(Equipo orgEquipo) {
-		this.orgEquipo = orgEquipo;
-	}
-
-	public Usuario getIntegrante() {
-		return integrante;
-	}
-
-	public void setIntegrante(Usuario integrante) {
-		this.integrante = integrante;
-	}
 	
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Transient
 	public String getNombreCompletoIntegrante() {
-		return integrante != null ? integrante.getNombreCompleto() : StringUtils.EMPTY;
+		return usuario != null ? usuario.getNombreCompleto() : StringUtils.EMPTY;
 	}
 
 	@Override

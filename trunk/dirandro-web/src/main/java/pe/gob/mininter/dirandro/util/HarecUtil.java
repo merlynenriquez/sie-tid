@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import pe.gob.mininter.dirandro.model.Dependencia;
+import pe.gob.mininter.dirandro.model.Equipo;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Usuario;
@@ -233,13 +234,13 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
-	/*
+	
 	public static Map<String, List<Equipo>> ordenarEquipos(List<Equipo> equipos){
 		Map<String, List<Equipo>> map = new HashMap<String, List<Equipo>>();
 		List<Equipo> list2=null;
 		
 		for (Equipo equipo : equipos) {
-			if(equipo.getEquipo() == null){
+			if(equipo.getPadre() == null){
 				if(map.get(Constante.OPCION.KEY_PADRE)==null){
 					list2=new ArrayList<Equipo>();
 					list2.add(equipo);
@@ -250,20 +251,21 @@ public abstract class HarecUtil {
 					map.put(Constante.OPCION.KEY_PADRE, list2);
 				}
 			}else{
-				if(map.get(equipo.getEquipo().getId().toString())==null){
+				if(map.get(equipo.getPadre().getId().toString())==null){
 					list2=new ArrayList<Equipo>();
 					list2.add(equipo);
-					map.put(equipo.getEquipo().getId().toString(), list2);
+					map.put(equipo.getPadre().getId().toString(), list2);
 				}else{
-					list2=(List<Equipo>)map.get(equipo.getEquipo().getId().toString());
+					list2=(List<Equipo>)map.get(equipo.getPadre().getId().toString());
 					list2.add(equipo);
-					map.put(equipo.getEquipo().getId().toString(), list2);
+					map.put(equipo.getPadre().getId().toString(), list2);
 				}
 			}
 		}
 		return map;
 	}
 	
+	/*
 	public static Map<String, List<Equipo>> obtenerEquipos(List<Equipo> equipos)
 	{
 		Map<String, List<Equipo>> map = new HashMap<String, List<Equipo>>();

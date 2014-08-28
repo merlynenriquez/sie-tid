@@ -62,6 +62,8 @@ public abstract class Constante {
 			public static final String TIPO_INTERVINIENTE = "TIPO_INTER";
 			public static final String DIRECCION_TIPO = "DIRECCION_TIPO";
 			public static final String TIPO_HECHO = "TIPO_HECHO";
+			public static final String TIPO_AGRUPACION = "AGRUPACION_TIPO";
+			
 			
 		}
 	}

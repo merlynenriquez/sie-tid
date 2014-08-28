@@ -292,6 +292,10 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Administración de Opciones</h2>");
 				pnlContenido.removeAllComponents();
 				//TODO: Crear Panel
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_SEG_EQUIPO)){
+				lblTituloPanel.setValue("<h2>Administración de Equipos e Integrantes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelSegEquipos(acciones, "-1px"), "top");
 			}
 			
 			/**

@@ -27,7 +27,7 @@ public class Dependencia extends AuditoriaBean implements Validador, Serializabl
 	private static final long serialVersionUID = -5926061859511311124L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DEPENDENCIA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DEPENDENCIA_ID_GENERATOR", sequenceName="SEQ_DEPENDENCIA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DEPENDENCIA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

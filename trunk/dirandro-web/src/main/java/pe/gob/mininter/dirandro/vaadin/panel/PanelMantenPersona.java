@@ -432,7 +432,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 						parametroSize = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_SIZE);
 						if (parametroSize != null) imageSize = new Long(parametroSize.getValor());
 						
-						parametroRuta = parametroService.obtener(Constante.PARAMETRO.PATH_WINDOW);
+						//parametroRuta = parametroService.obtener(Constante.PARAMETRO.PATH_WINDOW);
+						parametroRuta = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_PATH);
 						if (parametroRuta != null) rutaDocumento = parametroSize.getValor();
 					}
 	

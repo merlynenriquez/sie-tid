@@ -609,7 +609,6 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 	
 	//** Utilitarios **//
 	private void limpiar(){
-		System.out.println("entra a limpiar ");
 		txtFiltroUsuario.setValue("");
 		txtFiltroNombres.setValue("");
 		txtFiltroApePaterno.setValue("");

@@ -6,6 +6,8 @@ import pe.gob.mininter.dirandro.model.Integrante;
 
 public interface IntegranteService extends BaseService<Integrante, Long>  {
 
-	List<Integrante> listarIntegrantes();
+	public List<Integrante> listarIntegrantes();
+	
+	public List<Integrante> buscar(Integrante integrante);
 	
 }

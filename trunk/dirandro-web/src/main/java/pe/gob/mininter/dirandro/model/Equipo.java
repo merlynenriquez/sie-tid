@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -56,21 +55,21 @@ public class Equipo extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
 	@JoinColumn(name="DEPENDENCIA")
-	private Dependencia expDependencia;
+	private Dependencia dependencia;
 
 	//bi-directional many-to-one association to Equipo
 	@ManyToOne
 	@JoinColumn(name="PADRE")
-	private Equipo orgEquipo;
+	private Equipo padre;
 
-	//bi-directional many-to-one association to Equipo
-	@OneToMany(mappedBy="orgEquipo")
-	private List<Equipo> orgEquipos;
-
-	//bi-directional many-to-one association to Integrante
-	@OneToMany(mappedBy="orgEquipo")
-	private List<Integrante> orgIntegrantes;
-
+	@Transient
+	private Dependencia departamento;
+	
+	@Transient
+	public String getEtiquetaCaption() {
+		return nombre+" - "+codigo;
+	}
+	
 	public Equipo() {
 	}
 
@@ -114,36 +113,28 @@ public class Equipo extends AuditoriaBean implements Validador, Serializable {
 		this.estado = estado;
 	}
 
-	public Dependencia getExpDependencia() {
-		return expDependencia;
+	public Dependencia getDependencia() {
+		return dependencia;
 	}
 
-	public void setExpDependencia(Dependencia expDependencia) {
-		this.expDependencia = expDependencia;
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
 	}
 
-	public Equipo getOrgEquipo() {
-		return orgEquipo;
+	public Equipo getPadre() {
+		return padre;
 	}
 
-	public void setOrgEquipo(Equipo orgEquipo) {
-		this.orgEquipo = orgEquipo;
+	public void setPadre(Equipo padre) {
+		this.padre = padre;
 	}
 
-	public List<Equipo> getOrgEquipos() {
-		return orgEquipos;
+	public Dependencia getDepartamento() {
+		return departamento;
 	}
 
-	public void setOrgEquipos(List<Equipo> orgEquipos) {
-		this.orgEquipos = orgEquipos;
-	}
-
-	public List<Integrante> getOrgIntegrantes() {
-		return orgIntegrantes;
-	}
-
-	public void setOrgIntegrantes(List<Integrante> orgIntegrantes) {
-		this.orgIntegrantes = orgIntegrantes;
+	public void setDepartamento(Dependencia departamento) {
+		this.departamento = departamento;
 	}
 
 	@Override
