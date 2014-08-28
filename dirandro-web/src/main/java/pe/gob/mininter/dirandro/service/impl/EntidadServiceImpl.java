@@ -4,9 +4,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.EntidadHibernate;
-import pe.gob.mininter.dirandro.dao.oracle.ParametroOracle;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Entidad;
-
 import pe.gob.mininter.dirandro.service.EntidadService;
-import pe.gob.mininter.dirandro.service.ParametroService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
@@ -27,135 +22,80 @@ import pe.gob.mininter.dirandro.util.Constante;
 public class EntidadServiceImpl extends BaseServiceImpl<Entidad, Long> implements EntidadService {
 
 	private static final long serialVersionUID = -2615092658998593825L;
-	
-	protected enum TipoOperacion{CREAR,ACTUALIZAR,ELIMINAR}
 
-	@Autowired
-	private ParametroOracle parametroOracle;
-	
-	private EntidadHibernate parametroHibernate;
+	private EntidadHibernate entidadHibernate;
 	
 	@Autowired
-	public EntidadServiceImpl(EntidadHibernate parametroHibernate) {
-		super(parametroHibernate);
-		this.parametroHibernate = parametroHibernate;
-	}
-
-	@Override	
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void crear(Entidad parametro) {
-		validarReglaNegocio(parametro,TipoOperacion.CREAR); 
-		super.crear(parametro);
-	}
-
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void actualizar(Entidad parametro) {
-		validarReglaNegocio(parametro,TipoOperacion.ACTUALIZAR);
-		//parametroOracle.actualizar(parametro);
+	public EntidadServiceImpl(EntidadHibernate entidadHibernate) {
+		super(entidadHibernate);
+		this.entidadHibernate = entidadHibernate;
 	}
 	
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly = false)
-	public void eliminar(Entidad parametro) {
-		//eliminarXId(parametro.getCodigo());
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void crear(Entidad object) {		
+		Busqueda filtro = Busqueda.forClass(Entidad.class);
+		filtro.add(Restrictions.eq("nombre", object.getNombre()));
+		if (entidadHibernate.buscar(filtro).size()>0) {
+			throw new ValidacionException(
+					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
+					new Object[] { object.getNombre() });
+		}
+		super.crear(object);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void actualizar(Entidad object) {
+		Busqueda filtro = Busqueda.forClass(Entidad.class);
+		filtro.add(Restrictions.eq("nombre", object.getNombre()));
+		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
+		if (entidadHibernate.buscar(filtro).size()>0) {
+			throw new ValidacionException(
+					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
+					new Object[] { object.getNombre() });
+		}
+		super.actualizar(object);
 	}
 
 	@Override
 	public List<Entidad> buscar(Entidad entidad) {
+		
 		Busqueda filtro = Busqueda.forClass(Entidad.class);
-		if(entidad != null) {
-			if(entidad.getTipo() != null) {
+		
+		if (entidad != null) {
+		
+			if (entidad.getTipo()!= null) {
 				filtro.createAlias("tipo", "t");
-				if(StringUtils.isNotEmpty(entidad.getTipo().getCodigo())) {
-					filtro.add(Restrictions.eq("t.codigo", entidad.getTipo().getCodigo() ));
+				if (entidad.getTipo().getNombre()!= null){ 
+					filtro.add(Restrictions.ilike("t.nombre", entidad.getTipo().getNombre(), MatchMode.ANYWHERE));
 				}
-				
-				/*if(Constante.VALOR.CODIGO.COMI.equals(entidad.getTipo().getCodigo())) {
-					
-				}*/
+			
 			}
-		}
-		/*if (parametro != null) {
-			if (parametro.getCodigo() != null) {
-				filtro.add(Restrictions.ilike("codigo",parametro.getCodigo(), MatchMode.ANYWHERE));
+			if (entidad.getNombre()!= null) {
+				filtro.add(Restrictions.ilike("nombre",entidad.getNombre(), MatchMode.ANYWHERE));
 			}
-			if (parametro.getNombre() != null) {
-				filtro.add(Restrictions.ilike("nombre",parametro.getNombre(), MatchMode.ANYWHERE));
+			if (entidad.getDistrito()!= null) {
+				filtro.createAlias("distrito", "d");
+				filtro.add(Restrictions.ilike("d.nombre",entidad.getDistrito().getNombre(), MatchMode.ANYWHERE));
 			}
-			if (parametro.getValor() != null) {
-				filtro.add(Restrictions.ilike("valor",parametro.getValor(), MatchMode.ANYWHERE));
+			if (entidad.getDirtepol()!= null) {
+				filtro.add(Restrictions.ilike("dirtepol",entidad.getDirtepol().toString(), MatchMode.ANYWHERE));
 			}
-			if (parametro.getEstado() != null && parametro.getEstado().getNombre() != null) {
-				filtro.createAlias("estado", "e");
-				filtro.createAlias("e.lista", "l");
-				filtro.add(Restrictions.eq("l.codigo", Constante.LISTA.CODIGO.ESTADO));
-				filtro.add(Restrictions.ilike("e.nombre",parametro.getEstado().getNombre(), MatchMode.ANYWHERE));
+			if (entidad.getCorreo()!= null) {
+				filtro.add(Restrictions.ilike("correo",entidad.getCorreo(), MatchMode.ANYWHERE));
 			}
-		}
-		filtro.addOrder(Order.asc("codigo"));*/
-		return parametroHibernate.buscar(filtro);
-	}	
-	
-	protected void validarReglaNegocio(Entidad parametro, TipoOperacion tipoOperacion) {
-		/*parametro.setCodigo(parametro.getCodigo().trim().toUpperCase());
-		if (tipoOperacion.equals(TipoOperacion.CREAR)) {
-			if (parametroHibernate.contiene(parametro.getCodigo())) {
-				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_CODIGO, new Object[] { parametro.getCodigo() });
+			if (entidad.getTelefono()!= null) {
+				filtro.add(Restrictions.ilike("telefono",entidad.getTelefono(), MatchMode.ANYWHERE));
 			}
-		} else {
-			if(!parametro.getCodigoAnterior().equalsIgnoreCase(parametro.getCodigo())){
-				Busqueda filtroCodigo = Busqueda.forClass(Entidad.class);
-				filtroCodigo.add(Restrictions.eq("codigo", parametro.getCodigo().trim()).ignoreCase());
-				filtroCodigo.add(Restrictions.not(Restrictions.eq("codigo", parametro.getCodigoAnterior().trim()).ignoreCase()));
-				List<Parametro> parametroCodigo = parametroHibernate.buscar(filtroCodigo);
-				if (parametroCodigo.size() > 0) {
-					throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_CODIGO, new Object[] { parametro.getCodigo() });
-				}
-			}
-		}
-				
-		Busqueda filtroNombre = Busqueda.forClass(Parametro.class);
-		filtroNombre.add(Restrictions.eq("nombre", parametro.getNombre().trim()).ignoreCase());
-		List<Parametro> parametroNombre=parametroHibernate.buscar(filtroNombre);
+		}		
 		
-		if (parametroNombre.size() > 0) {
-			if (tipoOperacion.equals(TipoOperacion.CREAR)) {
-				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_NOMBRE, new Object[] { parametro.getNombre() });
-			} else {
-				if (!parametroNombre.get(0).getCodigo().equalsIgnoreCase(parametro.getCodigo())) {
-					throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_PARAMETRO_EXISTENTE_NOMBRE, new Object[] { parametro.getNombre() });
-				}
-			}
-		}*/
-	}
-
-	@Override
-	public Entidad obtener(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void grabarTodos(List<Entidad> list) {
-		// TODO Auto-generated method stub
+		filtro.setFirstResult(0);
+		filtro.setMaxResults(500);
+		
+		return entidadHibernate.buscar(filtro);
 		
 	}
-
-	
-	@Override
-	public void eliminarXId(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void eliminarTodos(List<Entidad> list) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 
 }

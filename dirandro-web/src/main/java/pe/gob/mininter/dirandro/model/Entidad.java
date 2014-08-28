@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -31,7 +35,7 @@ public class Entidad extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -5180147514012281821L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ENTIDAD_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_ENTIDAD_ID_GENERATOR", sequenceName="SEQ_ENTIDAD")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ENTIDAD_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -67,7 +71,7 @@ public class Entidad extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="DISTRITO")
-	private Distrito ubgDistrito;
+	private Distrito distrito;
 
 	public Entidad() {
 	}
@@ -144,18 +148,25 @@ public class Entidad extends AuditoriaBean implements Validador, Serializable {
 		this.estado = estado;
 	}
 
-	public Distrito getUbgDistrito() {
-		return ubgDistrito;
+	public Distrito getDistrito() {
+		return distrito;
 	}
 
-	public void setUbgDistrito(Distrito ubgDistrito) {
-		this.ubgDistrito = ubgDistrito;
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if (tipo == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Entidad" });
+		}
+		if (estado == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Estado de Entidad" });
+		}
+		if (StringUtils.isBlank(nombre)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Numero de Entidad" });
+		}
 	}
 
 }
