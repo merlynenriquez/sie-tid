@@ -692,7 +692,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 					limpiar("parentesco");
 				}else {
 					Item item = tblParentescos.getItem(tblParentescos.getValue());
-					llenarCamposParentesco( (Parentesco)item.getItemProperty("ParentescoObj").getValue() );
+					Parentesco obj = parentescoService.obtener((Long)item.getItemProperty("ParentescoObj").getValue()); 
+					llenarCamposParentesco(obj);
 				}
 			}
 		});
@@ -739,7 +740,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		
 		IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("Paterno", String.class, null);
-        container.addContainerProperty("ParentescoObj", Parentesco.class, null);
+        container.addContainerProperty("Parentesco.id", Long.class, null);
         container.addContainerProperty("Materno", String.class, null);                        
         container.addContainerProperty("Nombre", String.class, null);
         container.addContainerProperty("Parentesco", String.class, null);
@@ -752,7 +753,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 				 item.getItemProperty("Materno").setValue(parentezco.getPariente().getApeMaterno());
 				 item.getItemProperty("Nombre").setValue(parentezco.getPariente().getNombres());
 				 item.getItemProperty("Parentesco").setValue(parentezco.getTipoRelacion().getNombre());
-				 item.getItemProperty("ParentescoObj").setValue(parentezco);
+				 item.getItemProperty("Parentesco.id").setValue(parentezco.getId());
 	         }
 	    }
         tblParentescos.setContainerDataSource(container);
@@ -786,7 +787,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 					limpiar("identificacion");
 				}else {
 					Item item = tblIdentificaciones.getItem(tblIdentificaciones.getValue());
-					llenarCamposIdentificacion( (Identificacion)item.getItemProperty("IdentificacionObj").getValue() );
+					Identificacion obj = identificacionService.obtener((Long)item.getItemProperty("Identificacion.id").getValue()); 
+					llenarCamposIdentificacion(obj);
 				}
 			}
 		});
@@ -796,7 +798,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 	private void llenaPanelIdentificacion(){		
 		limpiar("identificacion");
 		 IndexedContainer container = new IndexedContainer();
-         container.addContainerProperty("IdentificacionObj", Identificacion.class, null);
+         container.addContainerProperty("Identificacion.id", Long.class, null);
          container.addContainerProperty("Nombre", String.class, null);
          container.addContainerProperty("Tipo", String.class, null);
          container.addContainerProperty("Numero", String.class, null);
@@ -805,7 +807,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
         	 int con=1;
              for (Identificacion identificacion: lstIdentificaciones) {
                      Item item = container.addItem(con++);
-    			     item.getItemProperty("IdentificacionObj").setValue(identificacion);
+    			     item.getItemProperty("Identificacion.id").setValue(identificacion.getId());
     			     item.getItemProperty("Nombre").setValue(identificacion.getPersona().getNombreCompleto());
     			     item.getItemProperty("Tipo").setValue(identificacion.getTipo().getNombre());
     			     item.getItemProperty("Numero").setValue(identificacion.getNumero());
@@ -980,7 +982,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 	 * Registro de las Direcciones de la Persona
 	 */
 
-	public void inicializaPanelDirecciones(){
+	private void inicializaPanelDirecciones(){
 		
 		cmbDirDistrito.setInputPrompt("Distrito - Provincia - Departamento");
 		cmbDirDistrito.setItemCaptionPropertyId("nombreCompleto");
@@ -1005,7 +1007,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 					limpiar("direccion");
 				}else {
 					Item item = tblDirDirecciones.getItem(tblDirDirecciones.getValue());
-					llenarCamposDireccion( (Direccion)item.getItemProperty("DireccionObj").getValue() );
+					Direccion obj = direccionService.obtener((Long)item.getItemProperty("Direccion.id").getValue());
+					llenarCamposDireccion(obj);
 				}
 			}
 		});				
@@ -1016,9 +1019,9 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		limpiar("direccion");
 		
 		IndexedContainer container = new IndexedContainer();
-		container.addContainerProperty("id", Long.class, 0l);
+		//container.addContainerProperty("id", Long.class, 0l);
         container.addContainerProperty("Direccion", String.class, null);
-        container.addContainerProperty("DireccionObj", Direccion.class, null);
+        container.addContainerProperty("Direccion.id", Long.class, null);
         container.addContainerProperty("Referencia", String.class, null);                        
         container.addContainerProperty("Distrito", String.class, null);
         container.addContainerProperty("Provincia", String.class, null);
@@ -1028,8 +1031,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
         	int con=1;
 	        for (Direccion direccion: lstDirecciones) {
                 Item item = container.addItem(con++);
-                item.getItemProperty("id").setValue(direccion.getId() );
-                item.getItemProperty("DireccionObj").setValue(direccion );
+                //item.getItemProperty("id").setValue(direccion.getId() );
+                item.getItemProperty("Direccion.id").setValue(direccion.getId() );
                 item.getItemProperty("Direccion").setValue(direccion.getDireccion());
 			    item.getItemProperty("Referencia").setValue(direccion.getReferencia());
 			    item.getItemProperty("Distrito").setValue(direccion.getDistrito().getNombre());
@@ -1041,7 +1044,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
         tblDirDirecciones.setVisibleColumns(new Object[]{"Direccion","Referencia","Distrito","Provincia","Departamento"});
     }
 	
-	public void llenarCamposDireccion( Direccion direccion ){
+	private void llenarCamposDireccion( Direccion direccion ){
 		flagNuevaDireccion = false;
 		this.direccion = direccion;
 		txtDirDireccion.setValue( direccion.getDireccion()  );
@@ -1075,7 +1078,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 	 * Registro de los Correos de la Persona
 	 */
 
-	public void inicializaPanelCorreo(){
+	private void inicializaPanelCorreo(){
 		
 		//carga lista de personas 
 		tblCorrCorreos.setSelectable(true);
@@ -1095,19 +1098,19 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 					limpiar("correo");
 				}else {
 					Item item = tblCorrCorreos.getItem(tblCorrCorreos.getValue());
-					llenarCamposCorreo( (Correo)item.getItemProperty("correoObj").getValue() );
-					
+					Correo obj = correoService.obtener((Long)item.getItemProperty("correo.id").getValue());
+					llenarCamposCorreo(obj);
 				}
 			}
 		});				
 		btnCorrNuevo.addListener((ClickListener)this);
 	}
 	
-	public void llenaPanelCorreos(){
+	private void llenaPanelCorreos(){
 		limpiar("correo");
 		IndexedContainer container = new IndexedContainer();
 		container.addContainerProperty("correo", String.class, null);
-		container.addContainerProperty("correoObj", Correo.class, null);
+		container.addContainerProperty("correo.id", Long.class, null);
 		
 		int con=1;
 		
@@ -1115,7 +1118,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 	    	 for (Correo correo: lstCorreos) {
 	             Item item = container.addItem(con++);
 	             item.getItemProperty("correo").setValue(correo.getCorreo());
-	             item.getItemProperty("correoObj").setValue(correo);
+	             item.getItemProperty("correo.id").setValue(correo.getId());
 	        }
 	   		 
 	    }
@@ -1123,7 +1126,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 	    tblCorrCorreos.setVisibleColumns(new Object[]{"correo"});
 	}
 
-	public void llenarCamposCorreo(Correo correo){
+	private void llenarCamposCorreo(Correo correo){
 		flagNuevoCorreo = false;
 		this.correo = correo ;
 		txtCorCorreo.setValue( correo.getCorreo() );
@@ -1175,7 +1178,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 				}else {
 					Item item = tblImagenes.getItem(tblImagenes.getValue());
 					String ruta = item.getItemProperty("adjunto.ruta").getValue().toString();
-					String id = item.getItemProperty("id").getValue().toString();
+					String id = item.getItemProperty("imagen.id").getValue().toString();
 					String ext = item.getItemProperty("nombreAdjunto").getValue().toString();
 					ext = ext.substring(ext.lastIndexOf('.'), ext.length());
 					String cadena = ruta+"/"+ id+ext;
@@ -1292,13 +1295,13 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		llenaPanelImagenes();
 	}
 	
-	public void llenaPanelImagenes(){
+	private void llenaPanelImagenes(){
 		limpiar("imagen");
 		IndexedContainer container = new IndexedContainer();
-		container.addContainerProperty("id", Long.class, null);
-		container.addContainerProperty("persona", Persona.class, null);
-		container.addContainerProperty("imagen", Imagen.class, null);
-		container.addContainerProperty("adjunto", Adjunto.class, null);
+		container.addContainerProperty("imagen.id", Long.class, null);
+		//container.addContainerProperty("persona", Persona.class, null);
+		//container.addContainerProperty("imagen", Imagen.class, null);
+		//container.addContainerProperty("adjunto", Adjunto.class, null);
 		container.addContainerProperty("adjunto.ruta", String.class, null);
 		container.addContainerProperty("nombreAdjunto", String.class, null);
 		
@@ -1306,9 +1309,9 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		if (lstImagenes != null) {
 	    	 for (Imagen imagen: lstImagenes) {
 	             Item item = container.addItem(con++);
-	             item.getItemProperty("id").setValue(imagen.getId());
-	             item.getItemProperty("imagen").setValue(imagen);
-	             item.getItemProperty("adjunto").setValue(imagen.getAdjunto());
+	             item.getItemProperty("imagen.id").setValue(imagen.getId());
+	             //item.getItemProperty("imagen").setValue(imagen);
+	             //item.getItemProperty("adjunto").setValue(imagen.getAdjunto());
 	             item.getItemProperty("adjunto.ruta").setValue(imagen.getAdjunto().getRuta());
 	             item.getItemProperty("nombreAdjunto").setValue(imagen.getAdjunto().getNombre());
 	        }
