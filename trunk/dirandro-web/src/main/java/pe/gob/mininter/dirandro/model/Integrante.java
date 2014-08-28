@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -67,7 +70,7 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="INTEGRANTE", nullable=false)
-	private Usuario segUsuario3;
+	private Usuario integrante;
 
 	public Integrante() {
 	}
@@ -128,12 +131,17 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 		this.orgEquipo = orgEquipo;
 	}
 
-	public Usuario getSegUsuario3() {
-		return segUsuario3;
+	public Usuario getIntegrante() {
+		return integrante;
 	}
 
-	public void setSegUsuario3(Usuario segUsuario3) {
-		this.segUsuario3 = segUsuario3;
+	public void setIntegrante(Usuario integrante) {
+		this.integrante = integrante;
+	}
+	
+	@Transient
+	public String getNombreCompletoIntegrante() {
+		return integrante != null ? integrante.getNombreCompleto() : StringUtils.EMPTY;
 	}
 
 	@Override

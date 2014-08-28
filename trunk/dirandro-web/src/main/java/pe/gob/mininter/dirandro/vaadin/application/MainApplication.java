@@ -44,6 +44,10 @@ public class MainApplication extends Application {
 			cargarPanelPrincipal();
 		}
 		
+		windowHarec.getContent().setHeight("100%");
+		windowHarec.getLayout().setMargin(false);
+		windowHarec.setSizeFull();
+		
 		setMainWindow(windowHarec);
 	}
 	
