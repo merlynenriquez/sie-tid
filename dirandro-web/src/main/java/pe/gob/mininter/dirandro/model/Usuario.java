@@ -13,6 +13,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -61,7 +63,7 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Policia
 	@ManyToOne
 	@JoinColumn(name="POLICIA")
-	private Policia Policia;
+	private Policia policia;
 
 	//bi-directional many-to-one association to Rol
 	@ManyToOne
@@ -147,11 +149,11 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	}
 	
 	public Policia getPolicia() {
-		return Policia;
+		return policia;
 	}
 
 	public void setPolicia(Policia policia) {
-		Policia = policia;
+		this.policia = policia;
 	}
 
 	public Rol getRol() {
@@ -173,6 +175,12 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Transient
+	public String getNombreCompleto() {
+		return StringUtils.join(new Object[]{nombres, apePat, apeMat}, " ");
 		
 	}
  

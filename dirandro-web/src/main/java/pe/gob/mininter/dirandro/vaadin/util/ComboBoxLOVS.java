@@ -34,6 +34,10 @@ public class ComboBoxLOVS extends ComboBox {
 		valorService = Injector.obtenerServicio(ValorService.class);
 	}
 
+	public void setCodigoLista(String codigoLista) {
+		this.codigoLista = codigoLista;
+	}
+
 	@Override
 	public void attach() {
 		super.attach();
