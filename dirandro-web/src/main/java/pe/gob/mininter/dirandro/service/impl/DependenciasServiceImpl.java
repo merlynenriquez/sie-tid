@@ -35,9 +35,39 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 		super(dependenciaHibernate);		 
 		this.dependenciaHibernate = dependenciaHibernate;
 	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void actualizar(Dependencia object) {
+		object.validar();
+		Busqueda filtro = Busqueda.forClass(Dependencia.class);
+		filtro.add(Restrictions.eq("nombre", object.getNombre()));
+		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
+		if (dependenciaHibernate.buscar(filtro).size()>0) {
+			throw new ValidacionException(
+					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
+					new Object[] { object.getNombre() });
+		}
+		dependenciaHibernate.actualizar(object);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void crear(Dependencia object) {		
+		object.validar();
+		Busqueda filtro = Busqueda.forClass(Dependencia.class);
+		filtro.add(Restrictions.eq("nombre", object.getNombre()));
+		if (dependenciaHibernate.buscar(filtro).size()>0) {
+			throw new ValidacionException(
+					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
+					new Object[] { object.getNombre() });
+		}
+		super.crear(object);
+	}
 
 	public List<Dependencia> buscar(Dependencia dependencia){
 		Busqueda filtro = Busqueda.forClass(Dependencia.class);
+		logger.debug("enter"+dependencia);
 		
 		if (dependencia!=null){
 			if (dependencia.getId() != null) {
@@ -46,8 +76,9 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 			if(dependencia.getNombre()!= null){
 				filtro.add(Restrictions.ilike("nombre",dependencia.getNombre(),MatchMode.ANYWHERE));
 			}	
-			if (dependencia.getPadre() != null && dependencia.getPadre().getId()  != null) {
-				/*if(dependencia.isValidador()){*/
+			if (dependencia.getPadre() != null) {
+				//if(dependencia.isValidador()){
+				logger.debug("llegaste al padre");
 					filtro.createAlias("padre", "pa");
 					filtro.add(Restrictions.eq("pa.id", dependencia.getPadre().getId()));
 				//}
@@ -80,11 +111,17 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 	public List<Dependencia> buscarPadreHijos(Dependencia dependencia) {
 		List<Dependencia> lstDependencias = null;
 		
+		
 		Dependencia dependenciaHijo = null;
 		dependenciaHijo = new Dependencia();
 		dependenciaHijo.setPadre(dependencia);
 		
-		lstDependencias = buscar(dependencia);
+		logger.debug("=======================");
+		lstDependencias = buscar(dependenciaHijo);
+		for (Dependencia dependencia2 : lstDependencias) {
+			logger.debug(dependencia2.getNombre());
+		}
+		logger.debug("=======================");
 		Map<String, Dependencia> map = new HashMap<String, Dependencia>();
 		
 		for (Dependencia beanDependencia : lstDependencias) {
@@ -103,6 +140,18 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 		return values;
 	}
 	
+	/**
+	 * 
+	 */
+	@Override
+	public List<Dependencia> buscarHijos(Dependencia dependencia) {
+		Dependencia dependenciaHijo = null;
+		dependenciaHijo = new Dependencia();
+		dependenciaHijo.setPadre(dependencia);
+		 
+		return buscar(dependenciaHijo);
+	}
+	
 	public Dependencia getPadreRecursivo( Long idPadre , Map<String, Dependencia> map ){
 		Dependencia testDependencia = buscarDependencia( idPadre );
 		map.put(testDependencia.getId().toString(), testDependencia);		
@@ -113,34 +162,7 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 		}	
 	}
 	
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void actualizar(Dependencia object) {
-		object.validar();
-		Busqueda filtro = Busqueda.forClass(Dependencia.class);
-		filtro.add(Restrictions.eq("nombre", object.getNombre()));
-		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
-		if (dependenciaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
-					new Object[] { object.getNombre() });
-		}
-		dependenciaHibernate.actualizar(object);
-	}
 	
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void crear(Dependencia object) {		
-		object.validar();
-		Busqueda filtro = Busqueda.forClass(Dependencia.class);
-		filtro.add(Restrictions.eq("nombre", object.getNombre()));
-		if (dependenciaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
-					new Object[] { object.getNombre() });
-		}
-		super.crear(object);
-	}
 	
 	@Override
 	public Dependencia buscarDependencia(Long id){

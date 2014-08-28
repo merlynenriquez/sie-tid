@@ -2,6 +2,9 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +12,7 @@ import pe.gob.mininter.dirandro.dao.hibernate.IntegranteHibernate;
 import pe.gob.mininter.dirandro.model.Integrante;
 import pe.gob.mininter.dirandro.service.IntegranteService;
 import pe.gob.mininter.dirandro.util.Busqueda;
+import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
 public class IntegranteServiceImpl extends BaseServiceImpl<Integrante, Long> implements IntegranteService {
@@ -33,7 +37,37 @@ public class IntegranteServiceImpl extends BaseServiceImpl<Integrante, Long> imp
 	}
 	
 	
-
+	@Override
+	public List<Integrante> buscar(Integrante integrante) {
+		Busqueda filtro = Busqueda.forClass(Integrante.class);
+		
+		if (integrante != null) {
+			if (integrante.getId() != null) {
+				filtro.add(Restrictions.eq("id", integrante.getId()));
+			}
+			if (integrante.getEquipo() != null && integrante.getEquipo().getId() != null) {
+				filtro.createAlias("equipo", "t");
+				filtro.add(Restrictions.eq("t.id", integrante.getEquipo().getId()));
+			}
+			if (integrante.getEstado() != null && integrante.getEstado().getNombre() != null) {
+				filtro.createAlias("estado", "e");
+				filtro.add(Restrictions.ilike("e.nombre",integrante.getEstado().getNombre(), MatchMode.ANYWHERE));
+			}
+			if (integrante.getUsuario() != null && integrante.getUsuario().getNombres() != null) {
+				filtro.createAlias("integrante", "u");
+				filtro.add(Restrictions.or(Restrictions.ilike("u.nombres", integrante.getUsuario().getNombres(), MatchMode.ANYWHERE), Restrictions.or(Restrictions.ilike("u.apeMat", integrante.getUsuario().getNombres(), MatchMode.ANYWHERE),
+						Restrictions.or(Restrictions.ilike("u.apePat",integrante.getUsuario().getNombres(),MatchMode.ANYWHERE), Restrictions.ilike("u.usuario", integrante.getUsuario().getNombres(), MatchMode.ANYWHERE))))
+				);
+			}
+		}
+		
+		filtro.createAlias("estado", "e");
+		filtro.add(Restrictions.eq("e.codigo", Constante.VALOR.CODIGO.ACTIVO));
+		
+		filtro.addOrder(Order.asc("id"));
+		filtro.addOrder(Order.asc("equipo"));
+		return integranteHibernate.buscar(filtro);
+	}
 	
 
 }

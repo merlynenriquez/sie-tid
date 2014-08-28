@@ -14,6 +14,8 @@ public interface DependenciaService  extends BaseService<Dependencia, Long>{
 	public Map<String, List<Dependencia>> filtrarDependencias(List<Dependencia> lstDependencias);
 
 	public List<Dependencia> buscarPadreHijos(Dependencia dependencia);
+	
+	public List<Dependencia> buscarHijos(Dependencia dependencia);  
 
 	public Dependencia buscarDependencia(Long id);
 	
