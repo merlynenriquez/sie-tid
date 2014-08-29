@@ -31,7 +31,7 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	private static final long serialVersionUID = -3029123281985069021L;
 
 	@Id
-	@SequenceGenerator(name="EXP_INSTALACION_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_INSTALACION_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_INSTALACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

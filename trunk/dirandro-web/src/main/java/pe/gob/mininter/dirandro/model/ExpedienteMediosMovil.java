@@ -31,7 +31,7 @@ public class ExpedienteMediosMovil extends AuditoriaBean implements Validador, S
 
 
 	@Id
-	@SequenceGenerator(name="EXP_EXPEDIENTE_MEDIOS_MOVIL_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_EXPEDIENTE_MEDIOS_MOVIL_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_EXPEDIENTE_MEDIOS_MOVIL_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

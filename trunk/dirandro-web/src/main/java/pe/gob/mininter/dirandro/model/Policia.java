@@ -34,7 +34,7 @@ public class Policia extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 5529054350503925440L;
 
 	@Id
-	@SequenceGenerator(name="PER_POLICIA_ID_GENERATOR", sequenceName="SEQ_POLICIA")
+	@SequenceGenerator(name="PER_POLICIA_ID_GENERATOR", sequenceName="SEQ_POLICIA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_POLICIA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Equipo;
+import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Usuario;
@@ -107,11 +108,42 @@ public abstract class HarecUtil {
 		return lstDistrito;
 	}
 	
+	
+	public static Map<String, List<Delito>> ordenarDelitos(List<Delito> delitos){
+		Map<String, List<Delito>> map = new HashMap<String, List<Delito>>();
+		List<Delito> list = null;
+		
+		for (Delito delito : delitos) {
+			if(delito.getPadre() == null){
+				if(map.get(Constante.OPCION.KEY_PADRE)==null){
+					list = new ArrayList<Delito>();
+					list.add(delito);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				} else {
+					list = (List<Delito>) map.get(Constante.OPCION.KEY_PADRE);
+					list.add(delito);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				}
+			}else{
+				if (map.get(delito.getPadre().getId().toString()) == null) {
+					list = new ArrayList<Delito>();
+					list.add(delito);
+					map.put(delito.getPadre().getId().toString(), list);
+				} else {
+					list = (List<Delito>) map.get(delito.getPadre().getId().toString());
+					list.add(delito);
+					map.put(delito.getPadre().getId().toString(), list);
+				}
+			}
+		}
+		return map;
+	}*/
+	
 	/**
 	 * @param opciones = Maestro de opciones a ordenar
 	 * @param ordenarAcciones = flag para determinar que tipo de orden hacer (separa las acciones o no)
 	 * @return Lista de opciones ordenadas
-	 * /
+	 */
 	public static Map<String, List<ModeloMarca>> ordenarModeloMarcas(List<ModeloMarca> modeloMarcas){
 
 		Map<String, List<ModeloMarca>> map = new HashMap<String, List<ModeloMarca>>();
@@ -143,35 +175,6 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
-	public static Map<String, List<Delito>> ordenarDelitos(List<Delito> delitos){
-		Map<String, List<Delito>> map = new HashMap<String, List<Delito>>();
-		List<Delito> list = null;
-		
-		for (Delito delito : delitos) {
-			if(delito.getPadre() == null){
-				if(map.get(Constante.OPCION.KEY_PADRE)==null){
-					list = new ArrayList<Delito>();
-					list.add(delito);
-					map.put(Constante.OPCION.KEY_PADRE, list);
-				} else {
-					list = (List<Delito>) map.get(Constante.OPCION.KEY_PADRE);
-					list.add(delito);
-					map.put(Constante.OPCION.KEY_PADRE, list);
-				}
-			}else{
-				if (map.get(delito.getPadre().getId().toString()) == null) {
-					list = new ArrayList<Delito>();
-					list.add(delito);
-					map.put(delito.getPadre().getId().toString(), list);
-				} else {
-					list = (List<Delito>) map.get(delito.getPadre().getId().toString());
-					list.add(delito);
-					map.put(delito.getPadre().getId().toString(), list);
-				}
-			}
-		}
-		return map;
-	}*/
 	
 	public static Map<String, List<Dependencia>> ordenarDependencias(List<Dependencia> dependencias){		
 		Map<String, List<Dependencia>> map = new HashMap<String, List<Dependencia>>();

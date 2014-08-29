@@ -29,7 +29,7 @@ public class Usuario extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="SEG_USUARIO_ID_GENERATOR", sequenceName="SEQ_USUARIO")
+	@SequenceGenerator(name="SEG_USUARIO_ID_GENERATOR", sequenceName="SEQ_USUARIO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_USUARIO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

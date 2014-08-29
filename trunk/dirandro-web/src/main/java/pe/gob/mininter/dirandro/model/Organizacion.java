@@ -35,7 +35,7 @@ public class Organizacion extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = -1911787099919273558L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ORGANIZACION_ID_GENERATOR", sequenceName="SEQ_ORGANIZACION")
+	@SequenceGenerator(name="EXP_ORGANIZACION_ID_GENERATOR", sequenceName="SEQ_ORGANIZACION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ORGANIZACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

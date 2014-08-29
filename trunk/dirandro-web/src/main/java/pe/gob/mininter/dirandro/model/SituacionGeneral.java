@@ -25,7 +25,7 @@ public class SituacionGeneral extends AuditoriaBean implements Validador, Serial
 	private static final long serialVersionUID = 4473456073297589273L;
 
 	@Id
-	@SequenceGenerator(name="EXP_SITUACION_GENERAL_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_SITUACION_GENERAL_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_SITUACION_GENERAL_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

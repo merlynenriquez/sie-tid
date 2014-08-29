@@ -20,7 +20,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 /**
  * The persistent class for the EXP_MUNICIONES database table.
- * 
+ * TODO falta relacionarla en le modelo entidad relacion.
  */
 @Entity
 @Table(name="EXP_MUNICIONES")
@@ -32,7 +32,7 @@ public class Municione extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 5539914583114696827L;
 
 	@Id
-	@SequenceGenerator(name="EXP_MUNICIONES_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_MUNICIONES_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_MUNICIONES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

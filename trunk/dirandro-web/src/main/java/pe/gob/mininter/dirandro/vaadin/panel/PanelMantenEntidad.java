@@ -130,6 +130,8 @@ public class PanelMantenEntidad extends DirandroComponent implements TextChangeL
 	private Entidad entidad;
 	
 	private List<Distrito> lstDistritos; 
+	private List<Valor> lstTipoEntidad;
+	private List<Valor> lstEstados;
 	
 	public PanelMantenEntidad(List<Opcion> acciones, String height) {
 		super(acciones,height);
@@ -151,14 +153,14 @@ public class PanelMantenEntidad extends DirandroComponent implements TextChangeL
 		
 		habilitarEdicion(false);
 		
-		List<Valor> lstEstados = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO);
+		lstEstados = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO);
 		BeanItemContainer<Valor> bicEstados = new BeanItemContainer<Valor>(Valor.class,  lstEstados);
 		cmbEstadoEntidad.setContainerDataSource(bicEstados);
 		cmbEstadoEntidad.setItemCaptionPropertyId("nombre");
 		cmbEstadoEntidad.setInputPrompt("Estado");
 		
-		List<Valor> lstTipos = valorService.obtenerLista(Constante.LISTA.CODIGO.ENTIDAD_TIPO);
-		BeanItemContainer<Valor> bicTipos = new BeanItemContainer<Valor>(Valor.class,  lstTipos);
+		lstTipoEntidad = valorService.obtenerLista(Constante.LISTA.CODIGO.ENTIDAD_TIPO);
+		BeanItemContainer<Valor> bicTipos = new BeanItemContainer<Valor>(Valor.class,  lstTipoEntidad);
 		cmbTipoEntidad.setImmediate(true);
 		cmbTipoEntidad.setContainerDataSource(bicTipos);
 		cmbTipoEntidad.setItemCaptionPropertyId("nombre");
@@ -198,42 +200,50 @@ public class PanelMantenEntidad extends DirandroComponent implements TextChangeL
 		tblEntidad.setNullSelectionItemId(null);
 		tblEntidad.setCacheRate(1);
 		tblEntidad.addListener(new ValueChangeListener() {
-			
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = -6124596484581515359L;
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				boolean esModoNuevo = tblEntidad.getValue() == null;
+				limpiar();
+				habilitarEdicion(!esModoNuevo);
 				if(esModoNuevo){
 					tblEntidad.setValue(null);
-					habilitarEdicion(!esModoNuevo);
-					limpiar();
-				}else {
-					habilitarEdicion(!esModoNuevo);
+				}else{
 					Item item = tblEntidad.getItem(tblEntidad.getValue());
-					//TODO: Cambiar
-					entidad = entidadService.obtener(Long.valueOf(item.getItemProperty("id").getValue().toString()));
-					txtNombreEntidad.setValue(entidad.getNombre());
-					txtDireccionEntidad.setValue(entidad.getDireccion());
-					txtADescripcionEntidad.setValue(entidad.getDescripcion());
-					txtTelefonoEntidad.setValue(entidad.getTelefono());
-					cmbTipoEntidad.select(entidad.getTipo());
-					cmbEstadoEntidad.select(entidad.getEstado());
-					
-					if(entidad.getDistrito()!=null){
-						for(Distrito dis : lstDistritos){
-							if(dis.getId().equals(entidad.getDistrito().getId()))
-								cmbDireccionEntidad.select(dis);
+					entidad = new Entidad();
+					entidad.setId(Long.valueOf(item.getItemProperty("id").getValue().toString()));
+					txtNombreEntidad.setValue(item.getItemProperty("nombre").getValue());
+					txtDireccionEntidad.setValue(item.getItemProperty("direccion").getValue());
+					txtADescripcionEntidad.setValue(item.getItemProperty("descripcion").getValue());
+					txtTelefonoEntidad.setValue(item.getItemProperty("telefono").getValue());
+					if(!StringUtils.isEmpty(item.getItemProperty("tipoEntidad.id").getValue().toString())){
+						Long valor = Long.valueOf(item.getItemProperty("tipoEntidad.id").getValue().toString());
+						for(Valor tipo : lstTipoEntidad){
+							if(tipo.getId().equals(valor)){
+								cmbTipoEntidad.select(tipo);		
+							}
+						}	
+					}
+					if(!StringUtils.isEmpty(item.getItemProperty("estado.id").getValue().toString())){
+						Long valor = Long.valueOf(item.getItemProperty("estado.id").getValue().toString());
+						for(Valor tipo : lstEstados){
+							if(tipo.getId().equals(valor)){
+								cmbEstadoEntidad.select(tipo);		
+							}
+						}	
+					}
+					if(!StringUtils.isEmpty(item.getItemProperty("distrito.id").getValue().toString())){
+						Long valor = Long.valueOf(item.getItemProperty("distrito.id").getValue().toString());
+						for(Distrito dist : lstDistritos){
+							if(dist.getId().equals(valor))
+								cmbDireccionEntidad.select(dist);
 						}
 					}
 				}
-				
 			}
 		});
-		
 		btnCrearEntidad.addListener((ClickListener)this);
 		btnEliminarEntidad.addListener((ClickListener)this);
 	}

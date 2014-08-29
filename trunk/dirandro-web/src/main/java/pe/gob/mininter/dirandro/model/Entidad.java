@@ -35,7 +35,7 @@ public class Entidad extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -5180147514012281821L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ENTIDAD_ID_GENERATOR", sequenceName="SEQ_ENTIDAD")
+	@SequenceGenerator(name="EXP_ENTIDAD_ID_GENERATOR", sequenceName="SEQ_ENTIDAD", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ENTIDAD_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

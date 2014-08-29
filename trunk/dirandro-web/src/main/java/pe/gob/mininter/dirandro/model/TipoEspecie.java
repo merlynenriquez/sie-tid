@@ -32,7 +32,7 @@ public class TipoEspecie extends AuditoriaBean implements Validador, Serializabl
 	private static final long serialVersionUID = 2491507680984090721L;
 
 	@Id
-	@SequenceGenerator(name="MNT_TIPO_ESPECIE_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="MNT_TIPO_ESPECIE_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MNT_TIPO_ESPECIE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

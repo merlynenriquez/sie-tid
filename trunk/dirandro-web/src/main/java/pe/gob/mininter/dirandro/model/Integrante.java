@@ -36,7 +36,7 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = 8006992786865932374L;
 
 	@Id
-	@SequenceGenerator(name="ORG_INTEGRANTE_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="ORG_INTEGRANTE_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORG_INTEGRANTE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

@@ -32,7 +32,7 @@ public class ExpedienteDelito extends AuditoriaBean implements Validador, Serial
 	private static final long serialVersionUID = 3655460035578885921L;
 
 	@Id
-	@SequenceGenerator(name="EXP_EXPEDIENTE_DELITO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_EXPEDIENTE_DELITO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_EXPEDIENTE_DELITO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

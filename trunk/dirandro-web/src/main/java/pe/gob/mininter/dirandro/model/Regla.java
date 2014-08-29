@@ -31,7 +31,7 @@ public class Regla extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 3017272614624214486L;
 
 	@Id
-	@SequenceGenerator(name="CFG_REGLA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="CFG_REGLA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CFG_REGLA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

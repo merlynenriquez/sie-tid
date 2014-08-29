@@ -35,7 +35,7 @@ public class Equipo extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 3314570696630180739L;
 
 	@Id
-	@SequenceGenerator(name="ORG_EQUIPO_ID_GENERATOR", sequenceName="SEQ_EQUIPO")
+	@SequenceGenerator(name="ORG_EQUIPO_ID_GENERATOR", sequenceName="SEQ_EQUIPO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORG_EQUIPO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

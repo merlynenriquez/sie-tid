@@ -29,7 +29,7 @@ public class TipoHecho extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 4187903309065345585L;
 
 	@Id
-	@SequenceGenerator(name="EXP_TIPO_HECHO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_TIPO_HECHO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_TIPO_HECHO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

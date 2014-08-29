@@ -30,7 +30,7 @@ public class Rol extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 4748951542756910651L;
 
 	@Id
-	@SequenceGenerator(name="SEG_ROL_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="SEG_ROL_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_ROL_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=8)
 	private Long id;
