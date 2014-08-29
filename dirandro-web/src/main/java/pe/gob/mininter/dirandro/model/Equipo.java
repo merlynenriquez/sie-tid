@@ -13,6 +13,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -31,12 +35,12 @@ public class Equipo extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 3314570696630180739L;
 
 	@Id
-	@SequenceGenerator(name="ORG_EQUIPO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="ORG_EQUIPO_ID_GENERATOR", sequenceName="SEQ_EQUIPO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORG_EQUIPO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(nullable=false, length=40)
+	@Column(length=40)
 	private String codigo;
 
 	@Column(nullable=false, length=400)
@@ -139,7 +143,21 @@ public class Equipo extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		if(StringUtils.isBlank(this.nombre)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}
+		if(dependencia == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Departamento"});
+		}
+		if( this.estado == null ){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Estado"});
+		}
+		if(StringUtils.isBlank(this.codigo)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Código"});
+		}
+		if(tipoAgrupacion==null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Tipo de Agrupación"});
+		}
 		
 	}
 

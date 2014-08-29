@@ -15,7 +15,9 @@ public interface DependenciaService  extends BaseService<Dependencia, Long>{
 
 	public List<Dependencia> buscarPadreHijos(Dependencia dependencia);
 	
-	public List<Dependencia> buscarHijos(Dependencia dependencia);  
+	public List<Dependencia> buscarHijos(Dependencia dependencia);
+	
+	public List<Dependencia> buscarPadres();
 
 	public Dependencia buscarDependencia(Long id);
 	

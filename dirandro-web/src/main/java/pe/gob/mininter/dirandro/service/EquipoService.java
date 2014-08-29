@@ -11,8 +11,6 @@ public interface EquipoService extends BaseService<Equipo,Long>{
 	
 	public Map<String, List<Equipo>> listarEquipos();
 	
-	public  void duplicarEquipo(Equipo equipo, Long idEquipo);
-	
 	public Map<String, List<Equipo>> filtrarEquipos(List<Equipo> lstEquipo);
 	
 }

@@ -126,16 +126,6 @@ public class EquipoServiceImpl extends BaseServiceImpl<Equipo, Long> implements 
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public void duplicarEquipo(Equipo equipo, Long idEquipo) {
-		/*
-		Equipo eq = new Equipo();
-		eq.setId(idEquipo);
-		equipoOracle.actualizar(eq);
-		super.crear(equipo);*/
-	}
-
-	@Override
 	public Map<String, List<Equipo>> filtrarEquipos(List<Equipo> lstEquipo) {
 		return HarecUtil.ordenarEquipos(lstEquipo);
 	}
