@@ -82,14 +82,19 @@ public class EquipoServiceImpl extends BaseServiceImpl<Equipo, Long> implements 
 				}
 			}
 			
-			filtro.createAlias("dependencia", "d");
+			
 			
 			if (equipo.getDependencia() != null){
+				filtro.createAlias("dependencia", "d");
+				filtro.add(Restrictions.eq("d.id",equipo.getDependencia().getId()));
+			}
+			
+			/*if (equipo.getDependencia() != null){
 				if(equipo.getDependencia().getPadre() != null){
 					filtro.createAlias("d.padre", "p");					
 					filtro.add(Restrictions.ilike("p.abreviatura",equipo.getDependencia().getPadre().getAbreviatura(), MatchMode.ANYWHERE));
 				}
-			}
+			}*/
 			
 			if (equipo.getDepartamento() != null) {
 				if(equipo.getDepartamento().getAbreviatura() != null){
