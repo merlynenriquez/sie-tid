@@ -1027,7 +1027,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtTipoDocumento.setImmediate(false);
 		txtTipoDocumento.setWidth("-1px");
 		txtTipoDocumento.setHeight("-1px");
-		txtTipoDocumento.setSecret(false);
 		horizontalLayout_9.addComponent(txtTipoDocumento);
 		
 		// txtRiNroDocumento
@@ -1036,7 +1035,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtRiNroDocumento.setImmediate(false);
 		txtRiNroDocumento.setWidth("-1px");
 		txtRiNroDocumento.setHeight("-1px");
-		txtRiNroDocumento.setSecret(false);
 		horizontalLayout_9.addComponent(txtRiNroDocumento);
 		
 		// txtRiNombre
@@ -1045,7 +1043,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtRiNombre.setImmediate(false);
 		txtRiNombre.setWidth("300px");
 		txtRiNombre.setHeight("-1px");
-		txtRiNombre.setSecret(false);
 		horizontalLayout_9.addComponent(txtRiNombre);
 		
 		return horizontalLayout_9;
@@ -1067,7 +1064,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtRiNacionalidad.setImmediate(false);
 		txtRiNacionalidad.setWidth("-1px");
 		txtRiNacionalidad.setHeight("-1px");
-		txtRiNacionalidad.setSecret(false);
 		horizontalLayout_11.addComponent(txtRiNacionalidad);
 		
 		// txtRiSexo
@@ -1076,7 +1072,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtRiSexo.setImmediate(false);
 		txtRiSexo.setWidth("-1px");
 		txtRiSexo.setHeight("-1px");
-		txtRiSexo.setSecret(false);
 		horizontalLayout_11.addComponent(txtRiSexo);
 		
 		// txtRiLugarNacimiento
@@ -1085,7 +1080,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtRiLugarNacimiento.setImmediate(false);
 		txtRiLugarNacimiento.setWidth("300px");
 		txtRiLugarNacimiento.setHeight("-1px");
-		txtRiLugarNacimiento.setSecret(false);
 		horizontalLayout_11.addComponent(txtRiLugarNacimiento);
 		
 		return horizontalLayout_11;
@@ -1187,7 +1181,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInterAlias.setImmediate(false);
 		txtInterAlias.setWidth("-1px");
 		txtInterAlias.setHeight("-1px");
-		txtInterAlias.setSecret(false);
 		horizontalLayout_34.addComponent(txtInterAlias);
 		
 		return horizontalLayout_34;
@@ -1269,7 +1262,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtPNIAlias.setHeight("-1px");
 		txtPNIAlias.setRequired(true);
 		txtPNIAlias.setInputPrompt("Alias del presunto implicado");
-		txtPNIAlias.setSecret(false);
 		verticalLayout_8.addComponent(txtPNIAlias);
 		
 		// txtPNINombres
@@ -1279,7 +1271,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtPNINombres.setWidth("250px");
 		txtPNINombres.setHeight("-1px");
 		txtPNINombres.setInputPrompt("Presuntos nombres del detenido");
-		txtPNINombres.setSecret(false);
 		verticalLayout_8.addComponent(txtPNINombres);
 		
 		// txtPNIApellidos
@@ -1289,7 +1280,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtPNIApellidos.setWidth("250px");
 		txtPNIApellidos.setHeight("-1px");
 		txtPNIApellidos.setInputPrompt("Presuntos Apellidos del detenido");
-		txtPNIApellidos.setSecret(false);
 		verticalLayout_8.addComponent(txtPNIApellidos);
 		
 		// cmbPNIOrientacionSexual
@@ -1307,7 +1297,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtPNIEdad.setWidth("-1px");
 		txtPNIEdad.setHeight("-1px");
 		txtPNIEdad.setInputPrompt("Edad Aproximada");
-		txtPNIEdad.setSecret(false);
 		verticalLayout_8.addComponent(txtPNIEdad);
 		
 		// horizontalLayout_18
@@ -1441,7 +1430,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDrPesoBruto.setWidth("-1px");
 		txtDrPesoBruto.setHeight("-1px");
 		txtDrPesoBruto.setInputPrompt("Peso Bruto");
-		txtDrPesoBruto.setSecret(false);
 		horizontalLayout_14.addComponent(txtDrPesoBruto);
 		
 		// txtDrPesoNeto
@@ -1451,7 +1439,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDrPesoNeto.setWidth("-1px");
 		txtDrPesoNeto.setHeight("24px");
 		txtDrPesoNeto.setInputPrompt("Peso Neto");
-		txtDrPesoNeto.setSecret(false);
 		horizontalLayout_14.addComponent(txtDrPesoNeto);
 		
 		return horizontalLayout_14;
@@ -1490,7 +1477,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDrPesoMuestra.setWidth("-1px");
 		txtDrPesoMuestra.setHeight("-1px");
 		txtDrPesoMuestra.setInputPrompt("Peso de la muestra");
-		txtDrPesoMuestra.setSecret(false);
 		horizontalLayout_15.addComponent(txtDrPesoMuestra);
 		
 		return horizontalLayout_15;
@@ -1513,7 +1499,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDrValorSoles.setWidth("155px");
 		txtDrValorSoles.setHeight("-1px");
 		txtDrValorSoles.setInputPrompt("Valor en Soles");
-		txtDrValorSoles.setSecret(false);
 		horizontalLayout_16.addComponent(txtDrValorSoles);
 		
 		// txtDrValorDolares
@@ -1523,7 +1508,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDrValorDolares.setWidth("155px");
 		txtDrValorDolares.setHeight("-1px");
 		txtDrValorDolares.setInputPrompt("Valor en Dolares");
-		txtDrValorDolares.setSecret(false);
 		horizontalLayout_16.addComponent(txtDrValorDolares);
 		
 		// txtDrTipoCambio
@@ -1533,7 +1517,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDrTipoCambio.setWidth("155px");
 		txtDrTipoCambio.setHeight("-1px");
 		txtDrTipoCambio.setInputPrompt("Tipo de Cambio");
-		txtDrTipoCambio.setSecret(false);
 		horizontalLayout_16.addComponent(txtDrTipoCambio);
 		
 		return horizontalLayout_16;
@@ -1688,7 +1671,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_17.setHeight("-1px");
 		textField_17.setInputPrompt("Monto");
 		textField_17.setMaxLength(8);
-		textField_17.setSecret(false);
 		horizontalLayout_24.addComponent(textField_17);
 		
 		// comboBox_10
@@ -1737,7 +1719,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_19.setHeight("-1px");
 		textField_19.setInputPrompt("Numero de Cuenta");
 		textField_19.setMaxLength(20);
-		textField_19.setSecret(false);
 		horizontalLayout_25.addComponent(textField_19);
 		
 		return horizontalLayout_25;
@@ -1769,7 +1750,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_18.setHeight("-1px");
 		textField_18.setInputPrompt("Numero de Tarjeta");
 		textField_18.setMaxLength(24);
-		textField_18.setSecret(false);
 		horizontalLayout_26.addComponent(textField_18);
 		
 		return horizontalLayout_26;
@@ -1851,7 +1831,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtDelDelito.setImmediate(false);
 		txtDelDelito.setWidth("-1px");
 		txtDelDelito.setHeight("-1px");
-		txtDelDelito.setSecret(false);
 		horizontalLayout_35.addComponent(txtDelDelito);
 		
 		// cmbDelPrioridad
@@ -1960,7 +1939,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_20
 				.setInputPrompt("Nombre con el que se conoce a la instalacion");
 		textField_20.setMaxLength(200);
-		textField_20.setSecret(false);
 		horizontalLayout_28.addComponent(textField_20);
 		
 		// button_4
@@ -2038,7 +2016,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_21.setHeight("-1px");
 		textField_21.setInputPrompt("Longitud");
 		textField_21.setMaxLength(15);
-		textField_21.setSecret(false);
 		horizontalLayout_30.addComponent(textField_21);
 		
 		// textField_22
@@ -2049,7 +2026,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_22.setHeight("-1px");
 		textField_22.setInputPrompt("Latitud");
 		textField_22.setMaxLength(15);
-		textField_22.setSecret(false);
 		horizontalLayout_30.addComponent(textField_22);
 		
 		// textField_23
@@ -2060,7 +2036,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_23.setHeight("-1px");
 		textField_23.setInputPrompt("Largo");
 		textField_23.setMaxLength(4);
-		textField_23.setSecret(false);
 		horizontalLayout_30.addComponent(textField_23);
 		
 		// textField_24
@@ -2071,7 +2046,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_24.setHeight("-1px");
 		textField_24.setInputPrompt("Alto");
 		textField_24.setMaxLength(4);
-		textField_24.setSecret(false);
 		horizontalLayout_30.addComponent(textField_24);
 		
 		// textField_25
@@ -2082,7 +2056,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		textField_25.setHeight("-1px");
 		textField_25.setInputPrompt("Ancho");
 		textField_25.setMaxLength(4);
-		textField_25.setSecret(false);
 		horizontalLayout_30.addComponent(textField_25);
 		
 		return horizontalLayout_30;
@@ -2184,7 +2157,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtEspNombre.setRequired(true);
 		txtEspNombre.setInputPrompt("Nombre");
 		txtEspNombre.setMaxLength(50);
-		txtEspNombre.setSecret(false);
 		pnlEspBody2.addComponent(txtEspNombre);
 		
 		// cmbEspTipoMedida
@@ -2205,7 +2177,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtEspMedida.setRequired(true);
 		txtEspMedida.setInputPrompt("Medida");
 		txtEspMedida.setMaxLength(50);
-		txtEspMedida.setSecret(false);
 		pnlEspBody2.addComponent(txtEspMedida);
 		
 		// txtEspNumeroSerie
@@ -2215,7 +2186,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtEspNumeroSerie.setWidth("200px");
 		txtEspNumeroSerie.setHeight("-1px");
 		txtEspNumeroSerie.setInputPrompt("Número de Serie de la especie");
-		txtEspNumeroSerie.setSecret(false);
 		pnlEspBody2.addComponent(txtEspNumeroSerie);
 		
 		return pnlEspBody2;
@@ -2399,7 +2369,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmCodigo.setImmediate(false);
 		txtInmCodigo.setWidth("-1px");
 		txtInmCodigo.setHeight("-1px");
-		txtInmCodigo.setSecret(false);
 		pnlInmueblesBody2_1.addComponent(txtInmCodigo);
 		
 		// txtInmTipoDireccion
@@ -2408,7 +2377,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmTipoDireccion.setImmediate(false);
 		txtInmTipoDireccion.setWidth("-1px");
 		txtInmTipoDireccion.setHeight("-1px");
-		txtInmTipoDireccion.setSecret(false);
 		pnlInmueblesBody2_1.addComponent(txtInmTipoDireccion);
 		
 		// txtInmDireccion
@@ -2418,7 +2386,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmDireccion.setWidth("300px");
 		txtInmDireccion.setHeight("-1px");
 		txtInmDireccion.setMaxLength(200);
-		txtInmDireccion.setSecret(false);
 		pnlInmueblesBody2_1.addComponent(txtInmDireccion);
 		
 		return pnlInmueblesBody2_1;
@@ -2441,7 +2408,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmUrbanizacion.setWidth("300px");
 		txtInmUrbanizacion.setHeight("-1px");
 		txtInmUrbanizacion.setMaxLength(200);
-		txtInmUrbanizacion.setSecret(false);
 		pnlInmueblesBody2_2.addComponent(txtInmUrbanizacion);
 		
 		// txtInmUbicacion
@@ -2450,7 +2416,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmUbicacion.setImmediate(false);
 		txtInmUbicacion.setWidth("-1px");
 		txtInmUbicacion.setHeight("-1px");
-		txtInmUbicacion.setSecret(false);
 		pnlInmueblesBody2_2.addComponent(txtInmUbicacion);
 		
 		return pnlInmueblesBody2_2;
@@ -2501,7 +2466,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmTipodeUso.setImmediate(false);
 		txtInmTipodeUso.setWidth("250px");
 		txtInmTipodeUso.setHeight("-1px");
-		txtInmTipodeUso.setSecret(false);
 		pnlInmueblesBody4.addComponent(txtInmTipodeUso);
 		
 		// txtInmNumeroPisos
@@ -2510,7 +2474,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtInmNumeroPisos.setImmediate(false);
 		txtInmNumeroPisos.setWidth("100px");
 		txtInmNumeroPisos.setHeight("-1px");
-		txtInmNumeroPisos.setSecret(false);
 		pnlInmueblesBody4.addComponent(txtInmNumeroPisos);
 		
 		// cmbInmSituacion
@@ -2689,7 +2652,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtTelImei.setWidth("-1px");
 		txtTelImei.setHeight("-1px");
 		txtTelImei.setRequired(true);
-		txtTelImei.setSecret(false);
 		pnlTelefonosBody3_1.addComponent(txtTelImei);
 		
 		// cbbTelDuenio
@@ -2945,7 +2907,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtVehTipodeUso.setImmediate(false);
 		txtVehTipodeUso.setWidth("-1px");
 		txtVehTipodeUso.setHeight("-1px");
-		txtVehTipodeUso.setSecret(false);
 		horizontalLayout_44.addComponent(txtVehTipodeUso);
 		
 		// txtVehPlacaMontada
@@ -2954,7 +2915,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtVehPlacaMontada.setImmediate(false);
 		txtVehPlacaMontada.setWidth("-1px");
 		txtVehPlacaMontada.setHeight("-1px");
-		txtVehPlacaMontada.setSecret(false);
 		horizontalLayout_44.addComponent(txtVehPlacaMontada);
 		
 		// cbbVehEstado
@@ -3067,7 +3027,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtMuniCalibre.setWidth("-1px");
 		txtMuniCalibre.setHeight("-1px");
 		txtMuniCalibre.setInputPrompt("Calibre de la munición");
-		txtMuniCalibre.setSecret(false);
 		pnlMunicionesBody1.addComponent(txtMuniCalibre);
 		
 		return pnlMunicionesBody1;
@@ -3147,7 +3106,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtMuniDescripcion.setWidth("-1px");
 		txtMuniDescripcion.setHeight("-1px");
 		txtMuniDescripcion.setInputPrompt("Descripción");
-		txtMuniDescripcion.setSecret(false);
 		pnlMunicionesBody3.addComponent(txtMuniDescripcion);
 		
 		// cbbMuniMarca
@@ -3173,7 +3131,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtMuniMedida.setWidth("155px");
 		txtMuniMedida.setHeight("-1px");
 		txtMuniMedida.setInputPrompt("Unidad de medida");
-		txtMuniMedida.setSecret(false);
 		pnlMunicionesBody3.addComponent(txtMuniMedida);
 		
 		return pnlMunicionesBody3;
@@ -3354,7 +3311,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtExpDesc.setWidth("200px");
 		txtExpDesc.setHeight("-1px");
 		txtExpDesc.setInputPrompt("Descripción");
-		txtExpDesc.setSecret(false);
 		pnlExplosivosBody1.addComponent(txtExpDesc);
 		
 		return pnlExplosivosBody1;
@@ -3434,7 +3390,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtExpSerie.setWidth("155px");
 		txtExpSerie.setHeight("-1px");
 		txtExpSerie.setInputPrompt("Número de serie");
-		txtExpSerie.setSecret(false);
 		pnlExplosivosBody3.addComponent(txtExpSerie);
 		
 		// cbbExpTipoMedida
@@ -3452,7 +3407,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtExpMedida.setWidth("155px");
 		txtExpMedida.setHeight("-1px");
 		txtExpMedida.setInputPrompt("Unidad de medida");
-		txtExpMedida.setSecret(false);
 		pnlExplosivosBody3.addComponent(txtExpMedida);
 		
 		return pnlExplosivosBody3;
@@ -3643,7 +3597,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtArmMarca.setImmediate(false);
 		txtArmMarca.setWidth("-1px");
 		txtArmMarca.setHeight("-1px");
-		txtArmMarca.setSecret(false);
 		pnlArmasBody2.addComponent(txtArmMarca);
 		
 		// txtArmModelo
@@ -3652,7 +3605,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtArmModelo.setImmediate(false);
 		txtArmModelo.setWidth("-1px");
 		txtArmModelo.setHeight("-1px");
-		txtArmModelo.setSecret(false);
 		pnlArmasBody2.addComponent(txtArmModelo);
 		
 		return pnlArmasBody2;
@@ -3747,7 +3699,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtArmLicecia.setWidth("-1px");
 		txtArmLicecia.setHeight("-1px");
 		txtArmLicecia.setRequired(true);
-		txtArmLicecia.setSecret(false);
 		pnlArmasBody4_1.addComponent(txtArmLicecia);
 		
 		// txtArmCantidad
@@ -3756,7 +3707,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtArmCantidad.setImmediate(false);
 		txtArmCantidad.setWidth("-1px");
 		txtArmCantidad.setHeight("-1px");
-		txtArmCantidad.setSecret(false);
 		pnlArmasBody4_1.addComponent(txtArmCantidad);
 		
 		return pnlArmasBody4_1;
@@ -3777,7 +3727,6 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		txtArmObservacion.setImmediate(false);
 		txtArmObservacion.setWidth("483px");
 		txtArmObservacion.setHeight("53px");
-		txtArmObservacion.setSecret(false);
 		pnlArmasBody5.addComponent(txtArmObservacion);
 		
 		return pnlArmasBody5;

@@ -67,7 +67,6 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 
 	public List<Dependencia> buscar(Dependencia dependencia){
 		Busqueda filtro = Busqueda.forClass(Dependencia.class);
-		logger.debug("enter"+dependencia);
 		
 		if (dependencia!=null){
 			if (dependencia.getId() != null) {
@@ -111,17 +110,12 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 	public List<Dependencia> buscarPadreHijos(Dependencia dependencia) {
 		List<Dependencia> lstDependencias = null;
 		
-		
 		Dependencia dependenciaHijo = null;
 		dependenciaHijo = new Dependencia();
 		dependenciaHijo.setPadre(dependencia);
 		
-		logger.debug("=======================");
 		lstDependencias = buscar(dependenciaHijo);
-		for (Dependencia dependencia2 : lstDependencias) {
-			logger.debug(dependencia2.getNombre());
-		}
-		logger.debug("=======================");
+		
 		Map<String, Dependencia> map = new HashMap<String, Dependencia>();
 		
 		for (Dependencia beanDependencia : lstDependencias) {
@@ -141,14 +135,14 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 	}
 	
 	/**
-	 * 
+	 * Listado de los Hijos de los padres de la tabla dependencia
 	 */
 	@Override
 	public List<Dependencia> buscarHijos(Dependencia dependencia) {
 		Dependencia dependenciaHijo = null;
 		dependenciaHijo = new Dependencia();
 		dependenciaHijo.setPadre(dependencia);
-		 
+		
 		return buscar(dependenciaHijo);
 	}
 	
@@ -187,5 +181,12 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 		}else {
 			return lstDependencias.get(0);
 		}
+	}
+
+	@Override
+	public List<Dependencia> buscarPadres() {
+		Busqueda filtro = Busqueda.forClass(Dependencia.class);
+		filtro.add(Restrictions.isNull("padre"));
+		return dependenciaHibernate.buscar(filtro);
 	}
 }
