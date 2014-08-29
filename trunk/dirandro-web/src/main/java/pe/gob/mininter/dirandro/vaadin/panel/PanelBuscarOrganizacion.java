@@ -100,30 +100,7 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 		tblOrganizaciones.setImmediate(true);
 		tblOrganizaciones.setNullSelectionAllowed(true);
 		tblOrganizaciones.setNullSelectionItemId(null);
-		tblOrganizaciones.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = -6124596484581515359L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblOrganizaciones.getValue() == null;				
-				if(esModoNuevo){
-					organizacion = new Organizacion();
-					tblOrganizaciones.setValue(null);
-					
-				}else {
-										
-					Item item = tblOrganizaciones.getItem(tblOrganizaciones.getValue());
-					
-					organizacion = organizacionService.obtener( new Long( item.getItemProperty("id").getValue().toString() ));
-					
-					txtNombre.setValue((organizacion.getNombre() != null) ? organizacion.getNombre() : "");
-					txtIntegrantes.setValue((organizacion.getNroIntegrantes() != null) ? organizacion.getNroIntegrantes().toString() : "");
-					txtZonaOperacion.setValue((organizacion.getZonaOperacion() != null) ? organizacion.getZonaOperacion() : "");
-					txtUbicacionAct.setValue((organizacion.getUbicacionActivos() != null) ? organizacion.getUbicacionActivos() : "");
-					txtDescripcion.setValue((organizacion.getDescripcion() != null) ? organizacion.getDescripcion() : "");
-				}
-			}
-		});
-		
+				
 		organizacion = new Organizacion();
 		List<Organizacion> lista = organizacionService.listarOrganizaciones();
 		cargarOrganizaciones(lista, true);		
