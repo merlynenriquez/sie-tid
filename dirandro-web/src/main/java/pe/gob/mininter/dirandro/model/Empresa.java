@@ -34,7 +34,7 @@ public class Empresa extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 1481913729291306868L;
 
 	@Id
-	@SequenceGenerator(name="PER_EMPRESA_ID_GENERATOR", sequenceName="SEQ_EMPRESA")
+	@SequenceGenerator(name="PER_EMPRESA_ID_GENERATOR", sequenceName="SEQ_EMPRESA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_EMPRESA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

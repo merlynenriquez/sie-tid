@@ -31,7 +31,7 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 5594740774950181739L;
 
 	@Id
-	@SequenceGenerator(name="EXP_IMPORTES_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_IMPORTES_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_IMPORTES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

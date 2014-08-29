@@ -30,7 +30,7 @@ public class Predecesor extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = -1831611683665698626L;
 
 	@Id
-	@SequenceGenerator(name="EXP_PREDECESOR_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_PREDECESOR_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_PREDECESOR_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

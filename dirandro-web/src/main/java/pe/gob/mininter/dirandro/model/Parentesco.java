@@ -30,7 +30,7 @@ public class Parentesco extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = -1946559235893710683L;
 
 	@Id
-	@SequenceGenerator(name="PARENTESCO_ID_GENERATOR", sequenceName="SEQ_PARENTESCO")
+	@SequenceGenerator(name="PARENTESCO_ID_GENERATOR", sequenceName="SEQ_PARENTESCO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PARENTESCO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

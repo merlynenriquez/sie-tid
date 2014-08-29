@@ -33,7 +33,7 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 2382445968562609353L;
 
 	@Id
-	@SequenceGenerator(name="PER_TELEFONO_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_TELEFONO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_TELEFONO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

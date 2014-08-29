@@ -27,7 +27,7 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 7231450892175975279L;
 
 	@Id
-	@SequenceGenerator(name="MNT_PAISES_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="MNT_PAISES_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MNT_PAISES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

@@ -32,7 +32,7 @@ public class Ruta extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -5835089998137979339L;
 
 	@Id
-	@SequenceGenerator(name="EXP_RUTA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="EXP_RUTA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_RUTA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

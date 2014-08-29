@@ -28,7 +28,7 @@ public class Tabla  implements Validador, Serializable {
 	private static final long serialVersionUID = 243193776159587957L;
 
 	@Id
-	@SequenceGenerator(name="SEQ_TABLA_TABLA_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="SEQ_TABLA_TABLA_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_TABLA_TABLA_GENERATOR")
 	@Column(unique=true, nullable=false, length=500)
 	private String tabla;

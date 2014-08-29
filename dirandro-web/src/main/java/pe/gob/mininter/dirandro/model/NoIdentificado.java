@@ -33,7 +33,7 @@ public class NoIdentificado extends AuditoriaBean implements Validador, Serializ
 	private static final long serialVersionUID = 1377193537649273995L;
 
 	@Id
-	@SequenceGenerator(name="PER_NO_IDENTIFICADOS_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="PER_NO_IDENTIFICADOS_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_NO_IDENTIFICADOS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

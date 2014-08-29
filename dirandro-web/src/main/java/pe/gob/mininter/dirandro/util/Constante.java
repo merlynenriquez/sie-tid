@@ -27,6 +27,7 @@ public abstract class Constante {
 
 	public static abstract class LISTA {
 		public static abstract class CODIGO {
+			public final static String MARCAS_TIPO = "MARCAS_TIPO";
 			public final static String DOCUMENTO_TIPO = "DOCUMENTO_TIPO";
 			public final static String ESTADO = "REGISTRO_ESTADO";
 			public final static String OPCION_TIPO = "OPCION_TIPO";

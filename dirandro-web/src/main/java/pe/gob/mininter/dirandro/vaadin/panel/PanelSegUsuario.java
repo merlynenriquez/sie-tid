@@ -142,6 +142,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 	private List<Dependencia> lstDependencias;
 	private List<Rol> lstRoles;
 	private List<Usuario> lstUsuarios;
+	private String clave;
 	
 	public PanelSegUsuario(List<Opcion> acciones, String height) {
 		super(acciones, height);
@@ -226,20 +227,19 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				boolean esModoNuevo = tblUsuarios.getValue() == null;
+				habilitarBoton(!esModoNuevo);
+				limpiar();
 				if(esModoNuevo){
 					tblUsuarios.setValue(null);
 					habilitarEdicion(esModoNuevo);
-					habilitarBoton(!esModoNuevo);
-					limpiar();
 				}else {
-					habilitarBoton(!esModoNuevo);
-					limpiar();
 					Item item = tblUsuarios.getItem(tblUsuarios.getValue());
+					clave = item.getItemProperty("clave").getValue().toString();
 					txtUsuario.setValue(item.getItemProperty("usuario").getValue());
 					txtNombres.setValue(item.getItemProperty("nombres").getValue());
 					txtApellidoPaterno.setValue(item.getItemProperty("apePat").getValue());
 					txtApellidoMaterno.setValue(item.getItemProperty("apeMat").getValue());
-									
+					
 					for (Policia policia : lstPolicias) {
 						if (policia.getId().equals((Long) item.getItemProperty("id").getValue()))
 							cmbPolicia.select(policia);
@@ -490,6 +490,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		IndexedContainer container = new IndexedContainer();
 		container.addContainerProperty("id", Long.class,  null);
 		container.addContainerProperty("usuario", String.class, null);
+		container.addContainerProperty("clave", String.class, null);
 		container.addContainerProperty("nombres", String.class, null);
 		container.addContainerProperty("apePat", String.class, null);
 		container.addContainerProperty("apeMat", String.class, null);
@@ -522,6 +523,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 			Item item = container.addItem(con++);
 			item.getItemProperty("id").setValue(usuario.getId());
 			item.getItemProperty("usuario").setValue(usuario.getUsuario());
+			item.getItemProperty("clave").setValue(usuario.getClave());
 			item.getItemProperty("nombres").setValue(usuario.getNombres());
 			item.getItemProperty("apePat").setValue(usuario.getApePat());
 			item.getItemProperty("apeMat").setValue(usuario.getApeMat());
@@ -563,7 +565,8 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 				String randomPassword = RandomUtil.createWord(8);
 				object.setClave(randomPassword);
 				usuarioService.crear(object);
-			}else{				
+			}else{
+				object.setClave(clave);
 				Item item = tblUsuarios.getItem(tblUsuarios.getValue());
 				object.setId((Long)item.getItemProperty("id").getValue());
 				usuarioService.actualizar(object);
@@ -616,6 +619,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		txtFiltroCargo.setValue("");
 		txtFiltroOficina.setValue("");
 		
+		clave="";
 		txtUsuario.setValue("");
 		txtNombres.setValue("");
 		txtApellidoPaterno.setValue("");

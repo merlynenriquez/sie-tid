@@ -34,7 +34,7 @@ public class Identificacion extends AuditoriaBean implements Validador, Serializ
 	private static final long serialVersionUID = -109588933356103657L;
 
 	@Id
-	@SequenceGenerator(name="PER_IDENTIFICACION_ID_GENERATOR", sequenceName="SEQ_IDENTIFICACION")
+	@SequenceGenerator(name="PER_IDENTIFICACION_ID_GENERATOR", sequenceName="SEQ_IDENTIFICACION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_IDENTIFICACION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

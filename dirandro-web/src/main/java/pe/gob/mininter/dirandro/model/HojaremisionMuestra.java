@@ -31,7 +31,7 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 	private static final long serialVersionUID = -6116438175392487199L;
 
 	@Id
-	@SequenceGenerator(name="HR_HOJAREMISION_MUESTRA_ID_GENERATOR", sequenceName="SEQ_")
+	@SequenceGenerator(name="HR_HOJAREMISION_MUESTRA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HR_HOJAREMISION_MUESTRA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
