@@ -28,6 +28,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 public class PanelBuscarOrganizacion extends DirandroComponent implements TextChangeListener,ClickListener {
 
@@ -68,10 +69,11 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 	 */
 	
 	private OrganizacionService organizacionService;
-	
 	private Organizacion organizacion;
+	private Organizacion organizacionPopup;
+	private PanelAgregarOrganizacion pnlAgregarOrganizacion;
 	
-	private boolean flagNuevaEstado;
+	
 	
 	public PanelBuscarOrganizacion(List<Opcion> acciones, String height) {
 		super(acciones, height);
@@ -92,11 +94,7 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 		btnBuscar.addListener((ClickListener)this);
 		btnNuevo.addListener((ClickListener)this);
 		
-		/*txtNombre.addListener((TextChangeListener)this);
-		txtDescripcion.addListener((TextChangeListener)this);
-		txtZonaOperacion.addListener((TextChangeListener)this);*/
-		
-		habilitarEdicion(false);
+		//habilitarEdicion(false);
 		
 		tblOrganizaciones.setSelectable(true);
 		tblOrganizaciones.setImmediate(true);
@@ -110,10 +108,9 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 				if(esModoNuevo){
 					organizacion = new Organizacion();
 					tblOrganizaciones.setValue(null);
-					habilitarEdicion(false);
-				}else {
-					habilitarEdicion(true);
 					
+				}else {
+										
 					Item item = tblOrganizaciones.getItem(tblOrganizaciones.getValue());
 					
 					organizacion = organizacionService.obtener( new Long( item.getItemProperty("id").getValue().toString() ));
@@ -133,61 +130,47 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 		
 	}
 	
-	private void habilitarEdicion(boolean flag){
-		flagNuevaEstado = flag;
-		if(flag){
-			btnNuevo.setCaption("Actualizar");
-		}
-		else{
-			btnNuevo.setCaption("Crear");
-		}
-	}
 
 	@Override
 	public void buttonClick(ClickEvent event) {
 
 		if (event.getButton().equals(btnBuscar)) {
 			//buscarOrganizacion();
-		} else if (event.getButton().equals(btnNuevo)) {			
-			if(flagNuevaEstado){
-				actualizaOrganizacion();
-			}
-			else{
-				registrarOrganizacion();
-			}
-			List<Organizacion> lista = organizacionService.listarOrganizaciones();
-			cargarOrganizaciones(lista, true);
+		} else if (event.getButton().equals(btnNuevo)) {
+			
+			cargarWindowOrganizacion(new Organizacion());
+			
 		}
 		
 	}
+	
+	private void cargarWindowOrganizacion(Organizacion organizacion) {
 		
-	private void registrarOrganizacion(){
-		organizacion =  new Organizacion();
+		pnlAgregarOrganizacion = new PanelAgregarOrganizacion(this, organizacion);
+		pnlAgregarOrganizacion.setParent(this.getParent());
 		
-		organizacion.setNombre(txtNombre.getValue().toString());
-		organizacion.setNroIntegrantes(new BigDecimal(this.txtIntegrantes.getValue().toString()));
-		organizacion.setDescripcion(txtDescripcion.getValue().toString());
-		organizacion.setZonaOperacion(txtZonaOperacion.getValue().toString());
-		organizacion.setUbicacionActivos(txtUbicacionAct.getValue().toString());
-		organizacion.setCreacion(new Date());
-		organizacionService.crear(organizacion);
-		
+		final Window window=new Window(){
+			
+			private static final long serialVersionUID = 1L;
+
+			protected void close() {
+		    	getApplication().getMainWindow().removeWindow(getWindow());
+			}
+		};
+		      
+		window.setCaption("Registrar Organización");
+		window.addComponent(pnlAgregarOrganizacion);
+		window.setModal(true);
+		window.setResizable(false);
+		window.setWidth("650px");
+		window.setHeight("-1.0");
+		getApplication().getMainWindow().addWindow(window);
 	}
 	
-	private void actualizaOrganizacion(){
-		Usuario usuario = HarecUtil.obtenerUsuarioSesion();
-				
-		organizacion.setNombre(txtNombre.getValue().toString());
-		organizacion.setDescripcion(txtDescripcion.getValue().toString());
-		organizacion.setZonaOperacion(txtZonaOperacion.getValue().toString());
-		
-		organizacion.setCreador(usuario);
-		organizacion.setCreacion(new Date());
-		organizacion.setEdicion(new Date());
-		organizacion.setEditor(usuario);
-		
-		organizacionService.actualizar(organizacion);
-		
+	public void refrescarLista()
+	{
+		List<Organizacion> lista = organizacionService.listarOrganizaciones();
+		cargarOrganizaciones(lista, true);
 	}
 	
 	private void cargarOrganizaciones(List<Organizacion> listOrganizacion, boolean flagLimpiar){
@@ -214,7 +197,6 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 			item.getItemProperty("id").setValue(o.getId());
 			item.getItemProperty("nombre").setValue(o.getNombre() != null ? o.getNombre() : "" );
 			item.getItemProperty("descripcion").setValue(o.getDescripcion() != null ? o.getDescripcion() : "");
-			//item.getItemProperty("zonaOperacion").setValue(o.getZonaOperacion() != null ? o.getZonaOperacion() : "");
 		}
 		
 		if(flagLimpiar){
@@ -391,6 +373,12 @@ public class PanelBuscarOrganizacion extends DirandroComponent implements TextCh
 		verticalLayout_2.addComponent(tblOrganizaciones);
 		
 		return verticalLayout_2;
+	}
+	public Organizacion getOrganizacionPopup() {
+		return organizacionPopup;
+	}
+	public void setOrganizacionPopup(Organizacion organizacionPopup) {
+		this.organizacionPopup = organizacionPopup;
 	}
 
 }

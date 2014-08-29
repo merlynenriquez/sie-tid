@@ -1,6 +1,6 @@
 package pe.gob.mininter.dirandro.dao.oracle.impl;
 
-import mx4j.log.Logger;
+//import mx4j.log.Logger;
 
 import org.springframework.stereotype.Repository;
 
