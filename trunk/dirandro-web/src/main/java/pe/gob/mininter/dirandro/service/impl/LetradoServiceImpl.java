@@ -11,15 +11,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.LetradoHibernate;
-import pe.gob.mininter.dirandro.dao.hibernate.ParametroHibernate;
-import pe.gob.mininter.dirandro.dao.oracle.ParametroOracle;
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Letrado;
-import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.service.LetradoService;
-import pe.gob.mininter.dirandro.service.ParametroService;
 import pe.gob.mininter.dirandro.util.Busqueda;
-import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
 public class LetradoServiceImpl extends BaseServiceImpl<Letrado, Long> implements LetradoService {
@@ -56,16 +50,23 @@ public class LetradoServiceImpl extends BaseServiceImpl<Letrado, Long> implement
 
 	@Override
 	public List<Letrado> buscar(Letrado letrado) {
-		Busqueda filtro = Busqueda.forClass(Parametro.class);
+		Busqueda filtro = Busqueda.forClass(Letrado.class);
 		if (letrado != null) {
-			if (letrado.getNroColegiatura() != null) {
-				filtro.add(Restrictions.ilike("codigo",letrado.getNroColegiatura(), MatchMode.ANYWHERE));
+			
+			filtro.createAlias("perPersona", "per");
+						
+			if (letrado.getPerPersona().getNombres() != null) {
+				filtro.add(Restrictions.ilike("per.nombres",letrado.getPerPersona().getNombres() , MatchMode.ANYWHERE));
 			}
-			if (letrado.getPerPersona().getNombreCompleto() != null) {
-				filtro.add(Restrictions.ilike("nombre",letrado.getPerPersona().getNombreCompleto() , MatchMode.ANYWHERE));
+			if (letrado.getPerPersona().getApePaterno() != null) {
+				filtro.add(Restrictions.ilike("per.apePaterno",letrado.getPerPersona().getApePaterno() , MatchMode.ANYWHERE));
+			}
+			
+			if (letrado.getPerPersona().getNroDocumento()!= null) {
+				filtro.add(Restrictions.ilike("per.nroDocumento", letrado.getPerPersona().getNroDocumento(), MatchMode.ANYWHERE));
 			}
 		}
-		filtro.addOrder(Order.asc("codigo"));
+		//filtro.addOrder(Order.asc("codigo"));
 		return letradoHibernate.buscar(filtro);
 	}
 

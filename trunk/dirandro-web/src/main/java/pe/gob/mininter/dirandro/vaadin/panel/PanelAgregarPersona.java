@@ -87,10 +87,43 @@ public class PanelAgregarPersona extends CustomComponent implements ClickListene
 	private UbigeoService ubigeoService;
 	private PersonaService personaService;
 	
-	private PanelMantenPolicia pnlMantenPolicia;
+	private PanelMantenPolicia pnlMantenPolicia= null;
+	private PanelMantenLetrado pnlMantenLetrado = null;
+	private PanelMantenEmpresa pnlMantenEmpresa = null;
 	
 	public PanelAgregarPersona(PanelMantenPolicia panelMantenPolicia, Persona persona) {
 		this.pnlMantenPolicia = panelMantenPolicia;
+		buildMainLayout();
+		setCompositionRoot(mainLayout);
+		
+		valorService = Injector.obtenerServicio(ValorService.class);
+		ubigeoService = Injector.obtenerServicio(UbigeoService.class );
+		personaService = Injector.obtenerServicio(PersonaService.class);
+		
+		lstNacionalidad = ubigeoService.obtenerPaises();
+		lstLugarNacimiento = ubigeoService.obtenerTodos();
+		
+		postConstruct();
+	}
+	
+	public PanelAgregarPersona(PanelMantenLetrado pnlMantenLetrado, Persona persona) {
+		this.pnlMantenLetrado = pnlMantenLetrado;
+		buildMainLayout();
+		setCompositionRoot(mainLayout);
+		
+		valorService = Injector.obtenerServicio(ValorService.class);
+		ubigeoService = Injector.obtenerServicio(UbigeoService.class );
+		personaService = Injector.obtenerServicio(PersonaService.class);
+		
+		lstNacionalidad = ubigeoService.obtenerPaises();
+		lstLugarNacimiento = ubigeoService.obtenerTodos();
+		
+		postConstruct();
+	}
+	
+	//PanelMantenEmpresa
+	public PanelAgregarPersona(PanelMantenEmpresa pnlMantenEmpresa, Persona persona) {
+		this.pnlMantenEmpresa = pnlMantenEmpresa;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		
@@ -139,8 +172,23 @@ public class PanelAgregarPersona extends CustomComponent implements ClickListene
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton().equals(btnGrabar)) {
 			 registrarPersona();
-			 pnlMantenPolicia.setPersonaPopUp(persona);
-			 pnlMantenPolicia.obtenerDatosPersona();
+			 
+			 if(pnlMantenPolicia != null)
+			 {
+				 pnlMantenPolicia.setPersonaPopUp(persona);
+				 pnlMantenPolicia.obtenerDatosPersona();
+			 }
+			 else if(pnlMantenLetrado != null)
+			 {
+				 pnlMantenLetrado.setPersonaPopUp(persona);
+				 pnlMantenLetrado.obtenerDatosPersona();
+			 }
+			 else if(this.pnlMantenEmpresa != null)
+			 {
+				 pnlMantenEmpresa.setPersonaPopUp(persona);
+				 pnlMantenEmpresa.obtenerDatosPersona();
+			 }
+			 
 			 getApplication().getMainWindow().removeWindow(getWindow());
 		}
 		else if (event.getButton().equals(btnCancelar)) {
