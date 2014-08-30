@@ -154,6 +154,7 @@ public abstract class Constante {
 		public final static String ADJUNTOS_SIZE = "ADJUNTOS_SIZE";
 		public final static String FECHA_ALERTA = "FECHA_ALERTA";
 		public final static String PATH_WINDOW = "PATH_WINDOW";
+		public static final String PATH_DOCUMENTO = "PATH_DOCUMENTO";
 	}
 	
 	public static abstract class CODIGO_MENSAJE {

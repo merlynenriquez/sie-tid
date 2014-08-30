@@ -1,5 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -26,7 +28,7 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 7210926761891471965L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DOCUMENTO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DOCUMENTO_ID_GENERATOR", sequenceName="SEQ_DOCUMENTO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DOCUMENTO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -41,10 +43,12 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	private String esInicial;
 
 	@Column(name="FECHA_DOCUMENTO")
-	private Timestamp fechaDocumento;
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date fechaDocumento;
 
 	@Column(name="FECHA_RECEPCION")
-	private Timestamp fechaRecepcion;
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date fechaRecepcion;
 
 	@Column(precision=4)
 	private BigDecimal folios;
@@ -59,12 +63,12 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PRIORIDAD")
-	private Valor cfgValor1;
+	private Valor prioridad;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DOCUMENTO")
-	private Valor cfgValor2;
+	private Valor tipoDocumento;
 
 	//bi-directional many-to-one association to Adjunto
 	@ManyToOne
@@ -75,6 +79,12 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
+	
+	@Transient
+	private OutputStream osDocumento;
+	
+	@Transient
+	private String filename;
 
 	public Documento() {
 	}
@@ -111,19 +121,19 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 		this.esInicial = esInicial;
 	}
 
-	public Timestamp getFechaDocumento() {
+	public Date getFechaDocumento() {
 		return fechaDocumento;
 	}
 
-	public void setFechaDocumento(Timestamp fechaDocumento) {
+	public void setFechaDocumento(Date fechaDocumento) {
 		this.fechaDocumento = fechaDocumento;
 	}
 
-	public Timestamp getFechaRecepcion() {
+	public Date getFechaRecepcion() {
 		return fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Timestamp fechaRecepcion) {
+	public void setFechaRecepcion(Date fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 
@@ -151,20 +161,20 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 		this.expAnexos = expAnexos;
 	}
 
-	public Valor getCfgValor1() {
-		return cfgValor1;
+	public Valor getPrioridad() {
+		return prioridad;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setPrioridad(Valor cfgValor1) {
+		this.prioridad = cfgValor1;
 	}
 
-	public Valor getCfgValor2() {
-		return cfgValor2;
+	public Valor getTipoDocumento() {
+		return tipoDocumento;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setTipoDocumento(Valor cfgValor2) {
+		this.tipoDocumento = cfgValor2;
 	}
 
 	public Adjunto getExpAdjunto() {
@@ -189,4 +199,19 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 		
 	}
 
+	public OutputStream getOsDocumento() {
+		return osDocumento;
+	}
+
+	public void setOsDocumento(OutputStream osDocumento) {
+		this.osDocumento = osDocumento;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 }

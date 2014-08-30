@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.vaadin.panel;
 
 import java.util.List;
 
+import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 
@@ -613,10 +614,13 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 	private PanelAgregarVehiculo pnlAgregarVehiculo;
 	private PanelAgregarArmas pnlAgregarArmas;
 	
+	private Expediente expediente;
+	
 	public PanelRegistroParte( List<Opcion> acciones, String height ) {
 		super( acciones , height );
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
+		expediente = new Expediente();
 		postConstruct();
 	}
 	
@@ -642,6 +646,8 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		btnArmRegistrar.addListener((ClickListener)this);
 		btnArmPersonaIncautadaBuscar.addListener((ClickListener)this);
 		btnArmDuenioBuscar.addListener((ClickListener)this);
+		
+		pnlRegistroParte.setExpediente(expediente);
 		
 	}
 	

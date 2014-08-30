@@ -3,6 +3,7 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -31,7 +34,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	private static final long serialVersionUID = 5892064154535170688L;
 
 	@Id
-	@SequenceGenerator(name="EXP_EXPEDIENTE_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_EXPEDIENTE_ID_GENERATOR", sequenceName="SEQ_EXPEDIENTE", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_EXPEDIENTE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -55,10 +58,11 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	private String direccionHecho;
 
 	@Column(name="FECHA_REGISTRO")
-	private Timestamp fechaRegistro;
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date fechaRegistro;
 
 	@Column(name="HORA_HECHO")
-	private Timestamp horaHecho;
+	private Date horaHecho;
 
 	@Column(name="NOMBRE_CASO", length=400)
 	private String nombreCaso;
@@ -164,7 +168,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="LUGAR_HECHO")
-	private Distrito ubgDistrito;
+	private Distrito lugarHecho;
 
 	//bi-directional many-to-one association to ExpedienteDelito
 	@OneToMany(mappedBy="expExpediente")
@@ -199,6 +203,11 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	private List<NoIdentificado> perNoIdentificados;
 
 	public Expediente() {
+	}
+	
+	public boolean esNuevo()
+	{
+		return id == null || id.longValue() == 0;
 	}
  
 	public Long getId() {
@@ -257,19 +266,19 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		this.direccionHecho = direccionHecho;
 	}
 
-	public Timestamp getFechaRegistro() {
+	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
 
-	public void setFechaRegistro(Timestamp fechaRegistro) {
+	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public Timestamp getHoraHecho() {
+	public Date getHoraHecho() {
 		return horaHecho;
 	}
 
-	public void setHoraHecho(Timestamp horaHecho) {
+	public void setHoraHecho(Date horaHecho) {
 		this.horaHecho = horaHecho;
 	}
 
@@ -458,12 +467,12 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		this.orgIntegrante = orgIntegrante;
 	}
 
-	public Distrito getUbgDistrito() {
-		return ubgDistrito;
+	public Distrito getLugarHecho() {
+		return lugarHecho;
 	}
 
-	public void setUbgDistrito(Distrito ubgDistrito) {
-		this.ubgDistrito = ubgDistrito;
+	public void setLugarHecho(Distrito ubgDistrito) {
+		this.lugarHecho = ubgDistrito;
 	}
 
 	public List<ExpedienteDelito> getExpExpedienteDelitos() {
