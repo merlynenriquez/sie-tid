@@ -62,5 +62,11 @@ public class ComboBoxLOVS extends ComboBox {
 		setContainerDataSource(containerValor);
 		setItemCaptionPropertyId("nombre");
 	}
+	
+	public Valor getValor()
+	{
+		return (Valor) getValue();
+	}
+	
 
 }
