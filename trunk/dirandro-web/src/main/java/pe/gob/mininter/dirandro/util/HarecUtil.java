@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import pe.gob.mininter.dirandro.model.Delito;
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Equipo;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
@@ -106,7 +107,7 @@ public abstract class HarecUtil {
 			lstDistrito =  (List<Distrito>) session.getAttribute("lstDistritos");
 		}
 		return lstDistrito;
-	}
+	}*/
 	
 	
 	public static Map<String, List<Delito>> ordenarDelitos(List<Delito> delitos){
@@ -137,7 +138,7 @@ public abstract class HarecUtil {
 			}
 		}
 		return map;
-	}*/
+	}
 	
 	/**
 	 * @param opciones = Maestro de opciones a ordenar

@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,13 +27,10 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 8754887405793559368L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DELITO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DELITO_ID_GENERATOR", sequenceName="SEQ_DELITO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DELITO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
-
-	@Column(length=200)
-	private String codigo;
 
 	@Column(length=400)
 	private String nombre;
@@ -46,25 +41,17 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor1;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_CODIGO")
-	private Valor cfgValor2;
+	private Valor codigoProcesal;
 
 	//bi-directional many-to-one association to Delito
 	@ManyToOne
 	@JoinColumn(name="PADRE")
-	private Delito expDelito;
-
-	//bi-directional many-to-one association to Delito
-	@OneToMany(mappedBy="expDelito")
-	private List<Delito> expDelitos;
-
-	//bi-directional many-to-one association to ExpedienteDelito
-	@OneToMany(mappedBy="expDelito")
-	private List<ExpedienteDelito> expExpedienteDelitos;
+	private Delito padre;	
 
 	public Delito() {
 	}
@@ -77,14 +64,6 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 		this.id = id;
 	}
 
-	public String getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -100,73 +79,29 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Delito getPadre() {
+		return padre;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setPadre(Delito padre) {
+		this.padre = padre;
 	}
 
-	public Delito getExpDelito() {
-		return this.expDelito;
+	public Valor getCodigoProcesal() {
+		return codigoProcesal;
 	}
 
-	public void setExpDelito(Delito expDelito) {
-		this.expDelito = expDelito;
-	}
-
-	public List<Delito> getExpDelitos() {
-		return this.expDelitos;
-	}
-
-	public void setExpDelitos(List<Delito> expDelitos) {
-		this.expDelitos = expDelitos;
-	}
-
-	public Delito addExpDelito(Delito expDelito) {
-		getExpDelitos().add(expDelito);
-		expDelito.setExpDelito(this);
-
-		return expDelito;
-	}
-
-	public Delito removeExpDelito(Delito expDelito) {
-		getExpDelitos().remove(expDelito);
-		expDelito.setExpDelito(null);
-
-		return expDelito;
-	}
-
-	public List<ExpedienteDelito> getExpExpedienteDelitos() {
-		return this.expExpedienteDelitos;
-	}
-
-	public void setExpExpedienteDelitos(List<ExpedienteDelito> expExpedienteDelitos) {
-		this.expExpedienteDelitos = expExpedienteDelitos;
-	}
-
-	public ExpedienteDelito addExpExpedienteDelito(ExpedienteDelito expExpedienteDelito) {
-		getExpExpedienteDelitos().add(expExpedienteDelito);
-		expExpedienteDelito.setExpDelito(this);
-
-		return expExpedienteDelito;
-	}
-
-	public ExpedienteDelito removeExpExpedienteDelito(ExpedienteDelito expExpedienteDelito) {
-		getExpExpedienteDelitos().remove(expExpedienteDelito);
-		expExpedienteDelito.setExpDelito(null);
-
-		return expExpedienteDelito;
+	public void setCodigoProcesal(Valor codigoProcesal) {
+		this.codigoProcesal = codigoProcesal;
 	}
 
 	@Override
