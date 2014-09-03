@@ -410,6 +410,7 @@ public class PanelMantenDependencia extends DirandroComponent implements ClickLi
 			else{
 				Item item = treeDependencia.getItem(treeDependencia.getValue());
 				dependencia.setId(Long.parseLong(item.getItemProperty("id").getValue().toString()));
+				
 				dependenciasService.actualizar(dependencia);
 			}
 			refrescar("dependencia");

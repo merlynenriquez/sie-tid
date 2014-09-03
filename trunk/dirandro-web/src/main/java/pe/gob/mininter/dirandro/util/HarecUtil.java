@@ -20,6 +20,7 @@ import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Equipo;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Pais;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.TipoEspecie;
 import pe.gob.mininter.dirandro.model.TipoHecho;
@@ -242,7 +243,6 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
-	
 	public static Map<String, List<Dependencia>> ordenarDependencias(List<Dependencia> dependencias){		
 		Map<String, List<Dependencia>> map = new HashMap<String, List<Dependencia>>();
 		List<Dependencia> list = null;
@@ -273,6 +273,35 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
+	public static Map<String, List<Pais>> ordenarPaises(List<Pais> lstPaises){		
+		Map<String, List<Pais>> map = new HashMap<String, List<Pais>>();
+		List<Pais> list = null;
+		
+		for (Pais pais : lstPaises) {		
+			if(pais.getPadre() == null){
+				if(map.get(Constante.OPCION.KEY_PADRE)==null){					
+					list = new ArrayList<Pais>();
+					list.add(pais);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				} else {
+					list = (List<Pais>) map.get(Constante.OPCION.KEY_PADRE);
+					list.add(pais);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				}
+			}else{
+				if (map.get(pais.getPadre().getId().toString()) == null) {					
+					list = new ArrayList<Pais>();
+					list.add(pais);
+					map.put(pais.getPadre().getId().toString(), list);
+				} else {					
+					list = (List<Pais>) map.get(pais.getPadre().getId().toString());
+					list.add(pais);
+					map.put(pais.getPadre().getId().toString(), list);
+				}
+			}
+		}		
+		return map;
+	}
 
 	public static Map<String, List<Persona>> ordenarPersonas(List<Persona> personas){
 		Map<String, List<Persona>> map = new HashMap<String, List<Persona>>();

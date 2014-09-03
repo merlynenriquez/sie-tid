@@ -27,7 +27,7 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 7231450892175975279L;
 
 	@Id
-	@SequenceGenerator(name="MNT_PAISES_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="MNT_PAISES_ID_GENERATOR", sequenceName="SEQ_PAIS", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MNT_PAISES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -46,9 +46,8 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
 	@JoinColumn(name="PADRE")
-	private Pais mntPais;
+	private Pais padre;
  
-
 	public Pais() {
 	}
 
@@ -67,14 +66,6 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-   
-	public Pais getMntPais() {
-		return this.mntPais;
-	}
-
-	public void setMntPais(Pais mntPais) {
-		this.mntPais = mntPais;
-	}
 
 	public String getNacionalidad() {
 		return nacionalidad;
@@ -90,6 +81,14 @@ public class Pais extends AuditoriaBean implements Validador, Serializable {
 
 	public void setEstado(Valor estado) {
 		this.estado = estado;
+	}
+
+	public Pais getPadre() {
+		return padre;
+	}
+
+	public void setPadre(Pais padre) {
+		this.padre = padre;
 	}
 
 	@Override

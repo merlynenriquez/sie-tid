@@ -65,6 +65,8 @@ public abstract class Constante {
 			public static final String TIPO_HECHO = "TIPO_HECHO";
 			public static final String TIPO_AGRUPACION = "AGRUPACION_TIPO";
 			public static final String TIPO_FUNCION = "TIPO_FUNCION";
+			public static final String COD_PROCESAL = "CODIGO_PROCESAL";
+			
 			
 			
 			
