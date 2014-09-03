@@ -822,10 +822,12 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 			cmbTipoAgrupEquipo.select(null);
 			cmbEquipo.select(null);
 			txtNombreEquipo.setValue("");
+			txtNombreEquipo.setInputPrompt("Nombre");
 			cmbEstadoEquipo.select(null);
 			cmbDivision.select(null);
 			cmbDepartamento.select(null);
 			txtAbreviatura.setValue("");
+			txtAbreviatura.setInputPrompt("Abreviatura");
 			txtFiltroCodigoEquipo.setValue("");
 			txtFiltroNombreEquipo.setValue("");		
 			List<Integrante> lstIntegrantes = new ArrayList<Integrante>();
@@ -1179,7 +1181,7 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 		txtNombreEquipo.setWidth("250px");
 		txtNombreEquipo.setHeight("-1px");
 		txtNombreEquipo.setRequired(true);
-		txtNombreEquipo.setInputPrompt("Nombre del Equipo");
+		txtNombreEquipo.setInputPrompt("Nombre");
 		pnlListaFila2.addComponent(txtNombreEquipo);
 		
 		// cmbDireccion
