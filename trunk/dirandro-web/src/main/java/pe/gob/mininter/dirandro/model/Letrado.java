@@ -1,8 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,9 +28,6 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="PER_LETRADO")
 public class Letrado extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6117520471153540228L;
 
 	@Id
@@ -44,18 +38,16 @@ public class Letrado extends AuditoriaBean implements Validador, Serializable {
 
 	@Column(name="NRO_COLEGIATURA", length=20)
 	private String nroColegiatura;
-
-	@Column(precision=16)
-	private BigDecimal tipo;
-
-	//bi-directional many-to-one association to AbogadoPersona
-	@OneToMany(mappedBy="perLetrado")
-	private List<AbogadoPersona> expAbogadoPersonas;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="tipo")
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
 	public Letrado() {
 	}
@@ -76,42 +68,31 @@ public class Letrado extends AuditoriaBean implements Validador, Serializable {
 		this.nroColegiatura = nroColegiatura;
 	}
 
-	public BigDecimal getTipo() {
+	public Valor getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(BigDecimal tipo) {
+	public void setTipo(Valor tipo) {
 		this.tipo = tipo;
 	}
 
-	public List<AbogadoPersona> getExpAbogadoPersonas() {
-		return expAbogadoPersonas;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setExpAbogadoPersonas(List<AbogadoPersona> expAbogadoPersonas) {
-		this.expAbogadoPersonas = expAbogadoPersonas;
-	}
-
-	public Persona getPerPersona() {
-		return perPersona;
-	}
-
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	@Override
-	public void validar() {
-		if( perPersona == null )
-		{
+	public void validar(){
+		if(persona == null){
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Persona"});
 		}
-		if(StringUtils.isBlank( nroColegiatura ))
-		{
+		if(StringUtils.isBlank(nroColegiatura)){
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Colegiatura"});
 		}
-		if(tipo == null)
-		{
+		if(tipo == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Tipo"});
 		}		
 	}
