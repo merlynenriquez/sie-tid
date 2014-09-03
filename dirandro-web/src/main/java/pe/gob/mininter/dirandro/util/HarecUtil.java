@@ -21,6 +21,8 @@ import pe.gob.mininter.dirandro.model.Equipo;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Persona;
+import pe.gob.mininter.dirandro.model.TipoEspecie;
+import pe.gob.mininter.dirandro.model.TipoHecho;
 import pe.gob.mininter.dirandro.model.Usuario;
 
 public abstract class HarecUtil {
@@ -139,6 +141,70 @@ public abstract class HarecUtil {
 		}
 		return map;
 	}
+	
+	
+	public static Map<String, List<TipoHecho>> ordenarTipoHechos(List<TipoHecho> tiposHecho){
+		Map<String, List<TipoHecho>> map = new HashMap<String, List<TipoHecho>>();
+		List<TipoHecho> list = null;
+		
+		for (TipoHecho delito : tiposHecho) {
+			if(delito.getPadre() == null){
+				if(map.get(Constante.OPCION.KEY_PADRE)==null){
+					list = new ArrayList<TipoHecho>();
+					list.add(delito);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				} else {
+					list = (List<TipoHecho>) map.get(Constante.OPCION.KEY_PADRE);
+					list.add(delito);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				}
+			}else{
+				if (map.get(delito.getPadre().getId().toString()) == null) {
+					list = new ArrayList<TipoHecho>();
+					list.add(delito);
+					map.put(delito.getPadre().getId().toString(), list);
+				} else {
+					list = (List<TipoHecho>) map.get(delito.getPadre().getId().toString());
+					list.add(delito);
+					map.put(delito.getPadre().getId().toString(), list);
+				}
+			}
+		}
+		return map;
+	}
+
+
+	public static Map<String, List<TipoEspecie>> ordenarTipoEspecie(List<TipoEspecie> tiposEspecie){
+		Map<String, List<TipoEspecie>> map = new HashMap<String, List<TipoEspecie>>();
+		List<TipoEspecie> list = null;
+		
+		for (TipoEspecie delito : tiposEspecie) {
+			if(delito.getPadre() == null){
+				if(map.get(Constante.OPCION.KEY_PADRE)==null){
+					list = new ArrayList<TipoEspecie>();
+					list.add(delito);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				} else {
+					list = (List<TipoEspecie>) map.get(Constante.OPCION.KEY_PADRE);
+					list.add(delito);
+					map.put(Constante.OPCION.KEY_PADRE, list);
+				}
+			}else{
+				if (map.get(delito.getPadre().getId().toString()) == null) {
+					list = new ArrayList<TipoEspecie>();
+					list.add(delito);
+					map.put(delito.getPadre().getId().toString(), list);
+				} else {
+					list = (List<TipoEspecie>) map.get(delito.getPadre().getId().toString());
+					list.add(delito);
+					map.put(delito.getPadre().getId().toString(), list);
+				}
+			}
+		}
+		return map;
+	}
+
+	
 	
 	/**
 	 * @param opciones = Maestro de opciones a ordenar

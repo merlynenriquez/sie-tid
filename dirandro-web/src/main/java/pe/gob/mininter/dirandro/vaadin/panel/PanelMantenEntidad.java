@@ -246,6 +246,7 @@ public class PanelMantenEntidad extends DirandroComponent implements TextChangeL
 		});
 		btnCrearEntidad.addListener((ClickListener)this);
 		btnEliminarEntidad.addListener((ClickListener)this);
+		limpiar();
 	}
 	
 	private void cargarEntidades(List<Entidad> lstEntidades, boolean flagLimpiar){

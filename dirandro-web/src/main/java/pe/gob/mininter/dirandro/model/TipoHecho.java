@@ -8,9 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -29,7 +35,7 @@ public class TipoHecho extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 4187903309065345585L;
 
 	@Id
-	@SequenceGenerator(name="EXP_TIPO_HECHO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_TIPO_HECHO_ID_GENERATOR", sequenceName="SEQ_TIPO_HECHO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_TIPO_HECHO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -40,6 +46,10 @@ public class TipoHecho extends AuditoriaBean implements Validador, Serializable 
 	@Column(nullable=false, length=400)
 	private String nombre;
 
+	@ManyToOne
+	@JoinColumn(name="PADRE")
+	private TipoHecho padre;
+	
 	public TipoHecho() {
 	}
 
@@ -67,10 +77,22 @@ public class TipoHecho extends AuditoriaBean implements Validador, Serializable 
 		this.nombre = nombre;
 	}
 
+	public TipoHecho getPadre() {
+		return padre;
+	}
+
+	public void setPadre(TipoHecho padre) {
+		this.padre = padre;
+	}
+
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if (StringUtils.isBlank(nombre)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Nombre del Tipo de Hecho" });
+		}
+		if (estado == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Estado del Tipo de Hecho" });
+		}
 	}
 
 }
