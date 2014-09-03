@@ -55,15 +55,15 @@ public class LetradoServiceImpl extends BaseServiceImpl<Letrado, Long> implement
 			
 			filtro.createAlias("perPersona", "per");
 						
-			if (letrado.getPerPersona().getNombres() != null) {
-				filtro.add(Restrictions.ilike("per.nombres",letrado.getPerPersona().getNombres() , MatchMode.ANYWHERE));
+			if (letrado.getPersona().getNombres() != null) {
+				filtro.add(Restrictions.ilike("per.nombres",letrado.getPersona().getNombres() , MatchMode.ANYWHERE));
 			}
-			if (letrado.getPerPersona().getApePaterno() != null) {
-				filtro.add(Restrictions.ilike("per.apePaterno",letrado.getPerPersona().getApePaterno() , MatchMode.ANYWHERE));
+			if (letrado.getPersona().getApePaterno() != null) {
+				filtro.add(Restrictions.ilike("per.apePaterno",letrado.getPersona().getApePaterno() , MatchMode.ANYWHERE));
 			}
 			
-			if (letrado.getPerPersona().getNroDocumento()!= null) {
-				filtro.add(Restrictions.ilike("per.nroDocumento", letrado.getPerPersona().getNroDocumento(), MatchMode.ANYWHERE));
+			if (letrado.getPersona().getNroDocumento()!= null) {
+				filtro.add(Restrictions.ilike("per.nroDocumento", letrado.getPersona().getNroDocumento(), MatchMode.ANYWHERE));
 			}
 		}
 		//filtro.addOrder(Order.asc("codigo"));
@@ -72,15 +72,10 @@ public class LetradoServiceImpl extends BaseServiceImpl<Letrado, Long> implement
 
 	@Override
 	public List<Letrado> listarLetrado() {
-
 		Busqueda filtro = Busqueda.forClass(Letrado.class);
-
-		filtro.createAlias("perPersona", "per");
-
-		filtro.addOrder(Order.asc("per.nombres")); 
-
+		filtro.createAlias("persona", "p");
+		filtro.addOrder(Order.asc("p.nombres"));
 		return letradoHibernate.buscar(filtro);
-
 	}	
 	
 }
