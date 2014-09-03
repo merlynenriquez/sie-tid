@@ -52,9 +52,7 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 		}*/
 		if(tipoEspecie.getPadre()!=null && tipoEspecie.getPadre().getId()!=null){
 			if(tipoEspecie.getId().equals(tipoEspecie.getPadre().getId())){
-				throw new ValidacionException(
-						Constante.CODIGO_MENSAJE.VALIDAR_BUCLE_PADRE,
-						new Object[] { tipoEspecie.getNombre() });
+				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_BUCLE_PADRE, new Object[] { tipoEspecie.getNombre() });
 			}
 		}
 		TipoEspecieHibernate.actualizar(tipoEspecie);
