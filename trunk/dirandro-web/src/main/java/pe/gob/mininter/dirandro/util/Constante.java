@@ -201,6 +201,7 @@ public abstract class Constante {
 		public static final String VALIDAR_RUC_DUPLICADO = "validar.ruc_duplicado";
 		public static final String VALIDAR_LOGIN = "validar.login";
 		public static final String VALIDAR_DEPENDENCIA = "validar.dependencia";
+		public static final String VALIDAR_BUCLE_PADRE = "validar.bucle.padre";
 		
 		public final static String VALIDAR_PARAMETRO_EXISTENTE_CODIGO = "validar.parametro.existente.codigo";
 		public final static String VALIDAR_PARAMETRO_EXISTENTE_NOMBRE = "validar.parametro.existente.nombre";

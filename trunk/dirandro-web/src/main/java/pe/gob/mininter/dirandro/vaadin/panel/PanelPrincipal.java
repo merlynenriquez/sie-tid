@@ -191,7 +191,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_HECHOS)){
 				lblTituloPanel.setValue("<h2>Tipos del Hecho</h2>");
 				pnlContenido.removeAllComponents();
-				//TODO: Crear Panel
+				pnlContenido.addComponent(new PanelMantenTipoHecho(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_PERSONA)){
 				lblTituloPanel.setValue("<h2>Mantenimiento de Persona</h2>");
 				pnlContenido.removeAllComponents();
