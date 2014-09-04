@@ -32,7 +32,6 @@
 		<class>pe.gob.mininter.dirandro.model.Importe</class>
 		<class>pe.gob.mininter.dirandro.model.Inmueble</class>
 		<class>pe.gob.mininter.dirandro.model.Instalacion</class>
-		<class>pe.gob.mininter.dirandro.model.Municione</class>
 		<class>pe.gob.mininter.dirandro.model.Organizacion</class>
 		<class>pe.gob.mininter.dirandro.model.Predecesor</class>
 		<class>pe.gob.mininter.dirandro.model.Ruta</class>
@@ -67,5 +66,6 @@
 		<class>pe.gob.mininter.dirandro.model.Distrito</class>
 		<class>pe.gob.mininter.dirandro.model.Provincia</class>
 		<class>pe.gob.mininter.dirandro.model.Parentesco</class>
+		<class>pe.gob.mininter.dirandro.model.Municion</class>
 	</persistence-unit>
 </persistence>

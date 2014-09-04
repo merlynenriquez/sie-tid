@@ -77,7 +77,7 @@ public class Distrito implements Serializable {
 
 	//bi-directional many-to-one association to Provincia
 	@ManyToOne
-	@JoinColumn(name="PROVINCIA", nullable=false)
+	@JoinColumn(name="PROVINCIA")
 	private Provincia ubgProvincia;
 
 	public Distrito() {

@@ -86,9 +86,9 @@ public class Persona implements Serializable {
 	@OneToMany(mappedBy="perPersona")
 	private List<Explosivo> expExplosivos;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="perPersona")
-	private List<Municione> expMuniciones;
+	private List<Municion> expMuniciones;
 
 	//bi-directional many-to-one association to Hojaremision
 	@OneToMany(mappedBy="perPersona")
@@ -477,22 +477,22 @@ public class Persona implements Serializable {
 		return expExplosivo;
 	}
 
-	public List<Municione> getExpMuniciones() {
+	public List<Municion> getExpMuniciones() {
 		return this.expMuniciones;
 	}
 
-	public void setExpMuniciones(List<Municione> expMuniciones) {
+	public void setExpMuniciones(List<Municion> expMuniciones) {
 		this.expMuniciones = expMuniciones;
 	}
 
-	public Municione addExpMunicione(Municione expMunicione) {
+	public Municion addExpMunicione(Municion expMunicione) {
 		getExpMuniciones().add(expMunicione);
 		expMunicione.setPerPersona(this);
 
 		return expMunicione;
 	}
 
-	public Municione removeExpMunicione(Municione expMunicione) {
+	public Municion removeExpMunicione(Municion expMunicione) {
 		getExpMuniciones().remove(expMunicione);
 		expMunicione.setPerPersona(null);
 

@@ -26,7 +26,7 @@ public class Vehiculo implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(name="MODELO_ESPECIFICO", length=100)
+	@Column(name="MODELO_ESPECIFICO", length=500)
 	private String modeloEspecifico;
 
 	@Column(length=4000)
@@ -57,17 +57,17 @@ public class Vehiculo implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="ANO")
+	@JoinColumn(name="TRANSMISION")
 	private Valor cfgValor3;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TRANSMISION")
+	@JoinColumn(name="COLOR")
 	private Valor cfgValor4;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="COLOR")
+	@JoinColumn(name="PERIODO_FABRICACION")
 	private Valor cfgValor5;
 
 	//bi-directional many-to-one association to ModeloMarca

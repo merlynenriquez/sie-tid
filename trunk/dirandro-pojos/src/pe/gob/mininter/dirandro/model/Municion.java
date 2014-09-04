@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="EXP_MUNICIONES")
-public class Municione implements Serializable {
+public class Municion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -98,7 +98,7 @@ public class Municione implements Serializable {
 	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario2;
 
-	public Municione() {
+	public Municion() {
 	}
 
 	public long getId() {

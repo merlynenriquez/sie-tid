@@ -25,7 +25,7 @@ public class Inmueble implements Serializable {
 	@Column(nullable=false)
 	private Timestamp creacion;
 
-	@Column(length=400)
+	@Column(length=2000)
 	private String descripcion;
 
 	@Column(precision=10, scale=2)
@@ -45,13 +45,13 @@ public class Inmueble implements Serializable {
 	@Column(name="NRO_INSCRIPCION", length=100)
 	private String nroInscripcion;
 
-	@Column(length=800)
+	@Column(length=2000)
 	private String observaciones;
 
-	@Column(name="OFICINA_REGISTRAL", length=100)
+	@Column(name="OFICINA_REGISTRAL", length=2000)
 	private String oficinaRegistral;
 
-	@Column(length=100)
+	@Column(length=400)
 	private String resolucion;
 
 	@Column(length=400)
