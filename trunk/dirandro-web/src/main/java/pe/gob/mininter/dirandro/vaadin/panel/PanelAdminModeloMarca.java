@@ -372,12 +372,12 @@ public class PanelAdminModeloMarca extends DirandroComponent implements ClickLis
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
-		mainLayout.setHeight("100%");
-		mainLayout.setMargin(false);
+		mainLayout.setHeight("-1px");
+		mainLayout.setMargin(true);
 		
 		// top-level component properties
 		setWidth("100.0%");
-		setHeight("100.0%");
+		setHeight("-1px");
 		
 		// PanelSecundario
 		PanelSecundario = buildPanelSecundario();
@@ -391,11 +391,12 @@ public class PanelAdminModeloMarca extends DirandroComponent implements ClickLis
 	private HorizontalLayout buildPanelSecundario() {
 		// common part: create layout
 		PanelSecundario = new HorizontalLayout();
-		PanelSecundario.setCaption("Configuración de Marcas y Modelos");
+		PanelSecundario.setStyleName("whiteBackGround");
 		PanelSecundario.setImmediate(false);
-		PanelSecundario.setWidth("100.0%");
+		PanelSecundario.setWidth("-1px");
 		PanelSecundario.setHeight("325px");
-		PanelSecundario.setMargin(false);
+		PanelSecundario.setMargin(true);
+		PanelSecundario.setSpacing(true);
 		
 		// PanelContenido
 		PanelContenido = buildPanelContenido();
@@ -431,6 +432,8 @@ public class PanelAdminModeloMarca extends DirandroComponent implements ClickLis
 	private VerticalLayout buildPanelContieneTabla() {
 		// common part: create layout
 		PanelContieneTabla = new VerticalLayout();
+		PanelContieneTabla.setStyleName("h2");
+		PanelContieneTabla.setCaption("Filtro de Busqueda");
 		PanelContieneTabla.setImmediate(false);
 		PanelContieneTabla.setWidth("420px");
 		PanelContieneTabla.setHeight("324px");
@@ -498,6 +501,8 @@ public class PanelAdminModeloMarca extends DirandroComponent implements ClickLis
 	private VerticalLayout buildPanelParametroContenido() {
 		// common part: create layout
 		PanelParametroContenido = new VerticalLayout();
+		PanelParametroContenido.setStyleName("h2");
+		PanelParametroContenido.setCaption("Administración de Tipos de Hechos");
 		PanelParametroContenido.setImmediate(false);
 		PanelParametroContenido.setWidth("-1px");
 		PanelParametroContenido.setHeight("-1px");
