@@ -44,8 +44,8 @@ public class Hojaremision implements Serializable {
 	@Column(name="NRO_LICENCIA", length=100)
 	private String nroLicencia;
 
-	@Column(precision=22)
-	private BigDecimal numero;
+	@Column(nullable=false, length=100)
+	private String numero;
 
 	@Column(length=400)
 	private String observacion;
@@ -180,11 +180,11 @@ public class Hojaremision implements Serializable {
 		this.nroLicencia = nroLicencia;
 	}
 
-	public BigDecimal getNumero() {
+	public String getNumero() {
 		return this.numero;
 	}
 
-	public void setNumero(BigDecimal numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 

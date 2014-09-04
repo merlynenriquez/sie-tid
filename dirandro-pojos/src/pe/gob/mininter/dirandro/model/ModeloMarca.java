@@ -41,13 +41,13 @@ public class ModeloMarca implements Serializable {
 	@OneToMany(mappedBy="mntModeloMarca")
 	private List<Explosivo> expExplosivos;
 
-	//bi-directional one-to-one association to Municione
+	//bi-directional one-to-one association to Municion
 	@OneToOne(mappedBy="mntModeloMarca1")
-	private Municione expMunicione;
+	private Municion expMunicione;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="mntModeloMarca2")
-	private List<Municione> expMuniciones;
+	private List<Municion> expMuniciones;
 
 	//bi-directional many-to-one association to Vehiculo
 	@OneToMany(mappedBy="mntModeloMarca")
@@ -186,30 +186,30 @@ public class ModeloMarca implements Serializable {
 		return expExplosivo;
 	}
 
-	public Municione getExpMunicione() {
+	public Municion getExpMunicione() {
 		return this.expMunicione;
 	}
 
-	public void setExpMunicione(Municione expMunicione) {
+	public void setExpMunicione(Municion expMunicione) {
 		this.expMunicione = expMunicione;
 	}
 
-	public List<Municione> getExpMuniciones() {
+	public List<Municion> getExpMuniciones() {
 		return this.expMuniciones;
 	}
 
-	public void setExpMuniciones(List<Municione> expMuniciones) {
+	public void setExpMuniciones(List<Municion> expMuniciones) {
 		this.expMuniciones = expMuniciones;
 	}
 
-	public Municione addExpMunicione(Municione expMunicione) {
+	public Municion addExpMunicione(Municion expMunicione) {
 		getExpMuniciones().add(expMunicione);
 		expMunicione.setMntModeloMarca2(this);
 
 		return expMunicione;
 	}
 
-	public Municione removeExpMunicione(Municione expMunicione) {
+	public Municion removeExpMunicione(Municion expMunicione) {
 		getExpMuniciones().remove(expMunicione);
 		expMunicione.setMntModeloMarca2(null);
 

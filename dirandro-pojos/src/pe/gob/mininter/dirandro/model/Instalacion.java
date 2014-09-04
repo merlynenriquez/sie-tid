@@ -70,7 +70,7 @@ public class Instalacion implements Serializable {
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
-	@JoinColumn(name="EXPEDIENTE")
+	@JoinColumn(name="EXPEDIENTE", nullable=false)
 	private Expediente expExpediente;
 
 	//bi-directional many-to-one association to Organizacion

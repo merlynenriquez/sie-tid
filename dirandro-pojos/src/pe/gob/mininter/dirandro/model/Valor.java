@@ -301,25 +301,25 @@ public class Valor implements Serializable {
 	@OneToMany(mappedBy="cfgValor2")
 	private List<Instalacion> expInstalacions2;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="cfgValor1")
-	private List<Municione> expMuniciones1;
+	private List<Municion> expMuniciones1;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="cfgValor2")
-	private List<Municione> expMuniciones2;
+	private List<Municion> expMuniciones2;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="cfgValor3")
-	private List<Municione> expMuniciones3;
+	private List<Municion> expMuniciones3;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="cfgValor4")
-	private List<Municione> expMuniciones4;
+	private List<Municion> expMuniciones4;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="cfgValor5")
-	private List<Municione> expMuniciones5;
+	private List<Municion> expMuniciones5;
 
 	//bi-directional many-to-one association to Ruta
 	@OneToMany(mappedBy="cfgValor1")
@@ -1970,110 +1970,110 @@ public class Valor implements Serializable {
 		return expInstalacions2;
 	}
 
-	public List<Municione> getExpMuniciones1() {
+	public List<Municion> getExpMuniciones1() {
 		return this.expMuniciones1;
 	}
 
-	public void setExpMuniciones1(List<Municione> expMuniciones1) {
+	public void setExpMuniciones1(List<Municion> expMuniciones1) {
 		this.expMuniciones1 = expMuniciones1;
 	}
 
-	public Municione addExpMuniciones1(Municione expMuniciones1) {
+	public Municion addExpMuniciones1(Municion expMuniciones1) {
 		getExpMuniciones1().add(expMuniciones1);
 		expMuniciones1.setCfgValor1(this);
 
 		return expMuniciones1;
 	}
 
-	public Municione removeExpMuniciones1(Municione expMuniciones1) {
+	public Municion removeExpMuniciones1(Municion expMuniciones1) {
 		getExpMuniciones1().remove(expMuniciones1);
 		expMuniciones1.setCfgValor1(null);
 
 		return expMuniciones1;
 	}
 
-	public List<Municione> getExpMuniciones2() {
+	public List<Municion> getExpMuniciones2() {
 		return this.expMuniciones2;
 	}
 
-	public void setExpMuniciones2(List<Municione> expMuniciones2) {
+	public void setExpMuniciones2(List<Municion> expMuniciones2) {
 		this.expMuniciones2 = expMuniciones2;
 	}
 
-	public Municione addExpMuniciones2(Municione expMuniciones2) {
+	public Municion addExpMuniciones2(Municion expMuniciones2) {
 		getExpMuniciones2().add(expMuniciones2);
 		expMuniciones2.setCfgValor2(this);
 
 		return expMuniciones2;
 	}
 
-	public Municione removeExpMuniciones2(Municione expMuniciones2) {
+	public Municion removeExpMuniciones2(Municion expMuniciones2) {
 		getExpMuniciones2().remove(expMuniciones2);
 		expMuniciones2.setCfgValor2(null);
 
 		return expMuniciones2;
 	}
 
-	public List<Municione> getExpMuniciones3() {
+	public List<Municion> getExpMuniciones3() {
 		return this.expMuniciones3;
 	}
 
-	public void setExpMuniciones3(List<Municione> expMuniciones3) {
+	public void setExpMuniciones3(List<Municion> expMuniciones3) {
 		this.expMuniciones3 = expMuniciones3;
 	}
 
-	public Municione addExpMuniciones3(Municione expMuniciones3) {
+	public Municion addExpMuniciones3(Municion expMuniciones3) {
 		getExpMuniciones3().add(expMuniciones3);
 		expMuniciones3.setCfgValor3(this);
 
 		return expMuniciones3;
 	}
 
-	public Municione removeExpMuniciones3(Municione expMuniciones3) {
+	public Municion removeExpMuniciones3(Municion expMuniciones3) {
 		getExpMuniciones3().remove(expMuniciones3);
 		expMuniciones3.setCfgValor3(null);
 
 		return expMuniciones3;
 	}
 
-	public List<Municione> getExpMuniciones4() {
+	public List<Municion> getExpMuniciones4() {
 		return this.expMuniciones4;
 	}
 
-	public void setExpMuniciones4(List<Municione> expMuniciones4) {
+	public void setExpMuniciones4(List<Municion> expMuniciones4) {
 		this.expMuniciones4 = expMuniciones4;
 	}
 
-	public Municione addExpMuniciones4(Municione expMuniciones4) {
+	public Municion addExpMuniciones4(Municion expMuniciones4) {
 		getExpMuniciones4().add(expMuniciones4);
 		expMuniciones4.setCfgValor4(this);
 
 		return expMuniciones4;
 	}
 
-	public Municione removeExpMuniciones4(Municione expMuniciones4) {
+	public Municion removeExpMuniciones4(Municion expMuniciones4) {
 		getExpMuniciones4().remove(expMuniciones4);
 		expMuniciones4.setCfgValor4(null);
 
 		return expMuniciones4;
 	}
 
-	public List<Municione> getExpMuniciones5() {
+	public List<Municion> getExpMuniciones5() {
 		return this.expMuniciones5;
 	}
 
-	public void setExpMuniciones5(List<Municione> expMuniciones5) {
+	public void setExpMuniciones5(List<Municion> expMuniciones5) {
 		this.expMuniciones5 = expMuniciones5;
 	}
 
-	public Municione addExpMuniciones5(Municione expMuniciones5) {
+	public Municion addExpMuniciones5(Municion expMuniciones5) {
 		getExpMuniciones5().add(expMuniciones5);
 		expMuniciones5.setCfgValor5(this);
 
 		return expMuniciones5;
 	}
 
-	public Municione removeExpMuniciones5(Municione expMuniciones5) {
+	public Municion removeExpMuniciones5(Municion expMuniciones5) {
 		getExpMuniciones5().remove(expMuniciones5);
 		expMuniciones5.setCfgValor5(null);
 

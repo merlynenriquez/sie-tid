@@ -294,13 +294,13 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Instalacion> expInstalacions2;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="segUsuario1")
-	private List<Municione> expMuniciones1;
+	private List<Municion> expMuniciones1;
 
-	//bi-directional many-to-one association to Municione
+	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="segUsuario2")
-	private List<Municione> expMuniciones2;
+	private List<Municion> expMuniciones2;
 
 	//bi-directional many-to-one association to Organizacion
 	@OneToMany(mappedBy="segUsuario1")
@@ -2046,44 +2046,44 @@ public class Usuario implements Serializable {
 		return expInstalacions2;
 	}
 
-	public List<Municione> getExpMuniciones1() {
+	public List<Municion> getExpMuniciones1() {
 		return this.expMuniciones1;
 	}
 
-	public void setExpMuniciones1(List<Municione> expMuniciones1) {
+	public void setExpMuniciones1(List<Municion> expMuniciones1) {
 		this.expMuniciones1 = expMuniciones1;
 	}
 
-	public Municione addExpMuniciones1(Municione expMuniciones1) {
+	public Municion addExpMuniciones1(Municion expMuniciones1) {
 		getExpMuniciones1().add(expMuniciones1);
 		expMuniciones1.setSegUsuario1(this);
 
 		return expMuniciones1;
 	}
 
-	public Municione removeExpMuniciones1(Municione expMuniciones1) {
+	public Municion removeExpMuniciones1(Municion expMuniciones1) {
 		getExpMuniciones1().remove(expMuniciones1);
 		expMuniciones1.setSegUsuario1(null);
 
 		return expMuniciones1;
 	}
 
-	public List<Municione> getExpMuniciones2() {
+	public List<Municion> getExpMuniciones2() {
 		return this.expMuniciones2;
 	}
 
-	public void setExpMuniciones2(List<Municione> expMuniciones2) {
+	public void setExpMuniciones2(List<Municion> expMuniciones2) {
 		this.expMuniciones2 = expMuniciones2;
 	}
 
-	public Municione addExpMuniciones2(Municione expMuniciones2) {
+	public Municion addExpMuniciones2(Municion expMuniciones2) {
 		getExpMuniciones2().add(expMuniciones2);
 		expMuniciones2.setSegUsuario2(this);
 
 		return expMuniciones2;
 	}
 
-	public Municione removeExpMuniciones2(Municione expMuniciones2) {
+	public Municion removeExpMuniciones2(Municion expMuniciones2) {
 		getExpMuniciones2().remove(expMuniciones2);
 		expMuniciones2.setSegUsuario2(null);
 

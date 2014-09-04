@@ -35,7 +35,7 @@ public class Importe implements Serializable {
 	@Column(name="NRO_TARJETA", length=48)
 	private String nroTarjeta;
 
-	@Column(name="TIPO_CAMBIO", precision=16)
+	@Column(name="TIPO_CAMBIO", precision=10, scale=2)
 	private BigDecimal tipoCambio;
 
 	//bi-directional many-to-one association to Valor
