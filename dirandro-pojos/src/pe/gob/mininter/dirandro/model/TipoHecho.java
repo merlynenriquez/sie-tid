@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -27,15 +26,17 @@ public class TipoHecho implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(precision=16)
-	private BigDecimal estado;
-
 	@Column(nullable=false, length=400)
 	private String nombre;
 
 	//bi-directional many-to-one association to Expediente
 	@OneToMany(mappedBy="expTipoHecho")
 	private List<Expediente> expExpedientes;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor cfgValor;
 
 	//bi-directional many-to-one association to TipoHecho
 	@ManyToOne
@@ -83,14 +84,6 @@ public class TipoHecho implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public BigDecimal getEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(BigDecimal estado) {
-		this.estado = estado;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -119,6 +112,14 @@ public class TipoHecho implements Serializable {
 		expExpediente.setExpTipoHecho(null);
 
 		return expExpediente;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public TipoHecho getExpTipoHecho() {

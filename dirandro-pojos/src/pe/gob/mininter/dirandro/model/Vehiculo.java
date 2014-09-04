@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -27,17 +26,14 @@ public class Vehiculo implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(name="MODELO_ESPECIFICO", length=50)
+	@Column(name="MODELO_ESPECIFICO", length=100)
 	private String modeloEspecifico;
 
-	@Column(length=800)
+	@Column(length=4000)
 	private String observaciones;
 
 	@Column(length=200)
 	private String placa;
-
-	@Column(precision=16)
-	private BigDecimal propietario;
 
 	@Column(name="SERIE_CHASIS", length=100)
 	private String serieChasis;
@@ -138,14 +134,6 @@ public class Vehiculo implements Serializable {
 
 	public void setPlaca(String placa) {
 		this.placa = placa;
-	}
-
-	public BigDecimal getPropietario() {
-		return this.propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
 	}
 
 	public String getSerieChasis() {

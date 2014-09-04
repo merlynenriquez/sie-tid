@@ -86,6 +86,11 @@ public class Hojaremision implements Serializable {
 	@JoinColumn(name="PERSONA")
 	private Persona perPersona;
 
+	//bi-directional many-to-one association to Policia
+	@ManyToOne
+	@JoinColumn(name="CUSTODIO")
+	private Policia perPolicia;
+
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="CREADOR")
@@ -253,6 +258,14 @@ public class Hojaremision implements Serializable {
 
 	public void setPerPersona(Persona perPersona) {
 		this.perPersona = perPersona;
+	}
+
+	public Policia getPerPolicia() {
+		return this.perPolicia;
+	}
+
+	public void setPerPolicia(Policia perPolicia) {
+		this.perPolicia = perPolicia;
 	}
 
 	public Usuario getSegUsuario1() {

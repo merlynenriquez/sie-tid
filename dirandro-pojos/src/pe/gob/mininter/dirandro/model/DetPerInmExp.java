@@ -29,14 +29,13 @@ public class DetPerInmExp implements Serializable {
 	@Column(name="NUMERO_PISOS", precision=10)
 	private BigDecimal numeroPisos;
 
-	@Column(precision=16)
-	private BigDecimal propietario;
-
-	@Column(precision=16)
-	private BigDecimal situacion;
-
 	@Column(name="TIPO_USO", length=400)
 	private String tipoUso;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="SITUACION")
+	private Valor cfgValor;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -47,6 +46,11 @@ public class DetPerInmExp implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="INMUEBLE")
 	private Inmueble expInmueble;
+
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="PROPIETARIO")
+	private Persona perPersona;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -93,28 +97,20 @@ public class DetPerInmExp implements Serializable {
 		this.numeroPisos = numeroPisos;
 	}
 
-	public BigDecimal getPropietario() {
-		return this.propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
-	}
-
-	public BigDecimal getSituacion() {
-		return this.situacion;
-	}
-
-	public void setSituacion(BigDecimal situacion) {
-		this.situacion = situacion;
-	}
-
 	public String getTipoUso() {
 		return this.tipoUso;
 	}
 
 	public void setTipoUso(String tipoUso) {
 		this.tipoUso = tipoUso;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public Expediente getExpExpediente() {
@@ -131,6 +127,14 @@ public class DetPerInmExp implements Serializable {
 
 	public void setExpInmueble(Inmueble expInmueble) {
 		this.expInmueble = expInmueble;
+	}
+
+	public Persona getPerPersona() {
+		return this.perPersona;
+	}
+
+	public void setPerPersona(Persona perPersona) {
+		this.perPersona = perPersona;
 	}
 
 	public Usuario getSegUsuario1() {

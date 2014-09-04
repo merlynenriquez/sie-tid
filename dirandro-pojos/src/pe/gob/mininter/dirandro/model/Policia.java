@@ -35,6 +35,10 @@ public class Policia implements Serializable {
 	@Column(length=4000)
 	private String unidad;
 
+	//bi-directional many-to-one association to Hojaremision
+	@OneToMany(mappedBy="perPolicia")
+	private List<Hojaremision> hrHojaremisions;
+
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CARGO")
@@ -113,6 +117,28 @@ public class Policia implements Serializable {
 
 	public void setUnidad(String unidad) {
 		this.unidad = unidad;
+	}
+
+	public List<Hojaremision> getHrHojaremisions() {
+		return this.hrHojaremisions;
+	}
+
+	public void setHrHojaremisions(List<Hojaremision> hrHojaremisions) {
+		this.hrHojaremisions = hrHojaremisions;
+	}
+
+	public Hojaremision addHrHojaremision(Hojaremision hrHojaremision) {
+		getHrHojaremisions().add(hrHojaremision);
+		hrHojaremision.setPerPolicia(this);
+
+		return hrHojaremision;
+	}
+
+	public Hojaremision removeHrHojaremision(Hojaremision hrHojaremision) {
+		getHrHojaremisions().remove(hrHojaremision);
+		hrHojaremision.setPerPolicia(null);
+
+		return hrHojaremision;
 	}
 
 	public Valor getCfgValor1() {

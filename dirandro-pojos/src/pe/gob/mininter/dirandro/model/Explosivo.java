@@ -21,10 +21,13 @@ public class Explosivo implements Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
 
+	@Column(precision=7)
+	private BigDecimal cantidad;
+
 	@Column(nullable=false)
 	private Timestamp creacion;
 
-	@Column(length=50)
+	@Column(length=500)
 	private String descripcion;
 
 	private Timestamp edicion;
@@ -32,20 +35,11 @@ public class Explosivo implements Serializable {
 	@Column(precision=10, scale=4)
 	private BigDecimal medida;
 
-	@Column(length=100)
+	@Column(length=1000)
 	private String observacion;
 
 	@Column(length=50)
 	private String serie;
-
-	@Column(precision=16)
-	private BigDecimal situacion;
-
-	@Column(precision=10)
-	private BigDecimal tipo;
-
-	@Column(name="TIPO_DESCRIPCION", precision=10)
-	private BigDecimal tipoDescripcion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -56,6 +50,16 @@ public class Explosivo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
 	private Valor cfgValor2;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="SITUACION")
+	private Valor cfgValor3;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO")
+	private Valor cfgValor4;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -69,18 +73,13 @@ public class Explosivo implements Serializable {
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
-	@JoinColumn(name="EMPRESA_PROPIETARIA")
+	@JoinColumn(name="EMPRESA")
 	private Empresa perEmpresa;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA", nullable=false)
-	private Persona perPersona1;
-
-	//bi-directional many-to-one association to Persona
-	@ManyToOne
-	@JoinColumn(name="PROPIETARIO")
-	private Persona perPersona2;
+	private Persona perPersona;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -101,6 +100,14 @@ public class Explosivo implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public BigDecimal getCantidad() {
+		return this.cantidad;
+	}
+
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public Timestamp getCreacion() {
@@ -151,30 +158,6 @@ public class Explosivo implements Serializable {
 		this.serie = serie;
 	}
 
-	public BigDecimal getSituacion() {
-		return this.situacion;
-	}
-
-	public void setSituacion(BigDecimal situacion) {
-		this.situacion = situacion;
-	}
-
-	public BigDecimal getTipo() {
-		return this.tipo;
-	}
-
-	public void setTipo(BigDecimal tipo) {
-		this.tipo = tipo;
-	}
-
-	public BigDecimal getTipoDescripcion() {
-		return this.tipoDescripcion;
-	}
-
-	public void setTipoDescripcion(BigDecimal tipoDescripcion) {
-		this.tipoDescripcion = tipoDescripcion;
-	}
-
 	public Valor getCfgValor1() {
 		return this.cfgValor1;
 	}
@@ -189,6 +172,22 @@ public class Explosivo implements Serializable {
 
 	public void setCfgValor2(Valor cfgValor2) {
 		this.cfgValor2 = cfgValor2;
+	}
+
+	public Valor getCfgValor3() {
+		return this.cfgValor3;
+	}
+
+	public void setCfgValor3(Valor cfgValor3) {
+		this.cfgValor3 = cfgValor3;
+	}
+
+	public Valor getCfgValor4() {
+		return this.cfgValor4;
+	}
+
+	public void setCfgValor4(Valor cfgValor4) {
+		this.cfgValor4 = cfgValor4;
 	}
 
 	public Expediente getExpExpediente() {
@@ -215,20 +214,12 @@ public class Explosivo implements Serializable {
 		this.perEmpresa = perEmpresa;
 	}
 
-	public Persona getPerPersona1() {
-		return this.perPersona1;
+	public Persona getPerPersona() {
+		return this.perPersona;
 	}
 
-	public void setPerPersona1(Persona perPersona1) {
-		this.perPersona1 = perPersona1;
-	}
-
-	public Persona getPerPersona2() {
-		return this.perPersona2;
-	}
-
-	public void setPerPersona2(Persona perPersona2) {
-		this.perPersona2 = perPersona2;
+	public void setPerPersona(Persona perPersona) {
+		this.perPersona = perPersona;
 	}
 
 	public Usuario getSegUsuario1() {

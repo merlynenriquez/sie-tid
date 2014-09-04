@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
@@ -26,11 +25,8 @@ public class DetDroga implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(precision=16)
-	private BigDecimal modalidad;
-
-	@Column(precision=16)
-	private BigDecimal transporte;
+	@Column(name="LOGO_DESCRIPCION", length=4000)
+	private String logoDescripcion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -41,6 +37,21 @@ public class DetDroga implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ESTADO_PARTICIPACION")
 	private Valor cfgValor2;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="MODALIDAD", nullable=false)
+	private Valor cfgValor3;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TRANSPORTE")
+	private Valor cfgValor4;
+
+	//bi-directional many-to-one association to Adjunto
+	@ManyToOne
+	@JoinColumn(name="LOGO")
+	private Adjunto expAdjunto;
 
 	//bi-directional many-to-one association to Droga
 	@ManyToOne
@@ -89,20 +100,12 @@ public class DetDroga implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public BigDecimal getModalidad() {
-		return this.modalidad;
+	public String getLogoDescripcion() {
+		return this.logoDescripcion;
 	}
 
-	public void setModalidad(BigDecimal modalidad) {
-		this.modalidad = modalidad;
-	}
-
-	public BigDecimal getTransporte() {
-		return this.transporte;
-	}
-
-	public void setTransporte(BigDecimal transporte) {
-		this.transporte = transporte;
+	public void setLogoDescripcion(String logoDescripcion) {
+		this.logoDescripcion = logoDescripcion;
 	}
 
 	public Valor getCfgValor1() {
@@ -119,6 +122,30 @@ public class DetDroga implements Serializable {
 
 	public void setCfgValor2(Valor cfgValor2) {
 		this.cfgValor2 = cfgValor2;
+	}
+
+	public Valor getCfgValor3() {
+		return this.cfgValor3;
+	}
+
+	public void setCfgValor3(Valor cfgValor3) {
+		this.cfgValor3 = cfgValor3;
+	}
+
+	public Valor getCfgValor4() {
+		return this.cfgValor4;
+	}
+
+	public void setCfgValor4(Valor cfgValor4) {
+		this.cfgValor4 = cfgValor4;
+	}
+
+	public Adjunto getExpAdjunto() {
+		return this.expAdjunto;
+	}
+
+	public void setExpAdjunto(Adjunto expAdjunto) {
+		this.expAdjunto = expAdjunto;
 	}
 
 	public Droga getExpDroga() {

@@ -29,7 +29,7 @@ public class DetPerArmExp implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(length=800)
+	@Column(length=4000)
 	private String observacion;
 
 	//bi-directional many-to-one association to Valor
@@ -54,7 +54,7 @@ public class DetPerArmExp implements Serializable {
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
-	@JoinColumn(name="EMPRESA_PROPIETARIA")
+	@JoinColumn(name="EMPRESA")
 	private Empresa perEmpresa;
 
 	//bi-directional many-to-one association to Persona

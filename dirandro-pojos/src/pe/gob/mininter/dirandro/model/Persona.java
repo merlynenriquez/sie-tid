@@ -62,6 +62,10 @@ public class Persona implements Serializable {
 	@OneToMany(mappedBy="perPersona2")
 	private List<DetPerArmExp> expDetPerArmExps2;
 
+	//bi-directional many-to-one association to DetPerInmExp
+	@OneToMany(mappedBy="perPersona")
+	private List<DetPerInmExp> expDetPerInmExps;
+
 	//bi-directional many-to-one association to DetPerTelExp
 	@OneToMany(mappedBy="perPersona1")
 	private List<DetPerTelExp> expDetPerTelExps1;
@@ -71,16 +75,16 @@ public class Persona implements Serializable {
 	private List<DetPerTelExp> expDetPerTelExps2;
 
 	//bi-directional many-to-one association to DetPerVehExp
-	@OneToMany(mappedBy="perPersona")
-	private List<DetPerVehExp> expDetPerVehExps;
-
-	//bi-directional many-to-one association to Explosivo
 	@OneToMany(mappedBy="perPersona1")
-	private List<Explosivo> expExplosivos1;
+	private List<DetPerVehExp> expDetPerVehExps1;
+
+	//bi-directional many-to-one association to DetPerVehExp
+	@OneToMany(mappedBy="perPersona2")
+	private List<DetPerVehExp> expDetPerVehExps2;
 
 	//bi-directional many-to-one association to Explosivo
-	@OneToMany(mappedBy="perPersona2")
-	private List<Explosivo> expExplosivos2;
+	@OneToMany(mappedBy="perPersona")
+	private List<Explosivo> expExplosivos;
 
 	//bi-directional many-to-one association to Municione
 	@OneToMany(mappedBy="perPersona")
@@ -341,6 +345,28 @@ public class Persona implements Serializable {
 		return expDetPerArmExps2;
 	}
 
+	public List<DetPerInmExp> getExpDetPerInmExps() {
+		return this.expDetPerInmExps;
+	}
+
+	public void setExpDetPerInmExps(List<DetPerInmExp> expDetPerInmExps) {
+		this.expDetPerInmExps = expDetPerInmExps;
+	}
+
+	public DetPerInmExp addExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
+		getExpDetPerInmExps().add(expDetPerInmExp);
+		expDetPerInmExp.setPerPersona(this);
+
+		return expDetPerInmExp;
+	}
+
+	public DetPerInmExp removeExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
+		getExpDetPerInmExps().remove(expDetPerInmExp);
+		expDetPerInmExp.setPerPersona(null);
+
+		return expDetPerInmExp;
+	}
+
 	public List<DetPerTelExp> getExpDetPerTelExps1() {
 		return this.expDetPerTelExps1;
 	}
@@ -385,70 +411,70 @@ public class Persona implements Serializable {
 		return expDetPerTelExps2;
 	}
 
-	public List<DetPerVehExp> getExpDetPerVehExps() {
-		return this.expDetPerVehExps;
+	public List<DetPerVehExp> getExpDetPerVehExps1() {
+		return this.expDetPerVehExps1;
 	}
 
-	public void setExpDetPerVehExps(List<DetPerVehExp> expDetPerVehExps) {
-		this.expDetPerVehExps = expDetPerVehExps;
+	public void setExpDetPerVehExps1(List<DetPerVehExp> expDetPerVehExps1) {
+		this.expDetPerVehExps1 = expDetPerVehExps1;
 	}
 
-	public DetPerVehExp addExpDetPerVehExp(DetPerVehExp expDetPerVehExp) {
-		getExpDetPerVehExps().add(expDetPerVehExp);
-		expDetPerVehExp.setPerPersona(this);
+	public DetPerVehExp addExpDetPerVehExps1(DetPerVehExp expDetPerVehExps1) {
+		getExpDetPerVehExps1().add(expDetPerVehExps1);
+		expDetPerVehExps1.setPerPersona1(this);
 
-		return expDetPerVehExp;
+		return expDetPerVehExps1;
 	}
 
-	public DetPerVehExp removeExpDetPerVehExp(DetPerVehExp expDetPerVehExp) {
-		getExpDetPerVehExps().remove(expDetPerVehExp);
-		expDetPerVehExp.setPerPersona(null);
+	public DetPerVehExp removeExpDetPerVehExps1(DetPerVehExp expDetPerVehExps1) {
+		getExpDetPerVehExps1().remove(expDetPerVehExps1);
+		expDetPerVehExps1.setPerPersona1(null);
 
-		return expDetPerVehExp;
+		return expDetPerVehExps1;
 	}
 
-	public List<Explosivo> getExpExplosivos1() {
-		return this.expExplosivos1;
+	public List<DetPerVehExp> getExpDetPerVehExps2() {
+		return this.expDetPerVehExps2;
 	}
 
-	public void setExpExplosivos1(List<Explosivo> expExplosivos1) {
-		this.expExplosivos1 = expExplosivos1;
+	public void setExpDetPerVehExps2(List<DetPerVehExp> expDetPerVehExps2) {
+		this.expDetPerVehExps2 = expDetPerVehExps2;
 	}
 
-	public Explosivo addExpExplosivos1(Explosivo expExplosivos1) {
-		getExpExplosivos1().add(expExplosivos1);
-		expExplosivos1.setPerPersona1(this);
+	public DetPerVehExp addExpDetPerVehExps2(DetPerVehExp expDetPerVehExps2) {
+		getExpDetPerVehExps2().add(expDetPerVehExps2);
+		expDetPerVehExps2.setPerPersona2(this);
 
-		return expExplosivos1;
+		return expDetPerVehExps2;
 	}
 
-	public Explosivo removeExpExplosivos1(Explosivo expExplosivos1) {
-		getExpExplosivos1().remove(expExplosivos1);
-		expExplosivos1.setPerPersona1(null);
+	public DetPerVehExp removeExpDetPerVehExps2(DetPerVehExp expDetPerVehExps2) {
+		getExpDetPerVehExps2().remove(expDetPerVehExps2);
+		expDetPerVehExps2.setPerPersona2(null);
 
-		return expExplosivos1;
+		return expDetPerVehExps2;
 	}
 
-	public List<Explosivo> getExpExplosivos2() {
-		return this.expExplosivos2;
+	public List<Explosivo> getExpExplosivos() {
+		return this.expExplosivos;
 	}
 
-	public void setExpExplosivos2(List<Explosivo> expExplosivos2) {
-		this.expExplosivos2 = expExplosivos2;
+	public void setExpExplosivos(List<Explosivo> expExplosivos) {
+		this.expExplosivos = expExplosivos;
 	}
 
-	public Explosivo addExpExplosivos2(Explosivo expExplosivos2) {
-		getExpExplosivos2().add(expExplosivos2);
-		expExplosivos2.setPerPersona2(this);
+	public Explosivo addExpExplosivo(Explosivo expExplosivo) {
+		getExpExplosivos().add(expExplosivo);
+		expExplosivo.setPerPersona(this);
 
-		return expExplosivos2;
+		return expExplosivo;
 	}
 
-	public Explosivo removeExpExplosivos2(Explosivo expExplosivos2) {
-		getExpExplosivos2().remove(expExplosivos2);
-		expExplosivos2.setPerPersona2(null);
+	public Explosivo removeExpExplosivo(Explosivo expExplosivo) {
+		getExpExplosivos().remove(expExplosivo);
+		expExplosivo.setPerPersona(null);
 
-		return expExplosivos2;
+		return expExplosivo;
 	}
 
 	public List<Municione> getExpMuniciones() {

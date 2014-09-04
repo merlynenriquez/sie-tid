@@ -35,6 +35,9 @@ public class Importe implements Serializable {
 	@Column(name="NRO_TARJETA", length=48)
 	private String nroTarjeta;
 
+	@Column(name="TIPO_CAMBIO", precision=16)
+	private BigDecimal tipoCambio;
+
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_CUENTA")
@@ -60,9 +63,14 @@ public class Importe implements Serializable {
 	@JoinColumn(name="TIPO_MONEDA")
 	private Valor cfgValor5;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_PRESENTECION")
+	private Valor cfgValor6;
+
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
-	@JoinColumn(name="EXPEDIENTE")
+	@JoinColumn(name="EXPEDIENTE", nullable=false)
 	private Expediente expExpediente;
 
 	//bi-directional many-to-one association to Usuario
@@ -126,6 +134,14 @@ public class Importe implements Serializable {
 		this.nroTarjeta = nroTarjeta;
 	}
 
+	public BigDecimal getTipoCambio() {
+		return this.tipoCambio;
+	}
+
+	public void setTipoCambio(BigDecimal tipoCambio) {
+		this.tipoCambio = tipoCambio;
+	}
+
 	public Valor getCfgValor1() {
 		return this.cfgValor1;
 	}
@@ -164,6 +180,14 @@ public class Importe implements Serializable {
 
 	public void setCfgValor5(Valor cfgValor5) {
 		this.cfgValor5 = cfgValor5;
+	}
+
+	public Valor getCfgValor6() {
+		return this.cfgValor6;
+	}
+
+	public void setCfgValor6(Valor cfgValor6) {
+		this.cfgValor6 = cfgValor6;
 	}
 
 	public Expediente getExpExpediente() {

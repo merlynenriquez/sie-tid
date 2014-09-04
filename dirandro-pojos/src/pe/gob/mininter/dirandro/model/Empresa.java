@@ -53,6 +53,10 @@ public class Empresa implements Serializable {
 	@OneToMany(mappedBy="perEmpresa")
 	private List<Explosivo> expExplosivos;
 
+	//bi-directional many-to-one association to Municione
+	@OneToMany(mappedBy="perEmpresa")
+	private List<Municione> expMuniciones;
+
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO", nullable=false)
@@ -204,6 +208,28 @@ public class Empresa implements Serializable {
 		expExplosivo.setPerEmpresa(null);
 
 		return expExplosivo;
+	}
+
+	public List<Municione> getExpMuniciones() {
+		return this.expMuniciones;
+	}
+
+	public void setExpMuniciones(List<Municione> expMuniciones) {
+		this.expMuniciones = expMuniciones;
+	}
+
+	public Municione addExpMunicione(Municione expMunicione) {
+		getExpMuniciones().add(expMunicione);
+		expMunicione.setPerEmpresa(this);
+
+		return expMunicione;
+	}
+
+	public Municione removeExpMunicione(Municione expMunicione) {
+		getExpMuniciones().remove(expMunicione);
+		expMunicione.setPerEmpresa(null);
+
+		return expMunicione;
 	}
 
 	public Valor getCfgValor() {
