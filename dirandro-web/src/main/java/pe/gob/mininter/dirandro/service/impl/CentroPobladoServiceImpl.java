@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -54,6 +55,14 @@ public class CentroPobladoServiceImpl extends BaseServiceImpl<CentroPoblado, Lon
 			}
 			if(centroPoblado.getNombre()!= null){
 				filtro.add(Restrictions.ilike("nombre",centroPoblado.getNombre(), MatchMode.ANYWHERE));
+			}
+			if(centroPoblado.getDistrito()!= null && StringUtils.isNotEmpty(centroPoblado.getDistrito().getNombre())){
+				filtro.createAlias("distrito", "d");
+				filtro.add(Restrictions.ilike("d.nombre",centroPoblado.getDistrito().getNombre(), MatchMode.ANYWHERE));
+			}
+			if(centroPoblado.getCategoria()!= null && StringUtils.isNotEmpty(centroPoblado.getCategoria().getNombre())){
+				filtro.createAlias("categoria", "c");
+				filtro.add(Restrictions.ilike("c.nombre",centroPoblado.getCategoria().getNombre(), MatchMode.ANYWHERE));
 			}
 		}
 		

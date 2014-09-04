@@ -27,7 +27,7 @@ public class CentroPoblado extends AuditoriaBean implements Validador, Serializa
 	private static final long serialVersionUID = -510486200814174107L;
 
 	@Id
-	@SequenceGenerator(name="EXP_CENTRO_POBLADO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_CENTRO_POBLADO_ID_GENERATOR", sequenceName="SEQ_CENTRO_POBLADO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_CENTRO_POBLADO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -48,7 +48,7 @@ public class CentroPoblado extends AuditoriaBean implements Validador, Serializa
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="DISTRITO")
-	private Distrito ubicacion;
+	private Distrito distrito;
 
 	public CentroPoblado() {
 	}
@@ -85,12 +85,12 @@ public class CentroPoblado extends AuditoriaBean implements Validador, Serializa
 		this.estado = estado;
 	}
 
-	public Distrito getUbicacion() {
-		return ubicacion;
+	public Distrito getDistrito() {
+		return distrito;
 	}
 
-	public void setUbicacion(Distrito ubicacion) {
-		this.ubicacion = ubicacion;
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	@Override
