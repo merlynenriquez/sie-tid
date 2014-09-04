@@ -6,7 +6,8 @@ import pe.gob.mininter.dirandro.model.CentroPoblado;
 
 public interface CentroPobladoService extends BaseService<CentroPoblado, Long> {
 
-	List<CentroPoblado> listarCentroPoblado();
+	public List<CentroPoblado> listarCentroPoblado();
 	
-	
+	public List<CentroPoblado> buscar(CentroPoblado centroPoblado);
+ 
 }
