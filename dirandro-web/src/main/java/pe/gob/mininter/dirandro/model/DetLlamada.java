@@ -1,14 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
-
-import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
@@ -38,6 +45,11 @@ public class DetLlamada extends AuditoriaBean implements Validador, Serializable
 
 	@Column(name="NUMERO_MARCADO", length=50)
 	private String numeroMarcado;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_LLAMADA")
+	private Valor tipoLlamada;
 
 	//bi-directional many-to-one association to DetPerTelExp
 	@ManyToOne
@@ -86,6 +98,14 @@ public class DetLlamada extends AuditoriaBean implements Validador, Serializable
 
 	public void setExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
 		this.expDetPerTelExp = expDetPerTelExp;
+	}
+
+	public Valor getTipoLlamada() {
+		return tipoLlamada;
+	}
+
+	public void setTipoLlamada(Valor tipoLlamada) {
+		this.tipoLlamada = tipoLlamada;
 	}
 
 	@Override

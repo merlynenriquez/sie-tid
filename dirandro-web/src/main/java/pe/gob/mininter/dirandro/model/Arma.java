@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -67,10 +65,6 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 	@ManyToOne
 	@JoinColumn(name="MODELO")
 	private ModeloMarca mntModeloMarca2;
-
-	//bi-directional many-to-one association to DetPerArmExp
-	@OneToMany(mappedBy="expArma")
-	private List<DetPerArmExp> expDetPerArmExps;
 
 	public Arma() {
 	}
@@ -145,28 +139,6 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 
 	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
 		this.mntModeloMarca2 = mntModeloMarca2;
-	}
-
-	public List<DetPerArmExp> getExpDetPerArmExps() {
-		return this.expDetPerArmExps;
-	}
-
-	public void setExpDetPerArmExps(List<DetPerArmExp> expDetPerArmExps) {
-		this.expDetPerArmExps = expDetPerArmExps;
-	}
-
-	public DetPerArmExp addExpDetPerArmExp(DetPerArmExp expDetPerArmExp) {
-		getExpDetPerArmExps().add(expDetPerArmExp);
-		expDetPerArmExp.setExpArma(this);
-
-		return expDetPerArmExp;
-	}
-
-	public DetPerArmExp removeExpDetPerArmExp(DetPerArmExp expDetPerArmExp) {
-		getExpDetPerArmExps().remove(expDetPerArmExp);
-		expDetPerArmExp.setExpArma(null);
-
-		return expDetPerArmExp;
 	}
 
 	@Override

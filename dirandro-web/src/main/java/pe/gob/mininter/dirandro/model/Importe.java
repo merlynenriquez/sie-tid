@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,14 +35,22 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_PRESENTECION")
+	private Valor tipoPresentacion;
+		
 	@Column(precision=10, scale=2)
-	private BigDecimal moneda;
+	private Double moneda;
 
 	@Column(name="NRO_CUENTA", length=40)
 	private String nroCuenta;
 
 	@Column(name="NRO_TARJETA", length=48)
 	private String nroTarjeta;
+	
+	@Column(name="TIPO_CAMBIO", precision=10, scale=2)
+	private Double tipoCambio;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -72,8 +79,8 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
-	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	@JoinColumn(name="EXPEDIENTE", nullable=false)
+	private Expediente expediente;
 
 	public Importe() {
 	}
@@ -84,14 +91,6 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public BigDecimal getMoneda() {
-		return moneda;
-	}
-
-	public void setMoneda(BigDecimal moneda) {
-		this.moneda = moneda;
 	}
 
 	public String getNroCuenta() {
@@ -149,13 +148,37 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	public void setTipoMoneda(Valor tipoMoneda) {
 		this.tipoMoneda = tipoMoneda;
 	}
-
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	
+	public Double getTipoCambio() {
+		return tipoCambio;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setTipoCambio(Double tipoCambio) {
+		this.tipoCambio = tipoCambio;
+	}
+
+	public Expediente getExpediente() {
+		return expediente;
+	}
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+	}
+
+	public Valor getTipoPresentacion() {
+		return tipoPresentacion;
+	}
+
+	public void setTipoPresentacion(Valor tipoPresentacion) {
+		this.tipoPresentacion = tipoPresentacion;
+	}
+
+	public Double getMoneda() {
+		return moneda;
+	}
+
+	public void setMoneda(Double moneda) {
+		this.moneda = moneda;
 	}
 
 	@Override

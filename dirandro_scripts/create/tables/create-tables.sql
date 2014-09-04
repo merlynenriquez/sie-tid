@@ -1,4 +1,7 @@
 /*==============================================================*/
+/* DBMS name:      ORACLE Version 11g                           */
+/* Created on:     04/09/2014 11:15:33 a.m.                     */
+/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -149,7 +152,7 @@ create table SIETID.EXP_ADJUNTO
    ID                   NUMBER(16)           not null,
    TIPO                 NUMBER(16)           not null,
    RUTA                 NVARCHAR2(200),
-   NOMBRE               NVARCHAR2(100)       not null,
+   NOMBRE               NVARCHAR2(250)       not null,
    EXPEDIENTE           NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -280,7 +283,6 @@ alter table SIETID.EXP_CENTRO_POBLADO
 create table SIETID.EXP_DELITO 
 (
    ID                   NUMBER(16)           not null,
-   CODIGO               NVARCHAR2(100),
    PADRE                NUMBER(16),
    NOMBRE               NVARCHAR2(200),
    ESTADO               NUMBER(16),
@@ -377,12 +379,14 @@ alter table SIETID.EXP_DET_CRIMEN
 create table EXP_DET_DROGAS 
 (
    ID                   NUMBER(16)           not null,
-   MODALIDAD            NUMBER(16),
+   MODALIDAD            NUMBER(16)           not null,
    TRANSPORTE           NUMBER(16),
    DROGA                NUMBER(16),
    PERSONA              NUMBER(16),
    PARTICIPACION        NUMBER(16),
    ESTADO_PARTICIPACION NUMBER(16),
+   LOGO                 NUMBER(16),
+   LOGO_DESCRIPCION     NVARCHAR2(2000),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -409,6 +413,9 @@ comment on column EXP_DET_DROGAS.PARTICIPACION is
 
 comment on column EXP_DET_DROGAS.ESTADO_PARTICIPACION is
 'Estado por confirmar de la persona';
+
+comment on column EXP_DET_DROGAS.LOGO is
+'Logo fotografico de la droga';
 
 comment on column EXP_DET_DROGAS.CREADOR is
 'Usuario Creador';
@@ -511,6 +518,7 @@ create table SIETID.EXP_DET_LLAMADAS
    FECHA_HORA           TIMESTAMP,
    DURACION             NUMBER(10),
    NUMERO_MARCADO       VARCHAR2(50),
+   TIPO_LLAMADA         NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -541,6 +549,9 @@ comment on column SIETID.EXP_DET_LLAMADAS.NUMERO_MARCADO is
 'Número marcado
 ';
 
+comment on column SIETID.EXP_DET_LLAMADAS.TIPO_LLAMADA is
+'Si fue llamada entrante o saliente';
+
 comment on column SIETID.EXP_DET_LLAMADAS.CREADOR is
 'Id del usuario del sistema que harealizado el registro.
 ';
@@ -570,8 +581,8 @@ create table SIETID.EXP_DET_PER_ARM_EXP
    ARMA                 NUMBER(16),
    EXPEDIENTE           NUMBER(16)           not null,
    PROPIETARIO          NUMBER(16),
-   EMPRESA_PROPIETARIA  NUMBER(16),
-   OBSERVACION          NVARCHAR2(400),
+   EMPRESA              NUMBER(16),
+   OBSERVACION          NVARCHAR2(2000),
    SITUACION            NUMBER(16),
    CANTIDAD_MUNICION    NUMBER(10),
    ESTADO               NUMBER(16),
@@ -605,7 +616,7 @@ comment on column SIETID.EXP_DET_PER_ARM_EXP.PROPIETARIO is
 'Identificador del propietario del arma en la incautación
 ';
 
-comment on column SIETID.EXP_DET_PER_ARM_EXP.EMPRESA_PROPIETARIA is
+comment on column SIETID.EXP_DET_PER_ARM_EXP.EMPRESA is
 'Identificador de la empresa propietaria del arma en la incautación
 ';
 
@@ -963,7 +974,7 @@ create table SIETID.EXP_DROGAS
    VALOR_SOLES          NUMBER(10,2),
    VALOR_DOLARES        NUMBER(10,2),
    TIPO_CAMBIO          NUMBER(10,2),
-   OBSERVACION          NVARCHAR2(800),
+   OBSERVACION          NVARCHAR2(2000),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -984,11 +995,11 @@ create table SIETID.EXP_ENTIDAD
    ID                   NUMBER(16)           not null,
    TIPO                 NUMBER(16),
    NOMBRE               NVARCHAR2(500),
-   DESCRIPCION          NVARCHAR2(1000),
-   DIRECCION            NVARCHAR2(300),
-   DISTRITO             NUMBER(16),
+   DESCRIPCION          NVARCHAR2(2000),
+   DIRECCION            NVARCHAR2(500),
    TELEFONO             NVARCHAR2(200),
    DIRTEPOL             NUMBER(6),
+   DISTRITO             NUMBER(16),
    CORREO               NVARCHAR2(200),
    ESTADO               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
@@ -1017,9 +1028,6 @@ comment on column SIETID.EXP_ENTIDAD.DESCRIPCION is
 
 comment on column SIETID.EXP_ENTIDAD.DIRECCION is
 'Dirección de la entidad';
-
-comment on column SIETID.EXP_ENTIDAD.DISTRITO is
-'Identificador del distrito';
 
 comment on column SIETID.EXP_ENTIDAD.TELEFONO is
 'Número de teléfono';
@@ -1172,10 +1180,10 @@ create table SIETID.EXP_EXPEDIENTE
    FECHA_REGISTRO       TIMESTAMP,
    DIAS_ATENCION        NUMBER(4),
    ESTADO_EXP           NUMBER(16)           not null,
-   LUGAR_HECHO          NUMBER(16),
    HORA_HECHO           TIMESTAMP,
    TIPO_DIRECCION       NUMBER(16),
    DIRECCION_HECHO      VARCHAR2(200 BYTE),
+   LUGAR_HECHO          NUMBER(16),
    REFERENCIA_HECHO     VARCHAR2(300 BYTE),
    JURISDICCION_HECHO   NUMBER(16),
    CODIGO_INTERVINIENTE NUMBER(16),
@@ -1229,9 +1237,6 @@ comment on column SIETID.EXP_EXPEDIENTE.DIAS_ATENCION is
 
 comment on column SIETID.EXP_EXPEDIENTE.ESTADO_EXP is
 'Estado o movimientos del expediente';
-
-comment on column SIETID.EXP_EXPEDIENTE.LUGAR_HECHO is
-'Lugar del hecho (Distrito)';
 
 comment on column SIETID.EXP_EXPEDIENTE.DIRECCION_HECHO is
 'La direccion completa del hecho ';
@@ -1292,18 +1297,17 @@ alter table SIETID.EXP_EXPEDIENTE_MEDIOS_MOVIL
 create table SIETID.EXP_EXPLOSIVOS 
 (
    ID                   NUMBER(16)           not null,
-   TIPO                 NUMBER(10),
    PERSONA              number(16)           not null,
    EXPEDIENTE           NUMBER(16),
-   PROPIETARIO          NUMBER(16),
-   EMPRESA_PROPIETARIA  NUMBER(16),
-   TIPO_DESCRIPCION     NUMBER(10),
-   DESCRIPCION          VARCHAR2(50),
+   TIPO                 NUMBER(16),
+   EMPRESA              NUMBER(16),
+   DESCRIPCION          VARCHAR2(500),
    MARCA                NUMBER(16),
    SERIE                VARCHAR2(50),
-   OBSERVACION          VARCHAR2(100),
+   OBSERVACION          VARCHAR2(1000),
    TIPO_MEDIDA          NUMBER(16),
    MEDIDA               NUMBER(10,4),
+   CANTIDAD             NUMBER(7),
    ESTADO               NUMBER(16),
    SITUACION            NUMBER(16),
    CREADOR              NUMBER(16)           not null,
@@ -1320,10 +1324,6 @@ comment on column SIETID.EXP_EXPLOSIVOS.ID is
 'Identificador de la tabla EXP_EXPLOSIVOS (código autogenerado)
 ';
 
-comment on column SIETID.EXP_EXPLOSIVOS.TIPO is
-'Identificador del tipo de explosivo (familia): alto orden / bajo orden
-';
-
 comment on column SIETID.EXP_EXPLOSIVOS.PERSONA is
 'Identificador de la persona a la que le fue incautada el explosivo
 ';
@@ -1332,16 +1332,12 @@ comment on column SIETID.EXP_EXPLOSIVOS.EXPEDIENTE is
 'Identificador del expediente asociado a la incautación
 ';
 
-comment on column SIETID.EXP_EXPLOSIVOS.PROPIETARIO is
-'Identificador del propietario del explosivo en la incautación
+comment on column SIETID.EXP_EXPLOSIVOS.TIPO is
+'Identificador del tipo de explosivo (familia): alto orden / bajo orden
 ';
 
-comment on column SIETID.EXP_EXPLOSIVOS.EMPRESA_PROPIETARIA is
+comment on column SIETID.EXP_EXPLOSIVOS.EMPRESA is
 'Identificador de la empresa propietaria del explosivo en la incautación
-';
-
-comment on column SIETID.EXP_EXPLOSIVOS.TIPO_DESCRIPCION is
-'Identificador del tipo de descripción del explosivo: Explosivo plástico, TNT
 ';
 
 comment on column SIETID.EXP_EXPLOSIVOS.DESCRIPCION is
@@ -1399,10 +1395,12 @@ alter table SIETID.EXP_EXPLOSIVOS
 create table SIETID.EXP_IMPORTES 
 (
    ID                   NUMBER(16)           not null,
-   EXPEDIENTE           NUMBER(16),
+   EXPEDIENTE           NUMBER(16)           not null,
+   TIPO_PRESENTECION    NUMBER(16),
    TIPO_MONEDA          NUMBER(16),
    MONEDA               NUMBER(10,2),
    TIPO_CUENTA          NUMBER(16),
+   TIPO_CAMBIO          NUMBER(10,2),
    NRO_CUENTA           NVARCHAR2(20),
    NRO_TARJETA          NVARCHAR2(24),
    BANCO                NUMBER(16),
@@ -1414,6 +1412,13 @@ create table SIETID.EXP_IMPORTES
    EDICION              TIMESTAMP
 );
 
+comment on column SIETID.EXP_IMPORTES.TIPO_MONEDA is
+'Tipo de moneda expresado en Dolares, Soles o Euros
+Tipo de moneda expresado en Dolares, Soles o Euros';
+
+comment on column SIETID.EXP_IMPORTES.MONEDA is
+'Monto de dinero incautado en el operativo considerando hasta los centimos si es que se da el caso.';
+
 alter table SIETID.EXP_IMPORTES
    add constraint PK_EXP_IMPORTES primary key (ID);
 
@@ -1423,18 +1428,17 @@ alter table SIETID.EXP_IMPORTES
 create table SIETID.EXP_INMUEBLE 
 (
    ID                   NUMBER(16)           not null,
-   CODIGO               NVARCHAR2(15),
-   DESCRIPCION          NVARCHAR2(200),
+   DESCRIPCION          NVARCHAR2(1000),
    TIPO_DIRECCION       NUMBER(16),
    DIRECCION            NVARCHAR2(200),
    URBANIZACION         NVARCHAR2(200),
    UBICACION            NUMBER(16),
    NRO_INSCRIPCION      NVARCHAR2(50),
-   OFICINA_REGISTRAL    NVARCHAR2(50),
-   RESOLUCION           NVARCHAR2(50),
+   OFICINA_REGISTRAL    NVARCHAR2(1000),
+   RESOLUCION           NVARCHAR2(200),
    VALOR_BIEN           NUMBER(10,2),
    VALOR_TERRENO        NUMBER(10,2),
-   OBSERVACIONES        NVARCHAR2(400),
+   OBSERVACIONES        NVARCHAR2(1000),
    LONGITUD             NVARCHAR2(50),
    LATITUD              NVARCHAR2(50),
    DIMENSION            NUMBER(10,2),
@@ -1452,10 +1456,6 @@ comment on column SIETID.EXP_INMUEBLE.ID is
 'Identificador de la tabla inmuebles (código autogenerado)
 ';
 
-comment on column SIETID.EXP_INMUEBLE.CODIGO is
-'Código del inmueble
-';
-
 comment on column SIETID.EXP_INMUEBLE.DESCRIPCION is
 'Descripción del inmueble';
 
@@ -1469,10 +1469,6 @@ comment on column SIETID.EXP_INMUEBLE.DIRECCION is
 
 comment on column SIETID.EXP_INMUEBLE.URBANIZACION is
 'Descripción de la urbanización del inmueble
-';
-
-comment on column SIETID.EXP_INMUEBLE.UBICACION is
-'Identificador de la ubicación del inmueble
 ';
 
 comment on column SIETID.EXP_INMUEBLE.NRO_INSCRIPCION is
@@ -1533,7 +1529,7 @@ alter table SIETID.EXP_INMUEBLE
 create table SIETID.EXP_INSTALACION 
 (
    ID                   NUMBER(16)           not null,
-   EXPEDIENTE           NUMBER(16),
+   EXPEDIENTE           NUMBER(16)           not null,
    TIPO                 NUMBER(16),
    ORGANIZACION         NUMBER(16),
    NOMBRE               NVARCHAR2(200),
@@ -1546,7 +1542,8 @@ create table SIETID.EXP_INSTALACION
    ANCHO_MT             NUMBER(4),
    ALTURA_MT            NUMBER(4),
    UBICACION            NUMBER(16),
-   ZONA_PRODUCCION      NUMBER(16),
+   ZONA_PRODUCCION      NVARCHAR2(200),
+   RADIO                NUMBER(4),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -1564,16 +1561,16 @@ create table SIETID.EXP_MUNICIONES
    ID                   NUMBER(16)           not null,
    EXPEDIENTE           NUMBER(16),
    PERSONA              NUMBER(16),
-   PROPIETARIO          NUMBER(16),
-   EMPRESA_PROPIETARIA  NUMBER(16),
-   CALIBRE              NUMBER(10),
+   EMPRESA              NUMBER(16),
+   CALIBRE              NUMBER(16),
    TIPO                 NUMBER(16),
-   DESCRIPCION          VARCHAR2(50),
+   DESCRIPCION          VARCHAR2(500),
    MARCA                NUMBER(16),
-   OBSERVACION          VARCHAR2(100),
+   OBSERVACION          VARCHAR2(2000),
    TIPO_MEDIDA          NUMBER(16),
    MEDIDA               NUMBER(10,4),
    ESTADO               NUMBER(16),
+   CANTIDAD             NUMBER(7),
    SITUACION            NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -1597,11 +1594,7 @@ comment on column SIETID.EXP_MUNICIONES.PERSONA is
 'Identificador de la persona a la que le fue incautada la munición
 ';
 
-comment on column SIETID.EXP_MUNICIONES.PROPIETARIO is
-'Persona propietaria de la munición en la incautación
-';
-
-comment on column SIETID.EXP_MUNICIONES.EMPRESA_PROPIETARIA is
+comment on column SIETID.EXP_MUNICIONES.EMPRESA is
 'Empresa propietaria de la munición en la incautación
 ';
 
@@ -1859,11 +1852,10 @@ create table SIETID.EXP_VEHICULO
    SERIE_CHASIS         NVARCHAR2(50),
    PLACA                NVARCHAR2(100),
    MODELO               NUMBER(16),
-   ANO                  NUMBER(16),
+   PERIODO_FABRICACION  NUMBER(16),
    COLOR                NUMBER(16),
-   OBSERVACIONES        NVARCHAR2(400),
-   PROPIETARIO          NUMBER(16),
-   MODELO_ESPECIFICO    VARCHAR2(50),
+   OBSERVACIONES        NVARCHAR2(2000),
+   MODELO_ESPECIFICO    VARCHAR2(500),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -1902,7 +1894,7 @@ comment on column SIETID.EXP_VEHICULO.PLACA is
 comment on column SIETID.EXP_VEHICULO.MODELO is
 'Identificador del modelo del vehículo';
 
-comment on column SIETID.EXP_VEHICULO.ANO is
+comment on column SIETID.EXP_VEHICULO.PERIODO_FABRICACION is
 'Año de fabricación del vehículo';
 
 comment on column SIETID.EXP_VEHICULO.COLOR is
@@ -1910,9 +1902,6 @@ comment on column SIETID.EXP_VEHICULO.COLOR is
 
 comment on column SIETID.EXP_VEHICULO.OBSERVACIONES is
 'Observación acerca del vehículo';
-
-comment on column SIETID.EXP_VEHICULO.PROPIETARIO is
-'Identificador del propietario del vehículo';
 
 comment on column SIETID.EXP_VEHICULO.MODELO_ESPECIFICO is
 'Descripción del modelo específico del vehículo';
@@ -1942,7 +1931,7 @@ alter table SIETID.EXP_VEHICULO
 create table SIETID.HR_HOJAREMISION 
 (
    ID                   NUMBER(16)           not null,
-   NUMERO               INTEGER,
+   NUMERO               NVARCHAR2(50)        not null,
    TIPO_HR              NUMBER(16),
    EXPEDIENTE           NUMBER(16),
    DEPENDENCIA_REMITE   NUMBER(16),
@@ -1958,6 +1947,7 @@ create table SIETID.HR_HOJAREMISION
    FECHA_RECEPCION      TIMESTAMP,
    COSTO_TRASLADO       NUMBER(10,2),
    OBSERVACION          NVARCHAR2(200),
+   CUSTODIO             NUMBER(16),
    CREADOR              NUMBER(16),
    CREACION             TIMESTAMP,
    EDITOR               NUMBER(16),
@@ -1969,6 +1959,9 @@ comment on column SIETID.HR_HOJAREMISION.TIPO_HR is
 
 comment on column SIETID.HR_HOJAREMISION.PERSONA is
 'Conductor';
+
+comment on column SIETID.HR_HOJAREMISION.CUSTODIO is
+'Policia';
 
 alter table SIETID.HR_HOJAREMISION
    add constraint PK_HR_HOJAREMISION primary key (ID);
@@ -2348,7 +2341,7 @@ create table SIETID.PER_DIRECCION
    ID                   NUMBER(16)           not null,
    PERSONA              NUMBER(16)           not null,
    DISTRITO             NUMBER(16),
-   DIRECCION            NVARCHAR2(100)       not null,
+   DIRECCION            NVARCHAR2(250)       not null,
    REFERENCIA           NVARCHAR2(500),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -2364,9 +2357,6 @@ comment on column SIETID.PER_DIRECCION.ID is
 
 comment on column SIETID.PER_DIRECCION.PERSONA is
 'Identificador de la persona';
-
-comment on column SIETID.PER_DIRECCION.DISTRITO is
-'Código del Distrito';
 
 comment on column SIETID.PER_DIRECCION.DIRECCION is
 'Dirección';
@@ -2705,9 +2695,6 @@ comment on column SIETID.PER_PERSONA.FEC_NACIMIENTO is
 
 comment on column SIETID.PER_PERSONA.ESTADO_CIVIL is
 'Estado civil';
-
-comment on column SIETID.PER_PERSONA.LUGAR_NACIMIENTO is
-'Lugar de nacimiento de la persona';
 
 comment on column SIETID.PER_PERSONA.NACIONALIDAD is
 'Nacionalidad de la persona';
@@ -3060,7 +3047,7 @@ alter table SIETID.UBG_DEPARTAMENTO
 create table SIETID.UBG_DISTRITO 
 (
    ID                   NUMBER(16)           not null,
-   PROVINCIA            NUMBER(16)           not null,
+   PROVINCIA            NUMBER(16),
    NOMBRE               NVARCHAR2(50)        not null,
    ESTADO               NUMBER(16),
    CODIGO_HOST          NVARCHAR2(7),
@@ -3308,6 +3295,10 @@ alter table EXP_DET_DROGAS
       references SIETID.CFG_VALOR (ID);
 
 alter table EXP_DET_DROGAS
+   add constraint FK_EXP_DET_DROGAS_LOGO foreign key (LOGO)
+      references SIETID.EXP_ADJUNTO (ID);
+
+alter table EXP_DET_DROGAS
    add constraint FK_EXP_DET_DROGAS_PARTICIP foreign key (PARTICIPACION)
       references SIETID.CFG_VALOR (ID);
 
@@ -3318,6 +3309,14 @@ alter table EXP_DET_DROGAS
 alter table EXP_DET_DROGAS
    add constraint FK_EXP_DET_DROGA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_DET_DROGAS
+   add constraint FK_EXP_DET_DROGA_MODALIDAD foreign key (MODALIDAD)
+      references SIETID.CFG_VALOR (ID);
+
+alter table EXP_DET_DROGAS
+   add constraint FK_EXP_DET_DROGA_TRANSPORTE foreign key (TRANSPORTE)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    add constraint FK_EXP_DET_EXP_PER_CREADOR foreign key (CREADOR)
@@ -3360,8 +3359,16 @@ alter table SIETID.EXP_DET_LLAMADAS
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_DET_LLAMADAS
+   add constraint FK_EXP_DET_LLAMADAS_TIPO foreign key (TIPO_LLAMADA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_DET_LLAMADAS
    add constraint FK_EXP_DET_PER_TEL_LLAMADAS foreign key (EXP_PER_TEL)
       references SIETID.EXP_DET_PER_TEL_EXP (ID);
+
+alter table SIETID.EXP_DET_PER_ARM_EXP
+   add constraint FK_DET_PER_ARMA_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DET_PER_ARM_EXP
    add constraint FK_DET_PER_ARM_EXP_ARMAS foreign key (ARMA)
@@ -3392,12 +3399,12 @@ alter table SIETID.EXP_DET_PER_ARM_EXP
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DET_PER_ARM_EXP
-   add constraint FK_EXP_DET_PER_ARM_EMPRESA foreign key (EMPRESA_PROPIETARIA)
+   add constraint FK_EXP_DET_PER_ARM_EMPRESA foreign key (EMPRESA)
       references SIETID.PER_EMPRESA (ID);
 
-alter table SIETID.EXP_DET_PER_ARM_EXP
-   add constraint FK_EXP_DET_PER_ARM_SITUACION foreign key (SITUACION)
-      references SIETID.CFG_VALOR (ID);
+alter table SIETID.EXP_DET_PER_INM_EXP
+   add constraint FK_DET_INM_EXP_PROPIETARIO foreign key (PROPIETARIO)
+      references SIETID.PER_PERSONA (ID);
 
 alter table SIETID.EXP_DET_PER_INM_EXP
    add constraint FK_DET_PER_INM_EXP_CREADOR foreign key (CREADOR)
@@ -3414,6 +3421,10 @@ alter table SIETID.EXP_DET_PER_INM_EXP
 alter table SIETID.EXP_DET_PER_INM_EXP
    add constraint FK_DET_PER_INM_EXP_INMUEBLE foreign key (INMUEBLE)
       references SIETID.EXP_INMUEBLE (ID);
+
+alter table SIETID.EXP_DET_PER_INM_EXP
+   add constraint FK_DET_PER_INM_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    add constraint FK_DET_PER_TEL_EXP_CREADOR foreign key (CREADOR)
@@ -3466,6 +3477,10 @@ alter table SIETID.EXP_DET_PER_VEH_EXP
 alter table SIETID.EXP_DET_PER_VEH_EXP
    add constraint FK_DET_PER_VEH_EXP_VEHICULO foreign key (VEHICULO)
       references SIETID.EXP_VEHICULO (ID);
+
+alter table SIETID.EXP_DET_PER_VEH_EXP
+   add constraint FK_DET_PER_VEH_PROPIETARIO foreign key (PROPIETARIO)
+      references SIETID.PER_PERSONA (ID);
 
 alter table SIETID.EXP_DET_PER_VEH_EXP
    add constraint FK_EXP_DET_PER_VEH_CHASIS foreign key (ESTADO_CHASIS)
@@ -3696,11 +3711,11 @@ alter table SIETID.EXP_EXPEDIENTE_MEDIOS_MOVIL
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
-   add constraint FK_EXP_EXPLOSIVOS_PER foreign key (PERSONA)
+   add constraint FK_EXP_EXPLOSIVOS_PERSONA foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
-   add constraint FK_EXP_EXPLOSIVO_EMPRESA foreign key (EMPRESA_PROPIETARIA)
+   add constraint FK_EXP_EXPLOSIVO_EMPRESA foreign key (EMPRESA)
       references SIETID.PER_EMPRESA (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
@@ -3716,8 +3731,12 @@ alter table SIETID.EXP_EXPLOSIVOS
       references SIETID.MNT_MODELO_MARCA (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
-   add constraint FK_EXP_EXPLOSIVO_PERSONA foreign key (PROPIETARIO)
-      references SIETID.PER_PERSONA (ID);
+   add constraint FK_EXP_EXPLOSIVO_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_EXPLOSIVOS
+   add constraint FK_EXP_EXPLOSIVO_TIPO foreign key (TIPO)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
    add constraint FK_EXP_EXPL_CREADOR foreign key (CREADOR)
@@ -3742,6 +3761,10 @@ alter table SIETID.EXP_IMPORTES
 alter table SIETID.EXP_IMPORTES
    add constraint FK_EXP_IMPORTES_EXPEDIENTE foreign key (EXPEDIENTE)
       references SIETID.EXP_EXPEDIENTE (ID);
+
+alter table SIETID.EXP_IMPORTES
+   add constraint FK_EXP_IMPORTES_PRESENTACION foreign key (TIPO_PRESENTECION)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_IMPORTES
    add constraint FK_EXP_IMPORTES_TIP_MODEDA foreign key (TIPO_MONEDA)
@@ -3812,12 +3835,24 @@ alter table SIETID.EXP_INSTALACION
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_MUNICIONES
-   add constraint FK_EXP_MUNICIONES_MARCA foreign key (ID)
+   add constraint FK_EXP_MUNICIONES_MARCA foreign key (MARCA)
       references SIETID.MNT_MODELO_MARCA (ID);
+
+alter table SIETID.EXP_MUNICIONES
+   add constraint FK_EXP_MUNICION_CALIBRE foreign key (CALIBRE)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_MUNICIONES
+   add constraint FK_EXP_MUNICION_EMPRESA foreign key (EMPRESA)
+      references SIETID.PER_EMPRESA (ID);
 
 alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNICION_EXPEDIENTE foreign key (EXPEDIENTE)
       references SIETID.EXP_EXPEDIENTE (ID);
+
+alter table SIETID.EXP_MUNICIONES
+   add constraint FK_EXP_MUNICION_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_CREADOR foreign key (CREADOR)
@@ -3928,11 +3963,15 @@ alter table SIETID.EXP_TIPO_HECHO
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_TIPO_HECHO
+   add constraint FK_EXP_TIPO_HECHO_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_TIPO_HECHO
    add constraint FK_EXP_TIPO_HECHO_PADRE foreign key (PADRE)
       references SIETID.EXP_TIPO_HECHO (ID);
 
 alter table SIETID.EXP_VEHICULO
-   add constraint FK_EXP_VEHICULO_ANHO foreign key (ANO)
+   add constraint FK_EXP_VEHICULO_ANHO foreign key (PERIODO_FABRICACION)
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_VEHICULO
@@ -3962,6 +4001,10 @@ alter table SIETID.EXP_VEHICULO
 alter table SIETID.EXP_VEHICULO
    add constraint FK_EXP_VEHICULO_TRANSMISION foreign key (TRANSMISION)
       references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.HR_HOJAREMISION
+   add constraint FK_HR_HOJAREM_CUSTODIO foreign key (CUSTODIO)
+      references SIETID.PER_POLICIA (ID);
 
 alter table SIETID.HR_HOJAREMISION
    add constraint FK_HR_HOJAREM_MARCA foreign key (VEHICULO_MARCA)
@@ -4275,6 +4318,10 @@ alter table SIETID.PER_LETRADO
    add constraint FK_PER_ABOGADO_PERSONA foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
 
+alter table SIETID.PER_LETRADO
+   add constraint FK_PER_LETRADO_TIPO foreign key (TIPO)
+      references SIETID.CFG_VALOR (ID);
+
 alter table SIETID.PER_NO_IDENTIFICADOS
    add constraint FK_PER_NO_IDENTIFICADOS_EXP foreign key (EXPEDIENTE)
       references SIETID.EXP_EXPEDIENTE (ID);
@@ -4377,6 +4424,10 @@ alter table SIETID.PER_TELEFONO
 
 alter table SIETID.PER_TELEFONO
    add constraint FK_PER_TELEFONO_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.PER_TELEFONO
+   add constraint FK_PER_TELEFONO_FRECUENCIA foreign key (FRECUENCIA)
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.PER_TELEFONO
@@ -4510,3 +4561,4 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
+

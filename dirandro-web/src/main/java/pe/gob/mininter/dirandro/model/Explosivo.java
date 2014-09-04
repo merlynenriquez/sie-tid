@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,26 +35,30 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(length=50)
+	@Column(length=500)
 	private String descripcion;
 
 	@Column(precision=10, scale=4)
-	private BigDecimal medida;
+	private Double medida;
 
-	@Column(length=100)
+	@Column(length=1000)
 	private String observacion;
 
 	@Column(length=50)
 	private String serie;
+	
+	@Column(precision=7)
+	private Integer cantidad;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="SITUACION")
+	private Valor situacion;
 
-	@Column(precision=16)
-	private BigDecimal situacion;
-
-	@Column(precision=10)
-	private BigDecimal tipo;
-
-	@Column(name="TIPO_DESCRIPCION", precision=10)
-	private BigDecimal tipoDescripcion;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO")
+	private Valor tipo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -70,27 +73,22 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
-	private ModeloMarca mntModeloMarca;
+	private ModeloMarca modeloMarca;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
-	@JoinColumn(name="EMPRESA_PROPIETARIA")
-	private Empresa perEmpresa;
+	@JoinColumn(name="EMPRESA")
+	private Empresa empresaImplicada;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA", nullable=false)
-	private Persona perPersona1;
-
-	//bi-directional many-to-one association to Persona
-	@ManyToOne
-	@JoinColumn(name="PROPIETARIO")
-	private Persona perPersona2;
+	private Persona personaImplicada;
 
 	public Explosivo() {
 	}
@@ -111,14 +109,6 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 		this.descripcion = descripcion;
 	}
 
-	public BigDecimal getMedida() {
-		return medida;
-	}
-
-	public void setMedida(BigDecimal medida) {
-		this.medida = medida;
-	}
-
 	public String getObservacion() {
 		return observacion;
 	}
@@ -133,30 +123,6 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 
 	public void setSerie(String serie) {
 		this.serie = serie;
-	}
-
-	public BigDecimal getSituacion() {
-		return situacion;
-	}
-
-	public void setSituacion(BigDecimal situacion) {
-		this.situacion = situacion;
-	}
-
-	public BigDecimal getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(BigDecimal tipo) {
-		this.tipo = tipo;
-	}
-
-	public BigDecimal getTipoDescripcion() {
-		return tipoDescripcion;
-	}
-
-	public void setTipoDescripcion(BigDecimal tipoDescripcion) {
-		this.tipoDescripcion = tipoDescripcion;
 	}
 
 	public Valor getTipoMedida() {
@@ -175,44 +141,68 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 		this.estado = estado;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Double getMedida() {
+		return medida;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setMedida(Double medida) {
+		this.medida = medida;
 	}
 
-	public ModeloMarca getMntModeloMarca() {
-		return mntModeloMarca;
+	public Integer getCantidad() {
+		return cantidad;
 	}
 
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
-	public Empresa getPerEmpresa() {
-		return perEmpresa;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setPerEmpresa(Empresa perEmpresa) {
-		this.perEmpresa = perEmpresa;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
-	public Persona getPerPersona1() {
-		return perPersona1;
+	public Valor getTipo() {
+		return tipo;
 	}
 
-	public void setPerPersona1(Persona perPersona1) {
-		this.perPersona1 = perPersona1;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
-	public Persona getPerPersona2() {
-		return perPersona2;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setPerPersona2(Persona perPersona2) {
-		this.perPersona2 = perPersona2;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+	}
+
+	public ModeloMarca getModeloMarca() {
+		return modeloMarca;
+	}
+
+	public void setModeloMarca(ModeloMarca modeloMarca) {
+		this.modeloMarca = modeloMarca;
+	}
+
+	public Empresa getEmpresaImplicada() {
+		return empresaImplicada;
+	}
+
+	public void setEmpresaImplicada(Empresa empresaImplicada) {
+		this.empresaImplicada = empresaImplicada;
+	}
+
+	public Persona getPersonaImplicada() {
+		return personaImplicada;
+	}
+
+	public void setPersonaImplicada(Persona personaImplicada) {
+		this.personaImplicada = personaImplicada;
 	}
 
 	@Override

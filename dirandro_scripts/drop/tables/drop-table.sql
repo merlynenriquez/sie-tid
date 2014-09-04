@@ -1,8 +1,7 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     22/08/2014 05:50:44 p.m.                     */
+/* Created on:     04/09/2014 11:15:33 a.m.                     */
 /*==============================================================*/
-
 
 alter table SIETID.CFG_LISTA
    drop constraint FK_CGF_LISTA_CREADOR;
@@ -167,6 +166,9 @@ alter table EXP_DET_DROGAS
    drop constraint FK_EXP_DET_DROGAS_ESTADO_PART;
 
 alter table EXP_DET_DROGAS
+   drop constraint FK_EXP_DET_DROGAS_LOGO;
+
+alter table EXP_DET_DROGAS
    drop constraint FK_EXP_DET_DROGAS_PARTICIP;
 
 alter table EXP_DET_DROGAS
@@ -174,6 +176,12 @@ alter table EXP_DET_DROGAS
 
 alter table EXP_DET_DROGAS
    drop constraint FK_EXP_DET_DROGA_EDITOR;
+
+alter table EXP_DET_DROGAS
+   drop constraint FK_EXP_DET_DROGA_MODALIDAD;
+
+alter table EXP_DET_DROGAS
+   drop constraint FK_EXP_DET_DROGA_TRANSPORTE;
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_DET_EXP_PER_CREADOR;
@@ -206,7 +214,13 @@ alter table SIETID.EXP_DET_LLAMADAS
    drop constraint FK_EXP_DET_LLAMADAS_EDITOR;
 
 alter table SIETID.EXP_DET_LLAMADAS
+   drop constraint FK_EXP_DET_LLAMADAS_TIPO;
+
+alter table SIETID.EXP_DET_LLAMADAS
    drop constraint FK_EXP_DET_PER_TEL_LLAMADAS;
+
+alter table SIETID.EXP_DET_PER_ARM_EXP
+   drop constraint FK_DET_PER_ARMA_SITUACION;
 
 alter table SIETID.EXP_DET_PER_ARM_EXP
    drop constraint FK_DET_PER_ARM_EXP_ARMAS;
@@ -232,8 +246,8 @@ alter table SIETID.EXP_DET_PER_ARM_EXP
 alter table SIETID.EXP_DET_PER_ARM_EXP
    drop constraint FK_EXP_DET_PER_ARM_EMPRESA;
 
-alter table SIETID.EXP_DET_PER_ARM_EXP
-   drop constraint FK_EXP_DET_PER_ARM_SITUACION;
+alter table SIETID.EXP_DET_PER_INM_EXP
+   drop constraint FK_DET_INM_EXP_PROPIETARIO;
 
 alter table SIETID.EXP_DET_PER_INM_EXP
    drop constraint FK_DET_PER_INM_EXP_CREADOR;
@@ -246,6 +260,9 @@ alter table SIETID.EXP_DET_PER_INM_EXP
 
 alter table SIETID.EXP_DET_PER_INM_EXP
    drop constraint FK_DET_PER_INM_EXP_INMUEBLE;
+
+alter table SIETID.EXP_DET_PER_INM_EXP
+   drop constraint FK_DET_PER_INM_SITUACION;
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    drop constraint FK_DET_PER_TEL_EXP_CREADOR;
@@ -285,6 +302,9 @@ alter table SIETID.EXP_DET_PER_VEH_EXP
 
 alter table SIETID.EXP_DET_PER_VEH_EXP
    drop constraint FK_DET_PER_VEH_EXP_VEHICULO;
+
+alter table SIETID.EXP_DET_PER_VEH_EXP
+   drop constraint FK_DET_PER_VEH_PROPIETARIO;
 
 alter table SIETID.EXP_DET_PER_VEH_EXP
    drop constraint FK_EXP_DET_PER_VEH_CHASIS;
@@ -458,7 +478,7 @@ alter table SIETID.EXP_EXPEDIENTE_MEDIOS_MOVIL
    drop constraint FK_EXP_EXP_MED_MOV_EDITOR;
 
 alter table SIETID.EXP_EXPLOSIVOS
-   drop constraint FK_EXP_EXPLOSIVOS_PER;
+   drop constraint FK_EXP_EXPLOSIVOS_PERSONA;
 
 alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPLOSIVO_EMPRESA;
@@ -473,7 +493,10 @@ alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPLOSIVO_MARCA;
 
 alter table SIETID.EXP_EXPLOSIVOS
-   drop constraint FK_EXP_EXPLOSIVO_PERSONA;
+   drop constraint FK_EXP_EXPLOSIVO_SITUACION;
+
+alter table SIETID.EXP_EXPLOSIVOS
+   drop constraint FK_EXP_EXPLOSIVO_TIPO;
 
 alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPL_CREADOR;
@@ -492,6 +515,9 @@ alter table SIETID.EXP_IMPORTES
 
 alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTES_EXPEDIENTE;
+
+alter table SIETID.EXP_IMPORTES
+   drop constraint FK_EXP_IMPORTES_PRESENTACION;
 
 alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTES_TIP_MODEDA;
@@ -548,7 +574,16 @@ alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNICIONES_MARCA;
 
 alter table SIETID.EXP_MUNICIONES
+   drop constraint FK_EXP_MUNICION_CALIBRE;
+
+alter table SIETID.EXP_MUNICIONES
+   drop constraint FK_EXP_MUNICION_EMPRESA;
+
+alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNICION_EXPEDIENTE;
+
+alter table SIETID.EXP_MUNICIONES
+   drop constraint FK_EXP_MUNICION_SITUACION;
 
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_CREADOR;
@@ -632,6 +667,9 @@ alter table SIETID.EXP_TIPO_HECHO
    drop constraint FK_EXP_TIPO_HECHO_EDITOR;
 
 alter table SIETID.EXP_TIPO_HECHO
+   drop constraint FK_EXP_TIPO_HECHO_ESTADO;
+
+alter table SIETID.EXP_TIPO_HECHO
    drop constraint FK_EXP_TIPO_HECHO_PADRE;
 
 alter table SIETID.EXP_VEHICULO
@@ -657,6 +695,9 @@ alter table SIETID.EXP_VEHICULO
 
 alter table SIETID.EXP_VEHICULO
    drop constraint FK_EXP_VEHICULO_TRANSMISION;
+
+alter table SIETID.HR_HOJAREMISION
+   drop constraint FK_HR_HOJAREM_CUSTODIO;
 
 alter table SIETID.HR_HOJAREMISION
    drop constraint FK_HR_HOJAREM_MARCA;
@@ -892,6 +933,9 @@ alter table SIETID.PER_LETRADO
 alter table SIETID.PER_LETRADO
    drop constraint FK_PER_ABOGADO_PERSONA;
 
+alter table SIETID.PER_LETRADO
+   drop constraint FK_PER_LETRADO_TIPO;
+
 alter table SIETID.PER_NO_IDENTIFICADOS
    drop constraint FK_PER_NO_IDENTIFICADOS_EXP;
 
@@ -969,6 +1013,9 @@ alter table SIETID.PER_TELEFONO
 
 alter table SIETID.PER_TELEFONO
    drop constraint FK_PER_TELEFONO_ESTADO;
+
+alter table SIETID.PER_TELEFONO
+   drop constraint FK_PER_TELEFONO_FRECUENCIA;
 
 alter table SIETID.PER_TELEFONO
    drop constraint FK_PER_TELEFONO_MARCA;

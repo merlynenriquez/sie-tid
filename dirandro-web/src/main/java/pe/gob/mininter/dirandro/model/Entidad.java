@@ -43,10 +43,10 @@ public class Entidad extends AuditoriaBean implements Validador, Serializable {
 	@Column(length=400)
 	private String correo;
 
-	@Column(length=2000)
+	@Column(length=4000)
 	private String descripcion;
 
-	@Column(length=600)
+	@Column(length=1000)
 	private String direccion;
 
 	@Column(precision=6)

@@ -2,7 +2,6 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -38,30 +36,26 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(length=1600)
+	@Column(length=4000)
 	private String observacion;
 
 	@Column(name="PESO_BRUTO", precision=10, scale=2)
-	private BigDecimal pesoBruto;
+	private Double pesoBruto;
 
 	@Column(name="PESO_MUESTRA", precision=10, scale=2)
-	private BigDecimal pesoMuestra;
+	private Double pesoMuestra;
 
 	@Column(name="PESO_NETO", precision=10, scale=2)
-	private BigDecimal pesoNeto;
+	private Double pesoNeto;
 
 	@Column(name="TIPO_CAMBIO", precision=10, scale=2)
-	private BigDecimal tipoCambio;
+	private Double tipoCambio;
 
 	@Column(name="VALOR_DOLARES", precision=10, scale=2)
-	private BigDecimal valorDolares;
+	private Double valorDolares;
 
 	@Column(name="VALOR_SOLES", precision=10, scale=2)
-	private BigDecimal valorSoles;
-
-	//bi-directional many-to-one association to DetDroga
-	@OneToMany(mappedBy="expDroga")
-	private List<DetDroga> expDetDrogas;
+	private Double valorSoles;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -98,10 +92,6 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	@JoinColumn(name="DESTINO", nullable=false)
 	private Pais destino;
 
-	//bi-directional many-to-one association to HojaremisionMuestra
-	@OneToMany(mappedBy="expDroga")
-	private List<HojaremisionMuestra> hrHojaremisionMuestras;
-
 	public Droga() {
 	}
 
@@ -121,60 +111,52 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.observacion = observacion;
 	}
 
-	public BigDecimal getPesoBruto() {
+	public Double getPesoBruto() {
 		return pesoBruto;
 	}
 
-	public void setPesoBruto(BigDecimal pesoBruto) {
+	public void setPesoBruto(Double pesoBruto) {
 		this.pesoBruto = pesoBruto;
 	}
 
-	public BigDecimal getPesoMuestra() {
+	public Double getPesoMuestra() {
 		return pesoMuestra;
 	}
 
-	public void setPesoMuestra(BigDecimal pesoMuestra) {
+	public void setPesoMuestra(Double pesoMuestra) {
 		this.pesoMuestra = pesoMuestra;
 	}
 
-	public BigDecimal getPesoNeto() {
+	public Double getPesoNeto() {
 		return pesoNeto;
 	}
 
-	public void setPesoNeto(BigDecimal pesoNeto) {
+	public void setPesoNeto(Double pesoNeto) {
 		this.pesoNeto = pesoNeto;
 	}
 
-	public BigDecimal getTipoCambio() {
+	public Double getTipoCambio() {
 		return tipoCambio;
 	}
 
-	public void setTipoCambio(BigDecimal tipoCambio) {
+	public void setTipoCambio(Double tipoCambio) {
 		this.tipoCambio = tipoCambio;
 	}
 
-	public BigDecimal getValorDolares() {
+	public Double getValorDolares() {
 		return valorDolares;
 	}
 
-	public void setValorDolares(BigDecimal valorDolares) {
+	public void setValorDolares(Double valorDolares) {
 		this.valorDolares = valorDolares;
 	}
 
-	public BigDecimal getValorSoles() {
+	public Double getValorSoles() {
 		return valorSoles;
 	}
 
-	public void setValorSoles(BigDecimal valorSoles) {
+	public void setValorSoles(Double valorSoles) {
 		this.valorSoles = valorSoles;
-	}
-
-	public List<DetDroga> getExpDetDrogas() {
-		return expDetDrogas;
-	}
-
-	public void setExpDetDrogas(List<DetDroga> expDetDrogas) {
-		this.expDetDrogas = expDetDrogas;
 	}
 
 	public Valor getTipoMedida() {
@@ -232,16 +214,7 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	public void setDestino(Pais destino) {
 		this.destino = destino;
 	}
-
-	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
-		return hrHojaremisionMuestras;
-	}
-
-	public void setHrHojaremisionMuestras(
-			List<HojaremisionMuestra> hrHojaremisionMuestras) {
-		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
-	}
-
+	
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub

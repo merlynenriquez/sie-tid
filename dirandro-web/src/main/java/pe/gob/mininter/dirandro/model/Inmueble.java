@@ -2,7 +2,6 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -38,16 +36,13 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(length=30)
-	private String codigo;
-
-	@Column(length=400)
+	@Column(length=2000)
 	private String descripcion;
 
 	@Column(precision=10, scale=2)
 	private BigDecimal dimension;
 
-	@Column(length=400)
+	@Column(length=1000)
 	private String direccion;
 
 	@Column(length=100)
@@ -59,27 +54,23 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 	@Column(name="NRO_INSCRIPCION", length=100)
 	private String nroInscripcion;
 
-	@Column(length=800)
+	@Column(length=2000)
 	private String observaciones;
 
-	@Column(name="OFICINA_REGISTRAL", length=100)
+	@Column(name="OFICINA_REGISTRAL", length=2000)
 	private String oficinaRegistral;
 
-	@Column(length=100)
+	@Column(length=400)
 	private String resolucion;
 
 	@Column(length=400)
 	private String urbanizacion;
 
 	@Column(name="VALOR_BIEN", precision=10, scale=2)
-	private BigDecimal valorBien;
+	private Double valorBien;
 
 	@Column(name="VALOR_TERRENO", precision=10, scale=2)
-	private BigDecimal valorTerreno;
-
-	//bi-directional many-to-one association to DetPerInmExp
-	@OneToMany(mappedBy="expInmueble")
-	private List<DetPerInmExp> expDetPerInmExps;
+	private Double valorTerreno;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -100,14 +91,6 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getDescripcion() {
@@ -188,30 +171,6 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 
 	public void setUrbanizacion(String urbanizacion) {
 		this.urbanizacion = urbanizacion;
-	}
-
-	public BigDecimal getValorBien() {
-		return valorBien;
-	}
-
-	public void setValorBien(BigDecimal valorBien) {
-		this.valorBien = valorBien;
-	}
-
-	public BigDecimal getValorTerreno() {
-		return valorTerreno;
-	}
-
-	public void setValorTerreno(BigDecimal valorTerreno) {
-		this.valorTerreno = valorTerreno;
-	}
-
-	public List<DetPerInmExp> getExpDetPerInmExps() {
-		return expDetPerInmExps;
-	}
-
-	public void setExpDetPerInmExps(List<DetPerInmExp> expDetPerInmExps) {
-		this.expDetPerInmExps = expDetPerInmExps;
 	}
 
 	public Valor getTipoDireccion() {

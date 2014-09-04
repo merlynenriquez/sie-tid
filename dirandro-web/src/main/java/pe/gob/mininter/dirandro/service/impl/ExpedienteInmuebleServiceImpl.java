@@ -57,12 +57,11 @@ public class ExpedienteInmuebleServiceImpl extends BaseServiceImpl<Inmueble, Str
 	public void actualizar(Inmueble object) {
 		//object.validar();
 		Busqueda filtro = Busqueda.forClass(Inmueble.class);
-		filtro.add(Restrictions.eq("codigo", object.getCodigo()));
-		filtro.add(Restrictions.not(Restrictions.eq("codigo", object.getCodigo())));
+		
 		if (expedienteInmuebleHibernate.buscar(filtro).size()>0) {
 			throw new ValidacionException(
 					Constante.CODIGO_MENSAJE.VALIDAR_INMUEBLE_EXISTENTE,
-					new Object[] { object.getCodigo() });
+					new Object[] { object.getNroInscripcion() });
 		}
 		expedienteInmuebleHibernate.actualizar(object);
 	}

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     19/08/2014 10:41:05 a.m.                     */
+/* Created on:     22/08/2014 05:50:44 p.m.                     */
 /*==============================================================*/
 
 
@@ -870,6 +870,9 @@ alter table SIETID.PER_IDENTIFICACION
 
 alter table SIETID.PER_IDENTIFICACION
    drop constraint FK_PER_IDENTIFICACION_TIPO;
+
+alter table SIETID.PER_IMAGEN
+   drop constraint FK_PER_IMAGEN_ADJUNTO;
 
 alter table SIETID.PER_IMAGEN
    drop constraint FK_PER_IMAGEN_CREADOR;

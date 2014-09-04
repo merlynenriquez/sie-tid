@@ -24,11 +24,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Entity
 @Table(name="EXP_DET_PER_INM_EXP")
 public class DetPerInmExp extends AuditoriaBean implements Validador, Serializable {
-	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8063743236030806260L;
 
 	@Id
@@ -41,24 +37,28 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 	@Column(name="NUMERO_PISOS", precision=10)
 	private BigDecimal numeroPisos;
 
-	@Column(precision=16)
-	private BigDecimal propietario;
-
-	@Column(precision=16)
-	private BigDecimal situacion;
-
 	@Column(name="TIPO_USO", length=400)
 	private String tipoUso;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
-	private Expediente expExpediente;
+	private Expediente expediente;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="SITUACION")
+	private Valor situacion;
 
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="PROPIETARIO")
+	private Persona propietario;
+		
 	//bi-directional many-to-one association to Inmueble
 	@ManyToOne
 	@JoinColumn(name="INMUEBLE")
-	private Inmueble expInmueble;
+	private Inmueble inmueble;
 
 
 	public DetPerInmExp() {
@@ -70,9 +70,7 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	
+	}	
 
 	public BigDecimal getNumeroPisos() {
 		return this.numeroPisos;
@@ -81,23 +79,7 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 	public void setNumeroPisos(BigDecimal numeroPisos) {
 		this.numeroPisos = numeroPisos;
 	}
-
-	public BigDecimal getPropietario() {
-		return this.propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
-	}
-
-	public BigDecimal getSituacion() {
-		return this.situacion;
-	}
-
-	public void setSituacion(BigDecimal situacion) {
-		this.situacion = situacion;
-	}
-
+	
 	public String getTipoUso() {
 		return this.tipoUso;
 	}
@@ -106,22 +88,37 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 		this.tipoUso = tipoUso;
 	}
 
-	public Expediente getExpExpediente() {
-		return this.expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
 	}
 
-	public Inmueble getExpInmueble() {
-		return this.expInmueble;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setExpInmueble(Inmueble expInmueble) {
-		this.expInmueble = expInmueble;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
+	public Persona getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Persona propietario) {
+		this.propietario = propietario;
+	}
+
+	public Inmueble getInmueble() {
+		return inmueble;
+	}
+
+	public void setInmueble(Inmueble inmueble) {
+		this.inmueble = inmueble;
+	}
 
 	@Override
 	public void validar() {

@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,31 +31,43 @@ public class DetDroga extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(precision=16)
-	private BigDecimal modalidad;
-
-	@Column(precision=16)
-	private BigDecimal transporte;
-
+	@Column(name="LOGO_DESCRIPCION", length=4000)
+	private String logoDescripcion;
+	
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PARTICIPACION")
-	private Valor cfgValor1;
+	private Valor participacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO_PARTICIPACION")
-	private Valor cfgValor2;
+	private Valor estadoParticipacion;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="MODALIDAD", nullable=false)
+	private Valor modalidad;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TRANSPORTE")
+	private Valor transporte;
+
+	//bi-directional many-to-one association to Adjunto
+	@ManyToOne
+	@JoinColumn(name="LOGO")
+	private Adjunto adjuntoLogo;
 
 	//bi-directional many-to-one association to Droga
 	@ManyToOne
 	@JoinColumn(name="DROGA")
-	private Droga expDroga;
+	private Droga droga;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona personaImplicada;
 
 	public DetDroga() {
 	}
@@ -69,52 +80,68 @@ public class DetDroga extends AuditoriaBean implements Validador, Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getModalidad() {
-		return this.modalidad;
+	public String getLogoDescripcion() {
+		return logoDescripcion;
 	}
 
-	public void setModalidad(BigDecimal modalidad) {
+	public void setLogoDescripcion(String logoDescripcion) {
+		this.logoDescripcion = logoDescripcion;
+	}
+
+	public Valor getParticipacion() {
+		return participacion;
+	}
+
+	public void setParticipacion(Valor participacion) {
+		this.participacion = participacion;
+	}
+
+	public Valor getEstadoParticipacion() {
+		return estadoParticipacion;
+	}
+
+	public void setEstadoParticipacion(Valor estadoParticipacion) {
+		this.estadoParticipacion = estadoParticipacion;
+	}
+
+	public Valor getModalidad() {
+		return modalidad;
+	}
+
+	public void setModalidad(Valor modalidad) {
 		this.modalidad = modalidad;
 	}
 
-	public BigDecimal getTransporte() {
-		return this.transporte;
+	public Valor getTransporte() {
+		return transporte;
 	}
 
-	public void setTransporte(BigDecimal transporte) {
+	public void setTransporte(Valor transporte) {
 		this.transporte = transporte;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Adjunto getAdjuntoLogo() {
+		return adjuntoLogo;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setAdjuntoLogo(Adjunto adjuntoLogo) {
+		this.adjuntoLogo = adjuntoLogo;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Droga getDroga() {
+		return droga;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setDroga(Droga droga) {
+		this.droga = droga;
 	}
 
-	public Droga getExpDroga() {
-		return this.expDroga;
+	public Persona getPersonaImplicada() {
+		return personaImplicada;
 	}
 
-	public void setExpDroga(Droga expDroga) {
-		this.expDroga = expDroga;
-	}
-
-	public Persona getPerPersona() {
-		return this.perPersona;
-	}
-
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersonaImplicada(Persona personaImplicada) {
+		this.personaImplicada = personaImplicada;
 	}
 
 	@Override
