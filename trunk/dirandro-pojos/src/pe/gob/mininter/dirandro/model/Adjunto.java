@@ -26,7 +26,7 @@ public class Adjunto implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(nullable=false, length=200)
+	@Column(nullable=false, length=500)
 	private String nombre;
 
 	@Column(length=400)
@@ -55,6 +55,10 @@ public class Adjunto implements Serializable {
 	//bi-directional many-to-one association to Anexo
 	@OneToMany(mappedBy="expAdjunto")
 	private List<Anexo> expAnexos;
+
+	//bi-directional many-to-one association to DetDroga
+	@OneToMany(mappedBy="expAdjunto")
+	private List<DetDroga> expDetDrogas;
 
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="expAdjunto")
@@ -159,6 +163,28 @@ public class Adjunto implements Serializable {
 		expAnexo.setExpAdjunto(null);
 
 		return expAnexo;
+	}
+
+	public List<DetDroga> getExpDetDrogas() {
+		return this.expDetDrogas;
+	}
+
+	public void setExpDetDrogas(List<DetDroga> expDetDrogas) {
+		this.expDetDrogas = expDetDrogas;
+	}
+
+	public DetDroga addExpDetDroga(DetDroga expDetDroga) {
+		getExpDetDrogas().add(expDetDroga);
+		expDetDroga.setExpAdjunto(this);
+
+		return expDetDroga;
+	}
+
+	public DetDroga removeExpDetDroga(DetDroga expDetDroga) {
+		getExpDetDrogas().remove(expDetDroga);
+		expDetDroga.setExpAdjunto(null);
+
+		return expDetDroga;
 	}
 
 	public List<Documento> getExpDocumentos() {

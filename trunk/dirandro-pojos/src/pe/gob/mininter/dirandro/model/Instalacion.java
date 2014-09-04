@@ -47,8 +47,11 @@ public class Instalacion implements Serializable {
 	@Column(length=400)
 	private String nombre;
 
-	@Column(name="ZONA_PRODUCCION", precision=16)
-	private BigDecimal zonaProduccion;
+	@Column(precision=4)
+	private BigDecimal radio;
+
+	@Column(name="ZONA_PRODUCCION", length=400)
+	private String zonaProduccion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -173,11 +176,19 @@ public class Instalacion implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getZonaProduccion() {
+	public BigDecimal getRadio() {
+		return this.radio;
+	}
+
+	public void setRadio(BigDecimal radio) {
+		this.radio = radio;
+	}
+
+	public String getZonaProduccion() {
 		return this.zonaProduccion;
 	}
 
-	public void setZonaProduccion(BigDecimal zonaProduccion) {
+	public void setZonaProduccion(String zonaProduccion) {
 		this.zonaProduccion = zonaProduccion;
 	}
 

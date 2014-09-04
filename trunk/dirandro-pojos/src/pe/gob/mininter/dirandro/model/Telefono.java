@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -30,9 +29,6 @@ public class Telefono implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(precision=16)
-	private BigDecimal frecuencia;
-
 	@Column(nullable=false, length=100)
 	private String numero;
 
@@ -52,6 +48,11 @@ public class Telefono implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
 	private Valor cfgValor2;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="FRECUENCIA")
+	private Valor cfgValor3;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
@@ -101,14 +102,6 @@ public class Telefono implements Serializable {
 
 	public void setEdicion(Timestamp edicion) {
 		this.edicion = edicion;
-	}
-
-	public BigDecimal getFrecuencia() {
-		return this.frecuencia;
-	}
-
-	public void setFrecuencia(BigDecimal frecuencia) {
-		this.frecuencia = frecuencia;
 	}
 
 	public String getNumero() {
@@ -163,6 +156,14 @@ public class Telefono implements Serializable {
 
 	public void setCfgValor2(Valor cfgValor2) {
 		this.cfgValor2 = cfgValor2;
+	}
+
+	public Valor getCfgValor3() {
+		return this.cfgValor3;
+	}
+
+	public void setCfgValor3(Valor cfgValor3) {
+		this.cfgValor3 = cfgValor3;
 	}
 
 	public ModeloMarca getMntModeloMarca() {

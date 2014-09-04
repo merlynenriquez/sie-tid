@@ -22,9 +22,6 @@ public class Inmueble implements Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
 
-	@Column(length=30)
-	private String codigo;
-
 	@Column(nullable=false)
 	private Timestamp creacion;
 
@@ -99,14 +96,6 @@ public class Inmueble implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public Timestamp getCreacion() {

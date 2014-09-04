@@ -27,7 +27,7 @@ public class Droga implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(length=1600)
+	@Column(length=4000)
 	private String observacion;
 
 	@Column(name="PESO_BRUTO", precision=10, scale=2)

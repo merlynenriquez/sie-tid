@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
@@ -28,9 +27,6 @@ public class DetPerVehExp implements Serializable {
 
 	@Column(name="PLACA_MONTADA", length=100)
 	private String placaMontada;
-
-	@Column(precision=16)
-	private BigDecimal propietario;
 
 	@Column(name="TIPO_USO", length=100)
 	private String tipoUso;
@@ -68,7 +64,12 @@ public class DetPerVehExp implements Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona perPersona1;
+
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="PROPIETARIO")
+	private Persona perPersona2;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -113,14 +114,6 @@ public class DetPerVehExp implements Serializable {
 
 	public void setPlacaMontada(String placaMontada) {
 		this.placaMontada = placaMontada;
-	}
-
-	public BigDecimal getPropietario() {
-		return this.propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
 	}
 
 	public String getTipoUso() {
@@ -179,12 +172,20 @@ public class DetPerVehExp implements Serializable {
 		this.expVehiculo = expVehiculo;
 	}
 
-	public Persona getPerPersona() {
-		return this.perPersona;
+	public Persona getPerPersona1() {
+		return this.perPersona1;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPerPersona1(Persona perPersona1) {
+		this.perPersona1 = perPersona1;
+	}
+
+	public Persona getPerPersona2() {
+		return this.perPersona2;
+	}
+
+	public void setPerPersona2(Persona perPersona2) {
+		this.perPersona2 = perPersona2;
 	}
 
 	public Usuario getSegUsuario1() {

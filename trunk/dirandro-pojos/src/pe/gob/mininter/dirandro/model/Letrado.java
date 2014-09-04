@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -30,12 +29,14 @@ public class Letrado implements Serializable {
 	@Column(name="NRO_COLEGIATURA", length=20)
 	private String nroColegiatura;
 
-	@Column(precision=16)
-	private BigDecimal tipo;
-
 	//bi-directional many-to-one association to AbogadoPersona
 	@OneToMany(mappedBy="perLetrado")
 	private List<AbogadoPersona> expAbogadoPersonas;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO")
+	private Valor cfgValor;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
@@ -87,14 +88,6 @@ public class Letrado implements Serializable {
 		this.nroColegiatura = nroColegiatura;
 	}
 
-	public BigDecimal getTipo() {
-		return this.tipo;
-	}
-
-	public void setTipo(BigDecimal tipo) {
-		this.tipo = tipo;
-	}
-
 	public List<AbogadoPersona> getExpAbogadoPersonas() {
 		return this.expAbogadoPersonas;
 	}
@@ -115,6 +108,14 @@ public class Letrado implements Serializable {
 		expAbogadoPersona.setPerLetrado(null);
 
 		return expAbogadoPersona;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public Persona getPerPersona() {

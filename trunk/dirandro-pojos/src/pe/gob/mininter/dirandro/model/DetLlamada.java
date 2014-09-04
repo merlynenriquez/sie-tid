@@ -35,6 +35,11 @@ public class DetLlamada implements Serializable {
 	@Column(name="NUMERO_MARCADO", length=50)
 	private String numeroMarcado;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_LLAMADA")
+	private Valor cfgValor;
+
 	//bi-directional many-to-one association to DetPerTelExp
 	@ManyToOne
 	@JoinColumn(name="EXP_PER_TEL")
@@ -99,6 +104,14 @@ public class DetLlamada implements Serializable {
 
 	public void setNumeroMarcado(String numeroMarcado) {
 		this.numeroMarcado = numeroMarcado;
+	}
+
+	public Valor getCfgValor() {
+		return this.cfgValor;
+	}
+
+	public void setCfgValor(Valor cfgValor) {
+		this.cfgValor = cfgValor;
 	}
 
 	public DetPerTelExp getExpDetPerTelExp() {

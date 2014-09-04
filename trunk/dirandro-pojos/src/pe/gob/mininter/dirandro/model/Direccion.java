@@ -23,7 +23,7 @@ public class Direccion implements Serializable {
 	@Column(nullable=false)
 	private Timestamp creacion;
 
-	@Column(nullable=false, length=200)
+	@Column(nullable=false, length=500)
 	private String direccion;
 
 	private Timestamp edicion;

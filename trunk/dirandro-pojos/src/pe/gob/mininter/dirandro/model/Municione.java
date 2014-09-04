@@ -21,34 +21,22 @@ public class Municione implements Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
 
-	@Column(precision=10)
-	private BigDecimal calibre;
+	@Column(precision=7)
+	private BigDecimal cantidad;
 
 	@Column(nullable=false)
 	private Timestamp creacion;
 
-	@Column(length=50)
+	@Column(length=500)
 	private String descripcion;
 
 	private Timestamp edicion;
 
-	@Column(name="EMPRESA_PROPIETARIA", precision=16)
-	private BigDecimal empresaPropietaria;
-
-	@Column(precision=16)
-	private BigDecimal marca;
-
 	@Column(precision=10, scale=4)
 	private BigDecimal medida;
 
-	@Column(length=100)
+	@Column(length=2000)
 	private String observacion;
-
-	@Column(precision=16)
-	private BigDecimal propietario;
-
-	@Column(precision=16)
-	private BigDecimal situacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -65,6 +53,16 @@ public class Municione implements Serializable {
 	@JoinColumn(name="ESTADO")
 	private Valor cfgValor3;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="CALIBRE")
+	private Valor cfgValor4;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="SITUACION")
+	private Valor cfgValor5;
+
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
@@ -73,7 +71,17 @@ public class Municione implements Serializable {
 	//bi-directional one-to-one association to ModeloMarca
 	@OneToOne
 	@JoinColumn(name="ID", nullable=false, insertable=false, updatable=false)
-	private ModeloMarca mntModeloMarca;
+	private ModeloMarca mntModeloMarca1;
+
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="MARCA")
+	private ModeloMarca mntModeloMarca2;
+
+	//bi-directional many-to-one association to Empresa
+	@ManyToOne
+	@JoinColumn(name="EMPRESA")
+	private Empresa perEmpresa;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
@@ -101,12 +109,12 @@ public class Municione implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getCalibre() {
-		return this.calibre;
+	public BigDecimal getCantidad() {
+		return this.cantidad;
 	}
 
-	public void setCalibre(BigDecimal calibre) {
-		this.calibre = calibre;
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public Timestamp getCreacion() {
@@ -133,22 +141,6 @@ public class Municione implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public BigDecimal getEmpresaPropietaria() {
-		return this.empresaPropietaria;
-	}
-
-	public void setEmpresaPropietaria(BigDecimal empresaPropietaria) {
-		this.empresaPropietaria = empresaPropietaria;
-	}
-
-	public BigDecimal getMarca() {
-		return this.marca;
-	}
-
-	public void setMarca(BigDecimal marca) {
-		this.marca = marca;
-	}
-
 	public BigDecimal getMedida() {
 		return this.medida;
 	}
@@ -163,22 +155,6 @@ public class Municione implements Serializable {
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
-	}
-
-	public BigDecimal getPropietario() {
-		return this.propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
-	}
-
-	public BigDecimal getSituacion() {
-		return this.situacion;
-	}
-
-	public void setSituacion(BigDecimal situacion) {
-		this.situacion = situacion;
 	}
 
 	public Valor getCfgValor1() {
@@ -205,6 +181,22 @@ public class Municione implements Serializable {
 		this.cfgValor3 = cfgValor3;
 	}
 
+	public Valor getCfgValor4() {
+		return this.cfgValor4;
+	}
+
+	public void setCfgValor4(Valor cfgValor4) {
+		this.cfgValor4 = cfgValor4;
+	}
+
+	public Valor getCfgValor5() {
+		return this.cfgValor5;
+	}
+
+	public void setCfgValor5(Valor cfgValor5) {
+		this.cfgValor5 = cfgValor5;
+	}
+
 	public Expediente getExpExpediente() {
 		return this.expExpediente;
 	}
@@ -213,12 +205,28 @@ public class Municione implements Serializable {
 		this.expExpediente = expExpediente;
 	}
 
-	public ModeloMarca getMntModeloMarca() {
-		return this.mntModeloMarca;
+	public ModeloMarca getMntModeloMarca1() {
+		return this.mntModeloMarca1;
 	}
 
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
+	public void setMntModeloMarca1(ModeloMarca mntModeloMarca1) {
+		this.mntModeloMarca1 = mntModeloMarca1;
+	}
+
+	public ModeloMarca getMntModeloMarca2() {
+		return this.mntModeloMarca2;
+	}
+
+	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
+		this.mntModeloMarca2 = mntModeloMarca2;
+	}
+
+	public Empresa getPerEmpresa() {
+		return this.perEmpresa;
+	}
+
+	public void setPerEmpresa(Empresa perEmpresa) {
+		this.perEmpresa = perEmpresa;
 	}
 
 	public Persona getPerPersona() {
