@@ -38,7 +38,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.Importe" />
 		<mapping class="pe.gob.mininter.dirandro.model.Inmueble" />
 		<mapping class="pe.gob.mininter.dirandro.model.Instalacion" />
-		<mapping class="pe.gob.mininter.dirandro.model.Municione" />
+		<mapping class="pe.gob.mininter.dirandro.model.Municion" />
 		<mapping class="pe.gob.mininter.dirandro.model.Organizacion" />
 		<mapping class="pe.gob.mininter.dirandro.model.Predecesor" />
 		<mapping class="pe.gob.mininter.dirandro.model.Ruta" />

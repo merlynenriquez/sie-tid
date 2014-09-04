@@ -35,7 +35,7 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(nullable=false, length=200)
+	@Column(nullable=false, length=500)
 	private String direccion;
 
 	@Column(length=1000)

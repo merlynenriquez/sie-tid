@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,46 +38,48 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 	@Column(name="PLACA_MONTADA", length=100)
 	private String placaMontada;
 
-	@Column(precision=16)
-	private BigDecimal propietario;
-
 	@Column(name="TIPO_USO", length=100)
 	private String tipoUso;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor1;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION_LEGAL")
-	private Valor cfgValor2;
+	private Valor situacionLegal;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO_MOTOR")
-	private Valor cfgValor3;
+	private Valor estadoMotor;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO_CHASIS", nullable=false)
-	private Valor cfgValor4;
+	private Valor estadoChasis;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Vehiculo
 	@ManyToOne
 	@JoinColumn(name="VEHICULO")
-	private Vehiculo expVehiculo;
+	private Vehiculo vehiculo;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona personaImplicada;
+	
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="PROPIETARIO")
+	private Persona propietario;
 
 	public DetPerVehExp() {
 	}
@@ -99,14 +100,6 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 		this.placaMontada = placaMontada;
 	}
 
-	public BigDecimal getPropietario() {
-		return this.propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
-	}
-
 	public String getTipoUso() {
 		return this.tipoUso;
 	}
@@ -115,60 +108,68 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 		this.tipoUso = tipoUso;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getSituacionLegal() {
+		return situacionLegal;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setSituacionLegal(Valor situacionLegal) {
+		this.situacionLegal = situacionLegal;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getEstadoMotor() {
+		return estadoMotor;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setEstadoMotor(Valor estadoMotor) {
+		this.estadoMotor = estadoMotor;
 	}
 
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
+	public Valor getEstadoChasis() {
+		return estadoChasis;
 	}
 
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
+	public void setEstadoChasis(Valor estadoChasis) {
+		this.estadoChasis = estadoChasis;
 	}
 
-	public Expediente getExpExpediente() {
-		return this.expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
 	}
 
-	public Vehiculo getExpVehiculo() {
-		return this.expVehiculo;
+	public Vehiculo getVehiculo() {
+		return vehiculo;
 	}
 
-	public void setExpVehiculo(Vehiculo expVehiculo) {
-		this.expVehiculo = expVehiculo;
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 
-	public Persona getPerPersona() {
-		return this.perPersona;
+	public Persona getPersonaImplicada() {
+		return personaImplicada;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setPersonaImplicada(Persona personaImplicada) {
+		this.personaImplicada = personaImplicada;
+	}
+
+	public Persona getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Persona propietario) {
+		this.propietario = propietario;
 	}
 
 	@Override

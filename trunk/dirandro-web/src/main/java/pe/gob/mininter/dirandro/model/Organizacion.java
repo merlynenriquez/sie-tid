@@ -2,14 +2,12 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -57,14 +55,6 @@ public class Organizacion extends AuditoriaBean implements Validador, Serializab
 
 	@Column(name="ZONA_OPERACION", length=500)
 	private String zonaOperacion;
-
-	//bi-directional many-to-one association to DetExpedientePersona
-	@OneToMany(mappedBy="expOrganizacion")
-	private List<DetExpedientePersona> expDetExpedientePersonas;
-
-	//bi-directional many-to-one association to Instalacion
-	@OneToMany(mappedBy="expOrganizacion")
-	private List<Instalacion> expInstalacions;
 
 	public Organizacion() {
 	}
@@ -123,23 +113,6 @@ public class Organizacion extends AuditoriaBean implements Validador, Serializab
 
 	public void setZonaOperacion(String zonaOperacion) {
 		this.zonaOperacion = zonaOperacion;
-	}
-
-	public List<DetExpedientePersona> getExpDetExpedientePersonas() {
-		return expDetExpedientePersonas;
-	}
-
-	public void setExpDetExpedientePersonas(
-			List<DetExpedientePersona> expDetExpedientePersonas) {
-		this.expDetExpedientePersonas = expDetExpedientePersonas;
-	}
-
-	public List<Instalacion> getExpInstalacions() {
-		return expInstalacions;
-	}
-
-	public void setExpInstalacions(List<Instalacion> expInstalacions) {
-		this.expInstalacions = expInstalacions;
 	}
 
 	@Override

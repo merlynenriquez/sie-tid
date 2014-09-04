@@ -57,8 +57,11 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	@Column(length=400)
 	private String nombre;
 
-	@Column(name="ZONA_PRODUCCION", precision=16)
-	private BigDecimal zonaProduccion;
+	@Column(precision=4)
+	private Integer radio;
+
+	@Column(name="ZONA_PRODUCCION", length=400)
+	private String zonaProduccion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -77,18 +80,18 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
-	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	@JoinColumn(name="EXPEDIENTE", nullable=false)
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Organizacion
 	@ManyToOne
 	@JoinColumn(name="ORGANIZACION")
-	private Organizacion expOrganizacion;
+	private Organizacion organizacionDelictiva;
 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="UBICACION")
-	private Distrito ubgDistrito;
+	private Distrito distrito;
 
 	public Instalacion() {
 	}
@@ -155,15 +158,7 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public BigDecimal getZonaProduccion() {
-		return zonaProduccion;
-	}
-
-	public void setZonaProduccion(BigDecimal zonaProduccion) {
-		this.zonaProduccion = zonaProduccion;
-	}
+	}	
 
 	public Valor getTipo() {
 		return tipo;
@@ -189,28 +184,44 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 		this.expCentroPoblado = expCentroPoblado;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Integer getRadio() {
+		return radio;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setRadio(Integer radio) {
+		this.radio = radio;
 	}
 
-	public Organizacion getExpOrganizacion() {
-		return expOrganizacion;
+	public String getZonaProduccion() {
+		return zonaProduccion;
 	}
 
-	public void setExpOrganizacion(Organizacion expOrganizacion) {
-		this.expOrganizacion = expOrganizacion;
+	public void setZonaProduccion(String zonaProduccion) {
+		this.zonaProduccion = zonaProduccion;
 	}
 
-	public Distrito getUbgDistrito() {
-		return ubgDistrito;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setUbgDistrito(Distrito ubgDistrito) {
-		this.ubgDistrito = ubgDistrito;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+	}
+
+	public Organizacion getOrganizacionDelictiva() {
+		return organizacionDelictiva;
+	}
+
+	public void setOrganizacionDelictiva(Organizacion organizacionDelictiva) {
+		this.organizacionDelictiva = organizacionDelictiva;
+	}
+
+	public Distrito getDistrito() {
+		return distrito;
+	}
+
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	@Override

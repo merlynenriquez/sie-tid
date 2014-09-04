@@ -1,15 +1,21 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
-
-import java.sql.Timestamp;
-import java.math.BigDecimal;
-import java.util.List;
 
 
 /**
@@ -50,7 +56,7 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	private String nroLicencia;
 
 	@Column(precision=22)
-	private BigDecimal numero;
+	private String numero;
 
 	@Column(length=400)
 	private String observacion;
@@ -89,11 +95,12 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona;
+	private Persona persona;
 
-	//bi-directional many-to-one association to HojaremisionMuestra
-	@OneToMany(mappedBy="hrHojaremision")
-	private List<HojaremisionMuestra> hrHojaremisionMuestras;
+	//bi-directional many-to-one association to Policia
+	@ManyToOne
+	@JoinColumn(name="CUSTODIO")
+	private Policia custodio;
 
 	public Hojaremision() {
 	}
@@ -152,15 +159,7 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 
 	public void setNroLicencia(String nroLicencia) {
 		this.nroLicencia = nroLicencia;
-	}
-
-	public BigDecimal getNumero() {
-		return numero;
-	}
-
-	public void setNumero(BigDecimal numero) {
-		this.numero = numero;
-	}
+	}	
 
 	public String getObservacion() {
 		return observacion;
@@ -225,22 +224,29 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
 		this.mntModeloMarca = mntModeloMarca;
 	}
-
-	public Persona getPerPersona() {
-		return perPersona;
+	
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
-		return hrHojaremisionMuestras;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setHrHojaremisionMuestras(
-			List<HojaremisionMuestra> hrHojaremisionMuestras) {
-		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
+	public Policia getCustodio() {
+		return custodio;
+	}
+
+	public void setCustodio(Policia custodio) {
+		this.custodio = custodio;
 	}
 
 	@Override

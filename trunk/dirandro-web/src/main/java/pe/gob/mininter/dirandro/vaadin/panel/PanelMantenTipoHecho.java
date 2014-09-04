@@ -271,7 +271,7 @@ public class PanelMantenTipoHecho extends DirandroComponent implements TextChang
 		if(event.getButton().equals(btnAgregar)){
 			
 			tipoHecho.setNombre(txtNombre.getValue().toString());
-			tipoHecho.setEstado(new BigDecimal( ((Valor)cmbEstado.getValue()).getId().toString() ));
+			//tipoHecho.setEstado(new BigDecimal( ((Valor)cmbEstado.getValue()).getId().toString() ));
 			tipoHecho.setPadre((TipoHecho)cmbDelitoPadre.getValue());
 			
 			if(flagNuevaEstado){

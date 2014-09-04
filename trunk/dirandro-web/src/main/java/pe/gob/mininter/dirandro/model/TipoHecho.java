@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,13 +38,16 @@ public class TipoHecho extends AuditoriaBean implements Validador, Serializable 
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_TIPO_HECHO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
-
-	@Column(precision=16)
-	private BigDecimal estado;
-
+	
 	@Column(nullable=false, length=400)
 	private String nombre;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor estado;
 
+	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PADRE")
 	private TipoHecho padre;
@@ -61,11 +63,11 @@ public class TipoHecho extends AuditoriaBean implements Validador, Serializable 
 		this.id = id;
 	}
 
-	public BigDecimal getEstado() {
+	public Valor getEstado() {
 		return estado;
 	}
 
-	public void setEstado(BigDecimal estado) {
+	public void setEstado(Valor estado) {
 		this.estado = estado;
 	}
 

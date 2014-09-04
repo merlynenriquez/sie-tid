@@ -1,8 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -38,27 +35,20 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(name="MODELO_ESPECIFICO", length=50)
+	@Column(name="MODELO_ESPECIFICO", length=500)
 	private String modeloEspecifico;
 
-	@Column(length=800)
+	@Column(length=4000)
 	private String observaciones;
 
 	@Column(length=200)
 	private String placa;
-
-	@Column(precision=16)
-	private BigDecimal propietario;
 
 	@Column(name="SERIE_CHASIS", length=100)
 	private String serieChasis;
 
 	@Column(name="SERIE_MOTOR", length=100)
 	private String serieMotor;
-
-	//bi-directional many-to-one association to DetPerVehExp
-	@OneToMany(mappedBy="expVehiculo")
-	private List<DetPerVehExp> expDetPerVehExps;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -72,8 +62,8 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="ANO")
-	private Valor ano;
+	@JoinColumn(name="PERIODO_FABRICACION")
+	private Valor periodoFabricacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -88,7 +78,7 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MODELO")
-	private ModeloMarca mntModeloMarca;
+	private ModeloMarca modeloMarca;
 
 	public Vehiculo() {
 	}
@@ -125,14 +115,6 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 		this.placa = placa;
 	}
 
-	public BigDecimal getPropietario() {
-		return propietario;
-	}
-
-	public void setPropietario(BigDecimal propietario) {
-		this.propietario = propietario;
-	}
-
 	public String getSerieChasis() {
 		return serieChasis;
 	}
@@ -147,14 +129,6 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 
 	public void setSerieMotor(String serieMotor) {
 		this.serieMotor = serieMotor;
-	}
-
-	public List<DetPerVehExp> getExpDetPerVehExps() {
-		return expDetPerVehExps;
-	}
-
-	public void setExpDetPerVehExps(List<DetPerVehExp> expDetPerVehExps) {
-		this.expDetPerVehExps = expDetPerVehExps;
 	}
 
 	public Valor getCilindros() {
@@ -173,14 +147,6 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 		this.tipoTamano = tipoTamano;
 	}
 
-	public Valor getAno() {
-		return ano;
-	}
-
-	public void setAno(Valor ano) {
-		this.ano = ano;
-	}
-
 	public Valor getTransmision() {
 		return transmision;
 	}
@@ -197,12 +163,20 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 		this.color = color;
 	}
 
-	public ModeloMarca getMntModeloMarca() {
-		return mntModeloMarca;
+	public Valor getPeriodoFabricacion() {
+		return periodoFabricacion;
 	}
 
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
+	public void setPeriodoFabricacion(Valor periodoFabricacion) {
+		this.periodoFabricacion = periodoFabricacion;
+	}
+
+	public ModeloMarca getModeloMarca() {
+		return modeloMarca;
+	}
+
+	public void setModeloMarca(ModeloMarca modeloMarca) {
+		this.modeloMarca = modeloMarca;
 	}
 
 	@Override

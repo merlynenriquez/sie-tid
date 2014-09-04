@@ -81,7 +81,6 @@ public class PanelBuscarInmueble extends DirandroComponent {
 		
 		Inmueble v = new Inmueble();
 		v.setId(Long.parseLong("1"));
-		v.setCodigo("ABC0001");
 		v.setNroInscripcion("NI-80000");
 		v.setOficinaRegistral("OR-677777");
 		

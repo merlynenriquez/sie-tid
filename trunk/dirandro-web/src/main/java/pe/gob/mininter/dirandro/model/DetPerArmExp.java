@@ -39,43 +39,43 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 	@Column(name="CANTIDAD_MUNICION", precision=10)
 	private BigDecimal cantidadMunicion;
 
-	@Column(length=800)
+	@Column(length=4000)
 	private String observacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor1;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor2;
+	private Valor situacion;
 
 	//bi-directional many-to-one association to Arma
 	@ManyToOne
 	@JoinColumn(name="ARMA")
-	private Arma expArma;
+	private Arma arma;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
-	@JoinColumn(name="EMPRESA_PROPIETARIA")
-	private Empresa perEmpresa;
+	@JoinColumn(name="EMPRESA")
+	private Empresa empresaImplicada;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PROPIETARIO")
-	private Persona perPersona1;
+	private Persona propietario;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona perPersona2;
+	private Persona personaImplicada;
 
 	public DetPerArmExp() {
 	}
@@ -103,66 +103,65 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
-	}
-
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
-	}
-
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
-	}
-
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
-	}
-
-	public Arma getExpArma() {
-		return this.expArma;
-	}
-
-	public void setExpArma(Arma expArma) {
-		this.expArma = expArma;
-	}
-
-	public Expediente getExpExpediente() {
-		return this.expExpediente;
-	}
-
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
-	}
-
-	public Empresa getPerEmpresa() {
-		return this.perEmpresa;
-	}
-
-	public void setPerEmpresa(Empresa perEmpresa) {
-		this.perEmpresa = perEmpresa;
-	}
-
-	public Persona getPerPersona1() {
-		return this.perPersona1;
-	}
-
-	public void setPerPersona1(Persona perPersona1) {
-		this.perPersona1 = perPersona1;
-	}
-
-	public Persona getPerPersona2() {
-		return this.perPersona2;
-	}
-
-	public void setPerPersona2(Persona perPersona2) {
-		this.perPersona2 = perPersona2;
-	}
 	
+	public Valor getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Valor estado) {
+		this.estado = estado;
+	}
+
+	public Valor getSituacion() {
+		return situacion;
+	}
+
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
+	}
+
+	public Arma getArma() {
+		return arma;
+	}
+
+	public void setArma(Arma arma) {
+		this.arma = arma;
+	}
+
+	public Expediente getExpediente() {
+		return expediente;
+	}
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+	}
+
+	public Empresa getEmpresaImplicada() {
+		return empresaImplicada;
+	}
+
+	public void setEmpresaImplicada(Empresa empresaImplicada) {
+		this.empresaImplicada = empresaImplicada;
+	}
+
+	public Persona getPropietario() {
+		return propietario;
+	}
+
+	public void setPropietario(Persona propietario) {
+		this.propietario = propietario;
+	}
+
+	public Persona getPersonaImplicada() {
+		return personaImplicada;
+	}
+
+	public void setPersonaImplicada(Persona personaImplicada) {
+		this.personaImplicada = personaImplicada;
+	}
+
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
 		
 	}
 

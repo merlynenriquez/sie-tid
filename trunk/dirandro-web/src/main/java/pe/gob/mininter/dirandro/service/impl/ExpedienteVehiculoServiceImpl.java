@@ -52,12 +52,12 @@ public class ExpedienteVehiculoServiceImpl extends BaseServiceImpl<DetPerVehExp,
 	public void actualizar(DetPerVehExp object) {
 		//object.validar();
 		Busqueda filtro = Busqueda.forClass(DetPerVehExp.class);
-		filtro.add(Restrictions.eq("id", object.getExpVehiculo().getId()));
+		filtro.add(Restrictions.eq("id", object.getVehiculo().getId()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
 		if (expedienteVehiculoHibernate.buscar(filtro).size()>0) {
 			throw new ValidacionException(
 					Constante.CODIGO_MENSAJE.VALIDAR_VEHICULO_EXISTENTE,
-					new Object[] { object.getExpVehiculo().getPlaca() });
+					new Object[] { object.getVehiculo().getPlaca() });
 		}
 		expedienteVehiculoHibernate.actualizar(object);
 	}
