@@ -1,6 +1,5 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -235,7 +234,7 @@ public class PanelMantenTipoHecho extends DirandroComponent implements TextChang
 			item.getItemProperty("id").setValue(delito.getId());
 			item.getItemProperty("nombre").setValue(delito.getNombre());
 			item.getItemProperty("estado").setValue(delito.getEstado() == null ? null : delito.getEstado());
-			item.getItemProperty("estado.id").setValue(delito.getEstado() == null ? null: delito.getEstado());
+			item.getItemProperty("estado.id").setValue(delito.getEstado().getId() == null ? null: delito.getEstado().getId());
 			item.getItemProperty("padre").setValue(delito.getPadre() == null ? null : delito.getPadre());
 			item.getItemProperty("padre.id").setValue(delito.getPadre() == null ? null: delito.getPadre().getId());
 			
@@ -271,7 +270,7 @@ public class PanelMantenTipoHecho extends DirandroComponent implements TextChang
 		if(event.getButton().equals(btnAgregar)){
 			
 			tipoHecho.setNombre(txtNombre.getValue().toString());
-			//tipoHecho.setEstado(new BigDecimal( ((Valor)cmbEstado.getValue()).getId().toString() ));
+			tipoHecho.setEstado((Valor)cmbEstado.getValue());
 			tipoHecho.setPadre((TipoHecho)cmbDelitoPadre.getValue());
 			
 			if(flagNuevaEstado){
