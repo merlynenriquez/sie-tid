@@ -70,7 +70,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 	
 	private static final long serialVersionUID = -6874093584755981542L;
 	
-	private PlantillaVelocity plantillaVelocity;
+	//private PlantillaVelocity plantillaVelocity;
 	private List<DirandroWindow> ventanasAbiertas;
 	private HarecMenuItem harecMenuItemDefault;
 	private MenuItem mniUsuario;
@@ -78,7 +78,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 	private MenuItem mniCambiarClave;
 	
 	public PanelPrincipal() {
-		plantillaVelocity = Injector.obtenerServicio(PlantillaVelocity.class);
+		//plantillaVelocity = Injector.obtenerServicio(PlantillaVelocity.class);
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		lblTituloPanel.setValue("");
@@ -90,7 +90,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 		Usuario usuario = HarecUtil.obtenerUsuarioSesion();
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("usuario", usuario);
-		plantillaVelocity = new PlantillaVelocity();
+		PlantillaVelocity plantillaVelocity = new PlantillaVelocity();
 		String htmlData = plantillaVelocity.enviarFormato(hashmap, "toolUsuario.vm");	
 		mniUsuario = mnuPrincipal.addItem(usuario.getUsuario(), new ThemeResource("../runo/icons/16/user.png"), null);
 		mniCambiarClave = mniUsuario.addItem("Cambiar Clave", Constante.ICONOS.PASSWORD, this);

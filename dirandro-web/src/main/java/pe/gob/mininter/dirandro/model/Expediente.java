@@ -66,7 +66,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 
 	@Column(name="REFERENCIA_HECHO", length=300)
 	private String referenciaHecho;
-	
+
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_FINALIDAD")

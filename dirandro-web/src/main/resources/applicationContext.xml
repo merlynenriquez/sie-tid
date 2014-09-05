@@ -39,7 +39,7 @@
 	
 	<!-- bean class="pe.com.bbva.harec.util.MailUtil2" scope="prototype"/>
 	-->
-	<bean class="pe.gob.mininter.dirandro.util.PlantillaVelocity" scope="prototype"/> 
+<!-- 	<bean class="pe.gob.mininter.dirandro.util.PlantillaVelocity" scope="prototype"/> --> 
 	<!-- Configuracion del Log4J -->
 	<bean id="log4jInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod" value="org.springframework.util.Log4jConfigurer.initLogging" />

@@ -1,0 +1,2 @@
+# Module pe.gob.mininter.dirandro.vaadin.application.widgetset.Dirandro_webWidgetset
+# RPC service class, partial path of RPC policy file
