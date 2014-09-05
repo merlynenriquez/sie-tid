@@ -11,6 +11,8 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -22,7 +24,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-public class PanelRegistroParte extends DirandroComponent implements  ClickListener {
+public class PanelRegistroParte extends DirandroComponent implements ClickListener, SelectedTabChangeListener {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	
@@ -648,7 +650,19 @@ public class PanelRegistroParte extends DirandroComponent implements  ClickListe
 		btnArmDuenioBuscar.addListener((ClickListener)this);
 		
 		pnlRegistroParte.setExpediente(expediente);
+		pnlAgregarDocumento.setExpediente(expediente);
 		
+		tabSheet_1.addListener((SelectedTabChangeListener) this);
+		
+	}
+
+	@Override
+	public void selectedTabChange(SelectedTabChangeEvent event) {
+		//System.out.println(event.getTabSheet().getSelectedTab());	
+		if(pnlAgregarDocumento.equals(event.getTabSheet().getSelectedTab()))
+		{
+			pnlAgregarDocumento.cargarDocumentos();
+		}
 	}
 	
 	@Override

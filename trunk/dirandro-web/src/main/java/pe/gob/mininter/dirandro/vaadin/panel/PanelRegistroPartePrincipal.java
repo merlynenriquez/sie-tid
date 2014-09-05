@@ -6,13 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.tools.ant.taskdefs.Tstamp;
 
 import pe.gob.mininter.dirandro.model.CentroPoblado;
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Distrito;
-import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Entidad;
 import pe.gob.mininter.dirandro.model.Estado;
 import pe.gob.mininter.dirandro.model.Expediente;

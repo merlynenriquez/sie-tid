@@ -104,7 +104,7 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		adjuntoService.crear(adjunto);
 		
 		documento.setExpAdjunto(adjunto);
-		documento.setExpExpediente(expediente);
+		documento.setExpediente(expediente);
 		documento.setEsInicial("1");
 		documentoService.crear(documento);
 		

@@ -78,7 +78,7 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	private Expediente expediente;
 	
 	@Transient
 	private OutputStream osDocumento;
@@ -185,12 +185,12 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 		this.expAdjunto = expAdjunto;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expExpediente) {
+		this.expediente = expExpediente;
 	}
 
 	@Override
