@@ -8,6 +8,6 @@ import pe.gob.mininter.dirandro.model.Entidad;
 
 public interface EntidadService extends BaseService<Entidad, Long> {
 
-	List<Entidad> buscar(Entidad parametro);
+	List<Entidad> buscar(Entidad entidad);
 	
 }
