@@ -90,9 +90,10 @@ public abstract class Constante {
 			public final static String SUBMENU = "VEN";
 			public final static String ACCION = "ACC";
 
-			public final static String ENTIDAD = "ENTIDAD";
-			public final static String DEPENDENCIA = "DEPENDENCIA";
-			public final static String EQUIPO = "EQUIPO";
+			public final static String ENTIDAD = "ENTI";
+			public final static String DEPENDENCIA = "DEPE";
+			public final static String PERSONA = "PERS";
+			public final static String EMPRESA = "EMPR";
 
 			public final static String REGLA_TRANSICION = "TRAN";
 			public final static String REGLA_DERIVACION = "DERI";
@@ -138,9 +139,6 @@ public abstract class Constante {
 			public final static String TIP_GRP = "GRP";
 			
 			public final static String COMI = "COMI";
-			
-			/*public final static String ENTIDAD = "ENTIDAD";
-			public final static String DEPENDENCIA = "DEPENDENCIA";*/
 			
 		}
 
