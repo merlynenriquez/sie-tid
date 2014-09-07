@@ -624,6 +624,8 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		
 		pnlRegistroParte.setExpediente(expediente);
 		pnlAgregarDocumento.setExpediente(expediente);
+		pnlRegistroParte.setPnlAgregarDocumento(pnlAgregarDocumento);
+		pnlRegistroParte.setPanelRegistroParte(this);
 		
 		tabSheet_1.addListener((SelectedTabChangeListener) this);
 		
@@ -774,6 +776,10 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		//
 		
 		//
+	}
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
 	}
 	
 

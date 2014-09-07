@@ -6,5 +6,7 @@ import pe.gob.mininter.dirandro.model.Expediente;
 public interface ExpedienteService extends BaseService<Expediente,Long> {
 	
 	void registrarExpediente(Expediente expediente, Documento documento);
+	
+	void agregarDocumento(Expediente expediente, Documento documento);
 
 }
