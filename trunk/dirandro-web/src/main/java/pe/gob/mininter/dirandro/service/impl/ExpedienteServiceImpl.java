@@ -64,6 +64,14 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		String numeroParte = StringUtils.leftPad(String.valueOf(expediente.getId()), 10, "0");
 		expediente.setAutogenerado(numeroParte);		
 		
+		agregarDocumento(expediente, documento);
+		
+		actualizar(expediente);
+	}
+
+	@Override
+	@Transactional
+	public void agregarDocumento(Expediente expediente, Documento documento) {
 		Parametro pathDocumento = parametroService.obtener(Constante.PARAMETRO.PATH_DOCUMENTO);
 		
 		File archivo = new File(pathDocumento.getValor()+expediente.getAutogenerado()+File.separator+documento.getFilename());
@@ -105,10 +113,7 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		
 		documento.setExpAdjunto(adjunto);
 		documento.setExpediente(expediente);
-		documento.setEsInicial("1");
 		documentoService.crear(documento);
-		
-		actualizar(expediente);
 	}
 
 }

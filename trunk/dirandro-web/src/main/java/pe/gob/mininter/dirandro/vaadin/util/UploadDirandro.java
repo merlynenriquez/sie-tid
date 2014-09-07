@@ -86,6 +86,10 @@ public class UploadDirandro extends CustomComponent implements Receiver, ClickLi
 		setCargando(false);
 	}
 	
+	public void setHabilitar(boolean habilitar) {
+		upload.setEnabled(habilitar);
+	}
+	
 	@Override
 	public OutputStream receiveUpload(String filename, String mimeType) {
 		this.filename = filename;
@@ -93,8 +97,11 @@ public class UploadDirandro extends CustomComponent implements Receiver, ClickLi
 		outputStream = new ByteArrayOutputStream();
 		return outputStream;
 	}
-
-
+	
+	public void limpiar() {
+		lblEstado.setValue("");
+		outputStream = null;
+	}
 
 	@Override
 	public void uploadFinished(FinishedEvent event) {
