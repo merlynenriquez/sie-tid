@@ -67,8 +67,9 @@ public abstract class Constante {
 			public static final String TIPO_FUNCION = "TIPO_FUNCION";
 			public static final String COD_PROCESAL = "CODIGO_PROCESAL";
 			public static final String CENTRO_POBLADO_CATEGORIA = "CP_CATEGORIA";
+			public static final String CENTRO_POBLADO_ESTADO = "CP_ESTADO";
 			public static final String TIPO_CALIBRE = "TIPO_CALIBRE";
-			
+			public static final String TIPO_INSTALACION = "TP_INSTALACION";
 			
 			
 		}
