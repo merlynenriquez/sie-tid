@@ -1,0 +1,4 @@
+INSERT INTO SIETID.EXP_ORGANIZACION(ID,NOMBRE,DESCRIPCION,CAMPO,NRO_INTEGRANTES,ZONA_OPERACION,UBICACION_ACTIVOS,CREADOR,CREACION)
+VALUES(1,'Los Destructores','Delincuentes de gran peligrosidad','',5,'Lima Metropolitana','Lima Metropolitana',1,SYSDATE);
+
+commit;
