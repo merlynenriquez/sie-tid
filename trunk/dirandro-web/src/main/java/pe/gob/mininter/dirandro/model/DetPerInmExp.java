@@ -72,6 +72,10 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 		this.id = id;
 	}	
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	public BigDecimal getNumeroPisos() {
 		return this.numeroPisos;
 	}
