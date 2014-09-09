@@ -3,6 +3,7 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -32,22 +35,24 @@ public class Ruta extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -5835089998137979339L;
 
 	@Id
-	@SequenceGenerator(name="EXP_RUTA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_RUTA_ID_GENERATOR", sequenceName="SEQ_RUTA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_RUTA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
 	@Column(name="CODIGO_DESTINO", precision=16)
-	private BigDecimal codigoDestino;
+	private Long codigoDestino;
 
 	@Column(name="CODIGO_ORIGEN", precision=16)
-	private BigDecimal codigoOrigen;
+	private Long codigoOrigen;
 
 	@Column(name="FECHA_ENVIO")
-	private Timestamp fechaEnvio;
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date fechaEnvio;
 
 	@Column(name="FECHA_RECEPCION")
-	private Timestamp fechaRecepcion;
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date fechaRecepcion;
 
 	@Column(length=2000)
 	private String observacion;
@@ -70,12 +75,12 @@ public class Ruta extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Integrante
 	@ManyToOne
 	@JoinColumn(name="INTEGRANTE")
-	private Integrante orgIntegrante;
+	private Integrante integrante;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -98,35 +103,35 @@ public class Ruta extends AuditoriaBean implements Validador, Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getCodigoDestino() {
+	public Long getCodigoDestino() {
 		return codigoDestino;
 	}
 
-	public void setCodigoDestino(BigDecimal codigoDestino) {
+	public void setCodigoDestino(Long codigoDestino) {
 		this.codigoDestino = codigoDestino;
 	}
 
-	public BigDecimal getCodigoOrigen() {
+	public Long getCodigoOrigen() {
 		return codigoOrigen;
 	}
 
-	public void setCodigoOrigen(BigDecimal codigoOrigen) {
+	public void setCodigoOrigen(Long codigoOrigen) {
 		this.codigoOrigen = codigoOrigen;
 	}
 
-	public Timestamp getFechaEnvio() {
+	public Date getFechaEnvio() {
 		return fechaEnvio;
 	}
 
-	public void setFechaEnvio(Timestamp fechaEnvio) {
+	public void setFechaEnvio(Date fechaEnvio) {
 		this.fechaEnvio = fechaEnvio;
 	}
 
-	public Timestamp getFechaRecepcion() {
+	public Date getFechaRecepcion() {
 		return fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Timestamp fechaRecepcion) {
+	public void setFechaRecepcion(Date fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 
@@ -162,20 +167,20 @@ public class Ruta extends AuditoriaBean implements Validador, Serializable {
 		this.tablaDestino = tablaDestino;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expExpediente) {
+		this.expediente = expExpediente;
 	}
 
-	public Integrante getOrgIntegrante() {
-		return orgIntegrante;
+	public Integrante getIntegrante() {
+		return integrante;
 	}
 
-	public void setOrgIntegrante(Integrante orgIntegrante) {
-		this.orgIntegrante = orgIntegrante;
+	public void setIntegrante(Integrante orgIntegrante) {
+		this.integrante = orgIntegrante;
 	}
 
 	public Usuario getUsuarioOrigen() {
@@ -196,7 +201,7 @@ public class Ruta extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

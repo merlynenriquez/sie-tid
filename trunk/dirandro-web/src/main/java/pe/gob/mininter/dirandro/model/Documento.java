@@ -56,10 +56,6 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	@Column(name="NRO_DOCUMENTO", length=160)
 	private String nroDocumento;
 
-	//bi-directional many-to-one association to Anexo
-	@OneToMany(mappedBy="expDocumento")
-	private List<Anexo> expAnexos;
-
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PRIORIDAD")
@@ -73,7 +69,7 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Adjunto
 	@ManyToOne
 	@JoinColumn(name="ADJUNTO")
-	private Adjunto expAdjunto;
+	private Adjunto adjunto;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -153,14 +149,6 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 		this.nroDocumento = nroDocumento;
 	}
 
-	public List<Anexo> getExpAnexos() {
-		return expAnexos;
-	}
-
-	public void setExpAnexos(List<Anexo> expAnexos) {
-		this.expAnexos = expAnexos;
-	}
-
 	public Valor getPrioridad() {
 		return prioridad;
 	}
@@ -177,12 +165,12 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 		this.tipoDocumento = cfgValor2;
 	}
 
-	public Adjunto getExpAdjunto() {
-		return expAdjunto;
+	public Adjunto getAdjunto() {
+		return adjunto;
 	}
 
-	public void setExpAdjunto(Adjunto expAdjunto) {
-		this.expAdjunto = expAdjunto;
+	public void setAdjunto(Adjunto expAdjunto) {
+		this.adjunto = expAdjunto;
 	}
 
 	public Expediente getExpediente() {

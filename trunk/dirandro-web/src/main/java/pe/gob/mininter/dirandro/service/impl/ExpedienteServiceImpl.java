@@ -20,10 +20,12 @@ import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Parametro;
+import pe.gob.mininter.dirandro.model.Ruta;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ParametroService;
+import pe.gob.mininter.dirandro.service.RutaService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
 
@@ -47,6 +49,9 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 	@Autowired
 	private ValorService valorService;
 	
+	@Autowired
+	private RutaService rutaService;
+	
 	private ExpedienteHibernate expedienteHibernate;
 	
 	@Autowired
@@ -58,13 +63,15 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 
 	@Override
 	@Transactional
-	public void registrarExpediente(Expediente expediente, Documento documento) {
+	public void registrarExpediente(Expediente expediente, Documento documento, Ruta ruta) {
 		
 		crear(expediente);
 		String numeroParte = StringUtils.leftPad(String.valueOf(expediente.getId()), 10, "0");
 		expediente.setAutogenerado(numeroParte);		
 		
 		agregarDocumento(expediente, documento);
+		ruta.setExpediente(expediente);
+		rutaService.crear(ruta);
 		
 		actualizar(expediente);
 	}
@@ -111,7 +118,7 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		adjunto.setTipo(valorService.obtener(1l));//FIXME [MGLHPM] preguntar por el valor correspondiente.
 		adjuntoService.crear(adjunto);
 		
-		documento.setExpAdjunto(adjunto);
+		documento.setAdjunto(adjunto);
 		documento.setExpediente(expediente);
 		documentoService.crear(documento);
 	}

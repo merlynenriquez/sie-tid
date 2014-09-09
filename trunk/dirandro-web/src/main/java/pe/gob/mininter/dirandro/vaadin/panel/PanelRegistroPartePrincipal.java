@@ -15,6 +15,7 @@ import pe.gob.mininter.dirandro.model.Entidad;
 import pe.gob.mininter.dirandro.model.Estado;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Integrante;
+import pe.gob.mininter.dirandro.model.Ruta;
 import pe.gob.mininter.dirandro.model.TipoHecho;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.CentroPobladoService;
@@ -25,7 +26,9 @@ import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.IntegranteService;
 import pe.gob.mininter.dirandro.service.TipoHechoService;
 import pe.gob.mininter.dirandro.service.UbigeoService;
+import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -170,6 +173,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 	private DependenciaService dependenciaService;
 	private TipoHechoService tipoHechoService;
 	private ExpedienteService expedienteService;
+	private ValorService valorService;
 	
 	private Expediente expediente;
 	
@@ -199,8 +203,8 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		dependenciaService = Injector.obtenerServicio(DependenciaService.class);
 		tipoHechoService = Injector.obtenerServicio(TipoHechoService.class);
 		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
+		valorService = Injector.obtenerServicio(ValorService.class);
 		
-		//cmbTipoHecho.setCodigoLista(Constante.LISTA.CODIGO.TIPO_HECHO);
 		cmbFinalidad.setCodigoLista(Constante.LISTA.CODIGO.FINALIDAD);
 		cmbTipoDir.setCodigoLista(Constante.LISTA.CODIGO.DIRECCION_TIPO);
 		cmbCuenca.setCodigoLista(Constante.LISTA.CODIGO.CUENCA);
@@ -324,10 +328,26 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		
 		expediente = expedienteTemp;
 		
-		if(expediente.esNuevo()) {
+		if(expediente.esNuevo()) {				
+			
 			Documento documento = pnlDocumento.getDocumento();
-			documento.setEsInicial("1");
-			expedienteService.registrarExpediente(expediente, documento);
+			documento.setEsInicial("1");		
+			
+			Ruta ruta = new Ruta();
+			ruta.setTablaOrigen(pnlDocumento.getProcedencia());
+			ruta.setCodigoOrigen(pnlDocumento.getCodigoProcedencia());//Constante.VALOR.CODIGO.
+			ruta.setTablaDestino(valorService.obtenerValor(Constante.LISTA.CODIGO.TABLAS, Constante.VALOR.CODIGO.DEPENDENCIA));
+			ruta.setCodigoDestino(expediente.getDependencia().getId());
+			ruta.setIntegrante(expediente.getIntegrante());
+			ruta.setFechaEnvio(new Date());
+			ruta.setUsuarioOrigen(null);
+			ruta.setUsuarioRecepcion(HarecUtil.obtenerUsuarioSesion());
+			ruta.setFechaRecepcion(documento.getFechaRecepcion());
+			
+			expedienteService.registrarExpediente(expediente, documento, ruta);
+			
+			
+			
 			//String numeroParte = StringUtils.leftPad(String.valueOf(expediente.getId()), 10, "0");
 			//expediente.setAutogenerado(numeroParte);
 			
@@ -341,6 +361,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		
 		//expedienteService.actualizar(expediente);
 		//pnlAgregarDocumento.cargarDocumentos();
+		//cmbCentroPoblado.se
 		
 		pnlRegistroParte.setExpediente(expediente);
 		pnlAgregarDocumento.setExpediente(expediente);
@@ -356,10 +377,10 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 	private void cargarFormularioExpediente(Expediente expedienteTemp) {
 		
 		expedienteTemp.setNombreCaso((String)txtNombreDelCaso.getValue());
-		expedienteTemp.setExpTipoHecho((TipoHecho)cmbTipoHecho.getValue());
+		expedienteTemp.setTipoHecho((TipoHecho)cmbTipoHecho.getValue());
 		expedienteTemp.setDescripcion((String)txtDescripcion.getValue());
 		expedienteTemp.setAsunto((String)txtAsuntoExp.getValue());
-		expedienteTemp.setExpDependencia((Dependencia)cmbDependencia.getValue());
+		expedienteTemp.setDependencia((Dependencia)cmbDependencia.getValue());
 		expedienteTemp.setTipoFinalidad(cmbFinalidad.getValor());		
 		expedienteTemp.setFechaRegistro((Date)dfRegistroExp.getValue());
 		expedienteTemp.setDiasAtencion(new BigDecimal((String) txtDiasAtencionExp.getValue()));
@@ -369,9 +390,12 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		expedienteTemp.setDireccionHecho((String)txtDireccion.getValue());
 		expedienteTemp.setReferenciaHecho((String)txtReferencia.getValue());
 		expedienteTemp.setExpEntidad((Entidad)cmbJurisdiccion.getValue());
-		expedienteTemp.setExpCentroPoblado((CentroPoblado)cmbCentroPoblado.getValue());
+		expedienteTemp.setCentroPoblado((CentroPoblado)cmbCentroPoblado.getValue());
 		expedienteTemp.setCuenca(cmbCuenca.getValor());	
-		
+		expedienteTemp.setTablaInterviniente(cmbTablaEntidad.getValor());
+		if(cmbInterviniente.getValue() != null) {
+			expedienteTemp.setCodigoInterviniente(((Integrante)(cmbInterviniente.getValue())).getId());
+		}		
 	}
 
 	private void limpiar() {
