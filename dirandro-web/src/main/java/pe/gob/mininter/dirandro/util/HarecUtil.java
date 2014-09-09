@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -452,5 +453,21 @@ public abstract class HarecUtil {
         return hexString.toString();
     }
 
+	public static String nullToEmpty(Object valor){
+		try {
+			if(valor != null){
+
+				if(StringUtils.isEmpty(valor.toString())){
+					return StringUtils.EMPTY;
+				}
+				return valor.toString();	
+				
+			}else{
+				return StringUtils.EMPTY; 
+			}
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
+	}
 }
 
