@@ -45,13 +45,13 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	@Column(name="ES_LIDER", precision=22)
 	private BigDecimal esLider;
 
-	//bi-directional many-to-one association to Expediente
+	/*//bi-directional many-to-one association to Expediente
 	@OneToMany(mappedBy="orgIntegrante")
 	private List<Expediente> expExpedientes;
 
 	//bi-directional many-to-one association to Ruta
 	@OneToMany(mappedBy="orgIntegrante")
-	private List<Ruta> expRutas;
+	private List<Ruta> expRutas;*/
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -92,7 +92,7 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 		this.esLider = esLider;
 	}
 
-	public List<Expediente> getExpExpedientes() {
+	/*public List<Expediente> getExpExpedientes() {
 		return expExpedientes;
 	}
 
@@ -106,7 +106,7 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 
 	public void setExpRutas(List<Ruta> expRutas) {
 		this.expRutas = expRutas;
-	}
+	}*/
 
 	public Valor getFuncion() {
 		return funcion;

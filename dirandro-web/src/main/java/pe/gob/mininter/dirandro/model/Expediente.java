@@ -43,7 +43,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	private String autogenerado;
 
 	@Column(name="CODIGO_INTERVINIENTE", precision=16)
-	private BigDecimal codigoInterviniente;
+	private Long codigoInterviniente;
 
 	@Column(length=400)
 	private String descripcion;
@@ -90,12 +90,12 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to CentroPoblado
 	@ManyToOne
 	@JoinColumn(name="CENTRO_POBLADO")
-	private CentroPoblado expCentroPoblado;
+	private CentroPoblado centroPoblado;
 
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
 	@JoinColumn(name="DEPENDENCIA")
-	private Dependencia expDependencia;
+	private Dependencia dependencia;
 
 	//bi-directional many-to-one association to Entidad
 	@ManyToOne
@@ -105,22 +105,22 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Estado
 	@ManyToOne
 	@JoinColumn(name="ESTADO_EXP", nullable=false)
-	private Estado expEstado;
+	private Estado estado;	
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="PADRE")
-	private Expediente expExpediente;
+	private Expediente padre;
 
 	//bi-directional many-to-one association to TipoHecho
 	@ManyToOne
 	@JoinColumn(name="TIPO_HECHO")
-	private TipoHecho expTipoHecho;
+	private TipoHecho tipoHecho;
 
 	//bi-directional many-to-one association to Integrante
 	@ManyToOne
 	@JoinColumn(name="INTEGRANTE")
-	private Integrante orgIntegrante;
+	private Integrante integrante;
 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
@@ -159,11 +159,11 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		this.autogenerado = autogenerado;
 	}
 
-	public BigDecimal getCodigoInterviniente() {
+	public Long getCodigoInterviniente() {
 		return codigoInterviniente;
 	}
 
-	public void setCodigoInterviniente(BigDecimal codigoInterviniente) {
+	public void setCodigoInterviniente(Long codigoInterviniente) {
 		this.codigoInterviniente = codigoInterviniente;
 	}
 
@@ -255,20 +255,20 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		this.tipoDireccion = tipoDireccion;
 	}
 
-	public CentroPoblado getExpCentroPoblado() {
-		return expCentroPoblado;
+	public CentroPoblado getCentroPoblado() {
+		return centroPoblado;
 	}
 
-	public void setExpCentroPoblado(CentroPoblado expCentroPoblado) {
-		this.expCentroPoblado = expCentroPoblado;
+	public void setCentroPoblado(CentroPoblado expCentroPoblado) {
+		this.centroPoblado = expCentroPoblado;
 	}
 
-	public Dependencia getExpDependencia() {
-		return expDependencia;
+	public Dependencia getDependencia() {
+		return dependencia;
 	}
 
-	public void setExpDependencia(Dependencia expDependencia) {
-		this.expDependencia = expDependencia;
+	public void setDependencia(Dependencia expDependencia) {
+		this.dependencia = expDependencia;
 	}
 
 	public Entidad getExpEntidad() {
@@ -280,35 +280,35 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	}
 
 	public Estado getExpEstado() {
-		return expEstado;
+		return estado;
 	}
 
 	public void setExpEstado(Estado expEstado) {
-		this.expEstado = expEstado;
+		this.estado = expEstado;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Expediente getPadre() {
+		return padre;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setPadre(Expediente expExpediente) {
+		this.padre = expExpediente;
 	}
 
-	public TipoHecho getExpTipoHecho() {
-		return expTipoHecho;
+	public TipoHecho getTipoHecho() {
+		return tipoHecho;
 	}
 
-	public void setExpTipoHecho(TipoHecho expTipoHecho) {
-		this.expTipoHecho = expTipoHecho;
+	public void setTipoHecho(TipoHecho expTipoHecho) {
+		this.tipoHecho = expTipoHecho;
 	}
 
-	public Integrante getOrgIntegrante() {
-		return orgIntegrante;
+	public Integrante getIntegrante() {
+		return integrante;
 	}
 
-	public void setOrgIntegrante(Integrante orgIntegrante) {
-		this.orgIntegrante = orgIntegrante;
+	public void setIntegrante(Integrante orgIntegrante) {
+		this.integrante = orgIntegrante;
 	}
 
 	public Distrito getLugarHecho() {
