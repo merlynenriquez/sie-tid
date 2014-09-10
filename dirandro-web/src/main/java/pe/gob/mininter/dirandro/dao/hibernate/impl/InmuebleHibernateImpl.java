@@ -4,16 +4,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteInmuebleHibernate;
-import pe.gob.mininter.dirandro.model.DetPerInmExp;
+import pe.gob.mininter.dirandro.dao.hibernate.InmuebleHibernate;
+import pe.gob.mininter.dirandro.model.Inmueble;
 
 @Repository
-public class ExpedienteInmuebleHibernateImpl extends BaseHibernateImpl<DetPerInmExp, String> implements ExpedienteInmuebleHibernate {
+public class InmuebleHibernateImpl extends BaseHibernateImpl<Inmueble, String> implements InmuebleHibernate {
 	
 	private static final long serialVersionUID = 8452199044673307417L;
 
 	@Autowired
-	public ExpedienteInmuebleHibernateImpl(SessionFactory sessionFactory) {
+	public InmuebleHibernateImpl(SessionFactory sessionFactory) {
 		setSessionFactory(sessionFactory);
 	}
 }

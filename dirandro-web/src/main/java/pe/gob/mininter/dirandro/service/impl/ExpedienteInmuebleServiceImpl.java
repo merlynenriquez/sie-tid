@@ -2,27 +2,21 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import pe.gob.mininter.dirandro.dao.hibernate.EstadoHibernate;
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteInmuebleHibernate;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
-import pe.gob.mininter.dirandro.model.DetPerVehExp;
-import pe.gob.mininter.dirandro.model.Estado;
-import pe.gob.mininter.dirandro.model.Inmueble;
-import pe.gob.mininter.dirandro.service.EstadoService;
+import pe.gob.mininter.dirandro.model.DetPerInmExp;
 import pe.gob.mininter.dirandro.service.ExpedienteInmuebleService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
-public class ExpedienteInmuebleServiceImpl extends BaseServiceImpl<Inmueble, String> implements ExpedienteInmuebleService{
+public class ExpedienteInmuebleServiceImpl extends BaseServiceImpl<DetPerInmExp, String> implements ExpedienteInmuebleService{
 
 	private static final long serialVersionUID = 2565423206722461545L;
 	
@@ -34,34 +28,53 @@ public class ExpedienteInmuebleServiceImpl extends BaseServiceImpl<Inmueble, Str
 		this.expedienteInmuebleHibernate = expedienteInmuebleHibernate;
 	}
 	
-	
 	@Override
-	public List<Inmueble> buscar(Inmueble inmueble) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<DetPerInmExp> buscar(DetPerInmExp inmueble) {
+		Busqueda filtro = Busqueda.forClass(DetPerInmExp.class);
+		if(inmueble!=null)
+		{
+			if(inmueble.getExpediente()!=null){
+				filtro.createAlias("expediente", "e");
+				filtro.add(Restrictions.eq("e.id", inmueble.getExpediente().getId()));	
+			}
+			if(inmueble.getInmueble()!=null){
+				filtro.createAlias("inmueble", "i");
+				filtro.add(Restrictions.eq("i.id", inmueble.getInmueble().getId()));	
+			}
+		}
+		return expedienteInmuebleHibernate.buscar(filtro);
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void crear(Inmueble object) {		
-		if (object!=null) {
-			throw new ValidacionException("NO existe Registro",
-					//Constante.CODIGO_MENSAJE.VALIDAR_ESTADO_EXISTENTE,
-					new Object[] { "Inmueble" });		}
-		super.crear(object);
-		
+	public void crear(DetPerInmExp object) {
+		if (object==null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_INMUEBLE_EXISTENTE ,new Object[] { "Inmueble" });
+		}
+		object.validar();
+		Busqueda filtro = Busqueda.forClass(DetPerInmExp.class);
+		if(object.getExpediente()!=null){
+			filtro.createAlias("expediente", "e");
+			filtro.add(Restrictions.eq("e.id", object.getExpediente().getId()));	
+		}
+		if(object.getInmueble()!=null){
+			filtro.createAlias("inmueble", "i");
+			filtro.add(Restrictions.eq("i.id", object.getInmueble().getId()));	
+		}
+		if (expedienteInmuebleHibernate.buscar(filtro).size()>0) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_INMUEBLE_EXISTENTE,new Object[] { object.getId() });
+		}
+		expedienteInmuebleHibernate.crear(object);
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void actualizar(Inmueble object) {
-		//object.validar();
-		Busqueda filtro = Busqueda.forClass(Inmueble.class);
+	public void actualizar(DetPerInmExp object) {
+		object.validar();
+		Busqueda filtro = Busqueda.forClass(DetPerInmExp.class);
 		
 		if (expedienteInmuebleHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_INMUEBLE_EXISTENTE,
-					new Object[] { object.getNroInscripcion() });
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_INMUEBLE_EXISTENTE,new Object[] { object.getId() });
 		}
 		expedienteInmuebleHibernate.actualizar(object);
 	}
