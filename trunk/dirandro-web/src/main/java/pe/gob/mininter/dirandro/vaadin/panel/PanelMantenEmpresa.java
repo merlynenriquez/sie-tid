@@ -287,7 +287,6 @@ public class PanelMantenEmpresa extends DirandroComponent implements TextChangeL
 	}
 	
 	private void registrarEmpresa(){
-		Usuario usuario = HarecUtil.obtenerUsuarioSesion();
 		empresa =  new Empresa();
 		
 		empresa.setRazonSocial(txtRazonSocial.getValue().toString());
@@ -297,29 +296,18 @@ public class PanelMantenEmpresa extends DirandroComponent implements TextChangeL
 		empresa.setPerPersona((Persona)cmbRepresentante.getValue());
 		empresa.setTelefono(txtTelefono.getValue().toString());
 		empresa.setEstado((Valor)cmbEstado.getValue());
-				
-		empresa.setCreador(usuario);
-		empresa.setCreacion(new Date());
 		empresaService.crear(empresa);
 		
 	}
 	
 	private void actualizaEmpresa(){
-		Usuario usuario = HarecUtil.obtenerUsuarioSesion();
-		
+		//TODO: Corregir
 		empresa.setRazonSocial(txtRazonSocial.getValue().toString());
 		empresa.setDireccion(txtDireccion.getValue().toString());
 		empresa.setPartidaRegistral(txtPartida.getValue().toString());
 		empresa.setPerPersona((Persona)cmbRepresentante.getValue());
 		empresa.setTelefono(txtTelefono.getValue().toString());
 		empresa.setEstado((Valor)cmbEstado.getValue());
-		
-		empresa.setEditor(usuario);
-		empresa.setEdicion(new Date());
-		
-		empresa.setCreador(usuario);
-		empresa.setCreacion(new Date());
-		
 		empresaService.actualizar(empresa);
 		
 	}

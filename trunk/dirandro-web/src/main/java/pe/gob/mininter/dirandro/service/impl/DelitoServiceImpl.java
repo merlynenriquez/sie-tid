@@ -22,9 +22,6 @@ import pe.gob.mininter.dirandro.util.HarecUtil;
 @Service
 public class DelitoServiceImpl extends BaseServiceImpl<Delito, Long> implements DelitoService {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6536710495404108065L;
 
 	private DelitoHibernate delitoHibernate;
@@ -180,11 +177,20 @@ public class DelitoServiceImpl extends BaseServiceImpl<Delito, Long> implements 
 		filtro.add(Restrictions.isNull("padre"));
 		List<Delito> delitos = delitoHibernate.buscar(filtro);
 		return delitos;
-	}
+	}	
 
 	@Override
-	public List<Delito> buscarResultadoDelitos() {
-		return null;
+	public Delito buscarPadre(Delito delito) {
+		
+		if (delito.getPadre() != null) {
+			logger.debug("test");
+			if(delito.getPadre().getId() != null){
+				logger.debug("test2");
+				delito = delitoHibernate.obtener(delito.getPadre().getId());
+			}
+		}
+		System.out.println(delito.getNombre());
+		return delito;
 	}
 
 }

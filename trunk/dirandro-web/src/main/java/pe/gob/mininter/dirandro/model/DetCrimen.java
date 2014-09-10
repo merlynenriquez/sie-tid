@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,7 +27,7 @@ public class DetCrimen extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = -6704151480718740744L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_CRIMEN_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DET_CRIMEN_ID_GENERATOR", sequenceName="SEQ_CRIMEN", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_CRIMEN_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -37,21 +35,17 @@ public class DetCrimen extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PRIORIDAD")
-	private Valor cfgValor;
+	private Valor prioridad;
 
 	//bi-directional many-to-one association to DetExpedientePersona
 	@ManyToOne
 	@JoinColumn(name="EXP_PER")
-	private DetExpedientePersona expDetExpedientePersona;
+	private DetExpedientePersona expedientePersona;
 
 	//bi-directional many-to-one association to ExpedienteDelito
 	@ManyToOne
 	@JoinColumn(name="EXP_DEL")
-	private ExpedienteDelito expExpedienteDelito;
-
-	//bi-directional many-to-one association to ExpedienteMediosMovil
-	@OneToMany(mappedBy="expDetCrimen")
-	private List<ExpedienteMediosMovil> expExpedienteMediosMovils;
+	private ExpedienteDelito expedienteDelito;
 
 	public DetCrimen() {
 	}
@@ -64,50 +58,28 @@ public class DetCrimen extends AuditoriaBean implements Validador, Serializable 
 		this.id = id;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
+	public Valor getPrioridad() {
+		return prioridad;
 	}
 
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
+	public void setPrioridad(Valor prioridad) {
+		this.prioridad = prioridad;
 	}
 
-	public DetExpedientePersona getExpDetExpedientePersona() {
-		return this.expDetExpedientePersona;
+	public DetExpedientePersona getExpedientePersona() {
+		return expedientePersona;
 	}
 
-	public void setExpDetExpedientePersona(DetExpedientePersona expDetExpedientePersona) {
-		this.expDetExpedientePersona = expDetExpedientePersona;
+	public void setExpedientePersona(DetExpedientePersona expedientePersona) {
+		this.expedientePersona = expedientePersona;
 	}
 
-	public ExpedienteDelito getExpExpedienteDelito() {
-		return this.expExpedienteDelito;
+	public ExpedienteDelito getExpedienteDelito() {
+		return expedienteDelito;
 	}
 
-	public void setExpExpedienteDelito(ExpedienteDelito expExpedienteDelito) {
-		this.expExpedienteDelito = expExpedienteDelito;
-	}
-
-	public List<ExpedienteMediosMovil> getExpExpedienteMediosMovils() {
-		return this.expExpedienteMediosMovils;
-	}
-
-	public void setExpExpedienteMediosMovils(List<ExpedienteMediosMovil> expExpedienteMediosMovils) {
-		this.expExpedienteMediosMovils = expExpedienteMediosMovils;
-	}
-
-	public ExpedienteMediosMovil addExpExpedienteMediosMovil(ExpedienteMediosMovil expExpedienteMediosMovil) {
-		getExpExpedienteMediosMovils().add(expExpedienteMediosMovil);
-		expExpedienteMediosMovil.setExpDetCrimen(this);
-
-		return expExpedienteMediosMovil;
-	}
-
-	public ExpedienteMediosMovil removeExpExpedienteMediosMovil(ExpedienteMediosMovil expExpedienteMediosMovil) {
-		getExpExpedienteMediosMovils().remove(expExpedienteMediosMovil);
-		expExpedienteMediosMovil.setExpDetCrimen(null);
-
-		return expExpedienteMediosMovil;
+	public void setExpedienteDelito(ExpedienteDelito expedienteDelito) {
+		this.expedienteDelito = expedienteDelito;
 	}
 
 	@Override
