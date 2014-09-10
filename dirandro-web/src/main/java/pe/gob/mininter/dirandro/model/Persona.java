@@ -222,6 +222,6 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	
 	public String getNombreCompleto(){
 		return this.nombres + " " + this.apePaterno + " " + this.apeMaterno;
-	 }
+	}
 
 }

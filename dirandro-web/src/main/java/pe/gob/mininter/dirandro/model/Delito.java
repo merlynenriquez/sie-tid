@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -103,6 +106,23 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 	public void setCodigoProcesal(Valor codigoProcesal) {
 		this.codigoProcesal = codigoProcesal;
 	}
+	
+	/*@Override
+	public int hashCode() {
+		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(3, 7);
+		hashCodeBuilder.append(id);
+		return hashCodeBuilder.toHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj instanceof Valor) {
+			Delito bean = (Delito) obj;
+			equals = (new EqualsBuilder().append(id, bean.id)).isEquals();
+		}
+		return equals;
+	}*/
 
 	@Override
 	public void validar() {

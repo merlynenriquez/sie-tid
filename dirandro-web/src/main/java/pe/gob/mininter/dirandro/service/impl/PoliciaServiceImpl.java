@@ -22,12 +22,12 @@ public class PoliciaServiceImpl extends BaseServiceImpl<Policia, Long> implement
 	 */
 	private static final long serialVersionUID = 2697106645391028183L;
 	
-	private PoliciaHibernate PoliciaHibernate;
+	private PoliciaHibernate policiaHibernate;
 	
 	@Autowired
-	public PoliciaServiceImpl(PoliciaHibernate PoliciaHibernate) {
-		super(PoliciaHibernate);
-		this.PoliciaHibernate = PoliciaHibernate;
+	public PoliciaServiceImpl(PoliciaHibernate policiaHibernate) {
+		super(policiaHibernate);
+		this.policiaHibernate = policiaHibernate;
 	}
 	
 	@Override
@@ -56,11 +56,11 @@ public class PoliciaServiceImpl extends BaseServiceImpl<Policia, Long> implement
 					Constante.CODIGO_MENSAJE.VALIDAR_Policia_EXISTENTE,
 					new Object[] { object.getNombres() });
 		}*/
-		PoliciaHibernate.actualizar(object);
+		policiaHibernate.actualizar(object);
 	}
 
 	public Policia obtener(Long id){		
-		return PoliciaHibernate.obtener(id);
+		return policiaHibernate.obtener(id);
 	}
 
 	@Override
@@ -90,6 +90,6 @@ public class PoliciaServiceImpl extends BaseServiceImpl<Policia, Long> implement
 				filtro.add(Restrictions.ilike("cip", Policia.getCip(), MatchMode.ANYWHERE));				
 			}
 		}
-		return PoliciaHibernate.buscar(filtro);		
+		return policiaHibernate.buscar(filtro);		
 	}
 }

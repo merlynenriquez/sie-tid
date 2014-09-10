@@ -21,5 +21,6 @@ public interface DelitoService extends BaseService<Delito, Long> {
 	
 	public List<Delito> buscarPadres();
 	
-	public List<Delito> buscarResultadoDelitos();
+	public Delito buscarPadre(Delito delito);
+	
 }

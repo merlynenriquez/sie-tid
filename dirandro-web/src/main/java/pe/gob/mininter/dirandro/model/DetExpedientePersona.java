@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,9 +26,6 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="EXP_DET_EXPEDIENTE_PERSONA")
 public class DetExpedientePersona extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3388910551739102700L;
 
 	@Id
@@ -39,7 +34,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(name="\"ALIAS\"", length=400)
+	@Column(name="ALIAS", length=400)
 	private String alias;
 
 	@Column(name="ESTADO_DATO", precision=16)
@@ -56,14 +51,6 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	@Column(name="TIPO_PARTICIPACION", precision=16)
 	private BigDecimal tipoParticipacion;
 
-	//bi-directional many-to-one association to AbogadoPersona
-	@OneToMany(mappedBy="expDetExpedientePersona")
-	private List<AbogadoPersona> expAbogadoPersonas;
-
-	//bi-directional many-to-one association to DetCrimen
-	@OneToMany(mappedBy="expDetExpedientePersona")
-	private List<DetCrimen> expDetCrimens;
-
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
@@ -77,23 +64,23 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Organizacion
 	@ManyToOne
 	@JoinColumn(name="ORGANIZACION")
-	private Organizacion expOrganizacion;
+	private Organizacion organizacion;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
 	@JoinColumn(name="EMPRESA")
-	private Empresa perEmpresa;
+	private Empresa empresaInvolucrada;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="INVOLUCRADO")
-	private Persona perPersona;
-
+	private Persona involucrado;
+	
 	public DetExpedientePersona() {
 	}
 
@@ -152,23 +139,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	public void setTipoParticipacion(BigDecimal tipoParticipacion) {
 		this.tipoParticipacion = tipoParticipacion;
 	}
-
-	public List<AbogadoPersona> getExpAbogadoPersonas() {
-		return expAbogadoPersonas;
-	}
-
-	public void setExpAbogadoPersonas(List<AbogadoPersona> expAbogadoPersonas) {
-		this.expAbogadoPersonas = expAbogadoPersonas;
-	}
-
-	public List<DetCrimen> getExpDetCrimens() {
-		return expDetCrimens;
-	}
-
-	public void setExpDetCrimens(List<DetCrimen> expDetCrimens) {
-		this.expDetCrimens = expDetCrimens;
-	}
-
+	
 	public Valor getSituacion() {
 		return situacion;
 	}
@@ -185,36 +156,40 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 		this.participacion = participacion;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
 	}
 
-	public Organizacion getExpOrganizacion() {
-		return expOrganizacion;
+	public Organizacion getOrganizacion() {
+		return organizacion;
 	}
 
-	public void setExpOrganizacion(Organizacion expOrganizacion) {
-		this.expOrganizacion = expOrganizacion;
+	public void setOrganizacion(Organizacion organizacion) {
+		this.organizacion = organizacion;
 	}
 
-	public Empresa getPerEmpresa() {
-		return perEmpresa;
+	public Empresa getEmpresaInvolucrada() {
+		return empresaInvolucrada;
 	}
 
-	public void setPerEmpresa(Empresa perEmpresa) {
-		this.perEmpresa = perEmpresa;
+	public void setEmpresaInvolucrada(Empresa empresaInvolucrada) {
+		this.empresaInvolucrada = empresaInvolucrada;
 	}
 
-	public Persona getPerPersona() {
-		return perPersona;
+	public Persona getInvolucrado() {
+		return involucrado;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setInvolucrado(Persona involucrado) {
+		this.involucrado = involucrado;
+	}
+	
+	public String getNombreCompleto(){
+		return involucrado.getNombreCompleto();
 	}
 
 	@Override

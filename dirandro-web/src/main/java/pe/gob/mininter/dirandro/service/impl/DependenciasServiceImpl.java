@@ -76,11 +76,8 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 				filtro.add(Restrictions.ilike("nombre",dependencia.getNombre(),MatchMode.ANYWHERE));
 			}	
 			if (dependencia.getPadre() != null) {
-				//if(dependencia.isValidador()){
-				logger.debug("llegaste al padre");
-					filtro.createAlias("padre", "pa");
-					filtro.add(Restrictions.eq("pa.id", dependencia.getPadre().getId()));
-				//}
+				filtro.createAlias("padre", "pa");
+				filtro.add(Restrictions.eq("pa.id", dependencia.getPadre().getId()));
 			}
 			if( dependencia.getEstado()!=null ){
 				filtro.createAlias("estado", "e");
@@ -157,7 +154,7 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 	}
 	
 	
-	
+	//TODO: Borrar ya esta en la generica
 	@Override
 	public Dependencia buscarDependencia(Long id){
 		Dependencia dependencia = new Dependencia();
