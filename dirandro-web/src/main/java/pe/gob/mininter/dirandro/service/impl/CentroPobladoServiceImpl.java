@@ -40,12 +40,6 @@ public class CentroPobladoServiceImpl extends BaseServiceImpl<CentroPoblado, Lon
 	}
 
 	@Override
-	public List<CentroPoblado> listarCentroPoblado() {
-		Busqueda filtro = Busqueda.forClass(CentroPoblado.class);
-		return centroPobladoHibernate.buscar(filtro);
-	}
-
-	@Override
 	public List<CentroPoblado> buscar(CentroPoblado centroPoblado) {
 		Busqueda filtro = Busqueda.forClass(CentroPoblado.class);
 		

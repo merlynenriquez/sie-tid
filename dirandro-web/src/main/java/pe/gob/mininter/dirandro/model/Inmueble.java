@@ -189,6 +189,22 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 		this.ubgDistrito = ubgDistrito;
 	}
 
+	public Double getValorBien() {
+		return valorBien;
+	}
+
+	public void setValorBien(Double valorBien) {
+		this.valorBien = valorBien;
+	}
+
+	public Double getValorTerreno() {
+		return valorTerreno;
+	}
+
+	public void setValorTerreno(Double valorTerreno) {
+		this.valorTerreno = valorTerreno;
+	}
+
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub
