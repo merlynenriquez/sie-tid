@@ -307,7 +307,11 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelConfigListaValores(acciones, "-1px"), "top");
 			}
-			
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_BAN_PP)){
+				lblTituloPanel.setValue("<h2>Bandeja de Parte Policial</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBandejaTrabajo(acciones, "-1px"), "top");
+			}
 			/**
 			 * Menu de Reportes
 			 */

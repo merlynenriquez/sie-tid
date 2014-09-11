@@ -8,26 +8,35 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteHibernate;
 import pe.gob.mininter.dirandro.model.Adjunto;
+import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Ruta;
+import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ParametroService;
 import pe.gob.mininter.dirandro.service.RutaService;
 import pe.gob.mininter.dirandro.service.ValorService;
+import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
+import pe.gob.mininter.dirandro.vaadin.util.TablaFiltro;
 
 @Service
 public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> implements ExpedienteService {
@@ -122,5 +131,40 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		documento.setExpediente(expediente);
 		documentoService.crear(documento);
 	}
+
+	@Override
+	public List<Expediente> obtenerBandejaDeTrabajo(FormBandejaTrabajo form) {
+		
+		Busqueda filtro = Busqueda.forClass(Expediente.class);
+		addILikeRestrictions(filtro, "autogenerado", form.getAutogenerado());
+		addILikeRestrictions(filtro, "nombreCaso", form.getCaso());
+		
+		addILikeRestrictions(filtro, "tipoHecho", "th", "nombre", form.getTipoHecho());
+		
+		addILikeRestrictions(filtro, "dependencia", "d", "nombre", form.getDependencia());
+		
+		addILikeRestrictions(filtro, "tipoFinalidad", "tf", "nombre", form.getTipoFinalidad());
+		
+		if(StringUtils.isNotEmpty(form.getIntegrante())) {
+			
+			filtro.createAlias("integrante", "i");
+			filtro.createAlias("i.usuario", "u");
+						
+			filtro.add(Restrictions.or(
+					Restrictions.ilike("u.nombres", StringUtils.trimToEmpty(form.getIntegrante()), MatchMode.ANYWHERE),
+					Restrictions.ilike("u.apePat", StringUtils.trimToEmpty(form.getIntegrante()), MatchMode.ANYWHERE),
+					Restrictions.ilike("u.apeMat", StringUtils.trimToEmpty(form.getIntegrante()), MatchMode.ANYWHERE)
+					));
+		}
+		
+		addBetweenGeLeRestrictions(filtro, "fechaRegistro", form.getFechaRegInicio(), form.getFechaRegFinal());
+		addBetweenGeLeRestrictions(filtro, "diasAtencion", form.getDiasInicio(), form.getDiasFinal());	
+		
+		addILikeRestrictions(filtro, "lugarHecho", "lh", "nombre", form.getLugarHecho());
+		
+		addILikeRestrictions(filtro, "jurisdiccion", "j", "nombre", form.getJurisdiccion());
+				
+		return expedienteHibernate.buscar(filtro);
+	}	
 
 }

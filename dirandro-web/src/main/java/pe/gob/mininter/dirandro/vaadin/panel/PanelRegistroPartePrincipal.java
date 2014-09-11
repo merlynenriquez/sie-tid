@@ -389,7 +389,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		expedienteTemp.setTipoDireccion(cmbTipoDir.getValor());
 		expedienteTemp.setDireccionHecho((String)txtDireccion.getValue());
 		expedienteTemp.setReferenciaHecho((String)txtReferencia.getValue());
-		expedienteTemp.setExpEntidad((Entidad)cmbJurisdiccion.getValue());
+		expedienteTemp.setJurisdiccion((Entidad)cmbJurisdiccion.getValue());
 		expedienteTemp.setCentroPoblado((CentroPoblado)cmbCentroPoblado.getValue());
 		expedienteTemp.setCuenca(cmbCuenca.getValor());	
 		expedienteTemp.setTablaInterviniente(cmbTablaEntidad.getValor());

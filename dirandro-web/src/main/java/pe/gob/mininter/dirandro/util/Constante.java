@@ -270,6 +270,8 @@ public abstract class Constante {
 		
 		// Menu Nro 6 (Configuracion)
 		public final static String CODIGO_RPT_ATESTADO = "RPT_ATESTADO";
+
+		public static final String CODIGO_EXP_BAN_PP = "EXP_BAN_PP";
 		
 		// Opciones de Acciones de los Botones
 		public static abstract class ACCION {
