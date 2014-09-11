@@ -274,7 +274,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 
 	private void cmbCentroPobladoCargar(){
 		
-		List<CentroPoblado> centroPoblados = centroPobladoService.listarCentroPoblado();
+		List<CentroPoblado> centroPoblados = centroPobladoService.buscar(new  CentroPoblado());
 		
 		BeanItemContainer<CentroPoblado> containerCentroPoblado = new BeanItemContainer<CentroPoblado>(CentroPoblado.class,  centroPoblados);
 		cmbCentroPoblado.setContainerDataSource(containerCentroPoblado);

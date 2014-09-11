@@ -456,7 +456,7 @@ public abstract class HarecUtil {
 	public static String nullToEmpty(Object valor){
 		try {
 			if(valor != null){
-
+				//if(valor instanceof String)
 				if(StringUtils.isEmpty(valor.toString())){
 					return StringUtils.EMPTY;
 				}
