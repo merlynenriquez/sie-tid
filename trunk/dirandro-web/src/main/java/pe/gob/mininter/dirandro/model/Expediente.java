@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -100,7 +101,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	//bi-directional many-to-one association to Entidad
 	@ManyToOne
 	@JoinColumn(name="JURISDICCION_HECHO")
-	private Entidad expEntidad;
+	private Entidad jurisdiccion;
 
 	//bi-directional many-to-one association to Estado
 	@ManyToOne
@@ -271,12 +272,12 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		this.dependencia = expDependencia;
 	}
 
-	public Entidad getExpEntidad() {
-		return expEntidad;
+	public Entidad getJurisdiccion() {
+		return jurisdiccion;
 	}
 
-	public void setExpEntidad(Entidad expEntidad) {
-		this.expEntidad = expEntidad;
+	public void setJurisdiccion(Entidad expEntidad) {
+		this.jurisdiccion = expEntidad;
 	}
 
 	public Estado getExpEstado() {
