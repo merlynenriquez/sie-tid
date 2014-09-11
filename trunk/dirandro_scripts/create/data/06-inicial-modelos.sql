@@ -734,8 +734,8 @@ insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (
 insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (731,'Cabstar', 190,65, 1,SYSDATE);
 insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (732,'Maxima', 190,65, 1,SYSDATE);
 insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (733,'Camion', 190,65, 1,SYSDATE);
-insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (190,'Prairie', 190,65, 1,SYSDATE);
-insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (191,'Bluebird', 190,65, 1,SYSDATE);
+insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (734,'Prairie', 190,65, 1,SYSDATE);
+insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (735,'Bluebird', 190,65, 1,SYSDATE);
 insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (736,'Np300 Pick Up', 190,65, 1,SYSDATE);
 insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (737,'Qashqai2', 190,65, 1,SYSDATE);
 insert into MNT_MODELO_MARCA (id, nombre, tipo,padre,creador, creacion) values (738,'Pixo', 190,65, 1,SYSDATE);
