@@ -39,26 +39,17 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 	public List<ModeloMarca> buscar(ModeloMarca modeloMarca) {
 		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);		 
 		if (modeloMarca!=null){
-			if(modeloMarca.getNombre()!= null || modeloMarca.getTipo()!=null  ){
-				if(modeloMarca.getNombre()!= null){
-					filtro.add(Restrictions.ilike("nombre",modeloMarca.getNombre(),MatchMode.ANYWHERE));
-				}				
-				if(modeloMarca.getTipo()!=null ){
-					filtro.createAlias("tipo", "ti");
-					if(modeloMarca.getTipo().getId()!=null){
-						filtro.add(Restrictions.eq("ti.id", modeloMarca.getTipo().getId()));
-						if (modeloMarca.getPadre() != null && modeloMarca.getPadre().getId()  != null) {
-							filtro.createAlias("padre", "pa");				
-							filtro.add(Restrictions.eq("pa.id", modeloMarca.getPadre().getId()));
-						}else{				
-							filtro.add(Restrictions.isNull("padre"));
-						}
-					}
-					if(modeloMarca.getTipo().getNombre()!=null){
-						filtro.add(Restrictions.ilike("ti.nombre", modeloMarca.getTipo().getNombre(), MatchMode.ANYWHERE));
-					}
-				}						
-			}		
+			if(modeloMarca.getNombre()!= null ){
+				filtro.add(Restrictions.ilike("nombre",modeloMarca.getNombre(),MatchMode.ANYWHERE));
+			}
+			if (modeloMarca.getPadre() != null) {
+				if( modeloMarca.getPadre().getId()  != null){
+					filtro.createAlias("padre", "pa");				
+					filtro.add(Restrictions.eq("pa.id", modeloMarca.getPadre().getId()));
+				}
+			}else{
+				filtro.add(Restrictions.isNull("padre"));
+			}
 		}
 		filtro.addOrder(Order.asc("id"));
 		filtro.addOrder(Order.asc("padre"));
@@ -69,22 +60,15 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 	public List<ModeloMarca> buscarPorTipo(ModeloMarca modeloMarca,Valor valor) {
 		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);		
 		if (modeloMarca!=null){			
-			if(modeloMarca.getNombre()!= null || modeloMarca.getTipo()!=null  ){				
-				if(modeloMarca.getTipo()!=null ){					
-					filtro.createAlias("tipo", "ti");					
-					if(modeloMarca.getTipo().getId()!=null || modeloMarca.getTipo().getCodigo()!=null){
-						//filtro.add(Restrictions.eq("ti.id", modeloMarca.getTipo().getId()));
-						if (modeloMarca.getPadre() != null && modeloMarca.getPadre().getId()  != null) {
-							filtro.createAlias("padre", "pa");			
-							filtro.add(Restrictions.eq("pa.id", modeloMarca.getPadre().getId()));
-						}else{				
-							filtro.add(Restrictions.isNull("padre"));
-						}
-						if(modeloMarca.getTipo().getCodigo()!=null){							
-							filtro.add(Restrictions.eq("ti.codigo",modeloMarca.getTipo().getCodigo()));
-						}
-					}
-				}						
+			if(modeloMarca.getNombre()!= null ){
+				
+				if (modeloMarca.getPadre() != null && modeloMarca.getPadre().getId()  != null) {
+					filtro.createAlias("padre", "pa");			
+					filtro.add(Restrictions.eq("pa.id", modeloMarca.getPadre().getId()));
+				}else{				
+					filtro.add(Restrictions.isNull("padre"));
+				}
+								
 			}		
 		}		
 		filtro.addOrder(Order.asc("id"));
@@ -114,14 +98,14 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 		marcaHijo = new ModeloMarca();
 		marcaHijo.setPadre(modeloMarca);
 		
-		lstmodeMarcas = buscar(modeloMarca);		
+		lstmodeMarcas = buscar(modeloMarca);
 		Map<String, ModeloMarca> map = new HashMap<String, ModeloMarca>();
 		
 		for (ModeloMarca beanModelo : lstmodeMarcas) {			
 			map.put(beanModelo.getId().toString(), beanModelo);
 			if (beanModelo.getPadre() != null) {				
 				if (beanModelo.getPadre().getId() != null) {					
-					if(map.get( beanModelo.getPadre().getId().toString() ) == null){												
+					if(map.get( beanModelo.getPadre().getId().toString() ) == null){
 						getPadreRecursivo(beanModelo.getPadre().getId(), map);
 					}
 				}
@@ -155,9 +139,7 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 	public void crear(ModeloMarca object) {		
 		object.validar();
 		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);
-		filtro.createAlias("tipo", "ti");
 		filtro.add(Restrictions.eq("nombre", object.getNombre()));		
-		filtro.add(Restrictions.eq("ti.id",object.getTipo().getId()));		
 		if (modeloMarcaHibernate.buscar(filtro).size()>0) {			 
 			throw new ValidacionException(
 					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
@@ -171,10 +153,8 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 	public void actualizar(ModeloMarca object) {
 		object.validar();
 		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);
-		filtro.createAlias("tipo", "ti");
 		filtro.add(Restrictions.eq("nombre", object.getNombre()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));		
-		filtro.add(Restrictions.eq("ti.id",object.getTipo().getId()));
 		if (modeloMarcaHibernate.buscar(filtro).size()>0) {
 			throw new ValidacionException(
 					Constante.CODIGO_MENSAJE.VALIDAR_ENTIDAD_EXISTENTE,
@@ -194,22 +174,15 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 	public List<ModeloMarca> buscarPadres(ModeloMarca modeloMarca,Valor valor) {
 		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);		
 		if (modeloMarca!=null){			
-			if(modeloMarca.getNombre()!= null || modeloMarca.getTipo()!=null  ){				
-				if(modeloMarca.getTipo()!=null ){					
-					filtro.createAlias("tipo", "ti");					
-					if(modeloMarca.getTipo().getId()!=null || modeloMarca.getTipo().getCodigo()!=null){
+			if(modeloMarca.getNombre()!= null ){				
 
-						if (modeloMarca.getPadre() != null && modeloMarca.getPadre().getId()  != null) {
-							filtro.createAlias("padre", "pa");			
-							filtro.add(Restrictions.eq("pa.id", modeloMarca.getPadre().getId()));
-						}else{				
-							filtro.add(Restrictions.isNull("padre"));
-						}
-						if(modeloMarca.getTipo().getCodigo()!=null){
-							filtro.add(Restrictions.eq("ti.codigo",modeloMarca.getTipo().getCodigo()));
-						}
-					}
-				}						
+				if (modeloMarca.getPadre() != null && modeloMarca.getPadre().getId()  != null) {
+					filtro.createAlias("padre", "pa");			
+					filtro.add(Restrictions.eq("pa.id", modeloMarca.getPadre().getId()));
+				}else{				
+					filtro.add(Restrictions.isNull("padre"));
+				}
+										
 			}		
 		}		
 		filtro.addOrder(Order.asc("id"));
@@ -217,18 +190,6 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 		return modeloMarcaHibernate.buscar(filtro);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	@Override
 	public List<ModeloMarca> buscarHijos(ModeloMarca modelo) {
 	Busqueda filtro = Busqueda.forClass(ModeloMarca.class);

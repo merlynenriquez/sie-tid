@@ -229,7 +229,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelMantenPais(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_MODELO)){
-				lblTituloPanel.setValue("<h2>Mantenimiento de Marcas y Modelos</h2>");
+				lblTituloPanel.setValue("<h2>Mantenimiento de Genericos</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelAdminModeloMarca(acciones, "-1px"), "top");
 			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ESPECIE)){

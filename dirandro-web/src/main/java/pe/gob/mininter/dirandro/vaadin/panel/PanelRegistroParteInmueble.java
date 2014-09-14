@@ -139,6 +139,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		txtInmUrbanizacion.setEnabled(false);
 		txtInmUbicacion.setEnabled(false);
 		
+		cmbInmSituacion.setInputPrompt("Situacion");
 		cmbInmSituacion.setCodigoLista(Constante.LISTA.CODIGO.INMUEBLE_SITUACION);
 		
 		cmbInmInmueble.setImmediate(true);
