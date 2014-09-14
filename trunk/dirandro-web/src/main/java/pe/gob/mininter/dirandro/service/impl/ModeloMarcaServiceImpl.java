@@ -116,18 +116,13 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 	}	
 	
 	public ModeloMarca getPadreRecursivo( Long idPadre , Map<String, ModeloMarca> map ){
-		ModeloMarca modeloMarca = buscarModeloMarca(idPadre);
+		ModeloMarca modeloMarca = modeloMarcaHibernate.obtener(idPadre);
 		map.put(modeloMarca.getId().toString(), modeloMarca);		
 		if( modeloMarca.getPadre()!=null && modeloMarca.getPadre().getId()!=null ){			
 			return getPadreRecursivo(modeloMarca.getPadre().getId(), map);
 		}else{
 			return modeloMarca;
 		}			
-	}	
-
-	@Override
-	public ModeloMarca buscarModeloMarca(Long id) {
-		return modeloMarcaHibernate.obtener(id);
 	}
 
 	@Override

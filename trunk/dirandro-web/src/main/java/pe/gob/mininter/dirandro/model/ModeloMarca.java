@@ -46,6 +46,10 @@ public class ModeloMarca extends AuditoriaBean implements Validador, Serializabl
 	public ModeloMarca() {
 	}
 	
+	public ModeloMarca(Long id) {
+		this.id = id;
+	}
+	
 	public ModeloMarca(ModeloMarca padre) {
 		this.padre = padre;
 	}

@@ -24,17 +24,14 @@ import pe.gob.mininter.dirandro.util.HarecUtil;
 @Service
 public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> implements TipoEspecieService {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2601419480887715709L;
 	
-	private TipoEspecieHibernate TipoEspecieHibernate;
+	private TipoEspecieHibernate tipoEspecieHibernate;
 
 	@Autowired
-	public TipoEspecieServiceImpl(TipoEspecieHibernate TipoEspecieHibernate) {
-		super(TipoEspecieHibernate);
-		this.TipoEspecieHibernate = TipoEspecieHibernate;
+	public TipoEspecieServiceImpl(TipoEspecieHibernate tipoEspecieHibernate) {
+		super(tipoEspecieHibernate);
+		this.tipoEspecieHibernate = tipoEspecieHibernate;
 	}
 
 
@@ -55,13 +52,13 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_BUCLE_PADRE, new Object[] { tipoEspecie.getNombre() });
 			}
 		}
-		TipoEspecieHibernate.actualizar(tipoEspecie);
+		tipoEspecieHibernate.actualizar(tipoEspecie);
 	}
 	
 	@Override
 	public List<TipoEspecie> listarTipoEspecie() {
 		Busqueda filtro = Busqueda.forClass(TipoEspecie.class);		
-		return TipoEspecieHibernate.buscar(filtro);
+		return tipoEspecieHibernate.buscar(filtro);
 	}	
 
 	@Override
@@ -71,7 +68,7 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 		filtro.addOrder(Order.asc("id"));
 		filtro.addOrder(Order.asc("padre"));
 		
-		List<TipoEspecie> tipos = TipoEspecieHibernate.buscar(filtro);
+		List<TipoEspecie> tipos = tipoEspecieHibernate.buscar(filtro);
 		return HarecUtil.ordenarTipoEspecie(tipos);
 	}
 
@@ -107,8 +104,8 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 		return values;
 	}
 
-	public TipoEspecie getPAdreRecursivo( Long idPAdre , Map<String, TipoEspecie> map ){
-		TipoEspecie testDelito = buscarTipoEspecie( idPAdre );
+	public TipoEspecie getPAdreRecursivo( Long idPadre , Map<String, TipoEspecie> map ){
+		TipoEspecie testDelito = tipoEspecieHibernate.obtener(idPadre);
 		map.put(testDelito.getId().toString(), testDelito);
 		if( testDelito.getPadre()!=null && testDelito.getPadre().getId()!=null ){
 			return getPAdreRecursivo(testDelito.getPadre().getId(), map);
@@ -118,36 +115,43 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 	}
 	
 	@Override
-	public List<TipoEspecie> buscar(TipoEspecie delito) {
+	public List<TipoEspecie> buscar(TipoEspecie tipoEspecie) {
 		Busqueda filtro = Busqueda.forClass(TipoEspecie.class);
 		filtro.setFirstResult(0);
 		filtro.setMaxResults(100);
-		if (delito!=null){
-			if (delito.getId() != null) {
-				filtro.add(Restrictions.eq("id", delito.getId()));
-			}
-			if(delito.getNombre()!= null){
-				filtro.add(Restrictions.ilike("nombre",delito.getNombre(),MatchMode.ANYWHERE));
+		if (tipoEspecie!=null){
+			if(tipoEspecie.getNombre()!= null){
+				filtro.add(Restrictions.ilike("nombre",tipoEspecie.getNombre(),MatchMode.ANYWHERE));
 			}	
-			if (delito.getPadre() != null && delito.getPadre().getId()  != null) {
+			if (tipoEspecie.getPadre() != null && tipoEspecie.getPadre().getId()  != null) {
 				filtro.createAlias("padre", "pa");
-				filtro.add(Restrictions.eq("pa.id", delito.getPadre().getId()));
-			}
-			if (delito.getPadre() != null) {
-				filtro.add(Restrictions.eq("padre", delito.getPadre()));
+				filtro.add(Restrictions.eq("pa.id", tipoEspecie.getPadre().getId()));
 			}
 		}
 		filtro.addOrder(Order.asc("id"));
 		filtro.addOrder(Order.asc("padre"));
-		return TipoEspecieHibernate.buscar(filtro);
-	}
-
-	@Override
-	public TipoEspecie buscarTipoEspecie(Long id){
-		TipoEspecie delito = new TipoEspecie();
-		delito.setId(id);
-		List<TipoEspecie> lstDelitos = buscar(delito);
-		return lstDelitos.get(0);
+		return tipoEspecieHibernate.buscar(filtro);
 	}	
+	
+	@Override
+	public List<TipoEspecie> buscarPadres() {
+		Busqueda filtro = Busqueda.forClass(TipoEspecie.class);
+		filtro.add(Restrictions.isNull("padre"));
+		List<TipoEspecie> padres = tipoEspecieHibernate.buscar(filtro);
+		return padres;
+	}
+	
+	@Override
+	public List<TipoEspecie> buscarHijos(TipoEspecie tipoEspecie) {
+		Busqueda filtro = Busqueda.forClass(TipoEspecie.class);
+		
+		if (tipoEspecie!=null){
+			if (tipoEspecie.getId() != null) {
+				filtro.add(Restrictions.eq("padre.id", tipoEspecie.getId()));
+			}
+		}
+		
+		return tipoEspecieHibernate.buscar(filtro);
+	}
 
 }

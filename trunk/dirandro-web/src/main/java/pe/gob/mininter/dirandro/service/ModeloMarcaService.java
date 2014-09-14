@@ -20,8 +20,6 @@ public interface ModeloMarcaService extends BaseService<ModeloMarca,Long>{
 	
 	public List<ModeloMarca> buscarPadreHijos(ModeloMarca modeloMarca);
 	
-	public ModeloMarca buscarModeloMarca(Long id);
-	
 	public List<ModeloMarca> buscarPadres(ModeloMarca modeloMarca,Valor valor);
 	
 	public List<ModeloMarca> buscarHijos(ModeloMarca modelo);
