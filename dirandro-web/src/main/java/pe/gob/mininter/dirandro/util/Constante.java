@@ -72,7 +72,6 @@ public abstract class Constante {
 			public static final String TIPO_INSTALACION = "TP_INSTALACION";
 			public static final String INMUEBLE_SITUACION = "INM_SITUACION";
 			public static final String PRIORIDAD_DELITO = "PRIORIDAD_DEL";
-			public static final String TIPO_MUNICION = "TIPO_MUNICION";
 		}
 	}
 
@@ -146,6 +145,22 @@ public abstract class Constante {
 
 	}
 
+	public static abstract class MODELO_MARCA{
+		
+		public static class MEDIDA{
+			public final static Long COD_MEDIDA = 3L;
+		}
+		
+		public static class TRANSPORTE{
+			public final static Long AUTO = 8l;
+			public final static Long MOTOCICLETA = 9l;
+		}
+		
+		public static class MUNICIONES{
+			public final static Long AUTO = 5l;
+		}
+	}
+	
 	public static abstract class PARAMETRO {
 		
 		public final static String ESTADO_LOV = "LOV_ESTADO";

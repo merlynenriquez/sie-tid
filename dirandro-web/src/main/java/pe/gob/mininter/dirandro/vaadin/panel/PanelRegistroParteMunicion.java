@@ -124,7 +124,7 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 		//TODO BASE DE DATOS borrar tipo de medida o cambivarlo para que apunte a la tabla de Modelo Marca
 		
 		cmbMuniTipo.setInputPrompt("Tipo Municion");
-		cmbMuniTipo.setCodigoLista(Constante.LISTA.CODIGO.TIPO_MUNICION);
+		//cmbMuniTipo.setCodigoLista(Constante.LISTA.CODIGO.TIPO_MUNICION);
 		//cmbMuniTipoMedida.setInputPrompt("Tipo Medida");
 		//cmbMuniTipoMedida.setCodigoLista(Constante.LISTA.CODIGO.tipome);
 		cmbMuniEstado.setInputPrompt("Estado");
