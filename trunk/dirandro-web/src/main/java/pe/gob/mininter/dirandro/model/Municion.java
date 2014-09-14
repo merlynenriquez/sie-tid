@@ -28,7 +28,7 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 5539914583114696827L;
 
 	@Id
-	@SequenceGenerator(name="EXP_MUNICIONES_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_MUNICIONES_ID_GENERATOR", sequenceName="SEQ_MUNICION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_MUNICIONES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -36,8 +36,8 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	@Column(length=500)
 	private String descripcion;
 
-	@Column(name="EMPRESA_PROPIETARIA", precision=16)
-	private BigDecimal empresaPropietaria;
+	//@Column(name="EMPRESA_PROPIETARIA", precision=16)
+//	private BigDecimal empresaPropietaria;
 
 	@Column(precision=10, scale=4)
 	private BigDecimal medida;
@@ -112,13 +112,13 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public BigDecimal getEmpresaPropietaria() {
-		return empresaPropietaria;
-	}
+//	public BigDecimal getEmpresaPropietaria() {
+//		return empresaPropietaria;
+//	}
 
-	public void setEmpresaPropietaria(BigDecimal empresaPropietaria) {
-		this.empresaPropietaria = empresaPropietaria;
-	}
+//	public void setEmpresaPropietaria(BigDecimal empresaPropietaria) {
+//		this.empresaPropietaria = empresaPropietaria;
+//	}
 
 	public BigDecimal getMedida() {
 		return medida;

@@ -72,6 +72,7 @@ public abstract class Constante {
 			public static final String TIPO_INSTALACION = "TP_INSTALACION";
 			public static final String INMUEBLE_SITUACION = "INM_SITUACION";
 			public static final String PRIORIDAD_DELITO = "PRIORIDAD_DEL";
+			public static final String TIPO_MUNICION = "TIPO_MUNICION";
 		}
 	}
 

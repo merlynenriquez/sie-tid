@@ -37,18 +37,17 @@ public class ModeloMarca extends AuditoriaBean implements Validador, Serializabl
 
 	@Column(length=200)
 	private String nombre;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="TIPO")
-	private Valor tipo;
-
+	
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="PADRE")
 	private ModeloMarca padre;
 
 	public ModeloMarca() {
+	}
+	
+	public ModeloMarca(ModeloMarca padre) {
+		this.padre = padre;
 	}
 
 	public Long getId() {
@@ -65,14 +64,6 @@ public class ModeloMarca extends AuditoriaBean implements Validador, Serializabl
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Valor getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Valor tipo) {
-		this.tipo = tipo;
 	}
 
 	public ModeloMarca getPadre() {
