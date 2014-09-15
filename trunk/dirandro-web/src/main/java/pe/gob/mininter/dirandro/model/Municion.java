@@ -50,11 +50,6 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor tipoMedida;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
 	@JoinColumn(name="TIPO")
 	private Valor tipo;
 
@@ -134,14 +129,6 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
-	}
-
-	public Valor getTipoMedida() {
-		return tipoMedida;
-	}
-
-	public void setTipoMedida(Valor tipoMedida) {
-		this.tipoMedida = tipoMedida;
 	}
 
 	public Valor getTipo() {

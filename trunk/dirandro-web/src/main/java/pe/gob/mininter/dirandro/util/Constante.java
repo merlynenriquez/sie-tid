@@ -70,7 +70,7 @@ public abstract class Constante {
 			public static final String CENTRO_POBLADO_ESTADO = "CP_ESTADO";
 			public static final String TIPO_CALIBRE = "TIPO_CALIBRE";
 			public static final String TIPO_INSTALACION = "TP_INSTALACION";
-			public static final String INMUEBLE_SITUACION = "INM_SITUACION";
+			public static final String SITUACION_GENERAL = "SITUACION_GRL";
 			public static final String PRIORIDAD_DELITO = "PRIORIDAD_DEL";
 		}
 	}
