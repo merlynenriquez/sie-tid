@@ -132,7 +132,7 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 		cmbCalibre.setInputPrompt("Calibre");
 		cmbCalibre.setCodigoLista(Constante.LISTA.CODIGO.TIPO_CALIBRE);
 		cmbMuniSituacion.setInputPrompt("Situacion");
-		cmbMuniSituacion.setCodigoLista(Constante.LISTA.CODIGO.INMUEBLE_SITUACION);
+		cmbMuniSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 		
 		tblMuniLista.setSelectable(true);
 		tblMuniLista.setImmediate(true);
@@ -239,8 +239,8 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 			item.getItemProperty("tipo.nombre").setValue(HarecUtil.nullToEmpty(municion.getTipo().getNombre()));
 			item.getItemProperty("marca.id").setValue(HarecUtil.nullToEmpty(municion.getMarca().getId()));
 			item.getItemProperty("marca.nombre").setValue(HarecUtil.nullToEmpty(municion.getMarca().getNombre()));
-			item.getItemProperty("tipoMedida.id").setValue(HarecUtil.nullToEmpty(municion.getTipoMedida().getId()));
-			item.getItemProperty("tipoMedida.nombre").setValue(HarecUtil.nullToEmpty(municion.getTipoMedida().getNombre()));
+			//item.getItemProperty("tipoMedida.id").setValue(HarecUtil.nullToEmpty(municion.getTipoMedida().getId()));
+			//item.getItemProperty("tipoMedida.nombre").setValue(HarecUtil.nullToEmpty(municion.getTipoMedida().getNombre()));
 			item.getItemProperty("situacion.id").setValue(HarecUtil.nullToEmpty(municion.getSituacion().getId()));
 			item.getItemProperty("situacion.nombre").setValue(HarecUtil.nullToEmpty(municion.getSituacion().getNombre()));
 			item.getItemProperty("estado.id").setValue(HarecUtil.nullToEmpty(municion.getEstado().getId()));
@@ -308,7 +308,7 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 			municion.setEstado(cmbMuniEstado.getValor());
 			municion.setSituacion(cmbMuniSituacion.getValor());
 			municion.setTipo(cmbMuniTipo.getValor());
-			municion.setTipoMedida(cmbMuniTipoMedida.getValor());
+		//	municion.setTipoMedida(cmbMuniTipoMedida.getValor());
 			municionService.crear(municion);
 			
 			AlertDialog alertDialog = new  AlertDialog("Registro de Inmueble", "Se ha registrado el inmueble correctamente", "Aceptar", "400");

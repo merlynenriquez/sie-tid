@@ -143,7 +143,7 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 		cmbTipoInstalacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INSTALACION);
 		
 		cmbSituacion.setInputPrompt("Situacion");
-		cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.INMUEBLE_SITUACION);
+		cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 		
 		lOrganizaciones = organizacionService.listarOrganizaciones();
 		cmbOrganizacion.setInputPrompt("Organizaciones Delictivas");
