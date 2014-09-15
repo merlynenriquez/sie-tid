@@ -1,7 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     04/09/2014 11:15:33 a.m.                     */
+/* Created on:     9/14/2014 7:24:59 PM                         */
 /*==============================================================*/
+
 
 alter table SIETID.CFG_LISTA
    drop constraint FK_CGF_LISTA_CREADOR;
@@ -358,10 +359,10 @@ alter table SIETID.EXP_DROGAS
    drop constraint FK_EXP_DROGAS_TIPO_DROGA;
 
 alter table SIETID.EXP_DROGAS
-   drop constraint FK_EXP_DROGAS_TMEDIDA_MUESTRA;
+   drop constraint FK_EXP_DROGA_TIPO_MEDIDA;
 
 alter table SIETID.EXP_DROGAS
-   drop constraint FK_EXP_DROGA_TIPO_MEDIDA;
+   drop constraint FK_EXP_DROGA_TIPO_MUESTRA;
 
 alter table SIETID.EXP_ENTIDAD
    drop constraint FK_CFG_ENTIDAD_CREADOR;
@@ -385,13 +386,13 @@ alter table SIETID.EXP_ESPECIE
    drop constraint FK_EXP_ESPECIE_EDITOR;
 
 alter table SIETID.EXP_ESPECIE
+   drop constraint FK_EXP_ESPECIE_MEDIDA;
+
+alter table SIETID.EXP_ESPECIE
    drop constraint FK_EXP_ESPECIE_SITUACION;
 
 alter table SIETID.EXP_ESPECIE
    drop constraint FK_EXP_ESPECIE_TIPO_ESP;
-
-alter table SIETID.EXP_ESPECIE
-   drop constraint FK_EXP_ESPECIE_TIPO_MEDIDA;
 
 alter table SIETID.EXP_ESPECIE
    drop constraint FK_EXP_ESPE_ESTADO;
@@ -481,6 +482,9 @@ alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPLOSIVOS_PERSONA;
 
 alter table SIETID.EXP_EXPLOSIVOS
+   drop constraint FK_EXP_EXPLOSIVOS_TIPO_MEDIDA;
+
+alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPLOSIVO_EMPRESA;
 
 alter table SIETID.EXP_EXPLOSIVOS
@@ -503,9 +507,6 @@ alter table SIETID.EXP_EXPLOSIVOS
 
 alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPL_EDITOR;
-
-alter table SIETID.EXP_EXPLOSIVOS
-   drop constraint FK_EXP_EXPL_TIPO_MEDIDA;
 
 alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTES_CREADOR;
@@ -586,6 +587,9 @@ alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNICION_SITUACION;
 
 alter table SIETID.EXP_MUNICIONES
+   drop constraint FK_EXP_MUNION_TIPO_MEDIDA;
+
+alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_CREADOR;
 
 alter table SIETID.EXP_MUNICIONES
@@ -599,9 +603,6 @@ alter table SIETID.EXP_MUNICIONES
 
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_TIPO;
-
-alter table SIETID.EXP_MUNICIONES
-   drop constraint FK_EXP_MUNI_TIPO_MEDIDA;
 
 alter table SIETID.EXP_ORGANIZACION
    drop constraint FK_EXP_BANDAS_CREADOR;
@@ -724,10 +725,10 @@ alter table SIETID.HR_HOJAREMISION
    drop constraint FK_HR_HOJAR_TIPO_HR;
 
 alter table HR_HOJAREMISION_MUESTRA
-   drop constraint FK_HR_DROGA_MUESTRA;
+   drop constraint FK_HOJA_REMISION_TIPO_MEDIDA;
 
 alter table HR_HOJAREMISION_MUESTRA
-   drop constraint FK_HR_HOJAREM_UNIDMEDIDA;
+   drop constraint FK_HR_DROGA_MUESTRA;
 
 alter table HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_HOJAR_ESPECIE;

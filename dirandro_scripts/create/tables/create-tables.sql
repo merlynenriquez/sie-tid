@@ -1,7 +1,4 @@
 /*==============================================================*/
-/* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     04/09/2014 11:15:33 a.m.                     */
-/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -1089,10 +1086,6 @@ comment on column SIETID.EXP_ESPECIE.TIPO_ESPECIE is
 'Id del tipo de especie el cual define el tipo/familia: "electrodomésticos, ropa, víveres, etc"
 ';
 
-comment on column SIETID.EXP_ESPECIE.TIPO_MEDIDA is
-'Id del valor de la unidad de medida de la especie (kg, ml, unidad)
-';
-
 comment on column SIETID.EXP_ESPECIE.MEDIDA is
 'Valor de la medida de la especie en base al tipo de medida establecido
 
@@ -1356,9 +1349,6 @@ comment on column SIETID.EXP_EXPLOSIVOS.OBSERVACION is
 
 ';
 
-comment on column SIETID.EXP_EXPLOSIVOS.TIPO_MEDIDA is
-'cartuchos, kg, unidades';
-
 comment on column SIETID.EXP_EXPLOSIVOS.MEDIDA is
 'valor del explosivo incautado en base a su tipo de medida';
 
@@ -1615,10 +1605,6 @@ comment on column SIETID.EXP_MUNICIONES.MARCA is
 
 comment on column SIETID.EXP_MUNICIONES.OBSERVACION is
 'Activo o Inactivo
-';
-
-comment on column SIETID.EXP_MUNICIONES.TIPO_MEDIDA is
-'Tipo de medida de la munición (unidades, caserinas, rafagas)
 ';
 
 comment on column SIETID.EXP_MUNICIONES.MEDIDA is
@@ -1976,7 +1962,7 @@ create table HR_HOJAREMISION_MUESTRA
    ESPECIE              NUMBER(16),
    DROGAS               NUMBER(16),
    DESCRIPCION          NVARCHAR2(200),
-   UNIDAD_MEDIDA        NUMBER(16),
+   TIPO_MEDIDA          NUMBER(16),
    CAN_PESO_BRUTO       NUMBER(10,2),
    CAN_PESO_NETO        NUMBER(10,2),
    CAN_PESO_ANALISIS    NUMBER(10,2),
@@ -3047,7 +3033,7 @@ alter table SIETID.UBG_DEPARTAMENTO
 create table SIETID.UBG_DISTRITO 
 (
    ID                   NUMBER(16)           not null,
-   PROVINCIA            NUMBER(16),
+   PROVINCIA            NUMBER(16)           not null,
    NOMBRE               NVARCHAR2(50)        not null,
    ESTADO               NUMBER(16),
    CODIGO_HOST          NVARCHAR2(7),
@@ -3551,12 +3537,12 @@ alter table SIETID.EXP_DROGAS
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DROGAS
-   add constraint FK_EXP_DROGAS_TMEDIDA_MUESTRA foreign key (TIPO_MEDIDA_MUESTRA)
-      references SIETID.CFG_VALOR (ID);
+   add constraint FK_EXP_DROGA_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
+      references SIETID.MNT_MODELO_MARCA (ID);
 
 alter table SIETID.EXP_DROGAS
-   add constraint FK_EXP_DROGA_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
-      references SIETID.CFG_VALOR (ID);
+   add constraint FK_EXP_DROGA_TIPO_MUESTRA foreign key (TIPO_MEDIDA_MUESTRA)
+      references SIETID.MNT_MODELO_MARCA (ID);
 
 alter table SIETID.EXP_ENTIDAD
    add constraint FK_CFG_ENTIDAD_CREADOR foreign key (CREADOR)
@@ -3587,16 +3573,16 @@ alter table SIETID.EXP_ESPECIE
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_ESPECIE
+   add constraint FK_EXP_ESPECIE_MEDIDA foreign key (TIPO_MEDIDA)
+      references SIETID.MNT_MODELO_MARCA (ID);
+
+alter table SIETID.EXP_ESPECIE
    add constraint FK_EXP_ESPECIE_SITUACION foreign key (SITUACION)
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ESPECIE
    add constraint FK_EXP_ESPECIE_TIPO_ESP foreign key (TIPO_ESPECIE)
       references SIETID.MNT_TIPO_ESPECIE (ID);
-
-alter table SIETID.EXP_ESPECIE
-   add constraint FK_EXP_ESPECIE_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
-      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ESPECIE
    add constraint FK_EXP_ESPE_ESTADO foreign key (ESTADO)
@@ -3715,6 +3701,10 @@ alter table SIETID.EXP_EXPLOSIVOS
       references SIETID.PER_PERSONA (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
+   add constraint FK_EXP_EXPLOSIVOS_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
+      references SIETID.MNT_MODELO_MARCA (ID);
+
+alter table SIETID.EXP_EXPLOSIVOS
    add constraint FK_EXP_EXPLOSIVO_EMPRESA foreign key (EMPRESA)
       references SIETID.PER_EMPRESA (ID);
 
@@ -3745,10 +3735,6 @@ alter table SIETID.EXP_EXPLOSIVOS
 alter table SIETID.EXP_EXPLOSIVOS
    add constraint FK_EXP_EXPL_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
-
-alter table SIETID.EXP_EXPLOSIVOS
-   add constraint FK_EXP_EXPL_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
-      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_IMPORTES
    add constraint FK_EXP_IMPORTES_CREADOR foreign key (CREADOR)
@@ -3855,6 +3841,10 @@ alter table SIETID.EXP_MUNICIONES
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_MUNICIONES
+   add constraint FK_EXP_MUNION_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
+      references SIETID.MNT_MODELO_MARCA (ID);
+
+alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
@@ -3872,10 +3862,6 @@ alter table SIETID.EXP_MUNICIONES
 
 alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_TIPO foreign key (TIPO)
-      references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.EXP_MUNICIONES
-   add constraint FK_EXP_MUNI_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ORGANIZACION
@@ -4039,12 +4025,12 @@ alter table SIETID.HR_HOJAREMISION
       references SIETID.CFG_VALOR (ID);
 
 alter table HR_HOJAREMISION_MUESTRA
-   add constraint FK_HR_DROGA_MUESTRA foreign key (DROGAS)
-      references SIETID.EXP_DROGAS (ID);
+   add constraint FK_HOJA_REMISION_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
+      references SIETID.CFG_VALOR (ID);
 
 alter table HR_HOJAREMISION_MUESTRA
-   add constraint FK_HR_HOJAREM_UNIDMEDIDA foreign key (UNIDAD_MEDIDA)
-      references SIETID.CFG_VALOR (ID);
+   add constraint FK_HR_DROGA_MUESTRA foreign key (DROGAS)
+      references SIETID.EXP_DROGAS (ID);
 
 alter table HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_HOJAR_ESPECIE foreign key (ESPECIE)
@@ -4561,4 +4547,3 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-
