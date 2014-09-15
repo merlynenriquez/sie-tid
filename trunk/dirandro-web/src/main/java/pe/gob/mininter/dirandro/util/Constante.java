@@ -158,6 +158,7 @@ public abstract class Constante {
 		
 		public static class MUNICIONES{
 			public final static Long AUTO = 5l;
+			public final static Long PRESENTACIONES = 4004l;
 		}
 	}
 	

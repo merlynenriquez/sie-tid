@@ -88,6 +88,11 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	@JoinColumn(name="SITUACION")
 	private Valor situacion;
 
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca tipoMedida;
+	
 	public Municion() {
 	}
 
@@ -107,13 +112,13 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 		this.descripcion = descripcion;
 	}
 
-//	public BigDecimal getEmpresaPropietaria() {
-//		return empresaPropietaria;
-//	}
+	public ModeloMarca getTipoMedida() {
+		return tipoMedida;
+	}
 
-//	public void setEmpresaPropietaria(BigDecimal empresaPropietaria) {
-//		this.empresaPropietaria = empresaPropietaria;
-//	}
+	public void setTipoMedida(ModeloMarca tipoMedida) {
+		this.tipoMedida = tipoMedida;
+	}
 
 	public BigDecimal getMedida() {
 		return medida;
