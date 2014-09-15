@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -30,13 +34,16 @@ public class Especie extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -5910148998744477152L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ESPECIE_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_ESPECIE_ID_GENERATOR", sequenceName="SEQ_EXP_ESPECIE", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ESPECIE_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
 	@Column(precision=10, scale=4)
 	private Double medida;
+	
+	@Column(precision=10, scale=4)
+	private Integer cantidad;
 
 	@Column(length=400)
 	private String nombre;
@@ -52,7 +59,7 @@ public class Especie extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor tipoMedida;
+	private ModeloMarca tipoMedida;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -104,14 +111,6 @@ public class Especie extends AuditoriaBean implements Validador, Serializable {
 		this.estado = estado;
 	}
 
-	public Valor getTipoMedida() {
-		return tipoMedida;
-	}
-
-	public void setTipoMedida(Valor tipoMedida) {
-		this.tipoMedida = tipoMedida;
-	}
-
 	public Valor getSituacion() {
 		return situacion;
 	}
@@ -144,10 +143,31 @@ public class Especie extends AuditoriaBean implements Validador, Serializable {
 		this.tipoEspecie = tipoEspecie;
 	}
 
+	public ModeloMarca getTipoMedida() {
+		return tipoMedida;
+	}
+
+	public void setTipoMedida(ModeloMarca tipoMedida) {
+		this.tipoMedida = tipoMedida;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		if (tipoEspecie == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Especie" });
+		}
 		
+		if (StringUtils.isBlank(nombre)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Descripción de la Especie" });
+		}
 	}
  
 }

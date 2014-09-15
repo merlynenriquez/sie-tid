@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteEspecieHibernate;
 import pe.gob.mininter.dirandro.model.Especie;
 import pe.gob.mininter.dirandro.service.ExpedienteEspecieService;
+import pe.gob.mininter.dirandro.util.Busqueda;
 
 @Service
 public class ExpedienteEspecieServiceImpl extends BaseServiceImpl<Especie, Long> implements ExpedienteEspecieService{
@@ -44,8 +45,12 @@ public class ExpedienteEspecieServiceImpl extends BaseServiceImpl<Especie, Long>
 
 	@Override
 	public List<Especie> buscar(Especie especie) {
+		Busqueda filtro = Busqueda.forClass(Especie.class);
 		
-		return null;
+		if (especie != null) {
+			
+		}
+		return expEspeciesHibernate.buscar(filtro);
 	}
 
 
