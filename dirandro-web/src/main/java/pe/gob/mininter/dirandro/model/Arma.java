@@ -44,27 +44,22 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CLASIFICACION")
-	private Valor cfgValor1;
+	private Valor clasificacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CALIBRE")
-	private Valor cfgValor2;
+	private Valor calibre;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="EST_SERIE")
-	private Valor cfgValor3;
-
-	//bi-directional many-to-one association to ModeloMarca
-	@ManyToOne
-	@JoinColumn(name="MARCA")
-	private ModeloMarca mntModeloMarca1;
+	private Valor estadoSerie;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MODELO")
-	private ModeloMarca mntModeloMarca2;
+	private ModeloMarca modelo;
 
 	public Arma() {
 	}
@@ -101,44 +96,36 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 		this.nroSerie = nroSerie;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getClasificacion() {
+		return clasificacion;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setClasificacion(Valor clasificacion) {
+		this.clasificacion = clasificacion;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Valor getCalibre() {
+		return calibre;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setCalibre(Valor calibre) {
+		this.calibre = calibre;
 	}
 
-	public Valor getCfgValor3() {
-		return this.cfgValor3;
+	public Valor getEstadoSerie() {
+		return estadoSerie;
 	}
 
-	public void setCfgValor3(Valor cfgValor3) {
-		this.cfgValor3 = cfgValor3;
+	public void setEstadoSerie(Valor estadoSerie) {
+		this.estadoSerie = estadoSerie;
 	}
 
-	public ModeloMarca getMntModeloMarca1() {
-		return this.mntModeloMarca1;
+	public ModeloMarca getModelo() {
+		return modelo;
 	}
 
-	public void setMntModeloMarca1(ModeloMarca mntModeloMarca1) {
-		this.mntModeloMarca1 = mntModeloMarca1;
-	}
-
-	public ModeloMarca getMntModeloMarca2() {
-		return this.mntModeloMarca2;
-	}
-
-	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
-		this.mntModeloMarca2 = mntModeloMarca2;
+	public void setModelo(ModeloMarca modelo) {
+		this.modelo = modelo;
 	}
 
 	@Override

@@ -57,13 +57,8 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO")
-	private Valor tipo;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor tipoMedida;
+	private ModeloMarca tipoMedida;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -125,14 +120,6 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 		this.serie = serie;
 	}
 
-	public Valor getTipoMedida() {
-		return tipoMedida;
-	}
-
-	public void setTipoMedida(Valor tipoMedida) {
-		this.tipoMedida = tipoMedida;
-	}
-
 	public Valor getEstado() {
 		return estado;
 	}
@@ -165,14 +152,6 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 		this.situacion = situacion;
 	}
 
-	public Valor getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Valor tipo) {
-		this.tipo = tipo;
-	}
-
 	public Expediente getExpediente() {
 		return expediente;
 	}
@@ -203,6 +182,14 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 
 	public void setPersonaImplicada(Persona personaImplicada) {
 		this.personaImplicada = personaImplicada;
+	}
+
+	public ModeloMarca getTipoMedida() {
+		return tipoMedida;
+	}
+
+	public void setTipoMedida(ModeloMarca tipoMedida) {
+		this.tipoMedida = tipoMedida;
 	}
 
 	@Override

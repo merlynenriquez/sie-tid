@@ -51,18 +51,13 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO", nullable=false)
-	private Valor tipo;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
 	@JoinColumn(name="ESTADO")
 	private Valor estado;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
-	private ModeloMarca mntModeloMarca;
+	private ModeloMarca marca;
 
 	public Telefono() {
 	}
@@ -106,14 +101,6 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 	public void setSerie(String serie) {
 		this.serie = serie;
 	}
-	
-	public Valor getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Valor tipo) {
-		this.tipo = tipo;
-	}
 
 	public Valor getEstado() {
 		return estado;
@@ -122,13 +109,13 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 	public void setEstado(Valor estado) {
 		this.estado = estado;
 	}
-
-	public ModeloMarca getMntModeloMarca() {
-		return mntModeloMarca;
+	
+	public ModeloMarca getMarca() {
+		return marca;
 	}
 
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
+	public void setMarca(ModeloMarca marca) {
+		this.marca = marca;
 	}
 
 	@Override
