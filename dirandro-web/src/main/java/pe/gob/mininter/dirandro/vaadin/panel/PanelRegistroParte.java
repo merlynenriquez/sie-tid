@@ -2172,7 +2172,7 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		// common part: create layout
 		tabGrupoArmas = new VerticalLayout();
 		tabGrupoArmas.setImmediate(false);
-		tabGrupoArmas.setWidth("-1px");
+		tabGrupoArmas.setWidth("100.0%");
 		tabGrupoArmas.setHeight("-1px");
 		tabGrupoArmas.setMargin(false);
 		
@@ -2188,7 +2188,7 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		// common part: create layout
 		tabSheet_2 = new TabSheet();
 		tabSheet_2.setImmediate(true);
-		tabSheet_2.setWidth("-1px");
+		tabSheet_2.setWidth("100.0%");
 		tabSheet_2.setHeight("-1px");
 		
 		// pnlArmas
@@ -2202,8 +2202,8 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		// pnlMuniciones
 		pnlMuniciones = new PanelRegistroParteMunicion();
 		pnlMuniciones.setImmediate(false);
-		pnlMuniciones.setWidth("-1px");
-		pnlMuniciones.setHeight("-1px");
+		pnlMuniciones.setWidth("100.0%");
+		pnlMuniciones.setHeight("632px");
 		tabSheet_2.addTab(pnlMuniciones, "Municiones", null);
 		
 		return tabSheet_2;
@@ -2215,7 +2215,7 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		pnlArmas = new VerticalLayout();
 		pnlArmas.setImmediate(false);
 		pnlArmas.setWidth("-1px");
-		pnlArmas.setHeight("-1px");
+		pnlArmas.setHeight("632px");
 		pnlArmas.setMargin(false);
 		
 		// pnlArmasBody
@@ -2504,7 +2504,7 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		pnlExplosivos.setCaption("Explosivos");
 		pnlExplosivos.setImmediate(false);
 		pnlExplosivos.setWidth("-1px");
-		pnlExplosivos.setHeight("-1px");
+		pnlExplosivos.setHeight("632px");
 		pnlExplosivos.setMargin(false);
 		
 		// pnlExplosivosBody
