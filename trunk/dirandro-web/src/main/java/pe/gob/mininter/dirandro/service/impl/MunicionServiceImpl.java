@@ -67,9 +67,9 @@ public class MunicionServiceImpl extends BaseServiceImpl<Municion, Long> impleme
 			if (municion.getCalibre() != null && municion.getCalibre().getId()!=null) {
 				filtro.add(Restrictions.eq("calibre.id", municion.getCalibre().getId()));
 			}
-			if (municion.getTipo() != null && municion.getTipo().getId()!=null) {
+			/*if (municion.getTipo() != null && municion.getTipo().getId()!=null) {
 				filtro.add(Restrictions.eq("tipo.id", municion.getTipo().getId()));
-			}
+			}*/
 			if (municion.getDescripcion()!= null && municion.getDescripcion().length() > 0) {
 				filtro.add(Restrictions.ilike("descripcion", municion.getDescripcion(), MatchMode.ANYWHERE));
 			}
