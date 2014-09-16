@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,12 +59,12 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA")
-	private Valor tipoMedida;
+	private ModeloMarca tipoMedida;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_MEDIDA_MUESTRA")
-	private Valor tipoMedidaMuestra;
+	private ModeloMarca tipoMedidaMuestra;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -159,22 +158,6 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.valorSoles = valorSoles;
 	}
 
-	public Valor getTipoMedida() {
-		return tipoMedida;
-	}
-
-	public void setTipoMedida(Valor tipoMedida) {
-		this.tipoMedida = tipoMedida;
-	}
-
-	public Valor getTipoMedidaMuestra() {
-		return tipoMedidaMuestra;
-	}
-
-	public void setTipoMedidaMuestra(Valor tipoMedidaMuestra) {
-		this.tipoMedidaMuestra = tipoMedidaMuestra;
-	}
-
 	public Valor getTipoDroga() {
 		return tipoDroga;
 	}
@@ -215,6 +198,22 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.destino = destino;
 	}
 	
+	public ModeloMarca getTipoMedida() {
+		return tipoMedida;
+	}
+
+	public void setTipoMedida(ModeloMarca tipoMedida) {
+		this.tipoMedida = tipoMedida;
+	}
+
+	public ModeloMarca getTipoMedidaMuestra() {
+		return tipoMedidaMuestra;
+	}
+
+	public void setTipoMedidaMuestra(ModeloMarca tipoMedidaMuestra) {
+		this.tipoMedidaMuestra = tipoMedidaMuestra;
+	}
+
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub

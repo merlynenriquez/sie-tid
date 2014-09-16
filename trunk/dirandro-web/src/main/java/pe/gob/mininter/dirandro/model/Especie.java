@@ -42,7 +42,7 @@ public class Especie extends AuditoriaBean implements Validador, Serializable {
 	@Column(precision=10, scale=4)
 	private Double medida;
 	
-	@Column(precision=10, scale=4)
+	@Column(precision=10)
 	private Integer cantidad;
 
 	@Column(length=400)

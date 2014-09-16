@@ -56,23 +56,23 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="UNIDAD_MEDIDA")
-	private Valor unidadMedida;
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca tipoMedida;
 
 	//bi-directional many-to-one association to Droga
 	@ManyToOne
 	@JoinColumn(name="DROGAS")
-	private Droga expDroga;
+	private Droga droga;
 
 	//bi-directional many-to-one association to Especie
 	@ManyToOne
 	@JoinColumn(name="ESPECIE")
-	private Especie expEspecie;
+	private Especie especie;
 
 	//bi-directional many-to-one association to Hojaremision
 	@ManyToOne
 	@JoinColumn(name="HOJAREMISION")
-	private Hojaremision hrHojaremision;
+	private Hojaremision hojaRemision;
 
 	public HojaremisionMuestra() {
 	}
@@ -133,37 +133,6 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 		this.descripcion = descripcion;
 	}
 
-	public Valor getUnidadMedida() {
-		return unidadMedida;
-	}
-
-	public void setUnidadMedida(Valor unidadMedida) {
-		this.unidadMedida = unidadMedida;
-	}
-
-	public Droga getExpDroga() {
-		return expDroga;
-	}
-
-	public void setExpDroga(Droga expDroga) {
-		this.expDroga = expDroga;
-	}
-
-	public Especie getExpEspecie() {
-		return expEspecie;
-	}
-
-	public void setExpEspecie(Especie expEspecie) {
-		this.expEspecie = expEspecie;
-	}
-
-	public Hojaremision getHrHojaremision() {
-		return hrHojaremision;
-	}
-
-	public void setHrHojaremision(Hojaremision hrHojaremision) {
-		this.hrHojaremision = hrHojaremision;
-	}
 
 	@Override
 	public void validar() {

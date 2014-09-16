@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     9/14/2014 7:24:59 PM                         */
+/* Created on:     9/16/2014 1:37:11 AM                         */
 /*==============================================================*/
 
 
@@ -83,6 +83,9 @@ alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMAS_EDITOR;
 
 alter table SIETID.EXP_ARMAS
+   drop constraint FK_EXP_ARMAS_MODELO;
+
+alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMA_CALIBRE;
 
 alter table SIETID.EXP_ARMAS
@@ -90,12 +93,6 @@ alter table SIETID.EXP_ARMAS
 
 alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMA_ESTADO_SERIE;
-
-alter table SIETID.EXP_ARMAS
-   drop constraint FK_EXP_ARMA_MODELO;
-
-alter table SIETID.EXP_ARMAS
-   drop constraint FK_EXP_EXPLOSIVO_MODELO;
 
 alter table SIETID.EXP_CENTRO_POBLADO
    drop constraint FK_EXP_POBLADO_CATEGORIA;
@@ -500,9 +497,6 @@ alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPLOSIVO_SITUACION;
 
 alter table SIETID.EXP_EXPLOSIVOS
-   drop constraint FK_EXP_EXPLOSIVO_TIPO;
-
-alter table SIETID.EXP_EXPLOSIVOS
    drop constraint FK_EXP_EXPL_CREADOR;
 
 alter table SIETID.EXP_EXPLOSIVOS
@@ -600,9 +594,6 @@ alter table SIETID.EXP_MUNICIONES
 
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_PERSONA;
-
-alter table SIETID.EXP_MUNICIONES
-   drop constraint FK_EXP_MUNI_TIPO;
 
 alter table SIETID.EXP_ORGANIZACION
    drop constraint FK_EXP_BANDAS_CREADOR;
@@ -1020,9 +1011,6 @@ alter table SIETID.PER_TELEFONO
 
 alter table SIETID.PER_TELEFONO
    drop constraint FK_PER_TELEFONO_MARCA;
-
-alter table SIETID.PER_TELEFONO
-   drop constraint FK_PER_TELEFONO_TIPO;
 
 alter table SIETID.SEG_OPCION
    drop constraint FK_SEG_OPCION_CREADOR;

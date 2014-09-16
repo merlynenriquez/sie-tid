@@ -190,7 +190,6 @@ alter table SIETID.EXP_ANEXO
 create table SIETID.EXP_ARMAS 
 (
    ID                   NUMBER(16)           not null,
-   MARCA                NUMBER(16),
    MODELO               NUMBER(16),
    CLASIFICACION        NUMBER(16),
    EST_SERIE            NUMBER(16),
@@ -210,10 +209,6 @@ comment on table SIETID.EXP_ARMAS is
 
 comment on column SIETID.EXP_ARMAS.ID is
 'Identificador de la tabla EXP_ARMA (código autogenerado)
-';
-
-comment on column SIETID.EXP_ARMAS.MARCA is
-'Identificador de la marca del arma
 ';
 
 comment on column SIETID.EXP_ARMAS.MODELO is
@@ -1063,6 +1058,7 @@ create table SIETID.EXP_ESPECIE
    TIPO_ESPECIE         NUMBER(16),
    TIPO_MEDIDA          NUMBER(16),
    MEDIDA               NUMBER(10,4),
+   CANTIDAD             NUMBER(10),
    NOMBRE               NVARCHAR2(200),
    EXPEDIENTE           NUMBER(16),
    SITUACION            NUMBER(16),
@@ -1292,7 +1288,6 @@ create table SIETID.EXP_EXPLOSIVOS
    ID                   NUMBER(16)           not null,
    PERSONA              number(16)           not null,
    EXPEDIENTE           NUMBER(16),
-   TIPO                 NUMBER(16),
    EMPRESA              NUMBER(16),
    DESCRIPCION          VARCHAR2(500),
    MARCA                NUMBER(16),
@@ -1323,10 +1318,6 @@ comment on column SIETID.EXP_EXPLOSIVOS.PERSONA is
 
 comment on column SIETID.EXP_EXPLOSIVOS.EXPEDIENTE is
 'Identificador del expediente asociado a la incautación
-';
-
-comment on column SIETID.EXP_EXPLOSIVOS.TIPO is
-'Identificador del tipo de explosivo (familia): alto orden / bajo orden
 ';
 
 comment on column SIETID.EXP_EXPLOSIVOS.EMPRESA is
@@ -1553,7 +1544,6 @@ create table SIETID.EXP_MUNICIONES
    PERSONA              NUMBER(16),
    EMPRESA              NUMBER(16),
    CALIBRE              NUMBER(16),
-   TIPO                 NUMBER(16),
    DESCRIPCION          VARCHAR2(500),
    MARCA                NUMBER(16),
    OBSERVACION          VARCHAR2(2000),
@@ -1590,10 +1580,6 @@ comment on column SIETID.EXP_MUNICIONES.EMPRESA is
 
 comment on column SIETID.EXP_MUNICIONES.CALIBRE is
 'Calibre de la munición incautada
-';
-
-comment on column SIETID.EXP_MUNICIONES.TIPO is
-'Identificador del tipo de munición
 ';
 
 comment on column SIETID.EXP_MUNICIONES.DESCRIPCION is
@@ -2766,7 +2752,6 @@ alter table SIETID.PER_POLICIA
 create table SIETID.PER_TELEFONO 
 (
    ID                   NUMBER(16)           not null,
-   TIPO                 NUMBER(16)           not null,
    NUMERO               NVARCHAR2(50)        not null,
    ESTADO               NUMBER(16),
    SERIE                VARCHAR2(50),
@@ -2784,10 +2769,6 @@ comment on table SIETID.PER_TELEFONO is
 
 comment on column SIETID.PER_TELEFONO.ID is
 'Identificador de la tabla telefonos (código autogenerado)
-';
-
-comment on column SIETID.PER_TELEFONO.TIPO is
-'Identificador del tipo de teléfono: fijo / móvil
 ';
 
 comment on column SIETID.PER_TELEFONO.NUMERO is
@@ -3169,6 +3150,10 @@ alter table SIETID.EXP_ARMAS
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_ARMAS
+   add constraint FK_EXP_ARMAS_MODELO foreign key (MODELO)
+      references SIETID.MNT_MODELO_MARCA (ID);
+
+alter table SIETID.EXP_ARMAS
    add constraint FK_EXP_ARMA_CALIBRE foreign key (CALIBRE)
       references SIETID.CFG_VALOR (ID);
 
@@ -3179,14 +3164,6 @@ alter table SIETID.EXP_ARMAS
 alter table SIETID.EXP_ARMAS
    add constraint FK_EXP_ARMA_ESTADO_SERIE foreign key (EST_SERIE)
       references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.EXP_ARMAS
-   add constraint FK_EXP_ARMA_MODELO foreign key (MARCA)
-      references SIETID.MNT_MODELO_MARCA (ID);
-
-alter table SIETID.EXP_ARMAS
-   add constraint FK_EXP_EXPLOSIVO_MODELO foreign key (MODELO)
-      references SIETID.MNT_MODELO_MARCA (ID);
 
 alter table SIETID.EXP_CENTRO_POBLADO
    add constraint FK_EXP_POBLADO_CATEGORIA foreign key (CATEGORIA)
@@ -3725,10 +3702,6 @@ alter table SIETID.EXP_EXPLOSIVOS
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_EXPLOSIVOS
-   add constraint FK_EXP_EXPLOSIVO_TIPO foreign key (TIPO)
-      references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.EXP_EXPLOSIVOS
    add constraint FK_EXP_EXPL_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
@@ -3859,10 +3832,6 @@ alter table SIETID.EXP_MUNICIONES
 alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_PERSONA foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
-
-alter table SIETID.EXP_MUNICIONES
-   add constraint FK_EXP_MUNI_TIPO foreign key (TIPO)
-      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ORGANIZACION
    add constraint FK_EXP_BANDAS_CREADOR foreign key (CREADOR)
@@ -4026,7 +3995,7 @@ alter table SIETID.HR_HOJAREMISION
 
 alter table HR_HOJAREMISION_MUESTRA
    add constraint FK_HOJA_REMISION_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
-      references SIETID.CFG_VALOR (ID);
+      references SIETID.MNT_MODELO_MARCA (ID);
 
 alter table HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_DROGA_MUESTRA foreign key (DROGAS)
@@ -4419,10 +4388,6 @@ alter table SIETID.PER_TELEFONO
 alter table SIETID.PER_TELEFONO
    add constraint FK_PER_TELEFONO_MARCA foreign key (MARCA)
       references SIETID.MNT_MODELO_MARCA (ID);
-
-alter table SIETID.PER_TELEFONO
-   add constraint FK_PER_TELEFONO_TIPO foreign key (TIPO)
-      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.SEG_OPCION
    add constraint FK_SEG_OPCION_CREADOR foreign key (CREADOR)
