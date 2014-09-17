@@ -393,7 +393,7 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		super( acciones , height );
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-		expediente = new Expediente();
+		setExpediente(new Expediente());
 		postConstruct();
 	}
 	
@@ -413,12 +413,21 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 		btnArmPersonaIncautadaBuscar.addListener((ClickListener)this);
 		btnArmDuenioBuscar.addListener((ClickListener)this);
 		
-		pnlRegistroParte.setExpediente(expediente);
-		pnlAgregarDocumento.setExpediente(expediente);
-		pnlRegistroParte.setPnlAgregarDocumento(pnlAgregarDocumento);
-		pnlRegistroParte.setPanelRegistroParte(this);
-		
 		tabSheet_1.addListener((SelectedTabChangeListener) this);
+		
+		pnlRegistroParte.setPnlAgregarDocumento(pnlAgregarDocumento);
+		
+		
+	}
+	
+	@Override
+	public void attach() {
+		super.attach();
+		
+		pnlRegistroParte.setPanelRegistroParte(this);		
+		if(!expediente.esNuevo()) {
+			pnlRegistroParte.cargarFormularioExpediente();
+		}
 		
 	}
 
@@ -528,6 +537,9 @@ public class PanelRegistroParte extends DirandroComponent implements ClickListen
 
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		pnlRegistroParte.setExpediente(expediente);
+		pnlAgregarDocumento.setExpediente(expediente);
+		//pnlRegistroParte.cargarFormularioExpediente();
 	}
 	
 

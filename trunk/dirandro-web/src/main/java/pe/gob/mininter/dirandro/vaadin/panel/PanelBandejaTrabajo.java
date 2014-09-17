@@ -30,6 +30,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltroEnterListener, ClickListener {
 
@@ -76,6 +77,8 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	private TablaFiltroIndexedContainer container;
 	
 	private ExpedienteService expedienteService;	
+	
+	private List<Opcion> acciones;
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -88,6 +91,9 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	 */
 	public PanelBandejaTrabajo(List<Opcion> acciones, String height) {
 		super(acciones, height);
+		
+		this.acciones = acciones;
+		
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		
@@ -122,26 +128,6 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 		buscarExpedientes(new HashMap<String, Object>());
 		
 		btnBuscar.addListener((ClickListener) this);
-		
-		/*tblBandejaTrabajo.addListener(new ValueChangeListener() {
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				Collection value = (Collection) event.getProperty().getValue();
-
-				if (value.size() == 1) {
-					tblBandejaTrabajo.removeAllActionHandlers();
-					action = ITEM_ACTIONS;
-					asignaActionHandler();
-				} else {
-					tblBandejaTrabajo.removeAllActionHandlers();
-					action = MULTI_ITEM_ACTIONS;
-					asignaActionHandler();
-				}
-
-				tblBandejaTrabajo.requestRepaintTable();
-			}
-		});*/
 		
 		tblBandeja.addListener(new ValueChangeListener() {
 
@@ -180,16 +166,27 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 
 				if (action.equals(MODIFICAR_EXPEDIENTE)) {
 					
-					/*Set<Solicitud> ids = (Set<Solicitud>) tblBandejaTrabajo
-							.getValue();
-					Solicitud solicitudSel = ids.iterator().next();
-					//Item item = tblBandejaTrabajo.getItem(itemId);
-					Long idRequerimiento = solicitudSel.getId();
+					Object objID = tblBandeja.getValue();
 					
-					Solicitud solicitud = gestionarSolicitudNegocio.obtener(
-							idRequerimiento, Solicitud.class);
+					Item item = container.getItem(objID);
 					
-					modificarSolicitud(solicitud);*/
+					Expediente expedienteGrilla = (Expediente)item.getItemProperty(COLUMNA_EXPEDIENTE).getValue();
+					
+					Expediente expediente = expedienteService.obtener(expedienteGrilla.getId());
+					
+					PanelRegistroParte panelRegistroParte = new PanelRegistroParte(acciones, "-1px");
+					panelRegistroParte.setExpediente(expediente);					
+					
+					Window wdExpediente = new Window();
+					
+					wdExpediente.setModal(false);
+					wdExpediente.setResizable(false);
+					wdExpediente.addComponent(panelRegistroParte);
+						
+					wdExpediente.setCaption("Modificar Expediente");
+					wdExpediente.setWidth("1000px");
+						
+					getWindow().addWindow(wdExpediente);
 				}
 			}
 
