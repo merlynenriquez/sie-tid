@@ -128,3 +128,4 @@ INSERT INTO SIETID.EXP_ESTADO (id,codigo,nombre,descripcion,estado,creador,creac
 
 
 commit;
+quit;
