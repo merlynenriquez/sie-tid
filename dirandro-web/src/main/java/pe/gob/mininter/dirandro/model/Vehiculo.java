@@ -38,9 +38,6 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 	@Column(name="MODELO_ESPECIFICO", length=500)
 	private String modeloEspecifico;
 
-	@Column(length=4000)
-	private String observaciones;
-
 	@Column(length=200)
 	private String placa;
 
@@ -97,14 +94,6 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 
 	public void setModeloEspecifico(String modeloEspecifico) {
 		this.modeloEspecifico = modeloEspecifico;
-	}
-
-	public String getObservaciones() {
-		return observaciones;
-	}
-
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
 	}
 
 	public String getPlaca() {

@@ -417,7 +417,7 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 		txtEspNumeroSerie = new TextField();
 		txtEspNumeroSerie.setCaption("Número de Serie");
 		txtEspNumeroSerie.setImmediate(false);
-		txtEspNumeroSerie.setWidth("180px");
+		txtEspNumeroSerie.setWidth("130px");
 		txtEspNumeroSerie.setHeight("-1px");
 		txtEspNumeroSerie.setInputPrompt("Número de Serie de la especie");
 		pnlEspecie1.addComponent(txtEspNumeroSerie);
