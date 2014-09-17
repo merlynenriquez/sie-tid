@@ -501,3 +501,4 @@ insert into exp_entidad (ID,TIPO,NOMBRE,DESCRIPCION,DIRECCION,DISTRITO,TELEFONO,
 insert into exp_entidad (ID,TIPO,NOMBRE,DESCRIPCION,DIRECCION,DISTRITO,TELEFONO,ESTADO,CREADOR,CREACION) values (497, 51,'Segunda Fiscalía Superior Penal', 'Segunda Fiscalía Superior Penal', 'Av Abancay Cuadra 5 s/n Piso 10 OF. 1016',1350,'082 572924',1,1,SYSDATE);
 insert into exp_entidad (ID,TIPO,NOMBRE,DESCRIPCION,DIRECCION,DISTRITO,TELEFONO,ESTADO,CREADOR,CREACION) values (498, 51,'Tercera Fiscalía Superior Penal', 'Tercera Fiscalía Superior Penal', 'Av Abancay Cuadra 5 s/n Piso 10 Of. 1017',1350,'082 572924',1,1,SYSDATE);
 commit;
+quit;

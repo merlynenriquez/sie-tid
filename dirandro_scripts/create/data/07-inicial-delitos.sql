@@ -178,3 +178,4 @@ En los casos en que el agente tenga vínculo de parentesco consanguíneo o la víct
 En los casos en que el agente obligue o induzca a mendigar a dos o más personas colocadas bajo su autoridad, dependencia, tutela, curatela o vigilancia, la pena privativa de libertad será no menor de dos ni mayor de cinco años.');
 
 commit;
+quit;
