@@ -1,4 +1,7 @@
 /*==============================================================*/
+/* DBMS name:      ORACLE Version 11g                           */
+/* Created on:     9/16/2014 10:10:13 PM                        */
+/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -802,6 +805,7 @@ create table SIETID.EXP_DET_PER_VEH_EXP
    TIPO_USO             VARCHAR(100),
    PLACA_MONTADA        VARCHAR2(100),
    ESTADO               NUMBER(16),
+   OBSERVACION          VARCHAR2(2000),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -1826,7 +1830,6 @@ create table SIETID.EXP_VEHICULO
    MODELO               NUMBER(16),
    PERIODO_FABRICACION  NUMBER(16),
    COLOR                NUMBER(16),
-   OBSERVACIONES        NVARCHAR2(2000),
    MODELO_ESPECIFICO    VARCHAR2(500),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -1871,9 +1874,6 @@ comment on column SIETID.EXP_VEHICULO.PERIODO_FABRICACION is
 
 comment on column SIETID.EXP_VEHICULO.COLOR is
 'Color del vehículo';
-
-comment on column SIETID.EXP_VEHICULO.OBSERVACIONES is
-'Observación acerca del vehículo';
 
 comment on column SIETID.EXP_VEHICULO.MODELO_ESPECIFICO is
 'Descripción del modelo específico del vehículo';

@@ -72,6 +72,11 @@ public abstract class Constante {
 			public static final String TIPO_INSTALACION = "TP_INSTALACION";
 			public static final String SITUACION_GENERAL = "SITUACION_GRL";
 			public static final String PRIORIDAD_DELITO = "PRIORIDAD_DEL";
+			public static final String TIPO_VEHICULO = "TIPO_VEHICULO";
+			public static final String TRANSMISION = "TRANSMISION";
+			public static final String CILINDRAJE = "CILINDRAJE";
+			public static final String COLOR = "COLORES";
+			public static final String PERIODO = "PERIODOS";
 		}
 	}
 

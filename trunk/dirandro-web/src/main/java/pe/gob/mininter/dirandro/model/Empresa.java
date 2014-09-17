@@ -28,9 +28,8 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="PER_EMPRESA")
 public class Empresa extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
+	//TODO: Falta el ubigeo de la empresa y tambien el numero telefonico
+	
 	private static final long serialVersionUID = 1481913729291306868L;
 
 	@Id

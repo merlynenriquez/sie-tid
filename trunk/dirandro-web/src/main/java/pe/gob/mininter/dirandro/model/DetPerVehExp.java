@@ -40,6 +40,9 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 
 	@Column(name="TIPO_USO", length=100)
 	private String tipoUso;
+	
+	@Column(length=4000)
+	private String observaciones;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -170,6 +173,14 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 
 	public void setPropietario(Persona propietario) {
 		this.propietario = propietario;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	@Override
