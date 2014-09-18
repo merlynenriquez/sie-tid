@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -91,6 +95,10 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	public Municion() {
 	}
 
+	public Municion(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -197,8 +205,13 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(StringUtils.isBlank( descripcion ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Descripcion"});
+		}
+		if (marca == null || marca.getId() == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Munición y Marca" });
+		}
 	}
 
 }

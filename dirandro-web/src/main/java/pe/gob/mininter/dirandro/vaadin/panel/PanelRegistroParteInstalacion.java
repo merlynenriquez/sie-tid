@@ -265,7 +265,7 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 			item.getItemProperty("tipo.id").setValue(instalacion.getTipo()!=null?instalacion.getTipo().getId():null);
 			item.getItemProperty("tipo.nombre").setValue(instalacion.getTipo()!=null?instalacion.getTipo().getNombre():StringUtils.EMPTY);
 			item.getItemProperty("organizacion.id").setValue(instalacion.getOrganizacionDelictiva()!=null?instalacion.getOrganizacionDelictiva().getId():null);
-			item.getItemProperty("organizacion.nombre").setValue(instalacion.getOrganizacionDelictiva()!=null?instalacion.getOrganizacionDelictiva().getId():StringUtils.EMPTY);
+			item.getItemProperty("organizacion.nombre").setValue(instalacion.getOrganizacionDelictiva()!=null?instalacion.getOrganizacionDelictiva().getNombre():StringUtils.EMPTY);
 			item.getItemProperty("cp.id").setValue(instalacion.getExpCentroPoblado()!=null?instalacion.getExpCentroPoblado().getId():null);
 			item.getItemProperty("cp.nombre").setValue(instalacion.getExpCentroPoblado()!=null?instalacion.getExpCentroPoblado().getNombre():StringUtils.EMPTY);
 			item.getItemProperty("situacion.id").setValue(instalacion.getSituacion()!=null?instalacion.getSituacion().getId():null);
@@ -472,6 +472,7 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 		txtNombre.setImmediate(false);
 		txtNombre.setWidth("300px");
 		txtNombre.setHeight("-1px");
+		txtNombre.setRequired(true);
 		txtNombre
 				.setInputPrompt("Nombre con el que se conoce a la instalacion");
 		txtNombre.setMaxLength(200);

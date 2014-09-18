@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -126,8 +130,17 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		if(StringUtils.isBlank( this.tipoUso ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Tipo de Uso"});
+		}
 		
+		if ( this.inmueble == null || this.inmueble.getId() == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Inmueble" });
+		}
+		if ( this.expediente== null || this.expediente.getId() == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Expediente" });
+		}
 	}
 
 }
