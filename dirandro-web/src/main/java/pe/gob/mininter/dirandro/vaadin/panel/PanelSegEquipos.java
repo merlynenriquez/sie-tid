@@ -338,6 +338,7 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 					
 					if (item.getItemProperty("padre.id").getValue()!=null) {
 						for (Equipo grupo : lstEquipos) {
+							//TODO:Rehacer validar if
 							cmbEquipo.select(grupo);
 							break;
 						}
@@ -911,7 +912,6 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 					equipo.setDependencia(dependencia);
 				}				
 				if(StringUtils.isNotBlank(txtFiltroDepartamentoEquipo.getValue().toString())){
-					logger.debug("esto es departamento"+txtFiltroDepartamentoEquipo.getValue().toString());
 					Dependencia departamento = new Dependencia();
 					departamento.setAbreviatura(txtFiltroDepartamentoEquipo.getValue().toString());
 					equipo.setDepartamento(departamento);

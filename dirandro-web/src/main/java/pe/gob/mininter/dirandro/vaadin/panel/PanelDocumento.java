@@ -10,7 +10,6 @@ import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Entidad;
 import pe.gob.mininter.dirandro.model.Persona;
-import pe.gob.mininter.dirandro.model.Ruta;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.DependenciaService;
 import pe.gob.mininter.dirandro.service.EmpresaService;
