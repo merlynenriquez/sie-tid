@@ -77,6 +77,8 @@ public abstract class Constante {
 			public static final String CILINDRAJE = "CILINDRAJE";
 			public static final String COLOR = "COLORES";
 			public static final String PERIODO = "PERIODOS";
+			public static final String ESTADO_OBJETOS = "ESTADO_OBJETOS";
+			
 		}
 	}
 

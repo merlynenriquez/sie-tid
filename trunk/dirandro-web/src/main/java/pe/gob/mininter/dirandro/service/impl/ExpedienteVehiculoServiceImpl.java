@@ -21,13 +21,12 @@ public class ExpedienteVehiculoServiceImpl extends BaseServiceImpl<DetPerVehExp,
 	
 	private static final long serialVersionUID = 2697106645391028183L;
 	
-	private ExpedienteVehiculoHibernate expedienteVehiculoHibernate;
+	private ExpedienteVehiculoHibernate expVehiculoHibernate;
 	
 	@Autowired
-	public ExpedienteVehiculoServiceImpl(
-			ExpedienteVehiculoHibernate expedienteVehiculoHibernate) {
-		super(expedienteVehiculoHibernate);	
-		this.expedienteVehiculoHibernate = expedienteVehiculoHibernate;
+	public ExpedienteVehiculoServiceImpl(ExpedienteVehiculoHibernate expVehiculoHibernate) {
+		super(expVehiculoHibernate);	
+		this.expVehiculoHibernate = expVehiculoHibernate;
 	}
 
 	@Override
@@ -38,11 +37,7 @@ public class ExpedienteVehiculoServiceImpl extends BaseServiceImpl<DetPerVehExp,
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void crear(DetPerVehExp object) {		
-		if (object!=null) {
-			throw new ValidacionException("NO existe Registro",
-					//Constante.CODIGO_MENSAJE.VALIDAR_ESTADO_EXISTENTE,
-					new Object[] { "Vehiculo" });		}
+	public void crear(DetPerVehExp object) {
 		super.crear(object);
 		
 	}
@@ -54,12 +49,12 @@ public class ExpedienteVehiculoServiceImpl extends BaseServiceImpl<DetPerVehExp,
 		Busqueda filtro = Busqueda.forClass(DetPerVehExp.class);
 		filtro.add(Restrictions.eq("id", object.getVehiculo().getId()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
-		if (expedienteVehiculoHibernate.buscar(filtro).size()>0) {
+		if (expVehiculoHibernate.buscar(filtro).size()>0) {
 			throw new ValidacionException(
 					Constante.CODIGO_MENSAJE.VALIDAR_VEHICULO_EXISTENTE,
 					new Object[] { object.getVehiculo().getPlaca() });
 		}
-		expedienteVehiculoHibernate.actualizar(object);
+		expVehiculoHibernate.actualizar(object);
 	}
 	
 }
