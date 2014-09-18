@@ -30,7 +30,7 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 791716717760796752L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DROGAS_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DROGAS_ID_GENERATOR", sequenceName="SEQ_DROGA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DROGAS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -79,7 +79,7 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
@@ -174,12 +174,12 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.situaccion = situaccion;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expExpediente) {
+		this.expediente = expExpediente;
 	}
 
 	public Pais getProcedencia() {
