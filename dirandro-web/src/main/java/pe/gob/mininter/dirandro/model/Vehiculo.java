@@ -30,7 +30,7 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -8452393232453894146L;
 
 	@Id
-	@SequenceGenerator(name="EXP_VEHICULO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_VEHICULO_ID_GENERATOR", sequenceName="SEQ_VEHICULO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_VEHICULO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

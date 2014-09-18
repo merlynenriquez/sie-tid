@@ -30,7 +30,7 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = 854763308193341749L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_PER_VEH_EXP_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DET_PER_VEH_EXP_ID_GENERATOR", sequenceName="SEQ_EXP_VEHICULO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_PER_VEH_EXP_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -42,7 +42,7 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 	private String tipoUso;
 	
 	@Column(length=4000)
-	private String observaciones;
+	private String observacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -176,11 +176,11 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 	}
 
 	public String getObservaciones() {
-		return observaciones;
+		return observacion;
 	}
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+	public void setObservaciones(String observacion) {
+		this.observacion = observacion;
 	}
 
 	@Override
