@@ -962,7 +962,7 @@ create table SIETID.EXP_DROGAS
    PESO_BRUTO           NUMBER(10,2),
    PESO_NETO            NUMBER(10,2),
    EXPEDIENTE           NUMBER(16),
-   PROCENDECIA          NUMBER(16),
+   PROCEDENCIA          NUMBER(16),
    DESTINO              NUMBER(16),
    SITUACION            NUMBER(16),
    TIPO_MEDIDA_MUESTRA  NUMBER(16),
@@ -3502,7 +3502,7 @@ alter table SIETID.EXP_DROGAS
       references SIETID.EXP_EXPEDIENTE (ID);
 
 alter table SIETID.EXP_DROGAS
-   add constraint FK_EXP_DROGAS_PROCEDENCIA foreign key (PROCENDECIA)
+   add constraint FK_EXP_DROGAS_PROCEDENCIA foreign key (PROCEDENCIA)
       references MNT_PAISES (ID);
 
 alter table SIETID.EXP_DROGAS
