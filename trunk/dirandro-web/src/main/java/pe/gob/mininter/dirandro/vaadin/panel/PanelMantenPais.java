@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Pais;
 import pe.gob.mininter.dirandro.model.Valor;
-import pe.gob.mininter.dirandro.service.EstadoService;
 import pe.gob.mininter.dirandro.service.PaisService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;

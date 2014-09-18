@@ -430,7 +430,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 
 					if (tabName.equals("Imagen")) {
 						parametroSize = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_SIZE);
-						if (parametroSize != null) imageSize = new Long(parametroSize.getValor());
+						if (parametroSize != null) imageSize = Long.valueOf(parametroSize.getValor());
 						
 						//parametroRuta = parametroService.obtener(Constante.PARAMETRO.PATH_WINDOW);
 						parametroRuta = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_PATH);
@@ -1201,8 +1201,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		pnlImagenUpload.addComponent(uploadImagen);
 	}
 	
-	private void validarNombreArchivo(String nomArchivo){
-		nomArchivo= StringUtils.replace(nomArchivo, " ","_");
+	private void validarNombreArchivo(String nombreArchivo){
+		nombreArchivo = StringUtils.replace(nombreArchivo, " ","_");
 	}
 	
 	private void uploadImagenAddListener(){
@@ -1259,7 +1259,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 					imagenAdjunta.setRuta(rutaDocumento);
 					lblImgValor.setValue(imagenAdjunta.getTipo().getNombre()+" - "+imagenAdjunta.getNombre());
 				} catch (Exception e) {
-					System.out.println("error "+e.getCause());
+					e.printStackTrace();
 				}
             }
         });

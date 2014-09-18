@@ -31,8 +31,8 @@ public class ExpedienteVehiculoServiceImpl extends BaseServiceImpl<DetPerVehExp,
 
 	@Override
 	public List<DetPerVehExp> buscar(DetPerVehExp detPerVehExp) {
-		// TODO Auto-generated method stub
-		return null;
+		Busqueda filtro = Busqueda.forClass(DetPerVehExp.class);
+		return expVehiculoHibernate.buscar(filtro);
 	}
 	
 	@Override

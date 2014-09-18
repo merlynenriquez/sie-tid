@@ -3,9 +3,7 @@ package pe.gob.mininter.dirandro.vaadin.panel;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import pe.gob.mininter.dirandro.model.DetPerInmExp;
 import pe.gob.mininter.dirandro.model.Expediente;
@@ -97,7 +95,6 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 	 */
 
 	private static final long serialVersionUID = -4639683924066371051L;
-	private static final Logger logger = Logger.getLogger(PanelRegistroParteInmueble.class);
 	
 	private ExpedienteInmuebleService expedienteInmuebleService;
 	private PersonaService personaService;
@@ -105,8 +102,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 	
 	private PanelAgregarInmueble pnlAgregarInmueble;
 	private Expediente expediente;
-	private DetPerInmExp inmueble; 
-	private boolean flagNuevaEstado;
+	private DetPerInmExp inmueble;
 	private List<Persona> lstPersonas;
 	private List<Inmueble> lstInmuebles;
 	
@@ -119,14 +115,8 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		expediente = new Expediente();
 		postConstruct();
 	}
-
-	public void setExpediente(Expediente expediente) {
-		this.expediente = expediente;
-	}
 	
 	public void postConstruct() {
-		
-
 		ExpedienteService expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		expediente=expedienteService.obtener(1l);
 		
@@ -146,11 +136,13 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		cmbInmInmueble.setInputPrompt("Búsquedda de inmueble por dirección");
 		cmbInmInmueble.setItemCaptionPropertyId("direccion");
 		cmbInmInmueble.addListener( new ValueChangeListener() {
+			
 			private static final long serialVersionUID = -6213576334461528840L;
+			
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				cambiaCombo( event );
-			}			
+			}
 		});
 		
 		cmbInmPropietario.setInputPrompt("Propietario");
@@ -169,11 +161,10 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 			public void valueChange(ValueChangeEvent event) {
 				boolean esModoNuevo = tblInmuebles.getValue() == null;
 				limpiar();
+				habilitarEdicion(!esModoNuevo);
 				if(esModoNuevo){
 					tblInmuebles.setValue(null);
-					habilitarEdicion(false);
 				}else{
-					habilitarEdicion(true);
 					Item item = tblInmuebles.getItem(tblInmuebles.getValue());
 					
 					inmueble.setId((Long) item.getItemProperty("id").getValue());
@@ -325,7 +316,6 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 	}
 	
 	private void habilitarEdicion(boolean flag){
-		flagNuevaEstado = flag;
 		if(flag){
 			btnInmAgregar.setCaption("Actualizar");
 		}

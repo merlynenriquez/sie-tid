@@ -1,13 +1,9 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import pe.gob.mininter.dirandro.model.Opcion;
-import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.model.Vehiculo;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;

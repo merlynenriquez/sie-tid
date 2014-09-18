@@ -3,7 +3,6 @@ package pe.gob.mininter.dirandro.vaadin.panel;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.mortbay.jetty.security.SSORealm;
 
 import pe.gob.mininter.dirandro.model.CentroPoblado;
 import pe.gob.mininter.dirandro.model.Distrito;

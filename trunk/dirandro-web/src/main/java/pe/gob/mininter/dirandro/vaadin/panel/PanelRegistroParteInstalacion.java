@@ -151,7 +151,6 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 		cmbOrganizacion.setContainerDataSource(new BeanItemContainer<Organizacion>(Organizacion.class,  lOrganizaciones));
 		
 		centroPoblados = centroPobladoService.buscar( new CentroPoblado());
-		logger.debug("elementos centro poblados "+centroPoblados.size());
 		cmbCentroPoblado.setInputPrompt("Centro Poblado");
 		cmbCentroPoblado.setItemCaptionPropertyId("nombre");
 		cmbCentroPoblado.setContainerDataSource(new BeanItemContainer<CentroPoblado>(CentroPoblado.class,  centroPoblados));
@@ -316,8 +315,6 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 		instalacion.setSituacion((Valor)cmbSituacion.getValue());
 		instalacion.setTipo((Valor)cmbTipoInstalacion.getValue());
 		instalacion.setZonaProduccion((String)txtZonaProduccion.getValue());
-		
-		logger.debug( "Grabar es nuevo ? " + instalacion.esNuevo() );
 		
 		if(instalacion.esNuevo()){
 			instalacionService.crear(instalacion);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pe.gob.mininter.dirandro.model.Arma;
-import pe.gob.mininter.dirandro.model.Inmueble;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 
@@ -20,7 +19,6 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-
 
 public class PanelBuscarArmas extends DirandroComponent {
 

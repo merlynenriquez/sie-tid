@@ -2,7 +2,6 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.InmuebleHibernate;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
-import pe.gob.mininter.dirandro.model.DetPerInmExp;
 import pe.gob.mininter.dirandro.model.Inmueble;
 import pe.gob.mininter.dirandro.service.InmuebleService;
 import pe.gob.mininter.dirandro.util.Busqueda;
