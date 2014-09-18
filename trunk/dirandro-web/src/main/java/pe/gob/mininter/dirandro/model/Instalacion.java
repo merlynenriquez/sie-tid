@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -230,8 +234,13 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(StringUtils.isBlank( nombre ))
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre"});
+		}
+		if (organizacionDelictiva == null || organizacionDelictiva.getId() == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Organizacion Delictiva" });
+		}
 	}
 
 }

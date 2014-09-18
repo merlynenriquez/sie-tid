@@ -30,7 +30,7 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	private static final long serialVersionUID = 1951628585888613472L;
 
 	@Id
-	@SequenceGenerator(name="EXP_EXPLOSIVOS_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_EXPLOSIVOS_ID_GENERATOR", sequenceName="SEQ_EXPLOSIVO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_EXPLOSIVOS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -73,7 +73,7 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
-	private ModeloMarca modeloMarca;
+	private ModeloMarca marca;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
@@ -82,10 +82,14 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA", nullable=false)
+	@JoinColumn(name="PERSONA")
 	private Persona personaImplicada;
 
 	public Explosivo() {
+	}
+	
+	public Explosivo(Long id) {
+		this.id=id;
 	}
 
 	public Long getId() {
@@ -160,12 +164,12 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 		this.expediente = expediente;
 	}
 
-	public ModeloMarca getModeloMarca() {
-		return modeloMarca;
+	public ModeloMarca getMarca() {
+		return marca;
 	}
 
-	public void setModeloMarca(ModeloMarca modeloMarca) {
-		this.modeloMarca = modeloMarca;
+	public void setMarca(ModeloMarca marca) {
+		this.marca = marca;
 	}
 
 	public Empresa getEmpresaImplicada() {

@@ -167,6 +167,11 @@ public abstract class Constante {
 			public final static Long AUTO = 5l;
 			public final static Long PRESENTACIONES = 4004l;
 		}
+		
+		public static class EXPLOSIVOS{
+			public final static Long TIPOS = 5l;
+			public final static Long PRESENTACIONES = 4004l;
+		}
 	}
 	
 	public static abstract class PARAMETRO {

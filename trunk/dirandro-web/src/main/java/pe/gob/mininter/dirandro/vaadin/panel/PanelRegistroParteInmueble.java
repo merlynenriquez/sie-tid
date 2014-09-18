@@ -3,6 +3,7 @@ package pe.gob.mininter.dirandro.vaadin.panel;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -128,10 +129,9 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 
 		ExpedienteService expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		expediente=expedienteService.obtener(1l);
-	
 		
 		lstPersonas = personaService.buscar( null );
-		actualizarInmuebles();
+		actualizarInmuebles(null);
 		
 		txtInmCodigo.setEnabled(false);
 		txtInmTipoDireccion.setEnabled(false);
@@ -143,9 +143,8 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		cmbInmSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 		
 		cmbInmInmueble.setImmediate(true);
-		cmbInmInmueble.setInputPrompt("Inmueble");
+		cmbInmInmueble.setInputPrompt("Búsquedda de inmueble por dirección");
 		cmbInmInmueble.setItemCaptionPropertyId("direccion");
-		//cmbInmInmueble.setContainerDataSource(new BeanItemContainer<Inmueble>(Inmueble.class,  lstInmuebles));
 		cmbInmInmueble.addListener( new ValueChangeListener() {
 			private static final long serialVersionUID = -6213576334461528840L;
 			@Override
@@ -208,9 +207,16 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		refrescar();
 	}
 	
-	public void actualizarInmuebles(){
+	public void actualizarInmuebles(Inmueble inmueble){
 		lstInmuebles = inmuebleService.buscar(null);
 		cmbInmInmueble.setContainerDataSource(new BeanItemContainer<Inmueble>(Inmueble.class,  lstInmuebles));
+		if(inmueble!=null){
+			for(Inmueble inm : lstInmuebles){
+				if(inm.getId().equals(inmueble.getId())){
+					cmbInmInmueble.select(inm);
+				}
+			}
+		}
 	}
 
 	private void cambiaCombo(ValueChangeEvent event) {
@@ -228,7 +234,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals( btnInmRegistrar )){
 			
-			pnlAgregarInmueble = new PanelAgregarInmueble(1L);
+			pnlAgregarInmueble = new PanelAgregarInmueble();
 			pnlAgregarInmueble.setPadre(this);
 			Window window=new Window(){
 				
@@ -248,7 +254,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		
 		if(event.getButton().equals(btnInmAgregar)){
 			
-			inmueble.setNumeroPisos(new BigDecimal(txtInmNumeroPisos.getValue().toString()));
+			inmueble.setNumeroPisos(!HarecUtil.nullToEmpty(txtInmNumeroPisos.getValue()).equals("") ? new BigDecimal((String)txtInmNumeroPisos.getValue()):null);
 			inmueble.setInmueble((Inmueble)cmbInmInmueble.getValue());
 			inmueble.setExpediente(expediente);
 			inmueble.setPropietario((Persona)cmbInmPropietario.getValue());
@@ -299,16 +305,16 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 			Item item = container.addItem(con++);
 			item.getItemProperty("id").setValue(inmueble.getId());
 			item.getItemProperty("inmueble.id").setValue(HarecUtil.nullToEmpty(inmueble.getInmueble().getId()));
-			item.getItemProperty("inmueble.tipoDireccion").setValue(HarecUtil.nullToEmpty(inmueble.getInmueble().getDireccion()));
-			item.getItemProperty("inmueble.direccion").setValue(HarecUtil.nullToEmpty(inmueble.getInmueble().getDireccion()));
-			item.getItemProperty("inmueble.urbanizacion").setValue(HarecUtil.nullToEmpty(inmueble.getInmueble().getUrbanizacion()));
-			item.getItemProperty("inmueble.ubicacion").setValue(HarecUtil.nullToEmpty(inmueble.getInmueble().getDireccion()));
-			item.getItemProperty("propietario.id").setValue(HarecUtil.nullToEmpty(inmueble.getPropietario().getId()));
-			item.getItemProperty("propietario.nombre").setValue(HarecUtil.nullToEmpty(inmueble.getPropietario().getNombreCompleto()));
+			item.getItemProperty("inmueble.tipoDireccion").setValue((inmueble.getInmueble()!=null && inmueble.getInmueble().getTipoDireccion()!=null)?HarecUtil.nullToEmpty(inmueble.getInmueble().getTipoDireccion().getNombre()):"");
+			item.getItemProperty("inmueble.direccion").setValue(inmueble.getInmueble()!=null?HarecUtil.nullToEmpty(inmueble.getInmueble().getDireccion()):"");
+			item.getItemProperty("inmueble.urbanizacion").setValue(inmueble.getInmueble()!=null?HarecUtil.nullToEmpty(inmueble.getInmueble().getUrbanizacion()):"");
+			item.getItemProperty("inmueble.ubicacion").setValue((inmueble.getInmueble()!=null&&inmueble.getInmueble().getUbgDistrito()!=null)?HarecUtil.nullToEmpty(inmueble.getInmueble().getUbgDistrito().getNombreCompleto()):"");
+			item.getItemProperty("propietario.id").setValue(inmueble.getPropietario()!=null?HarecUtil.nullToEmpty(inmueble.getPropietario().getId()):0l);
+			item.getItemProperty("propietario.nombre").setValue(inmueble.getPropietario()!=null?HarecUtil.nullToEmpty(inmueble.getPropietario().getNombreCompleto()):"");
 			item.getItemProperty("pisos").setValue(HarecUtil.nullToEmpty(inmueble.getNumeroPisos()));
 			item.getItemProperty("tipoUso").setValue(HarecUtil.nullToEmpty(inmueble.getTipoUso()));
-			item.getItemProperty("situacion.id").setValue(HarecUtil.nullToEmpty(inmueble.getSituacion().getId()));
-			item.getItemProperty("situacion.nombre").setValue(HarecUtil.nullToEmpty(inmueble.getSituacion().getNombre()));
+			item.getItemProperty("situacion.id").setValue(inmueble.getSituacion()!=null?HarecUtil.nullToEmpty(inmueble.getSituacion().getId()):0l);
+			item.getItemProperty("situacion.nombre").setValue(inmueble.getSituacion()!=null?HarecUtil.nullToEmpty(inmueble.getSituacion().getNombre()):"");
 		}
 	}
 	
@@ -442,6 +448,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		cmbInmInmueble.setImmediate(false);
 		cmbInmInmueble.setWidth("350px");
 		cmbInmInmueble.setHeight("-1px");
+		cmbInmInmueble.setRequired(true);
 		pnlInmueblesBody1.addComponent(cmbInmInmueble);
 		
 		// btnInmRegistrar
@@ -585,6 +592,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 		txtInmTipodeUso.setImmediate(false);
 		txtInmTipodeUso.setWidth("250px");
 		txtInmTipodeUso.setHeight("-1px");
+		txtInmTipodeUso.setRequired(true);
 		txtInmTipodeUso.setInputPrompt("Tipo de Uso");
 		pnlInmueblesBody4.addComponent(txtInmTipodeUso);
 		
