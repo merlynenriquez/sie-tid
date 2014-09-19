@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     9/16/2014 10:10:13 PM                        */
+/* Created on:     9/18/2014 11:18:01 PM                        */
 /*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
@@ -1290,7 +1290,7 @@ alter table SIETID.EXP_EXPEDIENTE_MEDIOS_MOVIL
 create table SIETID.EXP_EXPLOSIVOS 
 (
    ID                   NUMBER(16)           not null,
-   PERSONA              number(16)           not null,
+   PERSONA              number(16),
    EXPEDIENTE           NUMBER(16),
    EMPRESA              NUMBER(16),
    DESCRIPCION          VARCHAR2(500),
@@ -4512,6 +4512,3 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-
-      
-quit;

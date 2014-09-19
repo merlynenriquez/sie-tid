@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     9/16/2014 1:37:11 AM                         */
+/* Created on:     9/16/2014 10:10:13 PM                        */
 /*==============================================================*/
 
 
@@ -1448,3 +1448,5 @@ alter table SIETID.UBG_PROVINCIA
    drop primary key cascade;
 
 drop table SIETID.UBG_PROVINCIA cascade constraints;
+
+quit;
