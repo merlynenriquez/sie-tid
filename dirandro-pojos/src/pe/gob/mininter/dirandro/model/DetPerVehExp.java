@@ -25,6 +25,9 @@ public class DetPerVehExp implements Serializable {
 
 	private Timestamp edicion;
 
+	@Column(length=2000)
+	private String observacion;
+
 	@Column(name="PLACA_MONTADA", length=100)
 	private String placaMontada;
 
@@ -106,6 +109,14 @@ public class DetPerVehExp implements Serializable {
 
 	public void setEdicion(Timestamp edicion) {
 		this.edicion = edicion;
+	}
+
+	public String getObservacion() {
+		return this.observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public String getPlacaMontada() {

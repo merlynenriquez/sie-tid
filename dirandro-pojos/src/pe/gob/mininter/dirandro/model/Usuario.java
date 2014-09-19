@@ -599,6 +599,14 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Provincia> ubgProvincias2;
 
+	//bi-directional many-to-one association to ExpNumero
+	@OneToMany(mappedBy="segUsuario1")
+	private List<Numero> expNumeros1;
+
+	//bi-directional many-to-one association to ExpNumero
+	@OneToMany(mappedBy="segUsuario2")
+	private List<Numero> expNumeros2;
+
 	public Usuario() {
 	}
 
@@ -3624,6 +3632,50 @@ public class Usuario implements Serializable {
 		ubgProvincias2.setSegUsuario2(null);
 
 		return ubgProvincias2;
+	}
+
+	public List<Numero> getExpNumeros1() {
+		return this.expNumeros1;
+	}
+
+	public void setExpNumeros1(List<Numero> expNumeros1) {
+		this.expNumeros1 = expNumeros1;
+	}
+
+	public Numero addExpNumeros1(Numero expNumeros1) {
+		getExpNumeros1().add(expNumeros1);
+		expNumeros1.setSegUsuario1(this);
+
+		return expNumeros1;
+	}
+
+	public Numero removeExpNumeros1(Numero expNumeros1) {
+		getExpNumeros1().remove(expNumeros1);
+		expNumeros1.setSegUsuario1(null);
+
+		return expNumeros1;
+	}
+
+	public List<Numero> getExpNumeros2() {
+		return this.expNumeros2;
+	}
+
+	public void setExpNumeros2(List<Numero> expNumeros2) {
+		this.expNumeros2 = expNumeros2;
+	}
+
+	public Numero addExpNumeros2(Numero expNumeros2) {
+		getExpNumeros2().add(expNumeros2);
+		expNumeros2.setSegUsuario2(this);
+
+		return expNumeros2;
+	}
+
+	public Numero removeExpNumeros2(Numero expNumeros2) {
+		getExpNumeros2().remove(expNumeros2);
+		expNumeros2.setSegUsuario2(null);
+
+		return expNumeros2;
 	}
 
 }

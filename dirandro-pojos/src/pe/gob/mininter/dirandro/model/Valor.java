@@ -161,6 +161,10 @@ public class Valor implements Serializable {
 	@OneToMany(mappedBy="cfgValor2")
 	private List<DetPerTelExp> expDetPerTelExps2;
 
+	//bi-directional many-to-one association to DetPerTelExp
+	@OneToMany(mappedBy="cfgValor3")
+	private List<DetPerTelExp> expDetPerTelExps3;
+
 	//bi-directional many-to-one association to DetPerVehExp
 	@OneToMany(mappedBy="cfgValor1")
 	private List<DetPerVehExp> expDetPerVehExps1;
@@ -261,10 +265,6 @@ public class Valor implements Serializable {
 	@OneToMany(mappedBy="cfgValor3")
 	private List<Explosivo> expExplosivos3;
 
-	//bi-directional many-to-one association to Explosivo
-	@OneToMany(mappedBy="cfgValor4")
-	private List<Explosivo> expExplosivos4;
-
 	//bi-directional many-to-one association to Importe
 	@OneToMany(mappedBy="cfgValor1")
 	private List<Importe> expImportes1;
@@ -317,10 +317,6 @@ public class Valor implements Serializable {
 	@OneToMany(mappedBy="cfgValor4")
 	private List<Municion> expMuniciones4;
 
-	//bi-directional many-to-one association to Municion
-	@OneToMany(mappedBy="cfgValor5")
-	private List<Municion> expMuniciones5;
-
 	//bi-directional many-to-one association to Ruta
 	@OneToMany(mappedBy="cfgValor1")
 	private List<Ruta> expRutas1;
@@ -368,10 +364,6 @@ public class Valor implements Serializable {
 	//bi-directional many-to-one association to Hojaremision
 	@OneToMany(mappedBy="cfgValor")
 	private List<Hojaremision> hrHojaremisions;
-
-	//bi-directional many-to-one association to HojaremisionMuestra
-	@OneToMany(mappedBy="cfgValor")
-	private List<HojaremisionMuestra> hrHojaremisionMuestras;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@OneToMany(mappedBy="cfgValor")
@@ -504,10 +496,6 @@ public class Valor implements Serializable {
 	//bi-directional many-to-one association to Telefono
 	@OneToMany(mappedBy="cfgValor2")
 	private List<Telefono> perTelefonos2;
-
-	//bi-directional many-to-one association to Telefono
-	@OneToMany(mappedBy="cfgValor3")
-	private List<Telefono> perTelefonos3;
 
 	//bi-directional many-to-one association to Opcion
 	@OneToMany(mappedBy="cfgValor1")
@@ -1200,6 +1188,28 @@ public class Valor implements Serializable {
 		return expDetPerTelExps2;
 	}
 
+	public List<DetPerTelExp> getExpDetPerTelExps3() {
+		return this.expDetPerTelExps3;
+	}
+
+	public void setExpDetPerTelExps3(List<DetPerTelExp> expDetPerTelExps3) {
+		this.expDetPerTelExps3 = expDetPerTelExps3;
+	}
+
+	public DetPerTelExp addExpDetPerTelExps3(DetPerTelExp expDetPerTelExps3) {
+		getExpDetPerTelExps3().add(expDetPerTelExps3);
+		expDetPerTelExps3.setCfgValor3(this);
+
+		return expDetPerTelExps3;
+	}
+
+	public DetPerTelExp removeExpDetPerTelExps3(DetPerTelExp expDetPerTelExps3) {
+		getExpDetPerTelExps3().remove(expDetPerTelExps3);
+		expDetPerTelExps3.setCfgValor3(null);
+
+		return expDetPerTelExps3;
+	}
+
 	public List<DetPerVehExp> getExpDetPerVehExps1() {
 		return this.expDetPerVehExps1;
 	}
@@ -1750,28 +1760,6 @@ public class Valor implements Serializable {
 		return expExplosivos3;
 	}
 
-	public List<Explosivo> getExpExplosivos4() {
-		return this.expExplosivos4;
-	}
-
-	public void setExpExplosivos4(List<Explosivo> expExplosivos4) {
-		this.expExplosivos4 = expExplosivos4;
-	}
-
-	public Explosivo addExpExplosivos4(Explosivo expExplosivos4) {
-		getExpExplosivos4().add(expExplosivos4);
-		expExplosivos4.setCfgValor4(this);
-
-		return expExplosivos4;
-	}
-
-	public Explosivo removeExpExplosivos4(Explosivo expExplosivos4) {
-		getExpExplosivos4().remove(expExplosivos4);
-		expExplosivos4.setCfgValor4(null);
-
-		return expExplosivos4;
-	}
-
 	public List<Importe> getExpImportes1() {
 		return this.expImportes1;
 	}
@@ -2058,28 +2046,6 @@ public class Valor implements Serializable {
 		return expMuniciones4;
 	}
 
-	public List<Municion> getExpMuniciones5() {
-		return this.expMuniciones5;
-	}
-
-	public void setExpMuniciones5(List<Municion> expMuniciones5) {
-		this.expMuniciones5 = expMuniciones5;
-	}
-
-	public Municion addExpMuniciones5(Municion expMuniciones5) {
-		getExpMuniciones5().add(expMuniciones5);
-		expMuniciones5.setCfgValor5(this);
-
-		return expMuniciones5;
-	}
-
-	public Municion removeExpMuniciones5(Municion expMuniciones5) {
-		getExpMuniciones5().remove(expMuniciones5);
-		expMuniciones5.setCfgValor5(null);
-
-		return expMuniciones5;
-	}
-
 	public List<Ruta> getExpRutas1() {
 		return this.expRutas1;
 	}
@@ -2342,28 +2308,6 @@ public class Valor implements Serializable {
 		hrHojaremision.setCfgValor(null);
 
 		return hrHojaremision;
-	}
-
-	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
-		return this.hrHojaremisionMuestras;
-	}
-
-	public void setHrHojaremisionMuestras(List<HojaremisionMuestra> hrHojaremisionMuestras) {
-		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
-	}
-
-	public HojaremisionMuestra addHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().add(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setCfgValor(this);
-
-		return hrHojaremisionMuestra;
-	}
-
-	public HojaremisionMuestra removeHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
-		getHrHojaremisionMuestras().remove(hrHojaremisionMuestra);
-		hrHojaremisionMuestra.setCfgValor(null);
-
-		return hrHojaremisionMuestra;
 	}
 
 	public List<ModeloMarca> getMntModeloMarcas() {
@@ -3090,28 +3034,6 @@ public class Valor implements Serializable {
 		perTelefonos2.setCfgValor2(null);
 
 		return perTelefonos2;
-	}
-
-	public List<Telefono> getPerTelefonos3() {
-		return this.perTelefonos3;
-	}
-
-	public void setPerTelefonos3(List<Telefono> perTelefonos3) {
-		this.perTelefonos3 = perTelefonos3;
-	}
-
-	public Telefono addPerTelefonos3(Telefono perTelefonos3) {
-		getPerTelefonos3().add(perTelefonos3);
-		perTelefonos3.setCfgValor3(this);
-
-		return perTelefonos3;
-	}
-
-	public Telefono removePerTelefonos3(Telefono perTelefonos3) {
-		getPerTelefonos3().remove(perTelefonos3);
-		perTelefonos3.setCfgValor3(null);
-
-		return perTelefonos3;
 	}
 
 	public List<Opcion> getSegOpcions1() {
