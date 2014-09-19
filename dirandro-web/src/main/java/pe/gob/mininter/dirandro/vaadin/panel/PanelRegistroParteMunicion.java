@@ -165,6 +165,7 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 		rbTipoPersona.addItem("Persona");
 		rbTipoPersona.addItem("Empresa");
 		rbTipoPersona.select("Persona");
+		rbTipoPersona.setImmediate(true);
 		rbTipoPersona.addListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 2720977948538256976L;
 			@Override

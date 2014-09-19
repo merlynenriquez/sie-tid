@@ -169,6 +169,7 @@ public class PanelRegistroParteExplosivo extends CustomComponent implements Clic
 		rbTipoPropietario.addItem("Persona");
 		rbTipoPropietario.addItem("Empresa");
 		rbTipoPropietario.select("Persona");
+		rbTipoPropietario.setImmediate(true);
 		rbTipoPropietario.addListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 2720977948538256976L;
 			@Override
