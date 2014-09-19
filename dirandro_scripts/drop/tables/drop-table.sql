@@ -1448,3 +1448,5 @@ alter table SIETID.UBG_PROVINCIA
    drop primary key cascade;
 
 drop table SIETID.UBG_PROVINCIA cascade constraints;
+
+quit;
