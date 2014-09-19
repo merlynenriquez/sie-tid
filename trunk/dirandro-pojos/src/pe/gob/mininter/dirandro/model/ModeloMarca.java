@@ -30,16 +30,28 @@ public class ModeloMarca implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-one association to Arma
-	@OneToMany(mappedBy="mntModeloMarca1")
-	private List<Arma> expArmas1;
+	@OneToMany(mappedBy="mntModeloMarca")
+	private List<Arma> expArmas;
 
-	//bi-directional many-to-one association to Arma
+	//bi-directional many-to-one association to Droga
+	@OneToMany(mappedBy="mntModeloMarca1")
+	private List<Droga> expDrogas1;
+
+	//bi-directional many-to-one association to Droga
 	@OneToMany(mappedBy="mntModeloMarca2")
-	private List<Arma> expArmas2;
+	private List<Droga> expDrogas2;
+
+	//bi-directional many-to-one association to Especie
+	@OneToMany(mappedBy="mntModeloMarca")
+	private List<Especie> expEspecies;
 
 	//bi-directional many-to-one association to Explosivo
-	@OneToMany(mappedBy="mntModeloMarca")
-	private List<Explosivo> expExplosivos;
+	@OneToMany(mappedBy="mntModeloMarca1")
+	private List<Explosivo> expExplosivos1;
+
+	//bi-directional many-to-one association to Explosivo
+	@OneToMany(mappedBy="mntModeloMarca2")
+	private List<Explosivo> expExplosivos2;
 
 	//bi-directional one-to-one association to Municion
 	@OneToOne(mappedBy="mntModeloMarca1")
@@ -47,7 +59,11 @@ public class ModeloMarca implements Serializable {
 
 	//bi-directional many-to-one association to Municion
 	@OneToMany(mappedBy="mntModeloMarca2")
-	private List<Municion> expMuniciones;
+	private List<Municion> expMuniciones1;
+
+	//bi-directional many-to-one association to Municion
+	@OneToMany(mappedBy="mntModeloMarca3")
+	private List<Municion> expMuniciones2;
 
 	//bi-directional many-to-one association to Vehiculo
 	@OneToMany(mappedBy="mntModeloMarca")
@@ -56,6 +72,10 @@ public class ModeloMarca implements Serializable {
 	//bi-directional many-to-one association to Hojaremision
 	@OneToMany(mappedBy="mntModeloMarca")
 	private List<Hojaremision> hrHojaremisions;
+
+	//bi-directional many-to-one association to HojaremisionMuestra
+	@OneToMany(mappedBy="mntModeloMarca")
+	private List<HojaremisionMuestra> hrHojaremisionMuestras;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -120,70 +140,136 @@ public class ModeloMarca implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<Arma> getExpArmas1() {
-		return this.expArmas1;
+	public List<Arma> getExpArmas() {
+		return this.expArmas;
 	}
 
-	public void setExpArmas1(List<Arma> expArmas1) {
-		this.expArmas1 = expArmas1;
+	public void setExpArmas(List<Arma> expArmas) {
+		this.expArmas = expArmas;
 	}
 
-	public Arma addExpArmas1(Arma expArmas1) {
-		getExpArmas1().add(expArmas1);
-		expArmas1.setMntModeloMarca1(this);
+	public Arma addExpArma(Arma expArma) {
+		getExpArmas().add(expArma);
+		expArma.setMntModeloMarca(this);
 
-		return expArmas1;
+		return expArma;
 	}
 
-	public Arma removeExpArmas1(Arma expArmas1) {
-		getExpArmas1().remove(expArmas1);
-		expArmas1.setMntModeloMarca1(null);
+	public Arma removeExpArma(Arma expArma) {
+		getExpArmas().remove(expArma);
+		expArma.setMntModeloMarca(null);
 
-		return expArmas1;
+		return expArma;
 	}
 
-	public List<Arma> getExpArmas2() {
-		return this.expArmas2;
+	public List<Droga> getExpDrogas1() {
+		return this.expDrogas1;
 	}
 
-	public void setExpArmas2(List<Arma> expArmas2) {
-		this.expArmas2 = expArmas2;
+	public void setExpDrogas1(List<Droga> expDrogas1) {
+		this.expDrogas1 = expDrogas1;
 	}
 
-	public Arma addExpArmas2(Arma expArmas2) {
-		getExpArmas2().add(expArmas2);
-		expArmas2.setMntModeloMarca2(this);
+	public Droga addExpDrogas1(Droga expDrogas1) {
+		getExpDrogas1().add(expDrogas1);
+		expDrogas1.setMntModeloMarca1(this);
 
-		return expArmas2;
+		return expDrogas1;
 	}
 
-	public Arma removeExpArmas2(Arma expArmas2) {
-		getExpArmas2().remove(expArmas2);
-		expArmas2.setMntModeloMarca2(null);
+	public Droga removeExpDrogas1(Droga expDrogas1) {
+		getExpDrogas1().remove(expDrogas1);
+		expDrogas1.setMntModeloMarca1(null);
 
-		return expArmas2;
+		return expDrogas1;
 	}
 
-	public List<Explosivo> getExpExplosivos() {
-		return this.expExplosivos;
+	public List<Droga> getExpDrogas2() {
+		return this.expDrogas2;
 	}
 
-	public void setExpExplosivos(List<Explosivo> expExplosivos) {
-		this.expExplosivos = expExplosivos;
+	public void setExpDrogas2(List<Droga> expDrogas2) {
+		this.expDrogas2 = expDrogas2;
 	}
 
-	public Explosivo addExpExplosivo(Explosivo expExplosivo) {
-		getExpExplosivos().add(expExplosivo);
-		expExplosivo.setMntModeloMarca(this);
+	public Droga addExpDrogas2(Droga expDrogas2) {
+		getExpDrogas2().add(expDrogas2);
+		expDrogas2.setMntModeloMarca2(this);
 
-		return expExplosivo;
+		return expDrogas2;
 	}
 
-	public Explosivo removeExpExplosivo(Explosivo expExplosivo) {
-		getExpExplosivos().remove(expExplosivo);
-		expExplosivo.setMntModeloMarca(null);
+	public Droga removeExpDrogas2(Droga expDrogas2) {
+		getExpDrogas2().remove(expDrogas2);
+		expDrogas2.setMntModeloMarca2(null);
 
-		return expExplosivo;
+		return expDrogas2;
+	}
+
+	public List<Especie> getExpEspecies() {
+		return this.expEspecies;
+	}
+
+	public void setExpEspecies(List<Especie> expEspecies) {
+		this.expEspecies = expEspecies;
+	}
+
+	public Especie addExpEspecy(Especie expEspecy) {
+		getExpEspecies().add(expEspecy);
+		expEspecy.setMntModeloMarca(this);
+
+		return expEspecy;
+	}
+
+	public Especie removeExpEspecy(Especie expEspecy) {
+		getExpEspecies().remove(expEspecy);
+		expEspecy.setMntModeloMarca(null);
+
+		return expEspecy;
+	}
+
+	public List<Explosivo> getExpExplosivos1() {
+		return this.expExplosivos1;
+	}
+
+	public void setExpExplosivos1(List<Explosivo> expExplosivos1) {
+		this.expExplosivos1 = expExplosivos1;
+	}
+
+	public Explosivo addExpExplosivos1(Explosivo expExplosivos1) {
+		getExpExplosivos1().add(expExplosivos1);
+		expExplosivos1.setMntModeloMarca1(this);
+
+		return expExplosivos1;
+	}
+
+	public Explosivo removeExpExplosivos1(Explosivo expExplosivos1) {
+		getExpExplosivos1().remove(expExplosivos1);
+		expExplosivos1.setMntModeloMarca1(null);
+
+		return expExplosivos1;
+	}
+
+	public List<Explosivo> getExpExplosivos2() {
+		return this.expExplosivos2;
+	}
+
+	public void setExpExplosivos2(List<Explosivo> expExplosivos2) {
+		this.expExplosivos2 = expExplosivos2;
+	}
+
+	public Explosivo addExpExplosivos2(Explosivo expExplosivos2) {
+		getExpExplosivos2().add(expExplosivos2);
+		expExplosivos2.setMntModeloMarca2(this);
+
+		return expExplosivos2;
+	}
+
+	public Explosivo removeExpExplosivos2(Explosivo expExplosivos2) {
+		getExpExplosivos2().remove(expExplosivos2);
+		expExplosivos2.setMntModeloMarca2(null);
+
+		return expExplosivos2;
 	}
 
 	public Municion getExpMunicione() {
@@ -194,26 +280,48 @@ public class ModeloMarca implements Serializable {
 		this.expMunicione = expMunicione;
 	}
 
-	public List<Municion> getExpMuniciones() {
-		return this.expMuniciones;
+	public List<Municion> getExpMuniciones1() {
+		return this.expMuniciones1;
 	}
 
-	public void setExpMuniciones(List<Municion> expMuniciones) {
-		this.expMuniciones = expMuniciones;
+	public void setExpMuniciones1(List<Municion> expMuniciones1) {
+		this.expMuniciones1 = expMuniciones1;
 	}
 
-	public Municion addExpMunicione(Municion expMunicione) {
-		getExpMuniciones().add(expMunicione);
-		expMunicione.setMntModeloMarca2(this);
+	public Municion addExpMuniciones1(Municion expMuniciones1) {
+		getExpMuniciones1().add(expMuniciones1);
+		expMuniciones1.setMntModeloMarca2(this);
 
-		return expMunicione;
+		return expMuniciones1;
 	}
 
-	public Municion removeExpMunicione(Municion expMunicione) {
-		getExpMuniciones().remove(expMunicione);
-		expMunicione.setMntModeloMarca2(null);
+	public Municion removeExpMuniciones1(Municion expMuniciones1) {
+		getExpMuniciones1().remove(expMuniciones1);
+		expMuniciones1.setMntModeloMarca2(null);
 
-		return expMunicione;
+		return expMuniciones1;
+	}
+
+	public List<Municion> getExpMuniciones2() {
+		return this.expMuniciones2;
+	}
+
+	public void setExpMuniciones2(List<Municion> expMuniciones2) {
+		this.expMuniciones2 = expMuniciones2;
+	}
+
+	public Municion addExpMuniciones2(Municion expMuniciones2) {
+		getExpMuniciones2().add(expMuniciones2);
+		expMuniciones2.setMntModeloMarca3(this);
+
+		return expMuniciones2;
+	}
+
+	public Municion removeExpMuniciones2(Municion expMuniciones2) {
+		getExpMuniciones2().remove(expMuniciones2);
+		expMuniciones2.setMntModeloMarca3(null);
+
+		return expMuniciones2;
 	}
 
 	public List<Vehiculo> getExpVehiculos() {
@@ -258,6 +366,28 @@ public class ModeloMarca implements Serializable {
 		hrHojaremision.setMntModeloMarca(null);
 
 		return hrHojaremision;
+	}
+
+	public List<HojaremisionMuestra> getHrHojaremisionMuestras() {
+		return this.hrHojaremisionMuestras;
+	}
+
+	public void setHrHojaremisionMuestras(List<HojaremisionMuestra> hrHojaremisionMuestras) {
+		this.hrHojaremisionMuestras = hrHojaremisionMuestras;
+	}
+
+	public HojaremisionMuestra addHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
+		getHrHojaremisionMuestras().add(hrHojaremisionMuestra);
+		hrHojaremisionMuestra.setMntModeloMarca(this);
+
+		return hrHojaremisionMuestra;
+	}
+
+	public HojaremisionMuestra removeHrHojaremisionMuestra(HojaremisionMuestra hrHojaremisionMuestra) {
+		getHrHojaremisionMuestras().remove(hrHojaremisionMuestra);
+		hrHojaremisionMuestra.setMntModeloMarca(null);
+
+		return hrHojaremisionMuestra;
 	}
 
 	public Valor getCfgValor() {

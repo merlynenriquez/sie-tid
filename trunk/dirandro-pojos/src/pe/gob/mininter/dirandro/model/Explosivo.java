@@ -56,11 +56,6 @@ public class Explosivo implements Serializable {
 	@JoinColumn(name="SITUACION")
 	private Valor cfgValor3;
 
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="TIPO")
-	private Valor cfgValor4;
-
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
@@ -69,7 +64,12 @@ public class Explosivo implements Serializable {
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
-	private ModeloMarca mntModeloMarca;
+	private ModeloMarca mntModeloMarca1;
+
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca mntModeloMarca2;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
@@ -78,7 +78,7 @@ public class Explosivo implements Serializable {
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA", nullable=false)
+	@JoinColumn(name="PERSONA")
 	private Persona perPersona;
 
 	//bi-directional many-to-one association to Usuario
@@ -182,14 +182,6 @@ public class Explosivo implements Serializable {
 		this.cfgValor3 = cfgValor3;
 	}
 
-	public Valor getCfgValor4() {
-		return this.cfgValor4;
-	}
-
-	public void setCfgValor4(Valor cfgValor4) {
-		this.cfgValor4 = cfgValor4;
-	}
-
 	public Expediente getExpExpediente() {
 		return this.expExpediente;
 	}
@@ -198,12 +190,20 @@ public class Explosivo implements Serializable {
 		this.expExpediente = expExpediente;
 	}
 
-	public ModeloMarca getMntModeloMarca() {
-		return this.mntModeloMarca;
+	public ModeloMarca getMntModeloMarca1() {
+		return this.mntModeloMarca1;
 	}
 
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
+	public void setMntModeloMarca1(ModeloMarca mntModeloMarca1) {
+		this.mntModeloMarca1 = mntModeloMarca1;
+	}
+
+	public ModeloMarca getMntModeloMarca2() {
+		return this.mntModeloMarca2;
+	}
+
+	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
+		this.mntModeloMarca2 = mntModeloMarca2;
 	}
 
 	public Empresa getPerEmpresa() {

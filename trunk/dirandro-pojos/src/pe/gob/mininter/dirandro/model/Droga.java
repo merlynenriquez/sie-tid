@@ -77,14 +77,24 @@ public class Droga implements Serializable {
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
 
-	//bi-directional many-to-one association to Pais
+	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
-	@JoinColumn(name="PROCENDECIA")
-	private Pais mntPais1;
+	@JoinColumn(name="TIPO_MEDIDA_MUESTRA")
+	private ModeloMarca mntModeloMarca1;
+
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca mntModeloMarca2;
 
 	//bi-directional many-to-one association to Pais
 	@ManyToOne
 	@JoinColumn(name="DESTINO")
+	private Pais mntPais1;
+
+	//bi-directional many-to-one association to Pais
+	@ManyToOne
+	@JoinColumn(name="PROCEDENCIA")
 	private Pais mntPais2;
 
 	//bi-directional many-to-one association to Usuario
@@ -244,6 +254,22 @@ public class Droga implements Serializable {
 
 	public void setExpExpediente(Expediente expExpediente) {
 		this.expExpediente = expExpediente;
+	}
+
+	public ModeloMarca getMntModeloMarca1() {
+		return this.mntModeloMarca1;
+	}
+
+	public void setMntModeloMarca1(ModeloMarca mntModeloMarca1) {
+		this.mntModeloMarca1 = mntModeloMarca1;
+	}
+
+	public ModeloMarca getMntModeloMarca2() {
+		return this.mntModeloMarca2;
+	}
+
+	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
+		this.mntModeloMarca2 = mntModeloMarca2;
 	}
 
 	public Pais getMntPais1() {

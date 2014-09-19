@@ -92,6 +92,10 @@ public class DetExpedientePersona implements Serializable {
 	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
+	//bi-directional many-to-one association to DetPerTelExp
+	@OneToMany(mappedBy="expDetExpedientePersona")
+	private List<DetPerTelExp> expDetPerTelExps;
+
 	public DetExpedientePersona() {
 	}
 
@@ -273,6 +277,28 @@ public class DetExpedientePersona implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
+	}
+
+	public List<DetPerTelExp> getExpDetPerTelExps() {
+		return this.expDetPerTelExps;
+	}
+
+	public void setExpDetPerTelExps(List<DetPerTelExp> expDetPerTelExps) {
+		this.expDetPerTelExps = expDetPerTelExps;
+	}
+
+	public DetPerTelExp addExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
+		getExpDetPerTelExps().add(expDetPerTelExp);
+		expDetPerTelExp.setExpDetExpedientePersona(this);
+
+		return expDetPerTelExp;
+	}
+
+	public DetPerTelExp removeExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
+		getExpDetPerTelExps().remove(expDetPerTelExp);
+		expDetPerTelExp.setExpDetExpedientePersona(null);
+
+		return expDetPerTelExp;
 	}
 
 }

@@ -52,13 +52,8 @@ public class Arma implements Serializable {
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
-	@JoinColumn(name="MARCA")
-	private ModeloMarca mntModeloMarca1;
-
-	//bi-directional many-to-one association to ModeloMarca
-	@ManyToOne
 	@JoinColumn(name="MODELO")
-	private ModeloMarca mntModeloMarca2;
+	private ModeloMarca mntModeloMarca;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -149,20 +144,12 @@ public class Arma implements Serializable {
 		this.cfgValor3 = cfgValor3;
 	}
 
-	public ModeloMarca getMntModeloMarca1() {
-		return this.mntModeloMarca1;
+	public ModeloMarca getMntModeloMarca() {
+		return this.mntModeloMarca;
 	}
 
-	public void setMntModeloMarca1(ModeloMarca mntModeloMarca1) {
-		this.mntModeloMarca1 = mntModeloMarca1;
-	}
-
-	public ModeloMarca getMntModeloMarca2() {
-		return this.mntModeloMarca2;
-	}
-
-	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
-		this.mntModeloMarca2 = mntModeloMarca2;
+	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
+		this.mntModeloMarca = mntModeloMarca;
 	}
 
 	public Usuario getSegUsuario1() {

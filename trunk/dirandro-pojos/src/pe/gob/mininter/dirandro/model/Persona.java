@@ -67,12 +67,8 @@ public class Persona implements Serializable {
 	private List<DetPerInmExp> expDetPerInmExps;
 
 	//bi-directional many-to-one association to DetPerTelExp
-	@OneToMany(mappedBy="perPersona1")
-	private List<DetPerTelExp> expDetPerTelExps1;
-
-	//bi-directional many-to-one association to DetPerTelExp
-	@OneToMany(mappedBy="perPersona2")
-	private List<DetPerTelExp> expDetPerTelExps2;
+	@OneToMany(mappedBy="perPersona")
+	private List<DetPerTelExp> expDetPerTelExps;
 
 	//bi-directional many-to-one association to DetPerVehExp
 	@OneToMany(mappedBy="perPersona1")
@@ -367,48 +363,26 @@ public class Persona implements Serializable {
 		return expDetPerInmExp;
 	}
 
-	public List<DetPerTelExp> getExpDetPerTelExps1() {
-		return this.expDetPerTelExps1;
+	public List<DetPerTelExp> getExpDetPerTelExps() {
+		return this.expDetPerTelExps;
 	}
 
-	public void setExpDetPerTelExps1(List<DetPerTelExp> expDetPerTelExps1) {
-		this.expDetPerTelExps1 = expDetPerTelExps1;
+	public void setExpDetPerTelExps(List<DetPerTelExp> expDetPerTelExps) {
+		this.expDetPerTelExps = expDetPerTelExps;
 	}
 
-	public DetPerTelExp addExpDetPerTelExps1(DetPerTelExp expDetPerTelExps1) {
-		getExpDetPerTelExps1().add(expDetPerTelExps1);
-		expDetPerTelExps1.setPerPersona1(this);
+	public DetPerTelExp addExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
+		getExpDetPerTelExps().add(expDetPerTelExp);
+		expDetPerTelExp.setPerPersona(this);
 
-		return expDetPerTelExps1;
+		return expDetPerTelExp;
 	}
 
-	public DetPerTelExp removeExpDetPerTelExps1(DetPerTelExp expDetPerTelExps1) {
-		getExpDetPerTelExps1().remove(expDetPerTelExps1);
-		expDetPerTelExps1.setPerPersona1(null);
+	public DetPerTelExp removeExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
+		getExpDetPerTelExps().remove(expDetPerTelExp);
+		expDetPerTelExp.setPerPersona(null);
 
-		return expDetPerTelExps1;
-	}
-
-	public List<DetPerTelExp> getExpDetPerTelExps2() {
-		return this.expDetPerTelExps2;
-	}
-
-	public void setExpDetPerTelExps2(List<DetPerTelExp> expDetPerTelExps2) {
-		this.expDetPerTelExps2 = expDetPerTelExps2;
-	}
-
-	public DetPerTelExp addExpDetPerTelExps2(DetPerTelExp expDetPerTelExps2) {
-		getExpDetPerTelExps2().add(expDetPerTelExps2);
-		expDetPerTelExps2.setPerPersona2(this);
-
-		return expDetPerTelExps2;
-	}
-
-	public DetPerTelExp removeExpDetPerTelExps2(DetPerTelExp expDetPerTelExps2) {
-		getExpDetPerTelExps2().remove(expDetPerTelExps2);
-		expDetPerTelExps2.setPerPersona2(null);
-
-		return expDetPerTelExps2;
+		return expDetPerTelExp;
 	}
 
 	public List<DetPerVehExp> getExpDetPerVehExps1() {

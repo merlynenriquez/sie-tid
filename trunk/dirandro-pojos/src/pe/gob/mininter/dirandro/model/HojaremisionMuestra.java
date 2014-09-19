@@ -43,11 +43,6 @@ public class HojaremisionMuestra implements Serializable {
 
 	private Timestamp edicion;
 
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="UNIDAD_MEDIDA")
-	private Valor cfgValor;
-
 	//bi-directional many-to-one association to Droga
 	@ManyToOne
 	@JoinColumn(name="DROGAS")
@@ -62,6 +57,11 @@ public class HojaremisionMuestra implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="HOJAREMISION")
 	private Hojaremision hrHojaremision;
+
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca mntModeloMarca;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -148,14 +148,6 @@ public class HojaremisionMuestra implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public Valor getCfgValor() {
-		return this.cfgValor;
-	}
-
-	public void setCfgValor(Valor cfgValor) {
-		this.cfgValor = cfgValor;
-	}
-
 	public Droga getExpDroga() {
 		return this.expDroga;
 	}
@@ -178,6 +170,14 @@ public class HojaremisionMuestra implements Serializable {
 
 	public void setHrHojaremision(Hojaremision hrHojaremision) {
 		this.hrHojaremision = hrHojaremision;
+	}
+
+	public ModeloMarca getMntModeloMarca() {
+		return this.mntModeloMarca;
+	}
+
+	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
+		this.mntModeloMarca = mntModeloMarca;
 	}
 
 	public Usuario getSegUsuario1() {

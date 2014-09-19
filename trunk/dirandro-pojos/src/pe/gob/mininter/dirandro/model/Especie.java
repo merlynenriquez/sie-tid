@@ -22,6 +22,9 @@ public class Especie implements Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
 
+	@Column(precision=10)
+	private BigDecimal cantidad;
+
 	@Column(nullable=false)
 	private Timestamp creacion;
 
@@ -56,6 +59,11 @@ public class Especie implements Serializable {
 	@JoinColumn(name="EXPEDIENTE")
 	private Expediente expExpediente;
 
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca mntModeloMarca;
+
 	//bi-directional many-to-one association to TipoEspecie
 	@ManyToOne
 	@JoinColumn(name="TIPO_ESPECIE")
@@ -84,6 +92,14 @@ public class Especie implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public BigDecimal getCantidad() {
+		return this.cantidad;
+	}
+
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public Timestamp getCreacion() {
@@ -156,6 +172,14 @@ public class Especie implements Serializable {
 
 	public void setExpExpediente(Expediente expExpediente) {
 		this.expExpediente = expExpediente;
+	}
+
+	public ModeloMarca getMntModeloMarca() {
+		return this.mntModeloMarca;
+	}
+
+	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
+		this.mntModeloMarca = mntModeloMarca;
 	}
 
 	public TipoEspecie getMntTipoEspecie() {

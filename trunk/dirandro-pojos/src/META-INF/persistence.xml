@@ -67,5 +67,6 @@
 		<class>pe.gob.mininter.dirandro.model.Provincia</class>
 		<class>pe.gob.mininter.dirandro.model.Parentesco</class>
 		<class>pe.gob.mininter.dirandro.model.Municion</class>
+		<class>pe.gob.mininter.dirandro.model.Numero</class>
 	</persistence-unit>
 </persistence>

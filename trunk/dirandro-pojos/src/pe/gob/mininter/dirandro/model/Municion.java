@@ -45,23 +45,18 @@ public class Municion implements Serializable {
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="TIPO")
+	@JoinColumn(name="ESTADO")
 	private Valor cfgValor2;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="ESTADO")
+	@JoinColumn(name="CALIBRE")
 	private Valor cfgValor3;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="CALIBRE")
-	private Valor cfgValor4;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor5;
+	private Valor cfgValor4;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -77,6 +72,11 @@ public class Municion implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="MARCA")
 	private ModeloMarca mntModeloMarca2;
+
+	//bi-directional many-to-one association to ModeloMarca
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIDA")
+	private ModeloMarca mntModeloMarca3;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
@@ -189,14 +189,6 @@ public class Municion implements Serializable {
 		this.cfgValor4 = cfgValor4;
 	}
 
-	public Valor getCfgValor5() {
-		return this.cfgValor5;
-	}
-
-	public void setCfgValor5(Valor cfgValor5) {
-		this.cfgValor5 = cfgValor5;
-	}
-
 	public Expediente getExpExpediente() {
 		return this.expExpediente;
 	}
@@ -219,6 +211,14 @@ public class Municion implements Serializable {
 
 	public void setMntModeloMarca2(ModeloMarca mntModeloMarca2) {
 		this.mntModeloMarca2 = mntModeloMarca2;
+	}
+
+	public ModeloMarca getMntModeloMarca3() {
+		return this.mntModeloMarca3;
+	}
+
+	public void setMntModeloMarca3(ModeloMarca mntModeloMarca3) {
+		this.mntModeloMarca3 = mntModeloMarca3;
 	}
 
 	public Empresa getPerEmpresa() {

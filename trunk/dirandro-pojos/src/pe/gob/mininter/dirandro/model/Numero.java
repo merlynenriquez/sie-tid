@@ -7,52 +7,31 @@ import java.util.List;
 
 
 /**
- * The persistent class for the PER_TELEFONO database table.
+ * The persistent class for the EXP_NUMERO database table.
  * 
  */
 @Entity
-@Table(name="PER_TELEFONO")
-public class Telefono implements Serializable {
+@Table(name="EXP_NUMERO")
+public class Numero implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PER_TELEFONO_ID_GENERATOR", sequenceName="SEQ_")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_TELEFONO_ID_GENERATOR")
+	@SequenceGenerator(name="EXP_NUMERO_ID_GENERATOR", sequenceName="SEQ_")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_NUMERO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private long id;
-
-	@Column(length=50)
-	private String alcance;
 
 	@Column(nullable=false)
 	private Timestamp creacion;
 
 	private Timestamp edicion;
 
-	@Column(length=100)
-	private String imei;
-
-	@Column(length=50)
-	private String serie;
+	@Column(nullable=false, length=80)
+	private String numero;
 
 	//bi-directional many-to-one association to DetPerTelExp
-	@OneToMany(mappedBy="perTelefono")
+	@OneToMany(mappedBy="expNumero")
 	private List<DetPerTelExp> expDetPerTelExps;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="ESTADO")
-	private Valor cfgValor1;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="FRECUENCIA")
-	private Valor cfgValor2;
-
-	//bi-directional many-to-one association to ModeloMarca
-	@ManyToOne
-	@JoinColumn(name="MARCA")
-	private ModeloMarca mntModeloMarca;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -64,7 +43,7 @@ public class Telefono implements Serializable {
 	@JoinColumn(name="EDITOR")
 	private Usuario segUsuario2;
 
-	public Telefono() {
+	public Numero() {
 	}
 
 	public long getId() {
@@ -73,14 +52,6 @@ public class Telefono implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getAlcance() {
-		return this.alcance;
-	}
-
-	public void setAlcance(String alcance) {
-		this.alcance = alcance;
 	}
 
 	public Timestamp getCreacion() {
@@ -99,20 +70,12 @@ public class Telefono implements Serializable {
 		this.edicion = edicion;
 	}
 
-	public String getImei() {
-		return this.imei;
+	public String getNumero() {
+		return this.numero;
 	}
 
-	public void setImei(String imei) {
-		this.imei = imei;
-	}
-
-	public String getSerie() {
-		return this.serie;
-	}
-
-	public void setSerie(String serie) {
-		this.serie = serie;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public List<DetPerTelExp> getExpDetPerTelExps() {
@@ -125,40 +88,16 @@ public class Telefono implements Serializable {
 
 	public DetPerTelExp addExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
 		getExpDetPerTelExps().add(expDetPerTelExp);
-		expDetPerTelExp.setPerTelefono(this);
+		expDetPerTelExp.setExpNumero(this);
 
 		return expDetPerTelExp;
 	}
 
 	public DetPerTelExp removeExpDetPerTelExp(DetPerTelExp expDetPerTelExp) {
 		getExpDetPerTelExps().remove(expDetPerTelExp);
-		expDetPerTelExp.setPerTelefono(null);
+		expDetPerTelExp.setExpNumero(null);
 
 		return expDetPerTelExp;
-	}
-
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
-	}
-
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
-	}
-
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
-	}
-
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
-	}
-
-	public ModeloMarca getMntModeloMarca() {
-		return this.mntModeloMarca;
-	}
-
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
 	}
 
 	public Usuario getSegUsuario1() {

@@ -26,9 +26,6 @@ public class DetPerTelExp implements Serializable {
 
 	private Timestamp edicion;
 
-	@Column(length=40)
-	private String imei;
-
 	//bi-directional many-to-one association to DetLlamada
 	@OneToMany(mappedBy="expDetPerTelExp")
 	private List<DetLlamada> expDetLlamadas;
@@ -43,6 +40,16 @@ public class DetPerTelExp implements Serializable {
 	@JoinColumn(name="SITUACION")
 	private Valor cfgValor2;
 
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="OPERADORA")
+	private Valor cfgValor3;
+
+	//bi-directional many-to-one association to DetExpedientePersona
+	@ManyToOne
+	@JoinColumn(name="IMPLICADO")
+	private DetExpedientePersona expDetExpedientePersona;
+
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
@@ -51,12 +58,7 @@ public class DetPerTelExp implements Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="DUENO")
-	private Persona perPersona1;
-
-	//bi-directional many-to-one association to Persona
-	@ManyToOne
-	@JoinColumn(name="PERSONA")
-	private Persona perPersona2;
+	private Persona perPersona;
 
 	//bi-directional many-to-one association to Telefono
 	@ManyToOne
@@ -72,6 +74,11 @@ public class DetPerTelExp implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario2;
+
+	//bi-directional many-to-one association to ExpNumero
+	@ManyToOne
+	@JoinColumn(name="NUMERO")
+	private Numero expNumero;
 
 	public DetPerTelExp() {
 	}
@@ -98,14 +105,6 @@ public class DetPerTelExp implements Serializable {
 
 	public void setEdicion(Timestamp edicion) {
 		this.edicion = edicion;
-	}
-
-	public String getImei() {
-		return this.imei;
-	}
-
-	public void setImei(String imei) {
-		this.imei = imei;
 	}
 
 	public List<DetLlamada> getExpDetLlamadas() {
@@ -146,6 +145,22 @@ public class DetPerTelExp implements Serializable {
 		this.cfgValor2 = cfgValor2;
 	}
 
+	public Valor getCfgValor3() {
+		return this.cfgValor3;
+	}
+
+	public void setCfgValor3(Valor cfgValor3) {
+		this.cfgValor3 = cfgValor3;
+	}
+
+	public DetExpedientePersona getExpDetExpedientePersona() {
+		return this.expDetExpedientePersona;
+	}
+
+	public void setExpDetExpedientePersona(DetExpedientePersona expDetExpedientePersona) {
+		this.expDetExpedientePersona = expDetExpedientePersona;
+	}
+
 	public Expediente getExpExpediente() {
 		return this.expExpediente;
 	}
@@ -154,20 +169,12 @@ public class DetPerTelExp implements Serializable {
 		this.expExpediente = expExpediente;
 	}
 
-	public Persona getPerPersona1() {
-		return this.perPersona1;
+	public Persona getPerPersona() {
+		return this.perPersona;
 	}
 
-	public void setPerPersona1(Persona perPersona1) {
-		this.perPersona1 = perPersona1;
-	}
-
-	public Persona getPerPersona2() {
-		return this.perPersona2;
-	}
-
-	public void setPerPersona2(Persona perPersona2) {
-		this.perPersona2 = perPersona2;
+	public void setPerPersona(Persona perPersona) {
+		this.perPersona = perPersona;
 	}
 
 	public Telefono getPerTelefono() {
@@ -192,6 +199,14 @@ public class DetPerTelExp implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
+	}
+
+	public Numero getExpNumero() {
+		return this.expNumero;
+	}
+
+	public void setExpNumero(Numero expNumero) {
+		this.expNumero = expNumero;
 	}
 
 }
