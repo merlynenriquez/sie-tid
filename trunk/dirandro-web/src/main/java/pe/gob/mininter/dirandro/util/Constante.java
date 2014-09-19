@@ -170,7 +170,7 @@ public abstract class Constante {
 		}
 		
 		public static class EXPLOSIVOS{
-			public final static Long TIPOS = 5l;
+			public final static Long TIPOS = 6l;
 			public final static Long PRESENTACIONES = 4004l;
 		}
 	}

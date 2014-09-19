@@ -94,6 +94,10 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	public Persona() {
 	}
 
+	public Persona(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}

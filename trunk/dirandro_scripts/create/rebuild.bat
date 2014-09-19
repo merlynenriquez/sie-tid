@@ -1,4 +1,4 @@
-sqlplus SIETID/sietid@xe @../drop/tables/drop-table.sql
+sqlplus SIETID/sietid@xe @../drop/tables/drop-table-past.sql
 sqlplus SIETID/sietid@xe @tables/create-tables.sql
 sqlplus SIETID/sietid@xe @data/00-inicial.sql
 sqlplus SIETID/sietid@xe @data/00-sequence.sql
