@@ -108,8 +108,6 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	private List<ModeloMarca> lstTiposMunicion;
 	private List<ModeloMarca> lstMarcas;
 	
-	private Boolean flagNuevaEstado;
-	
 	private List<Empresa> lstEmpresas;
 	private List<Persona> lstPersonas;
 	private String listaSeleccionada="persona";
@@ -208,51 +206,21 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 					cmbCalibre.select(new Valor((Long)item.getItemProperty("calibre.id").getValue()));
 					cmbMuniEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
 					cmbMuniSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
-					
-					for(ModeloMarca tipo : lstTiposMunicion){
-						if(tipo.getId().equals((Long)item.getItemProperty("tipo.id").getValue())){
-							cmbMuniTipo.select(tipo);
-							break;
-						}
-					}
-					
-					System.out.println(" marca " + item.getItemProperty("marca.id").getValue());
-					for(ModeloMarca marca : lstMarcas){
-						if(marca.getId().equals((Long)item.getItemProperty("marca.id").getValue())){
-							System.out.println(",arca seleccionada");
-							cmbMuniMarca.select(marca);
-							break;
-						}
-					}
-					
-					for(ModeloMarca tm : lstTiposMedidas){
-						if(tm.getId().equals((Long)item.getItemProperty("tipoMedida.id").getValue())){
-							cmbMuniTipoMedida.select(tm);
-							break;
-						}
-					}
+					cmbMuniTipo.select(new ModeloMarca((Long)item.getItemProperty("tipo.id").getValue()));
+					cmbMuniMarca.select(new ModeloMarca((Long)item.getItemProperty("marca.id").getValue()));
+					cmbMuniTipoMedida.select(new ModeloMarca((Long)item.getItemProperty("tipoMedida.id").getValue()));
 					
 					if(item.getItemProperty("persona.id").getValue()!=null){
 						listaSeleccionada="persona";
 						rbTipoPersona.select("Persona");
-						for(Persona per : lstPersonas){
-							if(per.getId().equals((Long)item.getItemProperty("persona.id").getValue())){
-								cmbMuniPersonaIncautada.select(per);
-								break;
-							}
-						}
+						cmbMuniPersonaIncautada.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
 					}else{
 						listaSeleccionada="empresa";
 						rbTipoPersona.select("Empresa");
 						if(lstEmpresas==null){
 							lstEmpresas = empresaService.listarEmpresas();
 						}
-						for(Empresa emp : lstEmpresas){
-							if(emp.getId().equals((Long)item.getItemProperty("empresa.id").getValue())){
-								cmbMuniPersonaIncautada.select(emp);
-								break;
-							}
-						}
+						cmbMuniPersonaIncautada.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 					}
 				}
 			}
@@ -366,7 +334,6 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	}
 	
 	private void habilitarEdicion(boolean flag){
-		flagNuevaEstado = flag;
 		if(flag){
 			btnMuniRegistrar.setCaption("Actualizar");
 		}
@@ -378,7 +345,6 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	public void limpiar(){
 		municion = new Municion(0l);
 		municion.setExpediente(expediente);
-		flagNuevaEstado=true;
 		txtMuniDescripcion.setValue("");
 		txtMuniMedida.setValue("");
 		txtMuniObservacion.setValue("");

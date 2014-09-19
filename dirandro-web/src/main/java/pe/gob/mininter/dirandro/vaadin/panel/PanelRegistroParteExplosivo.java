@@ -39,7 +39,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class PanelRegistroParteExplosivos extends CustomComponent implements ClickListener {
+public class PanelRegistroParteExplosivo extends CustomComponent implements ClickListener {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	
@@ -118,7 +118,7 @@ public class PanelRegistroParteExplosivos extends CustomComponent implements Cli
 		this.expediente = expediente;
 	}
 	
-	public PanelRegistroParteExplosivos( ) {
+	public PanelRegistroParteExplosivo( ) {
 		buildMainLayout();
 		modeloMarcaService = Injector.obtenerServicio(ModeloMarcaService.class);
 		personaService = Injector.obtenerServicio(PersonaService.class);
@@ -127,6 +127,7 @@ public class PanelRegistroParteExplosivos extends CustomComponent implements Cli
 		setCompositionRoot(mainLayout);
 		setExpediente(new Expediente());
 		postConstruct();
+		//TODO compeltar data para municiones en tabla marca modelo y corregir las constantes 
 	}
 	
 	
@@ -210,48 +211,20 @@ public class PanelRegistroParteExplosivos extends CustomComponent implements Cli
 					cbbExpEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
 					cbbExpSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
 					
-					for(ModeloMarca tipo : lstTiposExplosivos){
-						if(tipo.getId().equals((Long)item.getItemProperty("tipo.id").getValue())){
-							cbbExpTipo.select(tipo);
-							break;
-						}
-					}
-					
-					for(ModeloMarca marca : lstMarcas){
-						if(marca.getId().equals((Long)item.getItemProperty("marca.id").getValue())){
-							cbbExpMarca.select(marca);
-							break;
-						}
-					}
-					
-					for(ModeloMarca tm : lstTiposMedidas){
-						if(tm.getId().equals((Long)item.getItemProperty("tipoMedida.id").getValue())){
-							cbbExpTipoMedida.select(tm);
-							break;
-						}
-					}
-					
+					cbbExpTipo.select(new ModeloMarca((Long)item.getItemProperty("tipo.id").getValue()));
+					cbbExpMarca.select(new ModeloMarca((Long)item.getItemProperty("marca.id").getValue()));
+					cbbExpTipoMedida.select(new ModeloMarca((Long)item.getItemProperty("tipoMedida.id").getValue()));
 					if(item.getItemProperty("persona.id").getValue()!=null){
 						listaSeleccionada="persona";
 						rbTipoPropietario.select("Persona");
-						for(Persona per : lstPersonas){
-							if(per.getId().equals((Long)item.getItemProperty("persona.id").getValue())){
-								cbbExpPropietario.select(per);
-								break;
-							}
-						}
+						cbbExpPropietario.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
 					}else{
 						listaSeleccionada="empresa";
 						rbTipoPropietario.select("Empresa");
 						if(lstEmpresas==null){
 							lstEmpresas = empresaService.listarEmpresas();
 						}
-						for(Empresa emp : lstEmpresas){
-							if(emp.getId().equals((Long)item.getItemProperty("empresa.id").getValue())){
-								cbbExpPropietario.select(emp);
-								break;
-							}
-						}
+						cbbExpPropietario.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 					}
 				}
 			}
@@ -525,7 +498,7 @@ public class PanelRegistroParteExplosivos extends CustomComponent implements Cli
 		
 		// cbbExpMarca
 		cbbExpMarca = new ComboBox();
-		cbbExpMarca.setCaption("Marca");
+		cbbExpMarca.setCaption("SubTipo");
 		cbbExpMarca.setImmediate(false);
 		cbbExpMarca.setWidth("-1px");
 		cbbExpMarca.setHeight("-1px");
