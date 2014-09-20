@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     9/18/2014 11:18:01 PM                        */
+/* Created on:     19/09/2014 03:01:09 p.m.                     */
 /*==============================================================*/
 
 
@@ -272,13 +272,19 @@ alter table SIETID.EXP_DET_PER_TEL_EXP
    drop constraint FK_DET_PER_TEL_EXP_EXPEDIENTE;
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
-   drop constraint FK_DET_PER_TEL_EXP_PERSONA;
+   drop constraint FK_DET_PER_TEL_EXP_NUMERO;
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    drop constraint FK_DET_PER_TEL_EXP_TELEFONO;
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    drop constraint FK_EXP_DET_PER_TEL_EXP_DUENO;
+
+alter table SIETID.EXP_DET_PER_TEL_EXP
+   drop constraint FK_EXP_DET_PER_TEL_IMPLICADO;
+
+alter table SIETID.EXP_DET_PER_TEL_EXP
+   drop constraint FK_EXP_DET_PER_TEL_OPERADORA;
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    drop constraint FK_EXP_DET_PER_TEL_SITUACION;
@@ -594,6 +600,12 @@ alter table SIETID.EXP_MUNICIONES
 
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_PERSONA;
+
+alter table SIETID.EXP_NUMERO
+   drop constraint FK_EXP_NUMERO_CREADOR;
+
+alter table SIETID.EXP_NUMERO
+   drop constraint FK_EXP_NUMERO_EDITOR;
 
 alter table SIETID.EXP_ORGANIZACION
    drop constraint FK_EXP_BANDAS_CREADOR;
@@ -1271,6 +1283,11 @@ alter table SIETID.EXP_MUNICIONES
    drop primary key cascade;
 
 drop table SIETID.EXP_MUNICIONES cascade constraints;
+
+alter table SIETID.EXP_NUMERO
+   drop primary key cascade;
+
+drop table SIETID.EXP_NUMERO cascade constraints;
 
 alter table SIETID.EXP_ORGANIZACION
    drop primary key cascade;

@@ -73,6 +73,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.Departamento" />
 		<mapping class="pe.gob.mininter.dirandro.model.Distrito" />
 		<mapping class="pe.gob.mininter.dirandro.model.Provincia" />
+		<mapping class="pe.gob.mininter.dirandro.model.Numero" />
 		<!-- 
 		<mapping class="pe.com.bbva.harec.model.quartz.QrtzJobDetails" />
 		<mapping class="pe.com.bbva.harec.model.quartz.QrtzTriggers" />
