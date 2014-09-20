@@ -90,7 +90,6 @@ public class ModeloMarca extends AuditoriaBean implements Validador, Serializabl
 	*/
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
