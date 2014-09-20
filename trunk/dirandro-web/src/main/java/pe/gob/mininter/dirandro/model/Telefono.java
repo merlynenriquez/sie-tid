@@ -38,9 +38,6 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 	@Column(length=50)
 	private String alcance;
 
-	@Column(nullable=false, length=100)
-	private String numero;
-
 	@Column(length=50)
 	private String serie;
 	
@@ -84,14 +81,6 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 
 	public void setFrecuencia(Valor frecuencia) {
 		this.frecuencia = frecuencia;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
 	}
 
 	public String getSerie() {

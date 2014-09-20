@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     9/18/2014 11:18:01 PM                        */
+/* Created on:     19/09/2014 03:01:09 p.m.                     */
 /*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
@@ -722,13 +722,15 @@ alter table SIETID.EXP_DET_PER_INM_EXP
 create table SIETID.EXP_DET_PER_TEL_EXP 
 (
    ID                   NUMBER(16)           not null,
-   PERSONA              NUMBER(16),
+   NUMERO               NUMBER(16),
+   IMPLICADO            NUMBER(16),
    TELEFONO             NUMBER(16),
    EXPEDIENTE           NUMBER(16)           not null,
-   IMEI                 NVARCHAR2(20),
    DUENO                NUMBER(16),
    SITUACION            NUMBER(16),
    ESTADO               NUMBER(16),
+   OPERADORA            NUMBER(16),
+   OBSERVACION          NVARCHAR2(2000),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -742,20 +744,12 @@ comment on column SIETID.EXP_DET_PER_TEL_EXP.ID is
 'Identificador de la tabla EXP_DET_PER_TEL_EXP (código autogenerado)
 ';
 
-comment on column SIETID.EXP_DET_PER_TEL_EXP.PERSONA is
-'Identificador de la persona asociada al teléfono incautado
-';
-
 comment on column SIETID.EXP_DET_PER_TEL_EXP.TELEFONO is
 'Identificador del teléfono incautado
 ';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.EXPEDIENTE is
 'Identificador del expediente
-';
-
-comment on column SIETID.EXP_DET_PER_TEL_EXP.IMEI is
-'Identificador internacional de identidad del equipo móvil
 ';
 
 comment on column SIETID.EXP_DET_PER_TEL_EXP.DUENO is
@@ -1627,6 +1621,38 @@ comment on column SIETID.EXP_MUNICIONES.EDICION is
 
 alter table SIETID.EXP_MUNICIONES
    add constraint PK_EXP_MUNICIONES primary key (ID);
+
+/*==============================================================*/
+/* Table: EXP_NUMERO                                            */
+/*==============================================================*/
+create table SIETID.EXP_NUMERO 
+(
+   ID                   NUMBER(16)           not null,
+   NUMERO               NVARCHAR2(40)        not null,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.EXP_NUMERO.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.EXP_NUMERO.CREACION is
+'Fecha y hora del sistema en que se relaizó el registro.
+';
+
+comment on column SIETID.EXP_NUMERO.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.EXP_NUMERO.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
+
+alter table SIETID.EXP_NUMERO
+   add constraint PK_EXP_NUMERO primary key (ID);
 
 /*==============================================================*/
 /* Table: EXP_ORGANIZACION                                      */
@@ -2752,12 +2778,12 @@ alter table SIETID.PER_POLICIA
 create table SIETID.PER_TELEFONO 
 (
    ID                   NUMBER(16)           not null,
-   NUMERO               NVARCHAR2(50)        not null,
    ESTADO               NUMBER(16),
    SERIE                VARCHAR2(50),
    MARCA                NUMBER(16),
    ALCANCE              VARCHAR2(50),
    FRECUENCIA           NUMBER(16),
+   IMEI                 VARCHAR2(100),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -2769,10 +2795,6 @@ comment on table SIETID.PER_TELEFONO is
 
 comment on column SIETID.PER_TELEFONO.ID is
 'Identificador de la tabla telefonos (código autogenerado)
-';
-
-comment on column SIETID.PER_TELEFONO.NUMERO is
-'Número de teléfono
 ';
 
 comment on column SIETID.PER_TELEFONO.ESTADO is
@@ -3402,8 +3424,8 @@ alter table SIETID.EXP_DET_PER_TEL_EXP
       references SIETID.EXP_EXPEDIENTE (ID);
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
-   add constraint FK_DET_PER_TEL_EXP_PERSONA foreign key (PERSONA)
-      references SIETID.PER_PERSONA (ID);
+   add constraint FK_DET_PER_TEL_EXP_NUMERO foreign key (NUMERO)
+      references SIETID.EXP_NUMERO (ID);
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    add constraint FK_DET_PER_TEL_EXP_TELEFONO foreign key (TELEFONO)
@@ -3412,6 +3434,14 @@ alter table SIETID.EXP_DET_PER_TEL_EXP
 alter table SIETID.EXP_DET_PER_TEL_EXP
    add constraint FK_EXP_DET_PER_TEL_EXP_DUENO foreign key (DUENO)
       references SIETID.PER_PERSONA (ID);
+
+alter table SIETID.EXP_DET_PER_TEL_EXP
+   add constraint FK_EXP_DET_PER_TEL_IMPLICADO foreign key (IMPLICADO)
+      references SIETID.EXP_DET_EXPEDIENTE_PERSONA (ID);
+
+alter table SIETID.EXP_DET_PER_TEL_EXP
+   add constraint FK_EXP_DET_PER_TEL_OPERADORA foreign key (OPERADORA)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DET_PER_TEL_EXP
    add constraint FK_EXP_DET_PER_TEL_SITUACION foreign key (SITUACION)
@@ -3832,6 +3862,14 @@ alter table SIETID.EXP_MUNICIONES
 alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_PERSONA foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
+
+alter table SIETID.EXP_NUMERO
+   add constraint FK_EXP_NUMERO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_NUMERO
+   add constraint FK_EXP_NUMERO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_ORGANIZACION
    add constraint FK_EXP_BANDAS_CREADOR foreign key (CREADOR)

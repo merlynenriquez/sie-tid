@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,53 +24,56 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="EXP_DET_PER_TEL_EXP")
 public class DetPerTelExp extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2597824744398259948L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_PER_TEL_EXP_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DET_PER_TEL_EXP_ID_GENERATOR", sequenceName="SEQ_EXP_TELEFONO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_PER_TEL_EXP_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(length=40)
-	private String imei;
+	@Column(length=500)
+	private String observacion;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="OPERADORA")
+	private Valor operadora;
 
-	//bi-directional many-to-one association to DetLlamada
-	@OneToMany(mappedBy="expDetPerTelExp")
-	private List<DetLlamada> expDetLlamadas;
-
+	//bi-directional many-to-one association to DetExpedientePersona
+	@ManyToOne
+	@JoinColumn(name="IMPLICADO")
+	private DetExpedientePersona implicado;
+	
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
-	private Valor cfgValor1;
+	private Valor estado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
-	private Valor cfgValor2;
+	private Valor situacion;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="DUENO")
-	private Persona perPersona1;
-
-	//bi-directional many-to-one association to Persona
-	@ManyToOne
-	@JoinColumn(name="PERSONA")
-	private Persona perPersona2;
+	private Persona propietario;
 
 	//bi-directional many-to-one association to Telefono
 	@ManyToOne
 	@JoinColumn(name="TELEFONO")
-	private Telefono perTelefono;
+	private Telefono equipo;
+	
+	//bi-directional many-to-one association to ExpNumero
+	@ManyToOne
+	@JoinColumn(name="NUMERO")
+	private Numero numeroTelefonico;
 
 	public DetPerTelExp() {
 	}
@@ -85,82 +86,76 @@ public class DetPerTelExp extends AuditoriaBean implements Validador, Serializab
 		this.id = id;
 	}
 
-	public String getImei() {
-		return this.imei;
+	public Valor getOperadora() {
+		return operadora;
 	}
 
-	public void setImei(String imei) {
-		this.imei = imei;
+	public void setOperadora(Valor operadora) {
+		this.operadora = operadora;
 	}
 
-	public List<DetLlamada> getExpDetLlamadas() {
-		return this.expDetLlamadas;
+	public DetExpedientePersona getImplicado() {
+		return implicado;
 	}
 
-	public void setExpDetLlamadas(List<DetLlamada> expDetLlamadas) {
-		this.expDetLlamadas = expDetLlamadas;
+	public void setImplicado(DetExpedientePersona implicado) {
+		this.implicado = implicado;
 	}
 
-	public DetLlamada addExpDetLlamada(DetLlamada expDetLlamada) {
-		getExpDetLlamadas().add(expDetLlamada);
-		expDetLlamada.setExpDetPerTelExp(this);
-
-		return expDetLlamada;
+	public Valor getEstado() {
+		return estado;
 	}
 
-	public DetLlamada removeExpDetLlamada(DetLlamada expDetLlamada) {
-		getExpDetLlamadas().remove(expDetLlamada);
-		expDetLlamada.setExpDetPerTelExp(null);
-
-		return expDetLlamada;
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
-	public Valor getCfgValor1() {
-		return this.cfgValor1;
+	public Valor getSituacion() {
+		return situacion;
 	}
 
-	public void setCfgValor1(Valor cfgValor1) {
-		this.cfgValor1 = cfgValor1;
+	public void setSituacion(Valor situacion) {
+		this.situacion = situacion;
 	}
 
-	public Valor getCfgValor2() {
-		return this.cfgValor2;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setCfgValor2(Valor cfgValor2) {
-		this.cfgValor2 = cfgValor2;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
 	}
 
-	public Expediente getExpExpediente() {
-		return this.expExpediente;
+	public Persona getPropietario() {
+		return propietario;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setPropietario(Persona propietario) {
+		this.propietario = propietario;
 	}
 
-	public Persona getPerPersona1() {
-		return this.perPersona1;
+	public Telefono getEquipo() {
+		return equipo;
 	}
 
-	public void setPerPersona1(Persona perPersona1) {
-		this.perPersona1 = perPersona1;
+	public void setEquipo(Telefono equipo) {
+		this.equipo = equipo;
 	}
 
-	public Persona getPerPersona2() {
-		return this.perPersona2;
+	public Numero getNumeroTelefonico() {
+		return numeroTelefonico;
 	}
 
-	public void setPerPersona2(Persona perPersona2) {
-		this.perPersona2 = perPersona2;
+	public void setNumeroTelefonico(Numero numeroTelefonico) {
+		this.numeroTelefonico = numeroTelefonico;
 	}
 
-	public Telefono getPerTelefono() {
-		return this.perTelefono;
+	public String getObservacion() {
+		return observacion;
 	}
 
-	public void setPerTelefono(Telefono perTelefono) {
-		this.perTelefono = perTelefono;
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	@Override
