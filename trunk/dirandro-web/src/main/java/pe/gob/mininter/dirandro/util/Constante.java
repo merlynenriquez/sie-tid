@@ -84,7 +84,8 @@ public abstract class Constante {
 			public static final String TIPO_EST_DATO = "TIPO_EST_DATO";	
 			public static final String SIT_PROCESADO = "SIT_PROCESADO";	
 			public static final String OCUP_INTERV = "OCUP_INTERV";
-			public static final String ORIENTACION_SEXUAL = "ORIENT_SEX_PER";	
+			public static final String ORIENTACION_SEXUAL = "ORIENT_SEX_PER";
+			public static final String ARMA_ESTADO_SERIE = "ARMA_EST_SERIE";
 		}
 	}
 
@@ -160,11 +161,15 @@ public abstract class Constante {
 	}
 
 	public static abstract class MODELO_MARCA{
+
+		public static class ARMAS{
+			public final static Long TIPOS = 2l;
+		}
 		
 		public static class MEDIDA{
 			public final static Long COD_MEDIDA = 3L;
 		}
-		
+
 		public static class TRANSPORTE{
 			public final static Long AUTO = 8l;
 			public final static Long MOTOCICLETA = 9l;

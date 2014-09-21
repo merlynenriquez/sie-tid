@@ -179,9 +179,8 @@ public class PanelAgregarInmueble extends CustomComponent  implements ClickListe
 			btnGrabar.setEnabled(false);
 			padre.actualizarInmuebles(inmueble);
 			 getApplication().getMainWindow().removeWindow(getWindow());
-		}
-		if(event.getButton().equals(btnCancelar)){
-			 limpiar();
+		}else{
+			 getApplication().getMainWindow().removeWindow(getWindow());
 		}
 	}
 
