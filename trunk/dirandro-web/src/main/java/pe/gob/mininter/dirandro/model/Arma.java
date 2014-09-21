@@ -35,16 +35,8 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 	@Column(length=100)
 	private String internamiento;
 
-	@Column(name="NRO_LICENCIA", length=20)
-	private String nroLicencia;
-
 	@Column(name="NRO_SERIE", length=100)
 	private String nroSerie;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="CLASIFICACION")
-	private Valor clasificacion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -80,28 +72,12 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 		this.internamiento = internamiento;
 	}
 
-	public String getNroLicencia() {
-		return this.nroLicencia;
-	}
-
-	public void setNroLicencia(String nroLicencia) {
-		this.nroLicencia = nroLicencia;
-	}
-
 	public String getNroSerie() {
 		return this.nroSerie;
 	}
 
 	public void setNroSerie(String nroSerie) {
 		this.nroSerie = nroSerie;
-	}
-
-	public Valor getClasificacion() {
-		return clasificacion;
-	}
-
-	public void setClasificacion(Valor clasificacion) {
-		this.clasificacion = clasificacion;
 	}
 
 	public Valor getCalibre() {
