@@ -369,7 +369,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 			
 			pnlDocumento.setHabilitarCarga(false);
 			escribirAutogenerado();
-			
+			pnlRegistroParte.habilitarTab(true);
 		} 
 		else {
 			expedienteService.actualizar(expediente);

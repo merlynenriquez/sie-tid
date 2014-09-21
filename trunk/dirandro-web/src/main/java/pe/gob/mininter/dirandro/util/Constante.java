@@ -184,6 +184,10 @@ public abstract class Constante {
 			public final static Long TIPOS = 6l;
 			public final static Long PRESENTACIONES = 4004l;
 		}
+		
+		public static class COMUNICACIONES{
+			public final static Long COD_COMUNICACION = 4l;
+		}
 	}
 	
 	public static abstract class PARAMETRO {
