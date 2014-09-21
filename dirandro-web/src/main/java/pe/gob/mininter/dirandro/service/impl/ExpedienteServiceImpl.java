@@ -17,9 +17,11 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteHibernate;
+import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Documento;
@@ -78,16 +80,26 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		String numeroParte = StringUtils.leftPad(String.valueOf(expediente.getId()), 10, "0");
 		expediente.setAutogenerado(numeroParte);		
 		
+		//try {
 		agregarDocumento(expediente, documento);
 		ruta.setExpediente(expediente);
 		rutaService.crear(ruta);
-		
+			
 		actualizar(expediente);
+		//} catch(Exception e) {
+			//expediente.setId(null);
+		//}
+		
 	}
 
 	@Override
 	@Transactional
 	public void agregarDocumento(Expediente expediente, Documento documento) {
+		
+		if(StringUtils.isEmpty(documento.getFilename()) || documento.getOsDocumento() == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_CARGA_ARCHIVO, new Object[]{});
+		}
+		
 		Parametro pathDocumento = parametroService.obtener(Constante.PARAMETRO.PATH_DOCUMENTO);
 		
 		File archivo = new File(pathDocumento.getValor()+expediente.getAutogenerado()+File.separator+documento.getFilename());
@@ -104,7 +116,7 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		OutputStream outputStream = null;
 		try {
 			outputStream = new FileOutputStream(archivo);
-			((ByteArrayOutputStream)documento.getOsDocumento()).writeTo(outputStream);
+			((ByteArrayOutputStream)documento.getOsDocumento()).writeTo(outputStream);			
 		} catch (FileNotFoundException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -119,6 +131,10 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 			}
 			IOUtils.closeQuietly(documento.getOsDocumento());
 		 }
+		
+		
+		
+		
 		
 		Adjunto adjunto = new Adjunto();
 		adjunto.setExpExpediente(expediente);

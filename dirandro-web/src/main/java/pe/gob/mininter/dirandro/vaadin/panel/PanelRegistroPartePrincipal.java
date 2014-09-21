@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.CentroPoblado;
 import pe.gob.mininter.dirandro.model.Dependencia;
@@ -315,21 +316,27 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		if(expediente.esNuevo()) {
 			expedienteTemp = new Expediente();
 		}
-		else {
-			try {
-				expedienteTemp = (Expediente) BeanUtils.cloneBean(expediente);
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		else {		
+			expediente = expedienteService.obtener(expediente.getId());
+			if(expediente != null){
+				try {
+					expedienteTemp = (Expediente) BeanUtils.cloneBean(expediente);
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				expedienteTemp = new Expediente();
+				pnlDocumento.setDocumento(null);
 			}
 		}
 		
@@ -341,18 +348,13 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 			
 			Documento documento = pnlDocumento.getDocumento();
 			
-			if(documento.getOsDocumento()==null) {
-				
-			}
-			
-			
 			documento.setEsInicial("1");		
 			
 			Ruta ruta = new Ruta();
 			ruta.setTablaOrigen(pnlDocumento.getProcedencia());
 			ruta.setCodigoOrigen(pnlDocumento.getCodigoProcedencia());//Constante.VALOR.CODIGO.
 			ruta.setTablaDestino(valorService.obtenerValor(Constante.LISTA.CODIGO.TABLAS, Constante.VALOR.CODIGO.DEPENDENCIA));
-			ruta.setCodigoDestino(expediente.getDependencia().getId());
+			ruta.setCodigoDestino(expediente.getDependencia() != null ? expediente.getDependencia().getId() : null);
 			ruta.setIntegrante(expediente.getIntegrante());
 			ruta.setFechaEnvio(new Date());
 			ruta.setUsuarioOrigen(null);
@@ -403,8 +405,8 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		expedienteTemp.setDependencia((Dependencia)cmbDependencia.getValue());
 		expedienteTemp.setTipoFinalidad(cmbFinalidad.getValor());		
 		expedienteTemp.setFechaRegistro((Date)dfRegistroExp.getValue());
-		expedienteTemp.setDiasAtencion(new BigDecimal((String) txtDiasAtencionExp.getValue()));
-		expedienteTemp.setExpEstado((Estado) cmbEstadoExp.getValue());
+		expedienteTemp.setDiasAtencion(StringUtils.isNotEmpty((String) txtDiasAtencionExp.getValue()) ? new BigDecimal((String) txtDiasAtencionExp.getValue()) : null);
+		expedienteTemp.setEstado((Estado) cmbEstadoExp.getValue());
 		expedienteTemp.setLugarHecho((Distrito) cmbLugarHecho.getValue());
 		expedienteTemp.setTipoDireccion(cmbTipoDir.getValor());
 		expedienteTemp.setDireccionHecho((String)txtDireccion.getValue());
@@ -431,7 +433,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		cmbFinalidad.select(expediente.getTipoFinalidad());
 		dfRegistroExp.setValue(expediente.getFechaRegistro());
 		txtDiasAtencionExp.setValue(expediente.getDiasAtencion().toString());
-		cmbEstadoExp.select(expediente.getExpEstado());
+		cmbEstadoExp.select(expediente.getEstado());
 		cmbLugarHecho.select(expediente.getLugarHecho());
 		cmbTipoDir.select(expediente.getTipoDireccion());
 		txtDireccion.setValue(expediente.getDireccionHecho());

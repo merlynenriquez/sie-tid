@@ -1,10 +1,16 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Empresa;
@@ -223,13 +229,14 @@ public class PanelDocumento extends CustomComponent {
 			documento.setNroDocumento((String) txtDocNumero.getValue());
 			documento.setPrioridad(cmbDocPrioridad.getValor());
 			documento.setAsunto((String) txtAsuntoDoc.getValue());
-			documento.setDiasAtencion(new BigDecimal((String) txtDiasAtencion.getValue()));
-			documento.setFolios(new BigDecimal((String) txtFolios.getValue()));
+			documento.setDiasAtencion(StringUtils.isNotEmpty((String) txtDiasAtencion.getValue()) ? new BigDecimal((String) txtDiasAtencion.getValue()) : null);
+			documento.setFolios(StringUtils.isNotEmpty((String) txtFolios.getValue()) ? new BigDecimal((String) txtFolios.getValue()) : null);
 			documento.setFechaDocumento((Date) dfDocummento.getValue());
 			documento.setFechaRecepcion((Date) dfReceopcion.getValue());
 			documento.setOsDocumento(getOutputStream());
 			documento.setFilename(upArchivo.getFilename());
 		}
+		
 		return documento;
 	}
 	
