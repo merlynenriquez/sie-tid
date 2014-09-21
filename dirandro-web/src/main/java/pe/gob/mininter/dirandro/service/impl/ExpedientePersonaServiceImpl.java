@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedientePersonaHibernate;
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
+import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.service.ExpedientePersonaService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 
@@ -42,6 +44,13 @@ public class ExpedientePersonaServiceImpl extends BaseServiceImpl<DetExpedienteP
 	@Override
 	public List<DetExpedientePersona> buscar(DetExpedientePersona expPersona) {
 		Busqueda filtro = Busqueda.forClass(DetExpedientePersona.class);
+		return expPersonaHibernate.buscar(filtro);		
+	}
+
+	@Override
+	public List<DetExpedientePersona> cargarIntervinientes(Expediente expediente) {
+		Busqueda filtro = Busqueda.forClass(DetExpedientePersona.class);
+		filtro.add(Restrictions.eq("expediente", expediente));
 		return expPersonaHibernate.buscar(filtro);		
 	}
 	

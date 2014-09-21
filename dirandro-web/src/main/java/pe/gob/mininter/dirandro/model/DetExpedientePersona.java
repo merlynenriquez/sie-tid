@@ -3,6 +3,7 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
@@ -29,7 +32,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	private static final long serialVersionUID = -3388910551739102700L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR", sequenceName="SEQ_EXPEDIENTE_PERSONA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_EXPEDIENTE_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -37,16 +40,18 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	@Column(name="ALIAS", length=400)
 	private String alias;
 
-	@Column(name="ESTADO_DATO", precision=16)
-	private BigDecimal estadoDato;
+	@ManyToOne
+	@JoinColumn(name="ESTADO_DATO")
+	private Valor estadoDato;
 
-	private Timestamp intervencion;
+	@Column(name="INTERVENCION")
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date intervencion;
 
-	@Column(precision=16)
-	private BigDecimal ocupacion;
-
-	@Column(precision=1)
-	private BigDecimal requisitoria;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="OCUPACION")
+	private Valor ocupacion;
 
 	@Column(name="TIPO_PARTICIPACION", precision=16)
 	private BigDecimal tipoParticipacion;
@@ -100,36 +105,28 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 		this.alias = alias;
 	}
 
-	public BigDecimal getEstadoDato() {
+	public Valor getEstadoDato() {
 		return estadoDato;
 	}
 
-	public void setEstadoDato(BigDecimal estadoDato) {
+	public void setEstadoDato(Valor estadoDato) {
 		this.estadoDato = estadoDato;
 	}
 
-	public Timestamp getIntervencion() {
+	public Date getIntervencion() {
 		return intervencion;
 	}
 
-	public void setIntervencion(Timestamp intervencion) {
+	public void setIntervencion(Date intervencion) {
 		this.intervencion = intervencion;
 	}
 
-	public BigDecimal getOcupacion() {
+	public Valor getOcupacion() {
 		return ocupacion;
 	}
 
-	public void setOcupacion(BigDecimal ocupacion) {
+	public void setOcupacion(Valor ocupacion) {
 		this.ocupacion = ocupacion;
-	}
-
-	public BigDecimal getRequisitoria() {
-		return requisitoria;
-	}
-
-	public void setRequisitoria(BigDecimal requisitoria) {
-		this.requisitoria = requisitoria;
 	}
 
 	public BigDecimal getTipoParticipacion() {

@@ -33,7 +33,7 @@ public class NoIdentificado extends AuditoriaBean implements Validador, Serializ
 	private static final long serialVersionUID = 1377193537649273995L;
 
 	@Id
-	@SequenceGenerator(name="PER_NO_IDENTIFICADOS_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="PER_NO_IDENTIFICADOS_ID_GENERATOR", sequenceName="SEQ_NO_IDENTIFICADO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_NO_IDENTIFICADOS_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -62,7 +62,7 @@ public class NoIdentificado extends AuditoriaBean implements Validador, Serializ
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
@@ -128,12 +128,12 @@ public class NoIdentificado extends AuditoriaBean implements Validador, Serializ
 		this.orientacionSexual = orientacionSexual;
 	}
 
-	public Expediente getExpExpediente() {
-		return expExpediente;
+	public Expediente getExpediente() {
+		return expediente;
 	}
 
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
+	public void setExpediente(Expediente expExpediente) {
+		this.expediente = expExpediente;
 	}
 
 	public Persona getPerPersona() {

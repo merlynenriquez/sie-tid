@@ -122,6 +122,8 @@ public class PanelRegistroParte extends DirandroComponent implements SelectedTab
 		pnlRegistroParte.setExpediente(expediente);
 		pnlAgregarDocumento.setExpediente(expediente);
 		pnlSustancias.setExpediente(expediente);
+		pnlInterviniente.setExpediente(expediente);
+		pnlNoIdentificado.setExpediente(expediente);
 	}
 	
 
