@@ -339,10 +339,6 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 		droga.setProcedencia( (Pais) cmbProcedencia.getValue() );
 		droga.setDestino( (Pais) cmbDestino.getValue() );
 		droga.setObservacion((String)txtDrObservaciones.getValue());
-		//TODO: Borrrar solo de prueba
-		expediente.setId(1l);
-		droga.setExpediente(expediente);
-		
 		drogaService.crear(droga);
 		
 		cargarDrogas();
