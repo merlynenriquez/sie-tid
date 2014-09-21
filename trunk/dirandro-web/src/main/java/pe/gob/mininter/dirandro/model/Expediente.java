@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -127,7 +129,7 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	@ManyToOne
 	@JoinColumn(name="LUGAR_HECHO")
 	private Distrito lugarHecho;
-
+	
 	public Expediente() {
 	}
 	
@@ -280,14 +282,6 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		this.jurisdiccion = expEntidad;
 	}
 
-	public Estado getExpEstado() {
-		return estado;
-	}
-
-	public void setExpEstado(Estado expEstado) {
-		this.estado = expEstado;
-	}
-
 	public Expediente getPadre() {
 		return padre;
 	}
@@ -322,8 +316,9 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(estado == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado Requerimiento"});
+		}
 	}
 
 	@Override
@@ -349,6 +344,14 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 }
