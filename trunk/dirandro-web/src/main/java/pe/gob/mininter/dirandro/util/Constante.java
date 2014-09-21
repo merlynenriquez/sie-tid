@@ -80,7 +80,11 @@ public abstract class Constante {
 			public static final String TIPO_DROGA = "TIPO_DROGA";
 			public static final String ESTADO_OBJETOS = "ESTADO_OBJETOS";
 			public static final String OPERADORA = "OPERADORA";
-			
+			public static final String TIPO_PARTICIPAC = "TIPO_PARTICIPAC";
+			public static final String TIPO_EST_DATO = "TIPO_EST_DATO";	
+			public static final String SIT_PROCESADO = "SIT_PROCESADO";	
+			public static final String OCUP_INTERV = "OCUP_INTERV";
+			public static final String ORIENTACION_SEXUAL = "ORIENT_SEX_PER";	
 		}
 	}
 
@@ -149,6 +153,7 @@ public abstract class Constante {
 			public final static String TIP_GRP = "GRP";
 			
 			public final static String COMI = "COMI";
+			public static final String RUC = "R";
 			
 		}
 
