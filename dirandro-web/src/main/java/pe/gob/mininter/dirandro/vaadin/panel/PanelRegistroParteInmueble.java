@@ -242,7 +242,6 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 			inmueble.setPropietario((Persona)cmbInmPropietario.getValue());
 			inmueble.setSituacion((Valor)cmbInmSituacion.getValue());
 			inmueble.setTipoUso(txtInmTipodeUso.getValue().toString());
-
 			if(inmueble.esNuevo()){
 				expedienteInmuebleService.crear(inmueble);
 			}else{

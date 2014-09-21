@@ -31,7 +31,7 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = 669204553259119178L;
 
 	@Id
-	@SequenceGenerator(name="EXP_DET_PER_ARM_EXP_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_DET_PER_ARM_EXP_ID_GENERATOR", sequenceName="SEQ_DETALLE_ARMA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_DET_PER_ARM_EXP_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -82,7 +82,15 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 
 	public DetPerArmExp() {
 	}
+	
+	public DetPerArmExp(Long id) {
+		this.id=id;
+	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	public Long getId() {
 		return this.id;
 	}
