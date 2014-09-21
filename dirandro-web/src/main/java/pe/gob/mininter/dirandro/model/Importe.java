@@ -24,9 +24,6 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="EXP_IMPORTES")
 public class Importe extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5594740774950181739L;
 
 	@Id
@@ -40,6 +37,9 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	@JoinColumn(name="TIPO_PRESENTECION")
 	private Valor tipoPresentacion;
 		
+	@Column(nullable=false, length=2)
+	private String autenticidad;
+	
 	@Column(precision=10, scale=2)
 	private Double moneda;
 
@@ -61,11 +61,6 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
 	private Valor situacion;
-
-	//bi-directional many-to-one association to Valor
-	@ManyToOne
-	@JoinColumn(name="ESTADO_MONEDA")
-	private Valor estadoMoneda;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -123,14 +118,6 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 
 	public void setSituacion(Valor situacion) {
 		this.situacion = situacion;
-	}
-
-	public Valor getEstadoMoneda() {
-		return estadoMoneda;
-	}
-
-	public void setEstadoMoneda(Valor estadoMoneda) {
-		this.estadoMoneda = estadoMoneda;
 	}
 
 	public Valor getBanco() {

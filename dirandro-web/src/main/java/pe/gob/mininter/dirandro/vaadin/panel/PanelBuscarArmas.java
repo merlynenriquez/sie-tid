@@ -1,6 +1,5 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import pe.gob.mininter.dirandro.model.Arma;
@@ -74,17 +73,6 @@ public class PanelBuscarArmas extends DirandroComponent {
 	}
 	
 	public void postConstruct() {
-		
-		
-		List<Arma> armas = new ArrayList<Arma>();
-		
-		Arma v = new Arma();
-		v.setId(Long.parseLong("1"));
-		v.setNroSerie("YA10002999");
-		v.setNroLicencia("PE2014888A");
-		
-		armas.add(v);
-		cargarListas(armas, true);
 		
 	}
 	

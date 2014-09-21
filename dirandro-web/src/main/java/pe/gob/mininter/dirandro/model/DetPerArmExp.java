@@ -39,6 +39,9 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 	@Column(name="CANTIDAD_MUNICION", precision=10)
 	private BigDecimal cantidadMunicion;
 
+	@Column(name="NRO_LICENCIA", length=20)
+	private String nroLicencia;
+	
 	@Column(length=4000)
 	private String observacion;
 
@@ -158,6 +161,14 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 
 	public void setPersonaImplicada(Persona personaImplicada) {
 		this.personaImplicada = personaImplicada;
+	}
+
+	public String getNroLicencia() {
+		return nroLicencia;
+	}
+
+	public void setNroLicencia(String nroLicencia) {
+		this.nroLicencia = nroLicencia;
 	}
 
 	@Override

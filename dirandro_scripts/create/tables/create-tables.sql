@@ -1,7 +1,4 @@
 /*==============================================================*/
-/* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     19/09/2014 03:01:09 p.m.                     */
-/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -194,10 +191,8 @@ create table SIETID.EXP_ARMAS
 (
    ID                   NUMBER(16)           not null,
    MODELO               NUMBER(16),
-   CLASIFICACION        NUMBER(16),
    EST_SERIE            NUMBER(16),
    NRO_SERIE            NVARCHAR2(50),
-   NRO_LICENCIA         NVARCHAR2(10),
    CALIBRE              NUMBER(16),
    INTERNAMIENTO        NVARCHAR2(50),
    CREADOR              NUMBER(16)           not null,
@@ -218,18 +213,11 @@ comment on column SIETID.EXP_ARMAS.MODELO is
 'Identificador del modelo del arma
 ';
 
-comment on column SIETID.EXP_ARMAS.CLASIFICACION is
-'Identificador de la clasificación: escopeta, fusil, revolver
-';
-
 comment on column SIETID.EXP_ARMAS.EST_SERIE is
 'Identificador del estado de la serie del arma';
 
 comment on column SIETID.EXP_ARMAS.NRO_SERIE is
 'Número del serie del arma';
-
-comment on column SIETID.EXP_ARMAS.NRO_LICENCIA is
-'Número de licencia del arma';
 
 comment on column SIETID.EXP_ARMAS.CALIBRE is
 'Número de calibre del arma';
@@ -580,6 +568,7 @@ create table SIETID.EXP_DET_PER_ARM_EXP
    OBSERVACION          NVARCHAR2(2000),
    SITUACION            NUMBER(16),
    CANTIDAD_MUNICION    NUMBER(10),
+   NRO_LICENCIA         NVARCHAR2(50),
    ESTADO               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -1382,9 +1371,9 @@ create table SIETID.EXP_IMPORTES
    TIPO_CAMBIO          NUMBER(10,2),
    NRO_CUENTA           NVARCHAR2(20),
    NRO_TARJETA          NVARCHAR2(24),
+   AUTENTICIDAD         CHAR(1 BYTE),
    BANCO                NUMBER(16),
    SITUACION            NUMBER(16),
-   ESTADO_MONEDA        NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -3180,10 +3169,6 @@ alter table SIETID.EXP_ARMAS
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ARMAS
-   add constraint FK_EXP_ARMA_CLASIFICACION foreign key (CLASIFICACION)
-      references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.EXP_ARMAS
    add constraint FK_EXP_ARMA_ESTADO_SERIE foreign key (EST_SERIE)
       references SIETID.CFG_VALOR (ID);
 
@@ -3761,10 +3746,6 @@ alter table SIETID.EXP_IMPORTES
 
 alter table SIETID.EXP_IMPORTES
    add constraint FK_EXP_IMPORTE_BANCO foreign key (BANCO)
-      references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.EXP_IMPORTES
-   add constraint FK_EXP_IMPORTE_ESTADO foreign key (ESTADO_MONEDA)
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_IMPORTES
@@ -4550,5 +4531,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-
+      
 quit;
