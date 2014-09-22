@@ -155,7 +155,9 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 			drogaService = Injector.obtenerServicio(DrogaService.class);
 	
 			cmbTipoDroga.setCodigoLista(Constante.LISTA.CODIGO.TIPO_DROGA);
+			cmbTipoDroga.attach();
 			cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbSituacion.attach();
 	
 			List<ModeloMarca> lstTiposMedidas = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.MEDIDA.COD_MEDIDA));
 			

@@ -20,7 +20,8 @@ import pe.gob.mininter.dirandro.service.DependenciaService;
 import pe.gob.mininter.dirandro.service.DrogaService;
 import pe.gob.mininter.dirandro.service.ExpedienteEspecieService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
-import pe.gob.mininter.dirandro.service.HojaDeRemisionService;
+import pe.gob.mininter.dirandro.service.HojaRemisionMuestraService;
+import pe.gob.mininter.dirandro.service.HojaRemisionService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.PoliciaService;
@@ -167,7 +168,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 	 * visual editor.
 	 */
 	
-	private HojaDeRemisionService hojaDeRemisionService;
+	private HojaRemisionService hojaRemisionService;
 	private ModeloMarcaService modeloMarcaService;
 	private DependenciaService dependenciaService;
 	private PersonaService personaService;
@@ -175,6 +176,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 	private ExpedienteService expedienteService;
 	private ExpedienteEspecieService especieService;
 	private DrogaService drogaService; 
+	private HojaRemisionMuestraService hojaRemisionMuestraService;
 	
 	private List<ModeloMarca> lstMarcas;
 	private List<ModeloMarca> lstTipoMedidas;
@@ -199,13 +201,15 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		super(acciones, height);
 		buildMainLayout();
 		modeloMarcaService = Injector.obtenerServicio(ModeloMarcaService.class);
-		hojaDeRemisionService = Injector.obtenerServicio(HojaDeRemisionService.class);
+		hojaRemisionService = Injector.obtenerServicio(HojaRemisionService.class);
+		hojaRemisionMuestraService = Injector.obtenerServicio(HojaRemisionMuestraService.class);
 		dependenciaService = Injector.obtenerServicio(DependenciaService.class);
 		personaService = Injector.obtenerServicio(PersonaService.class);
 		policiaService = Injector.obtenerServicio(PoliciaService.class);
 		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		especieService  = Injector.obtenerServicio(ExpedienteEspecieService.class);
 		drogaService  = Injector.obtenerServicio(DrogaService.class);
+		policiaService = Injector.obtenerServicio(PoliciaService.class);
 		setCompositionRoot(mainLayout);
 		postConstruct();
 		debugId();
@@ -422,10 +426,10 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		hojaremision.setVehiculoPlaca(HarecUtil.nullToEmpty(txtPlaca.getValue()));
 		
 		if(hojaremision.esNuevo()){
-			hojaDeRemisionService.crear(hojaremision);
+			hojaRemisionService.crear(hojaremision);
 			cargaPanelDetalle();
 		}else{
-			hojaDeRemisionService.actualizar(hojaremision);
+			hojaRemisionService.actualizar(hojaremision);
 		}
 	
 		AlertDialog alertDialog = new  AlertDialog("Registro de Hoja de Remisión", "Se ha registrado la Hoja de Remisión correctamente", "Aceptar", "400");
@@ -475,21 +479,18 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 	}
 	
 	public void btnAgregaDetalleClic(){
-		
-		muestra.setCanPesoAnalisis(!StringUtils.isEmpty((String)txtcantidadlavadoAct.getValue())? new BigDecimal((String)txtcantidadlavadoAct.getValue()):null);
-		muestra.setCanPesoBruto(!StringUtils.isEmpty((String)txtpesobruto.getValue())? new BigDecimal((String)txtpesobruto.getValue()):null);
-		muestra.setCanPesoDevuelto(!StringUtils.isEmpty((String)txtxpesodevuelto.getValue())? new BigDecimal((String)txtxpesodevuelto.getValue()):null);
-		muestra.setCanPesoNeto(!StringUtils.isEmpty((String)txtpesoneto.getValue())? new BigDecimal((String)txtpesoneto.getValue()):null);
-		muestra.setCantidad(!StringUtils.isEmpty((String)txtcantidadlavadoAct.getValue())? new BigDecimal((String)txtcantidadlavadoAct.getValue()):null);
+		muestra = new HojaremisionMuestra();
+		muestra.setCanPesoAnalisis(txtcantidadlavadoAct.getValue() != null ? Double.parseDouble(txtcantidadlavadoAct.getValue().toString()) : null);
+		muestra.setCanPesoBruto(txtpesobruto.getValue() != null ? Double.valueOf(txtpesobruto.getValue().toString()) : null);
+		muestra.setCanPesoDevuelto(txtxpesodevuelto.getValue() != null ? Double.valueOf(txtxpesodevuelto.getValue().toString()) : null);
+		muestra.setCanPesoNeto(txtpesoneto.getValue() != null ? Double.valueOf(txtpesoneto.getValue().toString()) : null);
+		muestra.setCantidad(txtcantidadlavadoAct.getValue() != null ? Integer.parseInt(txtcantidadlavadoAct.getValue().toString()) : null);
 		muestra.setDescripcion(HarecUtil.nullToEmpty(txtdescripcion.getValue()));
-		
 		muestra.setDroga((Droga)cmbdroga.getValue());
 		muestra.setEspecie((Especie)cmbespecie.getValue());
 		muestra.setTipoMedida((ModeloMarca)cmbunidadmedida.getValue());
 		muestra.setHojaRemision(hojaremision);
-		
-		//TODO pendiente crear service para insert o update 
-		
+		hojaRemisionMuestraService.crear(muestra);
 		//TODO cargar lista de detalle
 	}
 	

@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,12 @@ public class ImporteServiceImpl extends BaseServiceImpl<Importe, Long> implement
 	@Override
 	public List<Importe> buscar(Importe importe) {
 		Busqueda filtro = Busqueda.forClass(Importe.class);
+		
+		if(importe.getExpediente()!=null){
+			if (importe.getExpediente().getId()!=null) {
+				filtro.add(Restrictions.eq("expediente.id", importe.getExpediente().getId()));
+			}
+		}
 		
 		return importeHibernate.buscar(filtro);		
 	}
