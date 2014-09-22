@@ -134,7 +134,6 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	
 	public void postConstruct() {
 		if(expediente!=null && !expediente.esNuevo() && !inicializado){
-			logger.debug("inicialziando");
 			cmbMuniEstado.setInputPrompt("Estado");
 			cmbMuniEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
 			cmbMuniEstado.attach();

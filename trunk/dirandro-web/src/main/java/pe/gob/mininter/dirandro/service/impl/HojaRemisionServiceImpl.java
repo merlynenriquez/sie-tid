@@ -6,27 +6,23 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pe.gob.mininter.dirandro.dao.hibernate.HojaDeRemisionHibernate;
+import pe.gob.mininter.dirandro.dao.hibernate.HojaRemisionHibernate;
 import pe.gob.mininter.dirandro.model.Hojaremision;
-import pe.gob.mininter.dirandro.service.HojaDeRemisionService;
+import pe.gob.mininter.dirandro.service.HojaRemisionService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 
 @Service
-public class HojaDeRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long> implements HojaDeRemisionService{
+public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long> implements HojaRemisionService{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2697106645391028183L;
 	
-	private HojaDeRemisionHibernate hojaDeRemisionHibernate;
+	private HojaRemisionHibernate hojaDeRemisionHibernate;
 	
 	@Autowired
-	public HojaDeRemisionServiceImpl(HojaDeRemisionHibernate hojaDeRemisionHibernate) {
+	public HojaRemisionServiceImpl(HojaRemisionHibernate hojaDeRemisionHibernate) {
 		super(hojaDeRemisionHibernate);
 		this.hojaDeRemisionHibernate = hojaDeRemisionHibernate;
 	}
-	
 
 	public Hojaremision obtener(Long id){		
 		return hojaDeRemisionHibernate.obtener(id);

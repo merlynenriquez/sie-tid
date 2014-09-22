@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,25 +30,25 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 	private static final long serialVersionUID = -6116438175392487199L;
 
 	@Id
-	@SequenceGenerator(name="HR_HOJAREMISION_MUESTRA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="HR_HOJAREMISION_MUESTRA_ID_GENERATOR", sequenceName="SEQ_HOJAREMISION_MUESTRA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HR_HOJAREMISION_MUESTRA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
 	@Column(name="CAN_PESO_ANALISIS", precision=10, scale=2)
-	private BigDecimal canPesoAnalisis;
+	private Double canPesoAnalisis;
 
 	@Column(name="CAN_PESO_BRUTO", precision=10, scale=2)
-	private BigDecimal canPesoBruto;
+	private Double canPesoBruto;
 
 	@Column(name="CAN_PESO_DEVUELTO", precision=10, scale=2)
-	private BigDecimal canPesoDevuelto;
+	private Double canPesoDevuelto;
 
 	@Column(name="CAN_PESO_NETO", precision=10, scale=2)
-	private BigDecimal canPesoNeto;
+	private Double canPesoNeto;
 
 	@Column(precision=5)
-	private BigDecimal cantidad;
+	private Integer cantidad;
 
 	@Column(length=400)
 	private String descripcion;
@@ -90,46 +89,6 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 		this.id = id;
 	}
 
-	public BigDecimal getCanPesoAnalisis() {
-		return canPesoAnalisis;
-	}
-
-	public void setCanPesoAnalisis(BigDecimal canPesoAnalisis) {
-		this.canPesoAnalisis = canPesoAnalisis;
-	}
-
-	public BigDecimal getCanPesoBruto() {
-		return canPesoBruto;
-	}
-
-	public void setCanPesoBruto(BigDecimal canPesoBruto) {
-		this.canPesoBruto = canPesoBruto;
-	}
-
-	public BigDecimal getCanPesoDevuelto() {
-		return canPesoDevuelto;
-	}
-
-	public void setCanPesoDevuelto(BigDecimal canPesoDevuelto) {
-		this.canPesoDevuelto = canPesoDevuelto;
-	}
-
-	public BigDecimal getCanPesoNeto() {
-		return canPesoNeto;
-	}
-
-	public void setCanPesoNeto(BigDecimal canPesoNeto) {
-		this.canPesoNeto = canPesoNeto;
-	}
-
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -168,6 +127,46 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 
 	public void setHojaRemision(Hojaremision hojaRemision) {
 		this.hojaRemision = hojaRemision;
+	}
+
+	public Double getCanPesoAnalisis() {
+		return canPesoAnalisis;
+	}
+
+	public void setCanPesoAnalisis(Double canPesoAnalisis) {
+		this.canPesoAnalisis = canPesoAnalisis;
+	}
+
+	public Double getCanPesoBruto() {
+		return canPesoBruto;
+	}
+
+	public void setCanPesoBruto(Double canPesoBruto) {
+		this.canPesoBruto = canPesoBruto;
+	}
+
+	public Double getCanPesoDevuelto() {
+		return canPesoDevuelto;
+	}
+
+	public void setCanPesoDevuelto(Double canPesoDevuelto) {
+		this.canPesoDevuelto = canPesoDevuelto;
+	}
+
+	public Double getCanPesoNeto() {
+		return canPesoNeto;
+	}
+
+	public void setCanPesoNeto(Double canPesoNeto) {
+		this.canPesoNeto = canPesoNeto;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	@Override

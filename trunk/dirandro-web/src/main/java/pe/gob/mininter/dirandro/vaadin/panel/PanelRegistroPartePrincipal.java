@@ -438,7 +438,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		cmbDependencia.select(expediente.getDependencia());
 		cmbFinalidad.select(expediente.getTipoFinalidad());
 		dfRegistroExp.setValue(expediente.getFechaRegistro());
-		txtDiasAtencionExp.setValue(expediente.getDiasAtencion().toString());
+		txtDiasAtencionExp.setValue(expediente.getDiasAtencion() != null ? expediente.getDiasAtencion().toString() : StringUtils.EMPTY);
 		cmbEstadoExp.select(expediente.getEstado());
 		cmbLugarHecho.select(expediente.getLugarHecho());
 		cmbTipoDir.select(expediente.getTipoDireccion());
