@@ -1,6 +1,5 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -9,17 +8,13 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import pe.gob.mininter.dirandro.dao.hibernate.impl.ExpedientePersonaHibernateImpl;
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
-import pe.gob.mininter.dirandro.model.Droga;
 import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Expediente;
-import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.Organizacion;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.ExpedientePersonaService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.OrganizacionService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -112,7 +107,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements
 	private static final String OPCION_EMPRESA = "Empresa";
 
 	private String listaSeleccionada = OPCION_PERSONA;
-
+	private boolean inicializado=false;
 	private IndexedContainer container;
 
 	private static final String COLUMN_TIPO_INTERVINIENTE = "COLUMN_TIPO_INTERVINIENTE";
@@ -149,50 +144,53 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements
 
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		postConstruct();
 	}
 
 	public void postConstruct() {
-
-		cmbInterEstadoDato.setCodigoLista(Constante.LISTA.CODIGO.TIPO_EST_DATO);
-		cmbInterOcupacion.setCodigoLista(Constante.LISTA.CODIGO.OCUP_INTERV);
-		cmbInterSituacion.setCodigoLista(Constante.LISTA.CODIGO.SIT_PROCESADO);
-
-		cargarCmbInterOrganizacion();
-
-		btnRIBuscar.setIcon(Constante.ICONOS.CREATE);
-		btnRIBuscar.addListener((ClickListener) this);
-		// btnRIBuscar.setEnabled(false);
-		btnRIAgregar.addListener((ClickListener) this);
-
-		rbTipoInterviniente.addItem(OPCION_PERSONA);
-		rbTipoInterviniente.addItem(OPCION_EMPRESA);
-		rbTipoInterviniente.select(OPCION_PERSONA);
-		rbTipoInterviniente.setImmediate(true);
-		rbTipoInterviniente.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 2720977948538256976L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				rbTipoIntervinienteValueChange(event);
-			}
-		});
-
-		cmbRiIntervinientes.setInputPrompt("Incautado a:");
-		cmbRiIntervinientes.setItemCaptionPropertyId("nombreCompleto");
-		cmbRiIntervinientes.setImmediate(true);
-		cargaComboPersonaIncautada(OPCION_PERSONA);
-
-		cmbRiIntervinientes.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 2720977948538256976L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				cmbRiIntervinientesValueChange(event);
-			}
-
-		});
-
-		containerTabla();
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			cmbInterEstadoDato.setCodigoLista(Constante.LISTA.CODIGO.TIPO_EST_DATO);
+			cmbInterOcupacion.setCodigoLista(Constante.LISTA.CODIGO.OCUP_INTERV);
+			cmbInterSituacion.setCodigoLista(Constante.LISTA.CODIGO.SIT_PROCESADO);
+	
+			cargarCmbInterOrganizacion();
+	
+			btnRIBuscar.setIcon(Constante.ICONOS.CREATE);
+			btnRIBuscar.addListener((ClickListener) this);
+			// btnRIBuscar.setEnabled(false);
+			btnRIAgregar.addListener((ClickListener) this);
+	
+			rbTipoInterviniente.addItem(OPCION_PERSONA);
+			rbTipoInterviniente.addItem(OPCION_EMPRESA);
+			rbTipoInterviniente.select(OPCION_PERSONA);
+			rbTipoInterviniente.setImmediate(true);
+			rbTipoInterviniente.addListener(new ValueChangeListener() {
+				private static final long serialVersionUID = 2720977948538256976L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					rbTipoIntervinienteValueChange(event);
+				}
+			});
+	
+			cmbRiIntervinientes.setInputPrompt("Incautado a:");
+			cmbRiIntervinientes.setItemCaptionPropertyId("nombreCompleto");
+			cmbRiIntervinientes.setImmediate(true);
+			cargaComboPersonaIncautada(OPCION_PERSONA);
+	
+			cmbRiIntervinientes.addListener(new ValueChangeListener() {
+				private static final long serialVersionUID = 2720977948538256976L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					cmbRiIntervinientesValueChange(event);
+				}
+	
+			});
+	
+			containerTabla();
+			inicializado=true;
+		}
 	}
 
 	private void cargarCmbInterOrganizacion() {

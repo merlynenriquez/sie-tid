@@ -32,11 +32,13 @@ public class InstalacionServiceImpl extends BaseServiceImpl<Instalacion, Long> i
 		Busqueda filtro = Busqueda.forClass(Instalacion.class);
 		
 		if(instalacion!=null){
+			
 			if(instalacion.getExpediente()!=null){
 				if(instalacion.getExpediente().getId()!=null){
 					filtro.add(Restrictions.eq("expediente.id", instalacion.getExpediente().getId()));			
 				}
 			}
+			
 		}
 		
 		return instalacionHibernate.buscar(filtro);

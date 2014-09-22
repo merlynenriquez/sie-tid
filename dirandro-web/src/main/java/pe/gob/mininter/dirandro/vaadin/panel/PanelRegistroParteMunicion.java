@@ -3,6 +3,8 @@ package pe.gob.mininter.dirandro.vaadin.panel;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
@@ -10,7 +12,6 @@ import pe.gob.mininter.dirandro.model.Municion;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.EmpresaService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.MunicionService;
 import pe.gob.mininter.dirandro.service.PersonaService;
@@ -111,9 +112,13 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	private List<Empresa> lstEmpresas;
 	private List<Persona> lstPersonas;
 	private String listaSeleccionada="persona";
+	private boolean inicializado=false;
+	private static final Logger logger = Logger.getLogger(PanelRegistroParteMunicion.class);
 	
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		logger.debug("inicialziar");
+		postConstruct();
 	}
 		
 	public PanelRegistroParteMunicion() {
@@ -128,109 +133,111 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	}
 	
 	public void postConstruct() {
-
-		ExpedienteService expedienteService = Injector.obtenerServicio(ExpedienteService.class);
-		expediente=expedienteService.obtener(1l);
-		
-		cmbMuniEstado.setInputPrompt("Estado");
-		cmbMuniEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
-		cmbCalibre.setInputPrompt("Calibre");
-		cmbCalibre.setCodigoLista(Constante.LISTA.CODIGO.TIPO_CALIBRE);
-		cmbMuniSituacion.setInputPrompt("Situacion");
-		cmbMuniSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-		
-		cmbMuniTipo.setInputPrompt("Tipo Municion");
-		cmbMuniTipo.setItemCaptionPropertyId("nombre");
-		lstTiposMunicion = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.MUNICIONES.AUTO));
-		cmbMuniTipo.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposMunicion));
-		cmbMuniTipo.setImmediate(true);
-		cmbMuniTipo.addListener(new Property.ValueChangeListener() {            
-			private static final long serialVersionUID = 1L;
-			@Override
-            public void valueChange(ValueChangeEvent event) {				 
-				lstMarcas = modeloMarcaService.buscarHijos((ModeloMarca)cmbMuniTipo.getValue());
-				cmbMuniMarca.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,lstMarcas));
-            }
-        });
-		
-		//marca
-		cmbMuniMarca.setInputPrompt("Marcas");
-		cmbMuniMarca.setItemCaptionPropertyId("nombre");
-		
-		cmbMuniTipoMedida.setInputPrompt("Tipo Medida");
-		cmbMuniTipoMedida.setItemCaptionPropertyId("nombre");
-		lstTiposMedidas = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.MUNICIONES.PRESENTACIONES));
-		cmbMuniTipoMedida.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposMedidas));
-		
-		rbTipoPersona.addItem("Persona");
-		rbTipoPersona.addItem("Empresa");
-		rbTipoPersona.select("Persona");
-		rbTipoPersona.setImmediate(true);
-		rbTipoPersona.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 2720977948538256976L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				rbTipoPersonaValueChange(event);
-			}
-		});
-		
-		cmbMuniPersonaIncautada.setInputPrompt("Incautado a:");
-		cmbMuniPersonaIncautada.setItemCaptionPropertyId("nombreCompleto");
-		cmbMuniPersonaIncautada.setImmediate(true);
-		cargaComboPersonaIncautada("persona");
-		
-		tblMuniLista.setSelectable(true);
-		tblMuniLista.setImmediate(true);
-		tblMuniLista.setNullSelectionAllowed(true);
-		tblMuniLista.setNullSelectionItemId(null);
-		tblMuniLista.addListener(new ValueChangeListener() {
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			logger.debug("inicialziando");
+			cmbMuniEstado.setInputPrompt("Estado");
+			cmbMuniEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+			cmbMuniEstado.attach();
+			cmbCalibre.setInputPrompt("Calibre");
+			cmbCalibre.setCodigoLista(Constante.LISTA.CODIGO.TIPO_CALIBRE);
+			cmbCalibre.attach();
+			cmbMuniSituacion.setInputPrompt("Situacion");
+			cmbMuniSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbMuniSituacion.attach();
 			
-			private static final long serialVersionUID = 7962790507398071986L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblMuniLista.getValue() == null;
-				limpiar();
-				if(esModoNuevo){
-					tblMuniLista.setValue(null);
-					habilitarEdicion(false);
-				}else{
-					habilitarEdicion(true);
-					Item item = tblMuniLista.getItem(tblMuniLista.getValue());
+			cmbMuniTipo.setInputPrompt("Tipo Municion");
+			cmbMuniTipo.setItemCaptionPropertyId("nombre");
+			lstTiposMunicion = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.MUNICIONES.AUTO));
+			cmbMuniTipo.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposMunicion));
+			cmbMuniTipo.setImmediate(true);
+			cmbMuniTipo.addListener(new Property.ValueChangeListener() {            
+				private static final long serialVersionUID = 1L;
+				@Override
+	            public void valueChange(ValueChangeEvent event) {				 
+					lstMarcas = modeloMarcaService.buscarHijos((ModeloMarca)cmbMuniTipo.getValue());
+					cmbMuniMarca.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,lstMarcas));
+	            }
+	        });
+			
+			//marca
+			cmbMuniMarca.setInputPrompt("Marcas");
+			cmbMuniMarca.setItemCaptionPropertyId("nombre");
+			
+			cmbMuniTipoMedida.setInputPrompt("Tipo Medida");
+			cmbMuniTipoMedida.setItemCaptionPropertyId("nombre");
+			lstTiposMedidas = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.MUNICIONES.PRESENTACIONES));
+			cmbMuniTipoMedida.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposMedidas));
+			
+			rbTipoPersona.addItem("Persona");
+			rbTipoPersona.addItem("Empresa");
+			rbTipoPersona.select("Persona");
+			rbTipoPersona.setImmediate(true);
+			rbTipoPersona.addListener(new ValueChangeListener() {
+				private static final long serialVersionUID = 2720977948538256976L;
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					rbTipoPersonaValueChange(event);
+				}
+			});
+			
+			cmbMuniPersonaIncautada.setInputPrompt("Incautado a:");
+			cmbMuniPersonaIncautada.setItemCaptionPropertyId("nombreCompleto");
+			cmbMuniPersonaIncautada.setImmediate(true);
+			cargaComboPersonaIncautada("persona");
+			
+			tblMuniLista.setSelectable(true);
+			tblMuniLista.setImmediate(true);
+			tblMuniLista.setNullSelectionAllowed(true);
+			tblMuniLista.setNullSelectionItemId(null);
+			tblMuniLista.addListener(new ValueChangeListener() {
 				
-					municion.setId((Long) item.getItemProperty("id").getValue());					
-					txtMuniDescripcion.setValue(item.getItemProperty("descripcion").getValue());
-					txtMuniObservacion.setValue(item.getItemProperty("observacion").getValue());
-					txtMuniMedida.setValue(item.getItemProperty("medida").getValue());
-					txtCantidad.setValue(item.getItemProperty("cantidad").getValue());
-					
-					cmbCalibre.select(new Valor((Long)item.getItemProperty("calibre.id").getValue()));
-					cmbMuniEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
-					cmbMuniSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
-					cmbMuniTipo.select(new ModeloMarca((Long)item.getItemProperty("tipo.id").getValue()));
-					cmbMuniMarca.select(new ModeloMarca((Long)item.getItemProperty("marca.id").getValue()));
-					cmbMuniTipoMedida.select(new ModeloMarca((Long)item.getItemProperty("tipoMedida.id").getValue()));
-					
-					if(item.getItemProperty("persona.id").getValue()!=null){
-						listaSeleccionada="persona";
-						rbTipoPersona.select("Persona");
-						cmbMuniPersonaIncautada.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
+				private static final long serialVersionUID = 7962790507398071986L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					boolean esModoNuevo = tblMuniLista.getValue() == null;
+					limpiar();
+					if(esModoNuevo){
+						tblMuniLista.setValue(null);
+						habilitarEdicion(false);
 					}else{
-						listaSeleccionada="empresa";
-						rbTipoPersona.select("Empresa");
-						if(lstEmpresas==null){
-							lstEmpresas = empresaService.listarEmpresas();
+						habilitarEdicion(true);
+						Item item = tblMuniLista.getItem(tblMuniLista.getValue());
+					
+						municion.setId((Long) item.getItemProperty("id").getValue());					
+						txtMuniDescripcion.setValue(item.getItemProperty("descripcion").getValue());
+						txtMuniObservacion.setValue(item.getItemProperty("observacion").getValue());
+						txtMuniMedida.setValue(item.getItemProperty("medida").getValue());
+						txtCantidad.setValue(item.getItemProperty("cantidad").getValue());
+						
+						cmbCalibre.select(new Valor((Long)item.getItemProperty("calibre.id").getValue()));
+						cmbMuniEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
+						cmbMuniSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
+						cmbMuniTipo.select(new ModeloMarca((Long)item.getItemProperty("tipo.id").getValue()));
+						cmbMuniMarca.select(new ModeloMarca((Long)item.getItemProperty("marca.id").getValue()));
+						cmbMuniTipoMedida.select(new ModeloMarca((Long)item.getItemProperty("tipoMedida.id").getValue()));
+						
+						if(item.getItemProperty("persona.id").getValue()!=null){
+							listaSeleccionada="persona";
+							rbTipoPersona.select("Persona");
+							cmbMuniPersonaIncautada.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
+						}else{
+							listaSeleccionada="empresa";
+							rbTipoPersona.select("Empresa");
+							if(lstEmpresas==null){
+								lstEmpresas = empresaService.listarEmpresas();
+							}
+							cmbMuniPersonaIncautada.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 						}
-						cmbMuniPersonaIncautada.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 					}
 				}
-			}
-		});	
-		
-		btnMuniRegistrar.addListener((ClickListener)this);
-		
-		refrescar();
-		
+			});	
+			
+			btnMuniRegistrar.addListener((ClickListener)this);
+			
+			refrescar();
+			inicializado=true;
+		}	
 	}
 
 	private void rbTipoPersonaValueChange(ValueChangeEvent event){		

@@ -12,7 +12,6 @@ import pe.gob.mininter.dirandro.model.Instalacion;
 import pe.gob.mininter.dirandro.model.Organizacion;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.CentroPobladoService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.InstalacionService;
 import pe.gob.mininter.dirandro.service.OrganizacionService;
 import pe.gob.mininter.dirandro.service.UbigeoService;
@@ -114,9 +113,11 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 	private List<Distrito> lstDistrito;
 	private List<CentroPoblado> centroPoblados;
 	private List<Organizacion> lOrganizaciones;
+	private boolean inicializado=false;
 	
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		postConstruct();
 	}
 
 	public PanelRegistroParteInstalacion() {
@@ -130,86 +131,89 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 	}
 	
 	public void postConstruct() {
-		
-		cmbTipoInstalacion.setInputPrompt("Tipo Instalacion");
-		cmbTipoInstalacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INSTALACION);
-		
-		cmbSituacion.setInputPrompt("Situacion");
-		cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-		
-		lOrganizaciones = organizacionService.listarOrganizaciones();
-		cmbOrganizacion.setInputPrompt("Organizaciones Delictivas");
-		cmbOrganizacion.setItemCaptionPropertyId("nombre");
-		cmbOrganizacion.setContainerDataSource(new BeanItemContainer<Organizacion>(Organizacion.class,  lOrganizaciones));
-		
-		centroPoblados = centroPobladoService.buscar( new CentroPoblado());
-		cmbCentroPoblado.setInputPrompt("Centro Poblado");
-		cmbCentroPoblado.setItemCaptionPropertyId("nombre");
-		cmbCentroPoblado.setContainerDataSource(new BeanItemContainer<CentroPoblado>(CentroPoblado.class,  centroPoblados));
-		
-		lstDistrito = ubigeoService.obtenerTodos();
-		cmbUbicacion.setInputPrompt("Distrito - Provincia - Departamento");
-		cmbUbicacion.setItemCaptionPropertyId("nombreCompleto");
-		cmbUbicacion.setContainerDataSource(new BeanItemContainer<Distrito>(Distrito.class,  lstDistrito));
-		cmbUbicacion.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
-		
-		tblInstalaciones.setSelectable(true);
-		tblInstalaciones.setImmediate(true);
-		tblInstalaciones.setNullSelectionAllowed(true);
-		tblInstalaciones.setNullSelectionItemId(null);
-		tblInstalaciones.addListener(new ValueChangeListener() {
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			cmbTipoInstalacion.setInputPrompt("Tipo Instalacion");
+			cmbTipoInstalacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INSTALACION);
+			cmbTipoInstalacion.attach();
+			cmbSituacion.setInputPrompt("Situacion");
+			cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbSituacion.attach();
 			
-			private static final long serialVersionUID = 7962790507398071986L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblInstalaciones.getValue() == null;
-				limpiar();
-				if(esModoNuevo){
-					tblInstalaciones.setValue(null);
-					habilitarEdicion(false);
-				}else{
-					habilitarEdicion(true);
-					Item item = tblInstalaciones.getItem(tblInstalaciones.getValue());
-					instalacion.setId((Long) item.getItemProperty("id").getValue());
-					
-					txtAlto.setValue(HarecUtil.nullToEmpty(item.getItemProperty("alto").getValue()));
-					txtAncho.setValue(HarecUtil.nullToEmpty(item.getItemProperty("ancho").getValue()));
-					txtLargo.setValue(HarecUtil.nullToEmpty(item.getItemProperty("largo").getValue()));
-					txtLatitud.setValue(HarecUtil.nullToEmpty(item.getItemProperty("latitud").getValue()));
-					txtLongitud.setValue(HarecUtil.nullToEmpty(item.getItemProperty("longitud").getValue()));
-					txtNombre.setValue(HarecUtil.nullToEmpty(item.getItemProperty("nombre").getValue()));
-					txtRadio.setValue(HarecUtil.nullToEmpty(item.getItemProperty("radio").getValue()));
-					txtZonaProduccion.setValue(HarecUtil.nullToEmpty(item.getItemProperty("zonaProduccion").getValue()));
-					txtDescripcion.setValue(HarecUtil.nullToEmpty(item.getItemProperty("descripcion").getValue()));
-					
-					cmbTipoInstalacion.select(new Valor((Long)item.getItemProperty("tipo.id").getValue()));
-					cmbSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
-					
-					for (CentroPoblado cp: centroPoblados) {
-						if (cp.getId().equals((Long) item.getItemProperty("cp.id").getValue())) {
-							cmbCentroPoblado.select(cp);
-							break;
+			lOrganizaciones = organizacionService.listarOrganizaciones();
+			cmbOrganizacion.setInputPrompt("Organizaciones Delictivas");
+			cmbOrganizacion.setItemCaptionPropertyId("nombre");
+			cmbOrganizacion.setContainerDataSource(new BeanItemContainer<Organizacion>(Organizacion.class,  lOrganizaciones));
+			
+			centroPoblados = centroPobladoService.buscar( new CentroPoblado());
+			cmbCentroPoblado.setInputPrompt("Centro Poblado");
+			cmbCentroPoblado.setItemCaptionPropertyId("nombre");
+			cmbCentroPoblado.setContainerDataSource(new BeanItemContainer<CentroPoblado>(CentroPoblado.class,  centroPoblados));
+			
+			lstDistrito = ubigeoService.obtenerTodos();
+			cmbUbicacion.setInputPrompt("Distrito - Provincia - Departamento");
+			cmbUbicacion.setItemCaptionPropertyId("nombreCompleto");
+			cmbUbicacion.setContainerDataSource(new BeanItemContainer<Distrito>(Distrito.class,  lstDistrito));
+			cmbUbicacion.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
+			
+			tblInstalaciones.setSelectable(true);
+			tblInstalaciones.setImmediate(true);
+			tblInstalaciones.setNullSelectionAllowed(true);
+			tblInstalaciones.setNullSelectionItemId(null);
+			tblInstalaciones.addListener(new ValueChangeListener() {
+				
+				private static final long serialVersionUID = 7962790507398071986L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					boolean esModoNuevo = tblInstalaciones.getValue() == null;
+					limpiar();
+					if(esModoNuevo){
+						tblInstalaciones.setValue(null);
+						habilitarEdicion(false);
+					}else{
+						habilitarEdicion(true);
+						Item item = tblInstalaciones.getItem(tblInstalaciones.getValue());
+						instalacion.setId((Long) item.getItemProperty("id").getValue());
+						
+						txtAlto.setValue(HarecUtil.nullToEmpty(item.getItemProperty("alto").getValue()));
+						txtAncho.setValue(HarecUtil.nullToEmpty(item.getItemProperty("ancho").getValue()));
+						txtLargo.setValue(HarecUtil.nullToEmpty(item.getItemProperty("largo").getValue()));
+						txtLatitud.setValue(HarecUtil.nullToEmpty(item.getItemProperty("latitud").getValue()));
+						txtLongitud.setValue(HarecUtil.nullToEmpty(item.getItemProperty("longitud").getValue()));
+						txtNombre.setValue(HarecUtil.nullToEmpty(item.getItemProperty("nombre").getValue()));
+						txtRadio.setValue(HarecUtil.nullToEmpty(item.getItemProperty("radio").getValue()));
+						txtZonaProduccion.setValue(HarecUtil.nullToEmpty(item.getItemProperty("zonaProduccion").getValue()));
+						txtDescripcion.setValue(HarecUtil.nullToEmpty(item.getItemProperty("descripcion").getValue()));
+						
+						cmbTipoInstalacion.select(new Valor((Long)item.getItemProperty("tipo.id").getValue()));
+						cmbSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
+						
+						for (CentroPoblado cp: centroPoblados) {
+							if (cp.getId().equals((Long) item.getItemProperty("cp.id").getValue())) {
+								cmbCentroPoblado.select(cp);
+								break;
+							}
 						}
-					}
-					for (Distrito dis: lstDistrito) {
-						if (dis.getId().equals((Long) item.getItemProperty("ubicacion.id").getValue())) {
-							cmbUbicacion.select(dis);
-							break;
+						for (Distrito dis: lstDistrito) {
+							if (dis.getId().equals((Long) item.getItemProperty("ubicacion.id").getValue())) {
+								cmbUbicacion.select(dis);
+								break;
+							}
 						}
-					}
-					for (Organizacion org: lOrganizaciones) {
-						if (org.getId().equals((Long) item.getItemProperty("organizacion.id").getValue())) {
-							cmbOrganizacion.select(org);
-							break;
+						for (Organizacion org: lOrganizaciones) {
+							if (org.getId().equals((Long) item.getItemProperty("organizacion.id").getValue())) {
+								cmbOrganizacion.select(org);
+								break;
+							}
 						}
 					}
 				}
-			}
-		});	
-		
-		btnGrabar.addListener((ClickListener)this);
-		refrescar();
+			});	
+			
+			btnGrabar.addListener((ClickListener)this);
+			refrescar();
+			inicializado=true;
+		}
 	}
 	
 	private void cargarTablaInstalaciones( ){
@@ -281,10 +285,6 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 
 	public void buttonClickGrabar(){
 
-		if(expediente==null){
-			ExpedienteService expedienteService = Injector.obtenerServicio(ExpedienteService.class);
-			expediente=expedienteService.obtener(1l);
-		}
 		instalacion.setExpediente(expediente);
 		
 		instalacion.setAlturaMt(!StringUtils.isEmpty(txtAlto.getValue().toString())? new BigDecimal((String)txtAlto.getValue()) : null);

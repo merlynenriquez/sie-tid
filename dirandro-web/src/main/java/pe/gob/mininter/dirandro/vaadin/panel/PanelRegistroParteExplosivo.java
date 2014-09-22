@@ -9,7 +9,6 @@ import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.EmpresaService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ExplosivoService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.PersonaService;
@@ -113,9 +112,11 @@ public class PanelRegistroParteExplosivo extends CustomComponent implements Clic
 	
 	private Expediente expediente;
 	private Explosivo explosivo;
+	private boolean inicializado=false;
 	
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		postConstruct();
 	}
 	
 	public PanelRegistroParteExplosivo( ) {
@@ -132,109 +133,107 @@ public class PanelRegistroParteExplosivo extends CustomComponent implements Clic
 	
 	
 	public void postConstruct() {
-		
-
-		ExpedienteService expedienteService = Injector.obtenerServicio(ExpedienteService.class);
-		expediente=expedienteService.obtener(1l);
-		
-		
-		cbbExpEstado.setInputPrompt("Estado");
-		cbbExpEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
-		cbbExpSituacion.setInputPrompt("Situacion");
-		cbbExpSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-		
-		cbbExpTipo.setInputPrompt("Tipo Explosivo");
-		cbbExpTipo.setItemCaptionPropertyId("nombre");
-		lstTiposExplosivos = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.EXPLOSIVOS.TIPOS));
-		cbbExpTipo.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposExplosivos));
-		cbbExpTipo.setImmediate(true);
-		cbbExpTipo.addListener(new Property.ValueChangeListener() {            
-			private static final long serialVersionUID = 1L;
-			@Override
-            public void valueChange(ValueChangeEvent event) {				 
-				lstMarcas = modeloMarcaService.buscarHijos((ModeloMarca)cbbExpTipo.getValue());
-				cbbExpMarca.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,lstMarcas));
-            }
-        });
-		
-		//marca
-		cbbExpMarca.setInputPrompt("Marcas");
-		cbbExpMarca.setItemCaptionPropertyId("nombre");
-				
-		cbbExpTipoMedida.setInputPrompt("Tipo Medida");
-		cbbExpTipoMedida.setItemCaptionPropertyId("nombre");
-		lstTiposMedidas = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.EXPLOSIVOS.PRESENTACIONES));
-		cbbExpTipoMedida.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposMedidas));
-		
-		rbTipoPropietario.addItem("Persona");
-		rbTipoPropietario.addItem("Empresa");
-		rbTipoPropietario.select("Persona");
-		rbTipoPropietario.setImmediate(true);
-		rbTipoPropietario.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 2720977948538256976L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				rbTipoPersonaValueChange(event);
-			}
-		});
-		
-		cbbExpPropietario.setInputPrompt("Incautado a:");
-		cbbExpPropietario.setItemCaptionPropertyId("nombreCompleto");
-		cbbExpPropietario.setImmediate(true);
-		cargaComboPersonaIncautada("persona");
-		
-
-		tblExpLista.setSelectable(true);
-		tblExpLista.setImmediate(true);
-		tblExpLista.setNullSelectionAllowed(true);
-		tblExpLista.setNullSelectionItemId(null);
-		tblExpLista.addListener(new ValueChangeListener() {
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			cbbExpEstado.setInputPrompt("Estado");
+			cbbExpEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+			cbbExpEstado.attach();
+			cbbExpSituacion.setInputPrompt("Situacion");
+			cbbExpSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cbbExpSituacion.attach();
 			
-			private static final long serialVersionUID = 7962790507398071986L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblExpLista.getValue() == null;
-				limpiar();
-				if(esModoNuevo){
-					tblExpLista.setValue(null);
-					habilitarEdicion(false);
-				}else{
-					habilitarEdicion(true);
-					Item item = tblExpLista.getItem(tblExpLista.getValue());
-				
-					explosivo.setId((Long) item.getItemProperty("id").getValue());					
-					txtDescripcion2.setValue(item.getItemProperty("descripcion").getValue());
-					txtExpObservacion.setValue(item.getItemProperty("observacion").getValue());
-					txtExpMedida.setValue(item.getItemProperty("medida").getValue());
-					txtCantidad.setValue(item.getItemProperty("cantidad").getValue());
-					txtExpSerie.setValue(item.getItemProperty("serie").getValue());
-					cbbExpEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
-					cbbExpSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
+			cbbExpTipo.setInputPrompt("Tipo Explosivo");
+			cbbExpTipo.setItemCaptionPropertyId("nombre");
+			lstTiposExplosivos = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.EXPLOSIVOS.TIPOS));
+			cbbExpTipo.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposExplosivos));
+			cbbExpTipo.setImmediate(true);
+			cbbExpTipo.addListener(new Property.ValueChangeListener() {            
+				private static final long serialVersionUID = 1L;
+				@Override
+	            public void valueChange(ValueChangeEvent event) {				 
+					lstMarcas = modeloMarcaService.buscarHijos((ModeloMarca)cbbExpTipo.getValue());
+					cbbExpMarca.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,lstMarcas));
+	            }
+	        });
+			
+			//marca
+			cbbExpMarca.setInputPrompt("Marcas");
+			cbbExpMarca.setItemCaptionPropertyId("nombre");
 					
-					cbbExpTipo.select(new ModeloMarca((Long)item.getItemProperty("tipo.id").getValue()));
-					cbbExpMarca.select(new ModeloMarca((Long)item.getItemProperty("marca.id").getValue()));
-					cbbExpTipoMedida.select(new ModeloMarca((Long)item.getItemProperty("tipoMedida.id").getValue()));
-					if(item.getItemProperty("persona.id").getValue()!=null){
-						listaSeleccionada="persona";
-						rbTipoPropietario.select("Persona");
-						cbbExpPropietario.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
+			cbbExpTipoMedida.setInputPrompt("Tipo Medida");
+			cbbExpTipoMedida.setItemCaptionPropertyId("nombre");
+			lstTiposMedidas = modeloMarcaService.buscarHijos(new ModeloMarca(Constante.MODELO_MARCA.EXPLOSIVOS.PRESENTACIONES));
+			cbbExpTipoMedida.setContainerDataSource(new BeanItemContainer<ModeloMarca>(ModeloMarca.class,  lstTiposMedidas));
+			
+			rbTipoPropietario.addItem("Persona");
+			rbTipoPropietario.addItem("Empresa");
+			rbTipoPropietario.select("Persona");
+			rbTipoPropietario.setImmediate(true);
+			rbTipoPropietario.addListener(new ValueChangeListener() {
+				private static final long serialVersionUID = 2720977948538256976L;
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					rbTipoPersonaValueChange(event);
+				}
+			});
+			
+			cbbExpPropietario.setInputPrompt("Incautado a:");
+			cbbExpPropietario.setItemCaptionPropertyId("nombreCompleto");
+			cbbExpPropietario.setImmediate(true);
+			cargaComboPersonaIncautada("persona");
+			
+	
+			tblExpLista.setSelectable(true);
+			tblExpLista.setImmediate(true);
+			tblExpLista.setNullSelectionAllowed(true);
+			tblExpLista.setNullSelectionItemId(null);
+			tblExpLista.addListener(new ValueChangeListener() {
+				
+				private static final long serialVersionUID = 7962790507398071986L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					boolean esModoNuevo = tblExpLista.getValue() == null;
+					limpiar();
+					if(esModoNuevo){
+						tblExpLista.setValue(null);
+						habilitarEdicion(false);
 					}else{
-						listaSeleccionada="empresa";
-						rbTipoPropietario.select("Empresa");
-						if(lstEmpresas==null){
-							lstEmpresas = empresaService.listarEmpresas();
+						habilitarEdicion(true);
+						Item item = tblExpLista.getItem(tblExpLista.getValue());
+					
+						explosivo.setId((Long) item.getItemProperty("id").getValue());					
+						txtDescripcion2.setValue(item.getItemProperty("descripcion").getValue());
+						txtExpObservacion.setValue(item.getItemProperty("observacion").getValue());
+						txtExpMedida.setValue(item.getItemProperty("medida").getValue());
+						txtCantidad.setValue(item.getItemProperty("cantidad").getValue());
+						txtExpSerie.setValue(item.getItemProperty("serie").getValue());
+						cbbExpEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
+						cbbExpSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
+						
+						cbbExpTipo.select(new ModeloMarca((Long)item.getItemProperty("tipo.id").getValue()));
+						cbbExpMarca.select(new ModeloMarca((Long)item.getItemProperty("marca.id").getValue()));
+						cbbExpTipoMedida.select(new ModeloMarca((Long)item.getItemProperty("tipoMedida.id").getValue()));
+						if(item.getItemProperty("persona.id").getValue()!=null){
+							listaSeleccionada="persona";
+							rbTipoPropietario.select("Persona");
+							cbbExpPropietario.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
+						}else{
+							listaSeleccionada="empresa";
+							rbTipoPropietario.select("Empresa");
+							if(lstEmpresas==null){
+								lstEmpresas = empresaService.listarEmpresas();
+							}
+							cbbExpPropietario.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 						}
-						cbbExpPropietario.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 					}
 				}
-			}
-		});	
-				
-		btnExpRegistrar.addListener((ClickListener)this);
-		
-		refrescar();
-		
+			});	
+					
+			btnExpRegistrar.addListener((ClickListener)this);
+			
+			refrescar();
+			inicializado=true;
+		}
 	}
 
 	private void rbTipoPersonaValueChange(ValueChangeEvent event){		

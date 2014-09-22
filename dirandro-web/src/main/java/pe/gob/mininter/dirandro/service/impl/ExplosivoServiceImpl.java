@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -67,7 +68,11 @@ public class ExplosivoServiceImpl extends BaseServiceImpl<Explosivo, Long> imple
 		Busqueda filtro = Busqueda.forClass(Explosivo.class);
 		
 		if (explosivo != null) {
-			
+			if(explosivo.getExpediente()!=null){
+				if ( explosivo.getExpediente().getId()!=null) {
+					filtro.add(Restrictions.eq("expediente.id", explosivo.getExpediente().getId()));
+				}
+			}
 			/*filtro.createAlias("perPersona", "per");
 		
 			if (Policia.getPerPersona().getNombres() != null && Policia.getPerPersona().getNombres().length() > 0) {
