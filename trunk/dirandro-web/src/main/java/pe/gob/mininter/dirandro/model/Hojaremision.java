@@ -2,7 +2,7 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -32,7 +34,7 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	private static final long serialVersionUID = 7410875204571125889L;
 
 	@Id
-	@SequenceGenerator(name="HR_HOJAREMISION_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="HR_HOJAREMISION_ID_GENERATOR", sequenceName="SEQ_HOJAREMISION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HR_HOJAREMISION_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -41,13 +43,13 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	private BigDecimal costoTraslado;
 
 	@Column(name="FECHA_EMISION")
-	private Timestamp fechaEmision;
+	private Date fechaEmision;
 
 	@Column(name="FECHA_RECEPCION")
-	private Timestamp fechaRecepcion;
+	private Date fechaRecepcion;
 
 	@Column(name="FECHA_TRASLADO")
-	private Timestamp fechaTraslado;
+	private Date fechaTraslado;
 
 	@Column(name="MOTIVO_TRASLADO", length=800)
 	private String motivoTraslado;
@@ -70,32 +72,32 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_HR")
-	private Valor TipoHr;
+	private Valor tipoHr;
 
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
 	@JoinColumn(name="DEPENDENCIA_REMITE")
-	private Dependencia expDependencia1;
+	private Dependencia origen;
 
 	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
 	@JoinColumn(name="DEPENDENCIA_DESTINO")
-	private Dependencia expDependencia2;
+	private Dependencia destino;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE")
-	private Expediente expExpediente;
+	private Expediente expediente;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="VEHICULO_MARCA", nullable=false)
-	private ModeloMarca mntModeloMarca;
+	private ModeloMarca vehiculoMarca;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
-	private Persona persona;
+	private Persona conductor;
 
 	//bi-directional many-to-one association to Policia
 	@ManyToOne
@@ -105,6 +107,10 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	public Hojaremision() {
 	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -121,27 +127,27 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 		this.costoTraslado = costoTraslado;
 	}
 
-	public Timestamp getFechaEmision() {
+	public Date getFechaEmision() {
 		return fechaEmision;
 	}
 
-	public void setFechaEmision(Timestamp fechaEmision) {
+	public void setFechaEmision(Date fechaEmision) {
 		this.fechaEmision = fechaEmision;
 	}
 
-	public Timestamp getFechaRecepcion() {
+	public Date getFechaRecepcion() {
 		return fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Timestamp fechaRecepcion) {
+	public void setFechaRecepcion(Date fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 
-	public Timestamp getFechaTraslado() {
+	public Date getFechaTraslado() {
 		return fechaTraslado;
 	}
 
-	public void setFechaTraslado(Timestamp fechaTraslado) {
+	public void setFechaTraslado(Date fechaTraslado) {
 		this.fechaTraslado = fechaTraslado;
 	}
 
@@ -186,45 +192,45 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 	}
 
 	public Valor getTipoHr() {
-		return TipoHr;
+		return tipoHr;
 	}
 
 	public void setTipoHr(Valor tipoHr) {
-		TipoHr = tipoHr;
-	}
-
-	public Dependencia getExpDependencia1() {
-		return expDependencia1;
-	}
-
-	public void setExpDependencia1(Dependencia expDependencia1) {
-		this.expDependencia1 = expDependencia1;
-	}
-
-	public Dependencia getExpDependencia2() {
-		return expDependencia2;
-	}
-
-	public void setExpDependencia2(Dependencia expDependencia2) {
-		this.expDependencia2 = expDependencia2;
-	}
-
-	public Expediente getExpExpediente() {
-		return expExpediente;
-	}
-
-	public void setExpExpediente(Expediente expExpediente) {
-		this.expExpediente = expExpediente;
-	}
-
-	public ModeloMarca getMntModeloMarca() {
-		return mntModeloMarca;
-	}
-
-	public void setMntModeloMarca(ModeloMarca mntModeloMarca) {
-		this.mntModeloMarca = mntModeloMarca;
+		this.tipoHr = tipoHr;
 	}
 	
+	public Dependencia getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(Dependencia origen) {
+		this.origen = origen;
+	}
+
+	public Dependencia getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Dependencia destino) {
+		this.destino = destino;
+	}
+
+	public Expediente getExpediente() {
+		return expediente;
+	}
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+	}
+
+	public ModeloMarca getVehiculoMarca() {
+		return vehiculoMarca;
+	}
+
+	public void setVehiculoMarca(ModeloMarca vehiculoMarca) {
+		this.vehiculoMarca = vehiculoMarca;
+	}
+
 	public String getNumero() {
 		return numero;
 	}
@@ -233,12 +239,12 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 		this.numero = numero;
 	}
 
-	public Persona getPersona() {
-		return persona;
+	public Persona getConductor() {
+		return conductor;
 	}
 
-	public void setPersona(Persona persona) {
-		this.persona = persona;
+	public void setConductor(Persona conductor) {
+		this.conductor = conductor;
 	}
 
 	public Policia getCustodio() {
@@ -251,8 +257,18 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(numero == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Número"});
+		}
+		if( this.expediente == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Expediente"});
+		}
+		if( this.origen == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Dependencia de Origen"});
+		}
+		if( this.destino == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Dependencia de Destino"});
+		}
 	}
  
 }
