@@ -167,8 +167,10 @@ public class PanelRegistroParte extends DirandroComponent implements SelectedTab
 			if(pnlEspecie.equals(event.getTabSheet().getSelectedTab())){
 				pnlEspecie.setExpediente(expediente);
 			}
-			//falta dinero
 			
+			if(pnlImporte.equals(event.getTabSheet().getSelectedTab())){
+				pnlImporte.setExpediente(expediente);
+			}			
 			
 			//Tab vehiculo / inmueble
 			if(tabGroupInmuebles.equals(event.getTabSheet().getSelectedTab())){
@@ -423,21 +425,21 @@ public class PanelRegistroParte extends DirandroComponent implements SelectedTab
 		pnlTelefono = new PanelRegistroParteTelefono();
 		pnlTelefono.setImmediate(false);
 		pnlTelefono.setWidth("-1px");
-		pnlTelefono.setHeight("-1px");
+		pnlTelefono.setHeight("632px");
 		tabSheet_Incautado.addTab(pnlTelefono, "Telefono", null);
 		
 		// pnlImporte
 		pnlImporte = new PanelRegistroParteDinero();
 		pnlImporte.setImmediate(false);
 		pnlImporte.setWidth("-1px");
-		pnlImporte.setHeight("-1px");
+		pnlImporte.setHeight("632px");
 		tabSheet_Incautado.addTab(pnlImporte, "Dinero", null);
 		
 		// pnlEspecie
 		pnlEspecie = new PanelRegistroParteEspecie();
 		pnlEspecie.setImmediate(false);
 		pnlEspecie.setWidth("-1px");
-		pnlEspecie.setHeight("-1px");
+		pnlEspecie.setHeight("632px");
 		tabSheet_Incautado.addTab(pnlEspecie, "Especies", null);
 		
 		return tabSheet_Incautado;

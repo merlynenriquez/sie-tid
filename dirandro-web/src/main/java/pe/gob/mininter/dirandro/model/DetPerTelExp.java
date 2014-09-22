@@ -78,6 +78,10 @@ public class DetPerTelExp extends AuditoriaBean implements Validador, Serializab
 	public DetPerTelExp() {
 	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	public Long getId() {
 		return this.id;
 	}

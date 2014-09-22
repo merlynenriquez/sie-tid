@@ -85,8 +85,11 @@ public abstract class Constante {
 			public static final String SIT_PROCESADO = "SIT_PROCESADO";	
 			public static final String OCUP_INTERV = "OCUP_INTERV";
 			public static final String ORIENTACION_SEXUAL = "ORIENT_SEX_PER";
-			public static final String ARMA_ESTADO_SERIE = "ARMA_EST_SERIE";
+			public static final String ARMA_ESTADO_SERIE = "ARMA_EST_SERIE";			
 			public static final String TIPO_HR = "TIPO_HR";
+			public static final String FRECUENCIA = "FRECUENCIA";
+			public static final String BANCO = "BANCOS";
+			public static final String TIPO_CUENTA = "TIPO_CUENTA";
 		}
 	}
 
