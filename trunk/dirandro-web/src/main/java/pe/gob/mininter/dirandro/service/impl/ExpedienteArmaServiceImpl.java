@@ -8,11 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import pe.gob.mininter.dirandro.dao.hibernate.ArmaHibernate;
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteArmaHibernate;
-import pe.gob.mininter.dirandro.model.Arma;
 import pe.gob.mininter.dirandro.model.DetPerArmExp;
-import pe.gob.mininter.dirandro.service.ArmaService;
 import pe.gob.mininter.dirandro.service.ExpedienteArmaService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 
@@ -65,6 +62,7 @@ public class ExpedienteArmaServiceImpl extends BaseServiceImpl<DetPerArmExp, Lon
 	public List<DetPerArmExp> buscar(DetPerArmExp detarma) {
 		Busqueda filtro = Busqueda.forClass(DetPerArmExp.class);
 		if (detarma != null) {
+			
 			if(detarma.getArma()!=null){
 				filtro.createAlias("arma", "arma");
 				if (detarma.getArma().getCalibre() != null && detarma.getArma().getCalibre().getId()!=null) {
@@ -73,6 +71,11 @@ public class ExpedienteArmaServiceImpl extends BaseServiceImpl<DetPerArmExp, Lon
 				if (detarma.getArma().getModelo() != null && detarma.getArma().getModelo().getId()!=null) {
 					filtro.add(Restrictions.eq("arma.modelo.id", detarma.getArma().getModelo().getId()));
 				}	
+			}
+			if(detarma.getExpediente()!=null){
+				if ( detarma.getExpediente().getId()!=null) {
+					filtro.add(Restrictions.eq("expediente.id", detarma.getExpediente().getId()));
+				}
 			}
 			
 			/*

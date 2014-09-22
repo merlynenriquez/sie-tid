@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import pe.gob.mininter.dirandro.model.Arma;
 import pe.gob.mininter.dirandro.model.DetPerArmExp;
 import pe.gob.mininter.dirandro.model.Empresa;
@@ -14,7 +16,6 @@ import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ArmaService;
 import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.ExpedienteArmaService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -120,6 +121,8 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 	
 	private Expediente expediente;
 	private DetPerArmExp expedienteArma;
+	private boolean inicializado=false;
+	private static final Logger logger= Logger.getLogger(PanelRegistroParteArma.class);
 	
 	public PanelRegistroParteArma(  ) {
 		buildMainLayout();
@@ -129,111 +132,112 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		expedienteArmaService = Injector.obtenerServicio(ExpedienteArmaService.class);
 		modeloMarcaService = Injector.obtenerServicio(ModeloMarcaService.class);
 		setCompositionRoot(mainLayout);
-		setExpediente(new Expediente());
 		postConstruct();
 	}
 	
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		postConstruct();
 	}
 
 	public void postConstruct() {
-	
-		ExpedienteService expedienteService = Injector.obtenerServicio(ExpedienteService.class);
-		expediente=expedienteService.obtener(1l);
-		
-		lstArmas = armaService.buscar(null);
-		lstPropietarioPersona = personaService.buscar(null);
-		
-		limpiarArma();
-		cmbArmEstado.setInputPrompt("Estado");
-		cmbArmEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
-		cmbArmSituacion.setInputPrompt("Situacion");
-		cmbArmSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-
-		cmbArmaSerie.setInputPrompt("Seleccionar Arma por Nro. de Serie");
-		cmbArmaSerie.setItemCaptionPropertyId("nroSerie");
-		cmbArmaSerie.setImmediate(true);
-		cmbArmaSerie.setContainerDataSource(new BeanItemContainer<Arma>(Arma.class,  lstArmas));
-		cmbArmaSerie.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 2720977948538256976L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				cmbArmasValueChange(event);
-			}
-
-		});
-		
-		rbTipoPropietario.addItem(OPCION_PERSONA);
-		rbTipoPropietario.addItem(OPCION_EMPRESA);
-		rbTipoPropietario.select(OPCION_PERSONA);
-		rbTipoPropietario.setImmediate(true);
-		rbTipoPropietario.addListener(new ValueChangeListener() {
-			private static final long serialVersionUID = 2720977948538256976L;
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				rbTipoPersonaValueChange(event);
-			}
-		});
-		
-		cmbArmPersonaIncautada.setInputPrompt("Incautado a:");
-		cmbArmPersonaIncautada.setItemCaptionPropertyId("nombreCompleto");
-		cmbArmPersonaIncautada.setImmediate(true);
-		cargaComboPersonaIncautada(OPCION_PERSONA);
-				
-		cmbDuenio.setInputPrompt("Perteneciente a:");
-		cmbDuenio.setItemCaptionPropertyId("nombreCompleto");
-		cmbDuenio.setContainerDataSource(new BeanItemContainer<Persona>(Persona.class,  lstPropietarioPersona));
-		
-		tblArmLista.setSelectable(true);
-		tblArmLista.setImmediate(true);
-		tblArmLista.setNullSelectionAllowed(true);
-		tblArmLista.setNullSelectionItemId(null);
-		tblArmLista.addListener(new ValueChangeListener() {
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			logger.debug("inicialziando");
+			lstArmas = armaService.buscar(null);
+			lstPropietarioPersona = personaService.buscar(null);
 			
-			private static final long serialVersionUID = 7962790507398071986L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblArmLista.getValue() == null;
-				limpiar();
-				if(esModoNuevo){
-					tblArmLista.setValue(null);
-					habilitarEdicion(false);
-				}else{
-					habilitarEdicion(true);
-					Item item = tblArmLista.getItem(tblArmLista.getValue());
-				
-					expedienteArma.setId((Long) item.getItemProperty("id").getValue());					
-					txtArmObservacion.setValue(item.getItemProperty("observacion").getValue());
-					txtArmCantidad.setValue(item.getItemProperty("cantidad").getValue());
-					txtNroLicencia.setValue(item.getItemProperty("numerolicencia").getValue());
-					cmbArmaSerie.select((Arma)item.getItemProperty("arma").getValue());
-					cmbDuenio.select(new Persona((Long)item.getItemProperty("propietario.id").getValue()));
-					cmbArmEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
-					cmbArmSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
+			limpiarArma();
+			cmbArmEstado.setInputPrompt("Estado");
+			cmbArmEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+			cmbArmEstado.attach();
+			cmbArmSituacion.setInputPrompt("Situacion");
+			cmbArmSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbArmSituacion.attach();
+			
+			cmbArmaSerie.setInputPrompt("Seleccionar Arma por Nro. de Serie");
+			cmbArmaSerie.setItemCaptionPropertyId("nroSerie");
+			cmbArmaSerie.setImmediate(true);
+			cmbArmaSerie.setContainerDataSource(new BeanItemContainer<Arma>(Arma.class,  lstArmas));
+			cmbArmaSerie.addListener(new ValueChangeListener() {
+				private static final long serialVersionUID = 2720977948538256976L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					cmbArmasValueChange(event);
+				}
+	
+			});
+			
+			rbTipoPropietario.addItem(OPCION_PERSONA);
+			rbTipoPropietario.addItem(OPCION_EMPRESA);
+			rbTipoPropietario.select(OPCION_PERSONA);
+			rbTipoPropietario.setImmediate(true);
+			rbTipoPropietario.addListener(new ValueChangeListener() {
+				private static final long serialVersionUID = 2720977948538256976L;
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					rbTipoPersonaValueChange(event);
+				}
+			});
+			
+			cmbArmPersonaIncautada.setInputPrompt("Incautado a:");
+			cmbArmPersonaIncautada.setItemCaptionPropertyId("nombreCompleto");
+			cmbArmPersonaIncautada.setImmediate(true);
+			cargaComboPersonaIncautada(OPCION_PERSONA);
 					
-					if(item.getItemProperty("persona.id").getValue()!=null){
-						listaSeleccionada=OPCION_PERSONA;
-						rbTipoPropietario.select(OPCION_PERSONA);
-						cmbArmPersonaIncautada.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
+			cmbDuenio.setInputPrompt("Perteneciente a:");
+			cmbDuenio.setItemCaptionPropertyId("nombreCompleto");
+			cmbDuenio.setContainerDataSource(new BeanItemContainer<Persona>(Persona.class,  lstPropietarioPersona));
+			
+			tblArmLista.setSelectable(true);
+			tblArmLista.setImmediate(true);
+			tblArmLista.setNullSelectionAllowed(true);
+			tblArmLista.setNullSelectionItemId(null);
+			tblArmLista.addListener(new ValueChangeListener() {
+				
+				private static final long serialVersionUID = 7962790507398071986L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					boolean esModoNuevo = tblArmLista.getValue() == null;
+					limpiar();
+					if(esModoNuevo){
+						tblArmLista.setValue(null);
+						habilitarEdicion(false);
 					}else{
-						listaSeleccionada=OPCION_EMPRESA;
-						rbTipoPropietario.select(OPCION_EMPRESA);
-						if(lstEmpresas==null){
-							lstEmpresas = empresaService.listarEmpresas();
+						habilitarEdicion(true);
+						Item item = tblArmLista.getItem(tblArmLista.getValue());
+					
+						expedienteArma.setId((Long) item.getItemProperty("id").getValue());					
+						txtArmObservacion.setValue(item.getItemProperty("observacion").getValue());
+						txtArmCantidad.setValue(item.getItemProperty("cantidad").getValue());
+						txtNroLicencia.setValue(item.getItemProperty("numerolicencia").getValue());
+						cmbArmaSerie.select((Arma)item.getItemProperty("arma").getValue());
+						cmbDuenio.select(new Persona((Long)item.getItemProperty("propietario.id").getValue()));
+						cmbArmEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
+						cmbArmSituacion.select(new Valor((Long)item.getItemProperty("situacion.id").getValue()));
+						
+						if(item.getItemProperty("persona.id").getValue()!=null){
+							listaSeleccionada=OPCION_PERSONA;
+							rbTipoPropietario.select(OPCION_PERSONA);
+							cmbArmPersonaIncautada.select(new Persona((Long)item.getItemProperty("persona.id").getValue()));
+						}else{
+							listaSeleccionada=OPCION_EMPRESA;
+							rbTipoPropietario.select(OPCION_EMPRESA);
+							if(lstEmpresas==null){
+								lstEmpresas = empresaService.listarEmpresas();
+							}
+							cmbArmPersonaIncautada.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 						}
-						cmbArmPersonaIncautada.select(new Empresa((Long)item.getItemProperty("empresa.id").getValue()));
 					}
 				}
-			}
-		});	
-		
-		
-		btnRegistrar.addListener((ClickListener)this);
-		btnAgregar.addListener((ClickListener)this);
-		refrescar();
+			});	
+			
+			btnRegistrar.addListener((ClickListener)this);
+			btnAgregar.addListener((ClickListener)this);
+			refrescar();
+			inicializado = true;
+		}
 	}
 
 	private void rbTipoPersonaValueChange(ValueChangeEvent event){		
@@ -292,7 +296,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		lblDatosArma.setValue("");
 	}
 	
-	private void cargarTablaInmuebles( ){
+	private void cargarTabla( ){
 		IndexedContainer container = new IndexedContainer();
 		container.addContainerProperty("id", Long.class,  null);
 		container.addContainerProperty("propietario.id", Long.class, null);
@@ -360,7 +364,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 	public void refrescar(){
 		habilitarEdicion(false);
 		limpiar();
-		cargarTablaInmuebles();
+		cargarTabla();
 	}
 	
 	private void habilitarEdicion(boolean flag){
@@ -400,6 +404,12 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		if(	event.getButton().equals(btnAgregar)  ){
 			pnlAgregarArmas = new PanelAgregarArmas( );
 			pnlAgregarArmas.setPadre(this);
+			if(this.getParent().getParent()!=null){
+				pnlAgregarArmas.setParent(this.getParent().getParent());//cambio 1
+			}else{
+				pnlAgregarArmas.setParent(this.getParent());//cambio 1	
+			}
+			
 			Window window=new Window(){
 				
 				private static final long serialVersionUID = 1L;
@@ -413,7 +423,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 			window.setResizable(false);
 			window.setWidth("550px");
 			window.setHeight("-1px");
-			getWindow().addWindow(window);
+			getApplication().getMainWindow().addWindow(window);//cambio 2
 			
 			return;
 		}

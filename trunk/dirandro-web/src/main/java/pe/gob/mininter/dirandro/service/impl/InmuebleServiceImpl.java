@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,6 +34,9 @@ public class InmuebleServiceImpl extends BaseServiceImpl<Inmueble, String> imple
 		Busqueda filtro = Busqueda.forClass(Inmueble.class);
 		if(inmueble!=null)
 		{
+			if ( inmueble.getId()!=null) {
+				filtro.add(Restrictions.eq("id", inmueble.getId()));
+			}
 		}
 		return expedienteInmuebleHibernate.buscar(filtro);
 	}

@@ -5,11 +5,11 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Especie;
+import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.TipoEspecie;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ExpedienteEspecieService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.TipoEspecieService;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -77,19 +77,19 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 	private TipoEspecieService tipoEspecieService;
 	private ExpedienteEspecieService expEspecieService;
 	private ModeloMarcaService modeloMarcaService;
-	private ExpedienteService expedienteService;
 	
 	private List<TipoEspecie> lstTipoEspecies;
 	private List<TipoEspecie> lstSubTipoEspecies;
 	private List<ModeloMarca> lstTiposMedidas;
 	private List<ModeloMarca> lstMedidas;
 	
+	private Expediente expediente;
 	private Long idEspecie;
 	private boolean flagNuevaEspecie;
+	private boolean inicializado=false;
 	
 	public PanelRegistroParteEspecie() {
 		super();
-		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		tipoEspecieService = Injector.obtenerServicio(TipoEspecieService.class);
 		expEspecieService = Injector.obtenerServicio(ExpedienteEspecieService.class);
 		modeloMarcaService = Injector.obtenerServicio(ModeloMarcaService.class);
@@ -98,79 +98,89 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 		postConstruct();
 	}
 
-	public void postConstruct() {
-		cmbEspEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
-		cmbEspSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-		
-		cmbEspFamilia.setInputPrompt("Familia de Especies");
-		cmbEspTipo.setInputPrompt("Tipos de Especies");
-		cmbGeneralMedida.setInputPrompt("Tipos de Medidas");
-		txtEspCantidad.setInputPrompt("Cantidad");
-		cmbTipoMedida.setInputPrompt("Medida");
-		cmbEspSituacion.setInputPrompt("Situacion Legal del Bien");
-		cmbEspSituacion.setRequired(true);
-		cmbEspEstado.setInputPrompt("Estado del Bien");
-		btnEspRegistrar.addListener((ClickListener) this);
-		
-		cargarEspecies();
-		cargarTiposMedidas();
-		refrescar();
-		
-		tblEspListaEspecies.setSelectable(true);
-		tblEspListaEspecies.setImmediate(true);
-		tblEspListaEspecies.setNullSelectionAllowed(true);
-		tblEspListaEspecies.setNullSelectionItemId(null);
-		tblEspListaEspecies.addListener(new ValueChangeListener() {
-			
-			private static final long serialVersionUID = -3416533772693474159L;
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+		postConstruct();
+	}
 
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblEspListaEspecies.getValue() == null;
-				limpiar();
-				habilitarEdicion(!esModoNuevo);
-				if (!esModoNuevo) {
-					Item item = tblEspListaEspecies.getItem(tblEspListaEspecies.getValue());
-					idEspecie = (Long) item.getItemProperty("id").getValue();
-					txtEspNombre.setValue(item.getItemProperty("nombre").getValue());
-					txtEspNumeroSerie.setValue(item.getItemProperty("nroSerie").getValue() != null ? item.getItemProperty("nroSerie").getValue() : StringUtils.EMPTY);
-					txtEspMedida.setValue(item.getItemProperty("medida").getValue() != null ? item.getItemProperty("medida").getValue() : StringUtils.EMPTY);
-					txtEspCantidad.setValue(item.getItemProperty("cantidad").getValue() != null ? item.getItemProperty("cantidad").getValue() : StringUtils.EMPTY);
-					cmbEspSituacion.select(new Valor((Long) item.getItemProperty("situacion.id").getValue()));
-					cmbEspEstado.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
-					
-					for (TipoEspecie tipoEspecie : lstTipoEspecies) {
-						if(tipoEspecie.getId().equals((Long) item.getItemProperty("tipo.id").getValue())){
-							cmbEspFamilia.select(tipoEspecie);
-							break;
-						}
-					}
-					
-					for (TipoEspecie subTipoEspecie : lstSubTipoEspecies) {
-						if(subTipoEspecie.getId().equals((Long) item.getItemProperty("subtipo.id").getValue())){
-							cmbEspTipo.select(subTipoEspecie);
-							break;
-						}
-					}
-					
-					for (ModeloMarca tipoMedida : lstTiposMedidas) {
-						if(tipoMedida.getId().equals((Long) item.getItemProperty("tipoMedida.id").getValue())){
-							cmbGeneralMedida.select(tipoMedida);
-							break;
-						}
-					}	
-					
-					if (lstMedidas != null && lstMedidas.size() > 0) {
-						for (ModeloMarca subTipoMedida : lstMedidas) {
-							if(subTipoMedida.getId().equals((Long) item.getItemProperty("subTipoMedida.id").getValue())){
-								cmbTipoMedida.select(subTipoMedida);
+	public void postConstruct() {
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			cmbEspEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+			cmbEspSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbEspEstado.attach();
+			cmbEspSituacion.attach();
+			
+			cmbEspFamilia.setInputPrompt("Familia de Especies");
+			cmbEspTipo.setInputPrompt("Tipos de Especies");
+			cmbGeneralMedida.setInputPrompt("Tipos de Medidas");
+			txtEspCantidad.setInputPrompt("Cantidad");
+			cmbTipoMedida.setInputPrompt("Medida");
+			cmbEspSituacion.setInputPrompt("Situacion Legal del Bien");
+			cmbEspSituacion.setRequired(true);
+			cmbEspEstado.setInputPrompt("Estado del Bien");
+			btnEspRegistrar.addListener((ClickListener) this);
+			
+			cargarEspecies();
+			cargarTiposMedidas();
+			refrescar();
+			
+			tblEspListaEspecies.setSelectable(true);
+			tblEspListaEspecies.setImmediate(true);
+			tblEspListaEspecies.setNullSelectionAllowed(true);
+			tblEspListaEspecies.setNullSelectionItemId(null);
+			tblEspListaEspecies.addListener(new ValueChangeListener() {
+				
+				private static final long serialVersionUID = -3416533772693474159L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					boolean esModoNuevo = tblEspListaEspecies.getValue() == null;
+					limpiar();
+					habilitarEdicion(!esModoNuevo);
+					if (!esModoNuevo) {
+						Item item = tblEspListaEspecies.getItem(tblEspListaEspecies.getValue());
+						idEspecie = (Long) item.getItemProperty("id").getValue();
+						txtEspNombre.setValue(item.getItemProperty("nombre").getValue());
+						txtEspNumeroSerie.setValue(item.getItemProperty("nroSerie").getValue() != null ? item.getItemProperty("nroSerie").getValue() : StringUtils.EMPTY);
+						txtEspMedida.setValue(item.getItemProperty("medida").getValue() != null ? item.getItemProperty("medida").getValue() : StringUtils.EMPTY);
+						txtEspCantidad.setValue(item.getItemProperty("cantidad").getValue() != null ? item.getItemProperty("cantidad").getValue() : StringUtils.EMPTY);
+						cmbEspSituacion.select(new Valor((Long) item.getItemProperty("situacion.id").getValue()));
+						cmbEspEstado.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
+						
+						for (TipoEspecie tipoEspecie : lstTipoEspecies) {
+							if(tipoEspecie.getId().equals((Long) item.getItemProperty("tipo.id").getValue())){
+								cmbEspFamilia.select(tipoEspecie);
 								break;
 							}
 						}
-					}	
+						
+						for (TipoEspecie subTipoEspecie : lstSubTipoEspecies) {
+							if(subTipoEspecie.getId().equals((Long) item.getItemProperty("subtipo.id").getValue())){
+								cmbEspTipo.select(subTipoEspecie);
+								break;
+							}
+						}
+						
+						for (ModeloMarca tipoMedida : lstTiposMedidas) {
+							if(tipoMedida.getId().equals((Long) item.getItemProperty("tipoMedida.id").getValue())){
+								cmbGeneralMedida.select(tipoMedida);
+								break;
+							}
+						}	
+						
+						if (lstMedidas != null && lstMedidas.size() > 0) {
+							for (ModeloMarca subTipoMedida : lstMedidas) {
+								if(subTipoMedida.getId().equals((Long) item.getItemProperty("subTipoMedida.id").getValue())){
+									cmbTipoMedida.select(subTipoMedida);
+									break;
+								}
+							}
+						}	
+					}
 				}
-			}
-		});
+			});
+			inicializado=true;
+		}
 	}
 	
 	private void cargarTiposMedidas(){
@@ -233,7 +243,7 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 			expEspecie.setTipoMedida(cmbTipoMedida.getValue() != null ?  (ModeloMarca) cmbTipoMedida.getValue() : null);
 			expEspecie.setMedida(txtEspMedida.getValue() != "" ? Double.parseDouble(txtEspMedida.getValue().toString()) : null);
 			expEspecie.setTipoEspecie((TipoEspecie) cmbEspTipo.getValue());
-			expEspecie.setExpediente(expedienteService.obtener(1l));
+			expEspecie.setExpediente(expediente);
 			expEspecie.setCantidad(Integer.parseInt(txtEspCantidad.getValue().toString()));
 			expEspecie.validar();
 			

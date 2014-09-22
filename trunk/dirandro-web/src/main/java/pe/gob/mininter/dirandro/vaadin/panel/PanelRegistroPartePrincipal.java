@@ -174,7 +174,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 	private ValorService valorService;
 	
 	private Expediente expediente;
-	
+	private boolean inicializado=false;
 	private PanelRegistroParteDocumento pnlAgregarDocumento;
 	private PanelRegistroParte pnlRegistroParte;
 	
@@ -190,35 +190,41 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		setCompositionRoot(mainLayout);
 		postConstruct();
 	}
-	
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+		postConstruct();
+		inicializado=true;
+	}	
+
 	public void postConstruct() {
-		
-		centroPobladoService = Injector.obtenerServicio(CentroPobladoService.class);
-		ubigeoService = Injector.obtenerServicio(UbigeoService.class);
-		entidadService = Injector.obtenerServicio(EntidadService.class);
-		estadoService = Injector.obtenerServicio(EstadoService.class);
-		integranteService = Injector.obtenerServicio(IntegranteService.class);
-		dependenciaService = Injector.obtenerServicio(DependenciaService.class);
-		tipoHechoService = Injector.obtenerServicio(TipoHechoService.class);
-		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
-		valorService = Injector.obtenerServicio(ValorService.class);
-		
-		cmbFinalidad.setCodigoLista(Constante.LISTA.CODIGO.FINALIDAD);
-		cmbTipoDir.setCodigoLista(Constante.LISTA.CODIGO.DIRECCION_TIPO);
-		cmbCuenca.setCodigoLista(Constante.LISTA.CODIGO.CUENCA);
-		cmbTablaEntidad.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INTERVINIENTE);
-		
-		btnGrabar.addListener((ClickListener)this);
-		btnLimpiar.addListener((ClickListener)this);
-		
-		cmbCentroPobladoCargar();
-		cmbLugarHechoCargar();
-		cmbJurisdiccionCargar();
-		cmbEstadoExpCargar();
-		cmbIntervinienteCargar();
-		cmbDependenciaCargar();
-		cmbTipoHechoCargar();
-		
+		if( !inicializado){
+			centroPobladoService = Injector.obtenerServicio(CentroPobladoService.class);
+			ubigeoService = Injector.obtenerServicio(UbigeoService.class);
+			entidadService = Injector.obtenerServicio(EntidadService.class);
+			estadoService = Injector.obtenerServicio(EstadoService.class);
+			integranteService = Injector.obtenerServicio(IntegranteService.class);
+			dependenciaService = Injector.obtenerServicio(DependenciaService.class);
+			tipoHechoService = Injector.obtenerServicio(TipoHechoService.class);
+			expedienteService = Injector.obtenerServicio(ExpedienteService.class);
+			valorService = Injector.obtenerServicio(ValorService.class);
+			
+			cmbFinalidad.setCodigoLista(Constante.LISTA.CODIGO.FINALIDAD);
+			cmbTipoDir.setCodigoLista(Constante.LISTA.CODIGO.DIRECCION_TIPO);
+			cmbCuenca.setCodigoLista(Constante.LISTA.CODIGO.CUENCA);
+			cmbTablaEntidad.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INTERVINIENTE);
+			
+			btnGrabar.addListener((ClickListener)this);
+			btnLimpiar.addListener((ClickListener)this);
+			
+			cmbCentroPobladoCargar();
+			cmbLugarHechoCargar();
+			cmbJurisdiccionCargar();
+			cmbEstadoExpCargar();
+			cmbIntervinienteCargar();
+			cmbDependenciaCargar();
+			cmbTipoHechoCargar();
+		}
 	}
 	
 	/*@Override
@@ -472,14 +478,6 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		pnlDocumento.limpiar();
 	}
 	
-	public Expediente getExpediente() {
-		return expediente;
-	}
-
-	public void setExpediente(Expediente expediente) {
-		this.expediente = expediente;
-	}	
-
 	public PanelRegistroParteDocumento getPnlAgregarDocumento() {
 		return pnlAgregarDocumento;
 	}

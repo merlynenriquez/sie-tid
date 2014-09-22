@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.DetPerVehExp;
+import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.model.Vehiculo;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ExpedienteVehiculoService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.VehiculoService;
@@ -83,89 +83,102 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 	private ExpedienteVehiculoService expVehiculoService;
 	private VehiculoService vehiculoService;
 	private PersonaService personaService;
-	private ExpedienteService expedienteService;
 	
 	private PanelAgregarVehiculo pnlAgregarVehiculo;
 	private Vehiculo vehiculoPopUp;
+	private Expediente expediente;
 	private List<Persona> lstPersonas;
 	private List<Vehiculo> lstVehiculos;
 	private boolean flagNuevoVehiculo;
 	private Long idExpVehiculo;
+	private boolean inicializado=false;
 	
 	public PanelRegistroParteVehiculo() {
 		super();
 		vehiculoService = Injector.obtenerServicio(VehiculoService.class);
 		expVehiculoService = Injector.obtenerServicio(ExpedienteVehiculoService.class);
 		personaService = Injector.obtenerServicio(PersonaService.class);
-		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		postConstruct();
 	}
 	
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+		postConstruct();
+	}
+
 	public void setVehiculoPopUp(Vehiculo vehiculoPopUp) {
 		this.vehiculoPopUp = vehiculoPopUp;
 	}
 
 	public void postConstruct() {
-		habilitarEdicion(false);
-		cmbVehVehiculo.setInputPrompt("Busqueda de Vehículo por Placa");
-		cmbPersonaIncautada.setInputPrompt("Persona relacionada al caso");
-		cmbPropietario.setInputPrompt("Propietario del Vehiculo");
-		cmbEstadoChasis.setInputPrompt("Condición del Chasis");
-		cmbEstadoMotor.setInputPrompt("Condición del Motor");
-		cmbEstado.setInputPrompt("Estado del Vehículo");
-		cmbSituacion.setInputPrompt("Situación del Vehículo");
-		cmbEstado.setRequired(true);
-		cmbEstadoChasis.setRequired(true);
-		cmbEstadoMotor.setRequired(true);
-		cmbSituacion.setRequired(true);
-		
-		tblVehLista.setSelectable(true);
-		tblVehLista.setImmediate(true);
-		tblVehLista.setNullSelectionAllowed(true);
-		tblVehLista.setNullSelectionItemId(null);
-		
-		cmbEstadoChasis.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
-		cmbEstadoMotor.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
-		cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-		cmbEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
-		
-		lstVehiculos = vehiculoService.buscar(null);
-		actualizarVehiculo(lstVehiculos);
-		btnVehRegistrar.addListener((ClickListener)this);
-		btnRegistrarDetalle.addListener((ClickListener)this);
-		lstPersonas =  personaService.buscar(null);
-		cargarInvolucrados(lstPersonas);
-		cargarPropietarios(lstPersonas);
-		cargarExpVehiculos();
-		
-		tblVehLista.addListener(new ValueChangeListener() {
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			habilitarEdicion(false);
+			cmbVehVehiculo.setInputPrompt("Busqueda de Vehículo por Placa");
+			cmbPersonaIncautada.setInputPrompt("Persona relacionada al caso");
+			cmbPropietario.setInputPrompt("Propietario del Vehiculo");
+			cmbEstadoChasis.setInputPrompt("Condición del Chasis");
+			cmbEstadoMotor.setInputPrompt("Condición del Motor");
+			cmbEstado.setInputPrompt("Estado del Vehículo");
+			cmbSituacion.setInputPrompt("Situación del Vehículo");
+			cmbEstado.setRequired(true);
+			cmbEstadoChasis.setRequired(true);
+			cmbEstadoMotor.setRequired(true);
+			cmbSituacion.setRequired(true);
 			
-			private static final long serialVersionUID = -3416533772693474159L;
-
-			@Override
-			public void valueChange(ValueChangeEvent event) {
-				boolean esModoNuevo = tblVehLista.getValue() == null;
-				limpiar();
-				habilitarEdicion(!esModoNuevo);
-				if (!esModoNuevo) {
-					Item item = tblVehLista.getItem(tblVehLista.getValue());
-					idExpVehiculo = (Long) item.getItemProperty("id").getValue();
-					txtPlacaMontada.setValue(item.getItemProperty("placaMontada").getValue() != null ? item.getItemProperty("placaMontada").getValue().toString() : StringUtils.EMPTY);
-					txtTipodeUso.setValue(item.getItemProperty("tipoUso").getValue() != null ? item.getItemProperty("tipoUso").getValue().toString() : StringUtils.EMPTY);
-					txaObservacion.setValue(item.getItemProperty("observacion").getValue() != null ? item.getItemProperty("observacion").getValue().toString() : StringUtils.EMPTY);
-					
-					cmbEstado.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
-					cmbEstadoChasis.select(new Valor((Long) item.getItemProperty("estadoChasis.id").getValue()));
-					cmbEstadoMotor.select(new Valor((Long) item.getItemProperty("estadoMotor.id").getValue()));
-					cmbSituacion.select(new Valor((Long) item.getItemProperty("situacion.id").getValue()));
-					cmbVehVehiculo.select((Vehiculo) item.getItemProperty("vehiculo").getValue());
-					cmbPersonaIncautada.select((Persona) item.getItemProperty("personaImplicada").getValue());
-					cmbPropietario.select((Persona) item.getItemProperty("propietario").getValue());
+			tblVehLista.setSelectable(true);
+			tblVehLista.setImmediate(true);
+			tblVehLista.setNullSelectionAllowed(true);
+			tblVehLista.setNullSelectionItemId(null);
+			
+			cmbEstadoChasis.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
+			cmbEstadoMotor.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
+			cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
+			
+			cmbEstadoChasis.attach();
+			cmbEstadoMotor.attach();
+			cmbSituacion.attach();
+			cmbEstado.attach();
+			
+			lstVehiculos = vehiculoService.buscar(null);
+			actualizarVehiculo(lstVehiculos);
+			btnVehRegistrar.addListener((ClickListener)this);
+			btnRegistrarDetalle.addListener((ClickListener)this);
+			lstPersonas =  personaService.buscar(null);
+			cargarInvolucrados(lstPersonas);
+			cargarPropietarios(lstPersonas);
+			cargarExpVehiculos();
+			
+			tblVehLista.addListener(new ValueChangeListener() {
+				
+				private static final long serialVersionUID = -3416533772693474159L;
+	
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+					boolean esModoNuevo = tblVehLista.getValue() == null;
+					limpiar();
+					habilitarEdicion(!esModoNuevo);
+					if (!esModoNuevo) {
+						Item item = tblVehLista.getItem(tblVehLista.getValue());
+						idExpVehiculo = (Long) item.getItemProperty("id").getValue();
+						txtPlacaMontada.setValue(item.getItemProperty("placaMontada").getValue() != null ? item.getItemProperty("placaMontada").getValue().toString() : StringUtils.EMPTY);
+						txtTipodeUso.setValue(item.getItemProperty("tipoUso").getValue() != null ? item.getItemProperty("tipoUso").getValue().toString() : StringUtils.EMPTY);
+						txaObservacion.setValue(item.getItemProperty("observacion").getValue() != null ? item.getItemProperty("observacion").getValue().toString() : StringUtils.EMPTY);
+						
+						cmbEstado.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
+						cmbEstadoChasis.select(new Valor((Long) item.getItemProperty("estadoChasis.id").getValue()));
+						cmbEstadoMotor.select(new Valor((Long) item.getItemProperty("estadoMotor.id").getValue()));
+						cmbSituacion.select(new Valor((Long) item.getItemProperty("situacion.id").getValue()));
+						cmbVehVehiculo.select((Vehiculo) item.getItemProperty("vehiculo").getValue());
+						cmbPersonaIncautada.select((Persona) item.getItemProperty("personaImplicada").getValue());
+						cmbPropietario.select((Persona) item.getItemProperty("propietario").getValue());
+					}
 				}
-			}
-		});
+			});
+			inicializado=true;
+		}
 	}
 	
 	private void cargarInvolucrados(List<Persona> lstInvolucrados){
@@ -266,7 +279,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 			DetPerVehExp expVehiculo = new DetPerVehExp();
 			//TODO: Cambiar para el pase de produccion
 			expVehiculo.setVehiculo((Vehiculo) cmbVehVehiculo.getValue());
-			expVehiculo.setExpediente(expedienteService.obtener(1l));
+			expVehiculo.setExpediente(expediente);
 			expVehiculo.setEstado((Valor) cmbEstado.getValue());
 			expVehiculo.setEstadoChasis((Valor) cmbEstadoChasis.getValue());
 			expVehiculo.setEstadoMotor((Valor) cmbEstadoMotor.getValue() );

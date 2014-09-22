@@ -4,11 +4,11 @@ import java.util.List;
 
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.DetPerTelExp;
+import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Numero;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ExpedientePersonaService;
-import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.ExpedienteTelefonoService;
 import pe.gob.mininter.dirandro.service.NumeroService;
 import pe.gob.mininter.dirandro.service.PersonaService;
@@ -74,11 +74,11 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 	private ExpedientePersonaService expPersonaService;
 	private NumeroService numeroService;
 	private PersonaService personaService;
-	private ExpedienteService expedienteService;
 	private ExpedienteTelefonoService expTelefonoService;
-	
+	private Expediente expediente;
 	private List<Persona> lstPropietarios;
 	private PanelAgregarTelefono pnlAgregarTelefono;
+	private boolean inicializado=false;
 	
 	public PanelRegistroParteTelefono() {
 		buildMainLayout();
@@ -86,32 +86,43 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 		numeroService = Injector.obtenerServicio(NumeroService.class);
 		personaService = Injector.obtenerServicio(PersonaService.class);
 		expPersonaService = Injector.obtenerServicio(ExpedientePersonaService.class);
-		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		setCompositionRoot(mainLayout);
 		postConstruct();
 	}
 	
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+		postConstruct();
+	}
+
 	public void postConstruct() {
-		lstPropietarios =  personaService.buscar(null);
-		cmbEquipo.setInputPrompt("Equipo Incautado");
-		cmbEstado.setInputPrompt("Estado del Bien");
-		cmbNumeroTel.setInputPrompt("Nro de Teléfono");
-		cmbOperadora.setInputPrompt("Operadora");
-		cmbPersonaImplicada.setInputPrompt("Persona Implicada con el Número");
-		cmbPropietario.setInputPrompt("Propietario del Equipo");
-		cmbSituacion.setInputPrompt("Situacion del Bien");
-		
-		cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
-		cmbEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
-		cmbOperadora.setCodigoLista(Constante.LISTA.CODIGO.OPERADORA);
-		
-		btnRegistrar.addListener((ClickListener) this);
-		btnRegistrarEquipo.addListener((ClickListener) this);
-		
-		cargarNumeros();
-		cargarInvolucrados();		
-		cargarInvolucrados(lstPropietarios);
-		cargarExpTelefonos();
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			lstPropietarios =  personaService.buscar(null);
+			cmbEquipo.setInputPrompt("Equipo Incautado");
+			cmbEstado.setInputPrompt("Estado del Bien");
+			cmbNumeroTel.setInputPrompt("Nro de Teléfono");
+			cmbOperadora.setInputPrompt("Operadora");
+			cmbPersonaImplicada.setInputPrompt("Persona Implicada con el Número");
+			cmbPropietario.setInputPrompt("Propietario del Equipo");
+			cmbSituacion.setInputPrompt("Situacion del Bien");
+			
+			cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			cmbEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
+			cmbOperadora.setCodigoLista(Constante.LISTA.CODIGO.OPERADORA);
+			
+			cmbSituacion.attach();
+			cmbEstado.attach();
+			cmbOperadora.attach();
+			
+			btnRegistrar.addListener((ClickListener) this);
+			btnRegistrarEquipo.addListener((ClickListener) this);
+			
+			cargarNumeros();
+			cargarInvolucrados();		
+			cargarInvolucrados(lstPropietarios);
+			cargarExpTelefonos();
+			inicializado=true;
+		}
 	}
 	
 	private void cargarNumeros() {
@@ -195,7 +206,7 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 			detTelefono.setImplicado((DetExpedientePersona) cmbPersonaImplicada.getValue());
 			detTelefono.setPropietario((Persona) cmbPropietario.getValue());
 			detTelefono.setOperadora((Valor) cmbOperadora.getValue());
-			detTelefono.setExpediente(expedienteService.obtener(1l));
+			detTelefono.setExpediente(expediente);
 			detTelefono.setNumeroTelefonico((Numero) cmbNumeroTel.getValue());
 			detTelefono.setObservacion(txaObservacion.getValue().toString());
 			expTelefonoService.crear(detTelefono);

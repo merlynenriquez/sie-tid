@@ -64,7 +64,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 	private static final String COLUMN_NO_IDENTIFICADO = "COLUMN_NO_IDENTIFICADO";
 	
 	private Expediente expediente;
-	
+	private boolean inicializado=false;
 	private NoIdentificadoService noIdentificadoService;
 	
 	public PanelRegistroParteNoIdentificado() {
@@ -80,14 +80,21 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 			cargarNoIdentificados();
 		}
 	}
-	
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
+		postConstruct();
+	}
+
 	public void postConstruct() {
-		
-		noIdentificadoService = Injector.obtenerServicio(NoIdentificadoService.class);
-		
-		cmbPNIOrientacionSexual.setCodigoLista(Constante.LISTA.CODIGO.ORIENTACION_SEXUAL);
-		containerTabla();
-		btnPNIGrabar.addListener((ClickListener) this);
+		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			noIdentificadoService = Injector.obtenerServicio(NoIdentificadoService.class);
+			
+			cmbPNIOrientacionSexual.setCodigoLista(Constante.LISTA.CODIGO.ORIENTACION_SEXUAL);
+			containerTabla();
+			btnPNIGrabar.addListener((ClickListener) this);
+			inicializado=true;
+		}
 	}
 	
 	private void containerTabla() {
@@ -144,10 +151,6 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 			item.getItemProperty(COLUMN_NO_IDENTIFICADO).setValue(noIdentificado);
 			
 		}
-	}
-
-	public void setExpediente(Expediente expediente) {
-		this.expediente = expediente;
 	}
 
 	@Override
