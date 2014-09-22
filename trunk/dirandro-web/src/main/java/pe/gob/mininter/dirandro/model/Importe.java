@@ -27,7 +27,7 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 5594740774950181739L;
 
 	@Id
-	@SequenceGenerator(name="EXP_IMPORTES_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_IMPORTES_ID_GENERATOR", sequenceName="SEQ_IMPORTE", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_IMPORTES_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -78,6 +78,10 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 	private Expediente expediente;
 
 	public Importe() {
+	}
+	
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
 	}
 
 	public Long getId() {
@@ -166,6 +170,14 @@ public class Importe extends AuditoriaBean implements Validador, Serializable {
 
 	public void setMoneda(Double moneda) {
 		this.moneda = moneda;
+	}
+
+	public String getAutenticidad() {
+		return autenticidad;
+	}
+
+	public void setAutenticidad(String autenticidad) {
+		this.autenticidad = autenticidad;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 2382445968562609353L;
 
 	@Id
-	@SequenceGenerator(name="PER_TELEFONO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="PER_TELEFONO_ID_GENERATOR", sequenceName="SEQ_TELEFONO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_TELEFONO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -40,6 +40,9 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 
 	@Column(length=50)
 	private String serie;
+	
+	@Column(length=50)
+	private String imei;
 	
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -107,10 +110,42 @@ public class Telefono extends AuditoriaBean implements Validador, Serializable {
 		this.marca = marca;
 	}
 
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Telefono other = (Telefono) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }
