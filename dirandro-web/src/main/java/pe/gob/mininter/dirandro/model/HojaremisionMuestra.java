@@ -75,8 +75,13 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 	private Hojaremision hojaRemision;
 
 	public HojaremisionMuestra() {
+	
 	}
-
+	
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -133,6 +138,37 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 		this.descripcion = descripcion;
 	}
 
+	public ModeloMarca getTipoMedida() {
+		return tipoMedida;
+	}
+
+	public void setTipoMedida(ModeloMarca tipoMedida) {
+		this.tipoMedida = tipoMedida;
+	}
+
+	public Droga getDroga() {
+		return droga;
+	}
+
+	public void setDroga(Droga droga) {
+		this.droga = droga;
+	}
+
+	public Especie getEspecie() {
+		return especie;
+	}
+
+	public void setEspecie(Especie especie) {
+		this.especie = especie;
+	}
+
+	public Hojaremision getHojaRemision() {
+		return hojaRemision;
+	}
+
+	public void setHojaRemision(Hojaremision hojaRemision) {
+		this.hojaRemision = hojaRemision;
+	}
 
 	@Override
 	public void validar() {

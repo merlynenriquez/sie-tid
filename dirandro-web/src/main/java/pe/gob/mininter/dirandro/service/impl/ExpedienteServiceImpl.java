@@ -2,13 +2,10 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -17,18 +14,16 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteHibernate;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Adjunto;
-import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
+import pe.gob.mininter.dirandro.model.Inmueble;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Ruta;
-import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
@@ -38,7 +33,6 @@ import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
-import pe.gob.mininter.dirandro.vaadin.util.TablaFiltro;
 
 @Service
 public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> implements ExpedienteService {
@@ -180,6 +174,18 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		
 		addILikeRestrictions(filtro, "jurisdiccion", "j", "nombre", form.getJurisdiccion());
 				
+		return expedienteHibernate.buscar(filtro);
+	}
+
+	@Override
+	public List<Expediente> buscar(Expediente expediente) {
+		Busqueda filtro = Busqueda.forClass(Expediente.class);
+		if(expediente!=null)
+		{
+			if ( expediente.getId()!=null) {
+				filtro.add(Restrictions.eq("id", expediente.getId()));
+			}
+		}
 		return expedienteHibernate.buscar(filtro);
 	}	
 

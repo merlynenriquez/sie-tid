@@ -214,6 +214,10 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.tipoMedidaMuestra = tipoMedidaMuestra;
 	}
 
+	public String getDatos(){
+		return "" + getTipoDroga().getNombre() + " " + getPesoBruto();
+	}
+	
 	@Override
 	public void validar() {
 		// TODO Auto-generated method stub

@@ -11,6 +11,8 @@ public interface ExpedienteService extends BaseService<Expediente,Long> {
 	
 	void registrarExpediente(Expediente expediente, Documento documento, Ruta ruta);
 	
+	List<Expediente> buscar(Expediente expediente);
+	
 	void agregarDocumento(Expediente expediente, Documento documento);
 	
 	List<Expediente> obtenerBandejaDeTrabajo(FormBandejaTrabajo form);
