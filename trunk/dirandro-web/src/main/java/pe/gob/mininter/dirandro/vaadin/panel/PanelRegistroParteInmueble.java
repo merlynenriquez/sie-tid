@@ -323,10 +323,10 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 	
 	private void habilitarEdicion(boolean flag){
 		if(flag){
-			btnInmAgregar.setCaption("Actualizar");
+			btnInmAgregar.setCaption("Actualizar Inmueble");
 		}
 		else{
-			btnInmRegistrar.setCaption("Crear");
+			btnInmRegistrar.setCaption("Crear Inmueble");
 		}
 	}
 	

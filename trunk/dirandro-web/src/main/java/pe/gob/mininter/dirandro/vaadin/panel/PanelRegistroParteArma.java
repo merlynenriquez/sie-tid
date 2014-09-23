@@ -417,7 +417,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 				  protected void close() {
 					  getApplication().getMainWindow().removeWindow(getWindow());
 				  }};
-			window.setCaption("Registrar Inmueble");
+			window.setCaption("Registrar Arma");
 			window.addComponent(pnlAgregarArmas);
 			window.setModal(true);
 			window.setResizable(false);
