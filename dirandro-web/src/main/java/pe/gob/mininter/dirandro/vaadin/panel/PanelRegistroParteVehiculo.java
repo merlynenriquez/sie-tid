@@ -13,6 +13,7 @@ import pe.gob.mininter.dirandro.service.ExpedienteVehiculoService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.VehiculoService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -260,6 +261,12 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 		if (event.getButton().equals(btnVehRegistrar)) {
 			pnlAgregarVehiculo = new PanelAgregarVehiculo();
 			pnlAgregarVehiculo.setPadre(this);
+			if(this.getParent().getParent()!=null){
+				pnlAgregarVehiculo.setParent(this.getParent().getParent());//cambio 1
+			}else{
+				pnlAgregarVehiculo.setParent(this.getParent());//cambio 1	
+			}
+			
 			Window window=new Window(){
 				
 				private static final long serialVersionUID = 1L;
@@ -273,7 +280,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 			window.setResizable(false);
 			window.setWidth("550px");
 			window.setHeight("-1px");
-			getWindow().addWindow(window);
+			getApplication().getMainWindow().addWindow(window);
 		}
 		if (event.getButton().equals(btnRegistrarDetalle)) {
 			DetPerVehExp expVehiculo = new DetPerVehExp();
@@ -296,6 +303,9 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 				expVehiculo.setId(idExpVehiculo);
 				expVehiculoService.actualizar(expVehiculo);
 			}
+			
+			AlertDialog alertDialog = new  AlertDialog("Registro de Vehículo", "Se ha registrado el vehículo correctamente", "Aceptar", "400");
+			getApplication().getMainWindow().addWindow(alertDialog);
 			cargarExpVehiculos();
 		}
 	}
