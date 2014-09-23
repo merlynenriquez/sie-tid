@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -168,7 +169,9 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		}
 		
 		addBetweenGeLeRestrictions(filtro, "fechaRegistro", form.getFechaRegInicio(), form.getFechaRegFinal());
-		addBetweenGeLeRestrictions(filtro, "diasAtencion", form.getDiasInicio(), form.getDiasFinal());	
+		addBetweenGeLeRestrictions(filtro, "diasAtencion", 
+				form.getDiasInicio() != null ? new BigDecimal(form.getDiasInicio()) : null, 
+						form.getDiasFinal() != null ? new BigDecimal(form.getDiasFinal()) : null );	
 		
 		addILikeRestrictions(filtro, "lugarHecho", "lh", "nombre", form.getLugarHecho());
 		
