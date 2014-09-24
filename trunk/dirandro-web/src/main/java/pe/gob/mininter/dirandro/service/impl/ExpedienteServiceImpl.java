@@ -22,7 +22,6 @@ import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
-import pe.gob.mininter.dirandro.model.Inmueble;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Ruta;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
@@ -169,12 +168,8 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		}
 		
 		addBetweenGeLeRestrictions(filtro, "fechaRegistro", form.getFechaRegInicio(), form.getFechaRegFinal());
-		addBetweenGeLeRestrictions(filtro, "diasAtencion", 
-				form.getDiasInicio() != null ? new BigDecimal(form.getDiasInicio()) : null, 
-						form.getDiasFinal() != null ? new BigDecimal(form.getDiasFinal()) : null );	
-		
+		addBetweenGeLeRestrictions(filtro, "diasAtencion", form.getDiasInicio() != null ? Integer.parseInt(form.getDiasInicio().toString()) : null, form.getDiasFinal() != null ? Integer.parseInt(form.getDiasFinal().toString()) : null );
 		addILikeRestrictions(filtro, "lugarHecho", "lh", "nombre", form.getLugarHecho());
-		
 		addILikeRestrictions(filtro, "jurisdiccion", "j", "nombre", form.getJurisdiccion());
 				
 		return expedienteHibernate.buscar(filtro);

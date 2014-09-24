@@ -104,7 +104,9 @@ public class PanelRegistroParteDelito extends CustomComponent implements ClickLi
 	public void postConstruct() {
 		if(expediente!=null && !expediente.esNuevo() && !inicializado){
 			cmbDelitoPrioridad.setCodigoLista(Constante.LISTA.CODIGO.PRIORIDAD_DELITO);
+			cmbDelitoPrioridad.attach();
 			cmbCrimenPrioridad.setCodigoLista(Constante.LISTA.CODIGO.PRIORIDAD_DELITO);
+			cmbCrimenPrioridad.attach();
 			cmbDelitoPrioridad.setInputPrompt("Prioridad");
 			cmbDelitoPrioridad.setRequired(true);
 			cmbCrimenPrioridad.setInputPrompt("Prioridad");
