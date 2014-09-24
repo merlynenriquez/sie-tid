@@ -152,13 +152,9 @@ public class PanelRegistroParte extends DirandroComponent implements SelectedTab
 			}
 			
 			
-			if(pnlExpDelitos.equals(event.getTabSheet().getSelectedTab())){
+			if(pnlDelitos.equals(event.getTabSheet().getSelectedTab())){
 				pnlExpDelitos.setExpediente(expediente);
-			}
-			//pnlImporte.setExpediente(expediente);
-			//if(pnlAgregarDocumento.equals(event.getTabSheet().getSelectedTab())){
-				//pnlAgregarDocumento.cargarDocumentos();
-			//}
+			}		
 			
 			//tab incautaciones
 			if(tabGroupIncautacion.equals(event.getTabSheet().getSelectedTab())){
