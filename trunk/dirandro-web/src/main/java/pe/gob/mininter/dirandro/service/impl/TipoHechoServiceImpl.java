@@ -20,9 +20,6 @@ import pe.gob.mininter.dirandro.util.HarecUtil;
 @Service
 public class TipoHechoServiceImpl extends BaseServiceImpl<TipoHecho, Long> implements TipoHechoService {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2601419480887715709L;
 	
 	private TipoHechoHibernate tipoHechoHibernate;
@@ -123,6 +120,27 @@ public class TipoHechoServiceImpl extends BaseServiceImpl<TipoHecho, Long> imple
 		delito.setId(id);
 		List<TipoHecho> lstDelitos = buscar(delito);
 		return lstDelitos.get(0);
-	}	
+	}
 
+	@Override
+	public List<TipoHecho> buscarPadres() {
+		Busqueda filtro = Busqueda.forClass(TipoHecho.class);
+		filtro.add(Restrictions.isNull("padre"));
+		return tipoHechoHibernate.buscar(filtro);
+	}
+
+	@Override
+	public List<TipoHecho> buscarHijos(TipoHecho tipoHecho) {
+		Busqueda filtro = Busqueda.forClass(TipoHecho.class);
+		
+		if (tipoHecho!=null){
+			if (tipoHecho.getId() != null) {
+				filtro.add(Restrictions.eq("padre.id", tipoHecho.getId()));
+			}
+		}
+		
+		List<TipoHecho> lstTiposHechos = tipoHechoHibernate.buscar(filtro);
+		return lstTiposHechos;
+	
+	}
 }

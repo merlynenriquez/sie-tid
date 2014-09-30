@@ -163,7 +163,7 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				mni = mnuPrincipal.addItem(opc.getCodigo(), opc.getAcciones(), opc.getNombre(), null);
 			} else if (Constante.VALOR.CODIGO.SUBMENU.equals(opc.getTipo().getCodigo())) {
 				mni = padre.addItem(opc.getCodigo(), opc.getAcciones(), opc.getNombre(), this);
-				if (StringUtils.equals(opc.getCodigo(), Constante.OPCION.CODIGO_EXP_BND)) {
+				if (StringUtils.equals(opc.getCodigo(), Constante.OPCION.CODIGO_EXP_BAN_PP)) {
 					harecMenuItemDefault = mni;
 				}
 			} else {
@@ -284,9 +284,9 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				pnlContenido.addComponent(new PanelBuscarHojaRem(acciones, "-1px"), "top");	
 			}
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_ORGANIZAC)){
-					lblTituloPanel.setValue("<h2>Búsqueda de Organizaciones</h2>");
-					pnlContenido.removeAllComponents();
-					pnlContenido.addComponent(new PanelBuscarOrganizacion(acciones, "-1px"), "top");	
+				lblTituloPanel.setValue("<h2>Búsqueda de Organizaciones</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarOrganizacion(acciones, "-1px"), "top");	
 			}
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_VEHICULO)){
 				lblTituloPanel.setValue("<h2>Búsqueda de Vehículos en los Expedientes</h2>");
