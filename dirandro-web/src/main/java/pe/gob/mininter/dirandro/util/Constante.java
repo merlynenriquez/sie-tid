@@ -90,6 +90,8 @@ public abstract class Constante {
 			public static final String FRECUENCIA = "FRECUENCIA";
 			public static final String BANCO = "BANCOS";
 			public static final String TIPO_CUENTA = "TIPO_CUENTA";
+			public static final String TIPO_DOC_EXP = "DOCUMENTO_EXP";
+			
 		}
 	}
 

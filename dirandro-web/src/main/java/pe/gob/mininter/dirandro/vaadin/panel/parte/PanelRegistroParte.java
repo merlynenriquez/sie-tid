@@ -142,7 +142,7 @@ public class PanelRegistroParte extends DirandroComponent implements SelectedTab
 				logger.debug("cargar panel de intervinietnes");
 				pnlInterviniente.setExpediente(expediente);
 			}
-			if(pnlNoIdentificado.equals(event.getTabSheet().getSelectedTab())){
+			if(pnlRegPerNoIden.equals(event.getTabSheet().getSelectedTab())){
 				logger.debug("cargar panel de no identificados");
 				pnlNoIdentificado.setExpediente(expediente);
 			}

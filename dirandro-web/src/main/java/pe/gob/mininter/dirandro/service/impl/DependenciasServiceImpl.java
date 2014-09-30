@@ -144,25 +144,14 @@ public class DependenciasServiceImpl extends BaseServiceImpl<Dependencia, Long> 
 	}
 	
 	public Dependencia getPadreRecursivo( Long idPadre , Map<String, Dependencia> map ){
-		Dependencia testDependencia = buscarDependencia( idPadre );
+		Dependencia testDependencia = dependenciaHibernate.obtener(idPadre);
 		map.put(testDependencia.getId().toString(), testDependencia);		
 		if( testDependencia.getPadre()!=null && testDependencia.getPadre().getId()!=null ){
 			return getPadreRecursivo(testDependencia.getPadre().getId(), map);
 		}else{
 			return testDependencia;
 		}	
-	}
-	
-	
-	//TODO: Borrar ya esta en la generica
-	@Override
-	public Dependencia buscarDependencia(Long id){
-		Dependencia dependencia = new Dependencia();
-		dependencia.setId(id);
-		List<Dependencia> lstDependencias = buscar(dependencia);
-		
-		return lstDependencias.get(0);
-	}
+	}	
 
 	@Override
 	public Dependencia buscarPadre(Long id) {
