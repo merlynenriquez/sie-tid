@@ -18,6 +18,7 @@ import pe.gob.mininter.dirandro.service.ExpedientePersonaService;
 import pe.gob.mininter.dirandro.service.OrganizacionService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarEmpresa;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarPersona;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
@@ -131,9 +132,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 	@Override
 	public void attach() {
 		super.attach();
-		if (expediente != null && !expediente.esNuevo()) {
-			cargarIntervinientes();
-		}
 	}
 
 	public void setExpediente(Expediente expediente) {
@@ -189,6 +187,9 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 			});
 	
 			containerTabla();
+			
+			cargarIntervinientes();
+			
 			inicializado=true;
 		}
 	}
@@ -390,8 +391,12 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		detExpedientePersona.setOcupacion(cmbInterOcupacion.getValor());
 		detExpedientePersona.setSituacion(cmbInterSituacion.getValor());
 		detExpedientePersona.setIntervencion((Date) dtInterFechaInter.getValue());
-		expedientePersonaService.crear(detExpedientePersona);
-
+		
+		expedientePersonaService.crear(detExpedientePersona);	
+		
+		AlertDialog alertDialog = new  AlertDialog("Registro de Persona", "Se ha registrado a la persona correctamente", "Aceptar", "400");
+		getApplication().getMainWindow().addWindow(alertDialog);
+		
 		cargarIntervinientes();
 		limpiarTodo();
 

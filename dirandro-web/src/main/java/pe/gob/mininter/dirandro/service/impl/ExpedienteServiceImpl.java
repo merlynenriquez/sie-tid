@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -75,7 +74,9 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		expediente.setAutogenerado(numeroParte);		
 		
 		//try {
-		agregarDocumento(expediente, documento);
+		if(documento.isRegistrable()){
+			agregarDocumento(expediente, documento);	
+		}
 		ruta.setExpediente(expediente);
 		rutaService.crear(ruta);
 			

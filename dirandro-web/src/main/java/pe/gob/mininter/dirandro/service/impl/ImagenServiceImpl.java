@@ -19,7 +19,6 @@ import pe.gob.mininter.dirandro.model.Imagen;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.ImagenService;
 import pe.gob.mininter.dirandro.util.Busqueda;
-import pe.gob.mininter.dirandro.util.Constante;
 
 @Service
 public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements ImagenService{
@@ -38,18 +37,6 @@ public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements 
 	}
 	
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void crear(Imagen object) {		
-		super.crear(object);
-	}
-	
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void actualizar(Imagen object) {
-		imagenHibernate.actualizar(object);
-	}
-	
-	@Override
 	public List<Imagen> buscar(Imagen imagen) {		
 		Busqueda filtro = Busqueda.forClass(Imagen.class);		
 		if(imagen !=null){			
@@ -65,14 +52,17 @@ public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements 
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public Imagen registrarImagenAdjunta(Imagen imagen) {
 		
+		imagen.validar();
+		
+		logger.debug("Si hay imagen cargada");
 		
 		Adjunto imagAdjunta = imagen.getAdjunto();
-		adjuntoService.crear(imagAdjunta);
 		
+		adjuntoService.crear(imagAdjunta);	
 		
-		logger.debug("creacion completada");
 		imagenHibernate.crear(imagen);
 		
+		//grabar binario en disco duro
 		adjuntarDocumentos(imagAdjunta);
 		
 		return imagen;

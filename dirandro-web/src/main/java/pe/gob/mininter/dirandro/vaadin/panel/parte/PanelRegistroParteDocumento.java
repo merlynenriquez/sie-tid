@@ -6,6 +6,7 @@ import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelDocumento;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -78,9 +79,14 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 		
 		postConstruct();
 
-		cargarDocumentos();
 	}
 
+	/**
+	 * Metodo que recibe el expediente<br> 
+	 * Carga los datos del panel en base al expediente recibido<br>
+	 * Deja huella de la inicializacion para no volver a recargar los datos
+	 * @param expediente
+	 */
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
 		postConstruct();
@@ -114,11 +120,12 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 					COLUMN_FOLIOS, COLUMN_PRIORIDAD, COLUMN_ES_INICIAL});
 			
 			btnAgregar.addListener( (ClickListener) this);
+			cargarDocumentos();
 		}
 	}
 
 	public void cargarDocumentos() {
-		if(expediente != null && !expediente.esNuevo() && !inicializado) {
+		if(expediente != null) {
 			List<Documento> documentos = documentoService.obtenerDocumentosDelExpediente(expediente);
 			
 			container.removeAllItems();//Limpiando la tabla.
@@ -152,6 +159,10 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 		documento.setEsInicial("0");
 		
 		expedienteService.agregarDocumento(expediente, pnlDocumento.getDocumento());
+		
+		AlertDialog alertDialog = new  AlertDialog("Registro de Documento", "Se ha registrado el documento correctamente", "Aceptar", "400");
+		getApplication().getMainWindow().addWindow(alertDialog);
+		
 		cargarDocumentos();
 		pnlDocumento.limpiar();
 	}

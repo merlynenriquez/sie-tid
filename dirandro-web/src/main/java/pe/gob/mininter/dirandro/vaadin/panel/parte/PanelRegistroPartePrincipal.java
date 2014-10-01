@@ -391,15 +391,18 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 			Documento documento = pnlDocumento.getDocumento();
 			documento.setEsInicial("1");
 			Ruta ruta = new Ruta();
-			ruta.setTablaOrigen(pnlDocumento.getProcedencia());
-			ruta.setCodigoOrigen(pnlDocumento.getCodigoProcedencia());//Constante.VALOR.CODIGO.
+			if(documento.isRegistrable()){
+				//TODO completar el llenado de Ruta
+				ruta.setTablaOrigen(pnlDocumento.getProcedencia());
+				ruta.setCodigoOrigen(pnlDocumento.getCodigoProcedencia());//Constante.VALOR.CODIGO.
+				ruta.setFechaRecepcion(documento.getFechaRecepcion());				
+			}
 			ruta.setTablaDestino(valorService.obtenerValor(Constante.LISTA.CODIGO.TABLAS, Constante.VALOR.CODIGO.DEPENDENCIA));
 			ruta.setCodigoDestino(expediente.getDependencia() != null ? expediente.getDependencia().getId() : null);
 			ruta.setIntegrante(expediente.getIntegrante());
 			ruta.setFechaEnvio(new Date());
 			ruta.setUsuarioOrigen(null);
 			ruta.setUsuarioRecepcion(HarecUtil.obtenerUsuarioSesion());
-			ruta.setFechaRecepcion(documento.getFechaRecepcion());
 			expedienteService.registrarExpediente(expediente, documento, ruta);
 			
 			//String numeroParte = StringUtils.leftPad(String.valueOf(expediente.getId()), 10, "0");

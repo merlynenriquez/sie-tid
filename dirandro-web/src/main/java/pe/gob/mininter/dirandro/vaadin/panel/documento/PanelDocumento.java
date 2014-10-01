@@ -242,6 +242,8 @@ public class PanelDocumento extends CustomComponent {
 			documento.setFechaRecepcion((Date) dtRecepcion.getValue());
 			documento.setOsDocumento(getOutputStream());
 			documento.setFilename(upArchivo.getFilename());
+			documento.setRegistrable(!rbAdjunto.getValue().equals("No"));
+			
 		}
 		
 		return documento;
