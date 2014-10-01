@@ -158,14 +158,14 @@ public class Entidad extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
+		if (StringUtils.isBlank(nombre)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Nombre de la Entidad" });
+		}
 		if (tipo == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Entidad" });
 		}
 		if (estado == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Estado de Entidad" });
-		}
-		if (StringUtils.isBlank(nombre)) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Numero de Entidad" });
 		}
 	}
 

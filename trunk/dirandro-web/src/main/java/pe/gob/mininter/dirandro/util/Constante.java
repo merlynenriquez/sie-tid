@@ -21,8 +21,8 @@ public abstract class Constante {
 	}
 	
 	public static abstract class OPERACION {
-		public final static String CREAR_REGISTRO = "CREAR";
-		public final static String ACTUALIZAR_REGISTRO = "ACTUALIZAR";
+		public final static String CREAR_REGISTRO = "creado";
+		public final static String ACTUALIZAR_REGISTRO = "actualizado";
 	}
 
 	public static abstract class LISTA {

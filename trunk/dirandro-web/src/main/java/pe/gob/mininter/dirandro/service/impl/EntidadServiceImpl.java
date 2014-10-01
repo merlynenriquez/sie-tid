@@ -5,6 +5,7 @@ package pe.gob.mininter.dirandro.service.impl;
 import java.util.List;
 
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,11 +63,11 @@ public class EntidadServiceImpl extends BaseServiceImpl<Entidad, Long> implement
 	public List<Entidad> buscar(Entidad entidad) {
 		
 		Busqueda filtro = Busqueda.forClass(Entidad.class);
+		filtro.createAlias("tipo", "t");
 		
 		if (entidad != null) {
 		
-			if (entidad.getTipo()!= null) {
-				filtro.createAlias("tipo", "t");
+			if (entidad.getTipo()!= null) {				
 				if (entidad.getTipo().getNombre()!= null){ 
 					filtro.add(Restrictions.ilike("t.nombre", entidad.getTipo().getNombre(), MatchMode.ANYWHERE));
 				}
@@ -92,10 +93,9 @@ public class EntidadServiceImpl extends BaseServiceImpl<Entidad, Long> implement
 		
 		filtro.setFirstResult(0);
 		filtro.setMaxResults(500);
+		filtro.addOrder(Order.asc("t.nombre"));
+		filtro.addOrder(Order.asc("nombre"));
 		
-		return entidadHibernate.buscar(filtro);
-		
+		return entidadHibernate.buscar(filtro);		
 	}
-	
-
 }

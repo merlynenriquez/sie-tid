@@ -61,7 +61,7 @@ public class Empresa extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="REPRESENTANTE")
-	private Persona perPersona;
+	private Persona representante;
 
 	public Empresa() {
 	}
@@ -126,43 +126,28 @@ public class Empresa extends AuditoriaBean implements Validador, Serializable {
 		this.estado = estado;
 	}
 
-	public Persona getPerPersona() {
-		return perPersona;
+	public Persona getRepresentante() {
+		return representante;
 	}
 
-	public void setPerPersona(Persona perPersona) {
-		this.perPersona = perPersona;
+	public void setRepresentante(Persona representante) {
+		this.representante = representante;
 	}
 
 	@Override
 	public void validar() {
-		if( perPersona == null )
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Persona"});
+		
+		if (StringUtils.isBlank(razonSocial)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "RazonSocial" });
 		}
-		if(StringUtils.isBlank( razonSocial ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"RazonSocial"});
+		if (StringUtils.isBlank(ruc)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Ruc" });
 		}
-		if(StringUtils.isBlank( ruc ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Ruc"});
+		if (StringUtils.isBlank(direccion)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Direccion" });
 		}
-		if(StringUtils.isBlank( direccion ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Direccion"});
-		}
-		if(StringUtils.isBlank( partidaRegistral ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"PartidaRegistral"});
-		}
-		if(StringUtils.isBlank( telefono ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Telefono"});
-		}		
-		if(estado == null)
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		if (estado == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Estado" });
 		}
 	}
 
