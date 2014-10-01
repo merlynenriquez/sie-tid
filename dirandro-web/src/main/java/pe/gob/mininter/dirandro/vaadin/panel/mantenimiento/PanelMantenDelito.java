@@ -12,6 +12,7 @@ import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.DelitoService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -144,29 +145,10 @@ public class PanelMantenDelito extends DirandroComponent implements ClickListene
 					idDelito = (Long) item.getItemProperty("id") .getValue();
 					txtNombreDelito.setValue(item.getItemProperty("nombre").getValue());
 					txaObservacion.setValue(item.getItemProperty("observacion").getValue());
-					treeDelitos.setSelectable(true);
-					
-					for (Delito delito : lstDelitos) {
-						if (delito.getId().equals((Long)item.getItemProperty("padre.id").getValue())) {
-							cmbPadreDelito.select(delito);
-							break;
-						}
-					}
-					
-					for (Valor estado : lstEstados) {
-						if (estado.getId().equals((Long)item.getItemProperty("estado.id").getValue())) {
-							cmbEstadoDelito.select(estado);
-							break;
-						}
-					}
-					
-					for (Valor tipoProcesal : lstTipoProcesales) {
-						if (tipoProcesal.getId().equals((Long) item.getItemProperty("codigoProcesal.id").getValue())) {
-							cmbTipoProcesalDelito.select(tipoProcesal);
-							break;
-						}
-					}
-					
+					cmbEstadoDelito.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
+					cmbPadreDelito.select((Delito) item.getItemProperty("padre").getValue());
+					cmbEstadoDelito.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
+					cmbTipoProcesalDelito.select(new Valor((Long) item.getItemProperty("codigoProcesal.id").getValue()));
 					habilitarEdicion(!esModoNuevo);
 				}
 			}			
@@ -175,7 +157,7 @@ public class PanelMantenDelito extends DirandroComponent implements ClickListene
 	    cargarDelitosCombo();
 	    cargarEstadosDelito();
 	    cargarTipoProcesalDelito();
-	    refrescar("delito");
+	    refrescar();
 	}
 	
 	private void habilitarEdicion(boolean flag) {
@@ -196,7 +178,6 @@ public class PanelMantenDelito extends DirandroComponent implements ClickListene
 	
 	private void cargarEstadosDelito(){
 		lstEstados = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO);
-		
 		cmbEstadoDelito.setInputPrompt("Estado");
 		cmbEstadoDelito.setContainerDataSource(new BeanItemContainer<Valor>(Valor.class,  lstEstados));
 		cmbEstadoDelito.setItemCaptionPropertyId("nombre");
@@ -265,13 +246,12 @@ public class PanelMantenDelito extends DirandroComponent implements ClickListene
 			}
 		}
 	}
-
 	
 	@Override
 	public void buttonClick(ClickEvent event) {
 		
 		if(event.getSource().equals(btnCrearDelito)){
-			
+			StringBuilder sbContenido = new StringBuilder();
 			Delito delito = new Delito();
 			delito.setNombre((String)txtNombreDelito.getValue());
 			delito.setPadre((Delito)cmbPadreDelito.getValue());
@@ -281,32 +261,31 @@ public class PanelMantenDelito extends DirandroComponent implements ClickListene
 			
 			if (flagNuevoDelito) {
 				delitoService.crear(delito);
+				sbContenido.append("Delito : ").append(delito.getNombre()).append(" se ha "+ Constante.OPERACION.CREAR_REGISTRO+" satisfactoriamente.");				
 			}else {
 				delito.setId(idDelito);
 				delitoService.actualizar(delito);
+				sbContenido.append("Delito : ").append(delito.getNombre()).append(" se ha "+ Constante.OPERACION.ACTUALIZAR_REGISTRO+" satisfactoriamente.");
 			}
+			
+			AlertDialog alertDialog = new  AlertDialog("Delito", sbContenido.toString(), "Aceptar", "400");
+			getApplication().getMainWindow().addWindow(alertDialog);
+			
 		}else{
 			if(event.getSource().equals(btnEliminarDelito)){
 				delitoService.eliminarXId(idDelito);
 			}
 		}
-		refrescar("delito");
+		refrescar();
 	}
 	
-	private void refrescar(String nombre){
+	private void refrescar(){
 		habilitarEdicion(false);
-		limpiar(nombre);
-		if(nombre.equals("delito")){
-			Map<String,List<Delito>> map = delitoService.listarDelitos();
-			cargarDelitos(map);
-		}
-	}
-	
-	private void limpiar(String nombre){
-		if(nombre.equals("delito")){	
-			txtNombreDelito.setValue("");
-			cmbPadreDelito.select(null);
-		}
+		cargarDelitosCombo();
+		limpiar();
+		Map<String,List<Delito>> map = delitoService.listarDelitos();
+		cargarDelitos(map);
+		
 	}
 	
 	@Override
@@ -341,7 +320,7 @@ public class PanelMantenDelito extends DirandroComponent implements ClickListene
 				cargarDelitos(map);
 			}
 		}else {
-			refrescar("delito");
+			refrescar();
 		}
 	}
 	

@@ -12,9 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.StringUtils;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -107,27 +108,42 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 		this.codigoProcesal = codigoProcesal;
 	}
 	
-	/*@Override
+	@Override
 	public int hashCode() {
-		HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(3, 7);
-		hashCodeBuilder.append(id);
-		return hashCodeBuilder.toHashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean equals = false;
-		if (obj instanceof Valor) {
-			Delito bean = (Delito) obj;
-			equals = (new EqualsBuilder().append(id, bean.id)).isEquals();
-		}
-		return equals;
-	}*/
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Delito other = (Delito) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(StringUtils.isBlank(nombre)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre del Delito"});
+		}
+		if(estado == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		}
+		if(codigoProcesal == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Codigo Procesal"});
+		}
 	}
 
 }
