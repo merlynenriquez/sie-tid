@@ -1,5 +1,6 @@
 package pe.gob.mininter.dirandro.util;
 
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.TipoEspecie;
 import pe.gob.mininter.dirandro.model.TipoHecho;
 import pe.gob.mininter.dirandro.model.Usuario;
+import pe.gob.mininter.dirandro.model.Valor;
 
 public abstract class HarecUtil {
 	
@@ -462,6 +464,93 @@ public abstract class HarecUtil {
 				}
 				return valor.toString();	
 				
+			}else{
+				return StringUtils.EMPTY; 
+			}
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
+	}
+	
+	/**
+	 * Devuelve un objeto del tipo BigDecimal en caso los datos ingresados sean validos,<br>
+	 * en caso contrario devuelve null  
+	 * @param valor objeto a validar y convertir en BigDeccimal
+	 * @return
+	 */
+	public static BigDecimal toBigDecimal(Object valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.toString())){
+					return null;
+				}
+				return new BigDecimal((String)valor);
+			}else{
+				return null; 
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Devuelve un objeto del tipo <b>Double</b> en caso los datos ingresados sean validos,<br>
+	 * en caso contrario devuelve null  
+	 * @param valor objeto a validar y convertir en <b>Double</b>
+	 * @return
+	 */
+	public static Double toDouble(Object valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.toString())){
+					return null;
+				}
+				return Double.valueOf((String)valor);
+			}else{
+				return null; 
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public static String valorNombreToEmpty(Valor valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getNombre())){
+					return StringUtils.EMPTY;
+				}
+				return valor.getNombre();
+			}else{
+				return StringUtils.EMPTY; 
+			}
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
+	}
+	
+	public static String marcaModeloNombreToEmpty(ModeloMarca valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getNombre())){
+					return StringUtils.EMPTY;
+				}
+				return valor.getNombre();
+			}else{
+				return StringUtils.EMPTY; 
+			}
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
+	}
+	
+	public static String paisNombreToEmpty(Pais valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getNombre())){
+					return StringUtils.EMPTY;
+				}
+				return valor.getNombre();
 			}else{
 				return StringUtils.EMPTY; 
 			}

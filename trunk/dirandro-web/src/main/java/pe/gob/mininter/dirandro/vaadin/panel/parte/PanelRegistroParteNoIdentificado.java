@@ -1,14 +1,16 @@
 package pe.gob.mininter.dirandro.vaadin.panel.parte;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.NoIdentificado;
 import pe.gob.mininter.dirandro.service.NoIdentificadoService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -53,7 +55,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 	private TextField txtPNIAlias;
 	
 	private static final long serialVersionUID = -4639683924066371051L;
-	
+	private final static Logger logger = Logger.getLogger(PanelRegistroParteNoIdentificado.class);
 	private IndexedContainer container;
 	
 	private static final String COLUMN_ALIAS = "COLUMN_ALIAS";
@@ -76,9 +78,6 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 	@Override
 	public void attach() {
 		super.attach();
-		if (expediente != null && !expediente.esNuevo()) {
-			cargarNoIdentificados();
-		}
 	}
 
 	public void setExpediente(Expediente expediente) {
@@ -88,7 +87,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 
 	public void postConstruct() {
 		if(expediente!=null && !expediente.esNuevo() && !inicializado){
-			System.out.println("esto es postconstruct");
+			logger.debug("esto es postconstruct");
 			noIdentificadoService = Injector.obtenerServicio(NoIdentificadoService.class);
 			cmbPNIOrientacionSexual.setCodigoLista(Constante.LISTA.CODIGO.ORIENTACION_SEXUAL);
 			cmbPNIOrientacionSexual.setInputPrompt("Orientación Sexual");
@@ -96,11 +95,12 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 			containerTabla();
 			btnPNIGrabar.addListener((ClickListener) this);
 			inicializado=true;
+			cargarNoIdentificados();
 		}
 	}
 	
 	private void containerTabla() {
-		System.out.println("test11");
+		logger.debug("containerTabla()");
 		container = new IndexedContainer();
 		container.addContainerProperty(COLUMN_ALIAS, String.class, null);
 		container.addContainerProperty(COLUMN_NOMBRES, String.class, null);
@@ -117,9 +117,9 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 		tblNoIdentidifacos.setColumnHeader(COLUMN_EDAD, "Edad");
 		tblNoIdentidifacos.setVisibleColumns(new Object[] {COLUMN_ALIAS, COLUMN_NOMBRES, COLUMN_APELLIDOS, COLUMN_ORIENTACION_SEX, COLUMN_EDAD });
 
-		tblNoIdentidifacos.setColumnWidth(COLUMN_ALIAS, 100);
-		tblNoIdentidifacos.setColumnWidth(COLUMN_NOMBRES, 150);
-		tblNoIdentidifacos.setColumnWidth(COLUMN_APELLIDOS, 150);
+		tblNoIdentidifacos.setColumnWidth(COLUMN_ALIAS, 200);
+		tblNoIdentidifacos.setColumnWidth(COLUMN_NOMBRES, 200);
+		tblNoIdentidifacos.setColumnWidth(COLUMN_APELLIDOS, 200);
 		tblNoIdentidifacos.setColumnWidth(COLUMN_ORIENTACION_SEX, 100);
 		tblNoIdentidifacos.setColumnWidth(COLUMN_EDAD, 60);
 	}
@@ -153,9 +153,15 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 		noIdentificado.setNombres((String)txtPNINombres.getValue());
 		noIdentificado.setApellidos((String)txtPNIApellidos.getValue());
 		noIdentificado.setOrientacionSexual(cmbPNIOrientacionSexual.getValor());
-		noIdentificado.setEdadAprox(txtPNIEdad.getValue() != null ? new BigDecimal((String)txtPNIEdad.getValue()): null);
+		noIdentificado.setEdadAprox(HarecUtil.toBigDecimal(txtPNIEdad.getValue())); 
 		noIdentificado.setExpediente(expediente);
+		
+		//TODO: manejar el update
 		noIdentificadoService.crear(noIdentificado);
+		
+		AlertDialog alertDialog = new  AlertDialog("Registro de Persona no identificada", "Se ha registrado a la persona correctamente", "Aceptar", "400");
+		getApplication().getMainWindow().addWindow(alertDialog);
+		
 		cargarNoIdentificados();
 		limpiar();
 		

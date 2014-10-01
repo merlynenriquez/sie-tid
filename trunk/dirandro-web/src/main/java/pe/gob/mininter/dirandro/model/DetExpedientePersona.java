@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -189,7 +191,22 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 
 	@Override
 	public void validar() {
-		
+		if( this.getEmpresaInvolucrada() == null && this.getInvolucrado() == null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Involucrado"});
+		}
+		if(this.estadoDato==null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado del dato"});
+		}
+		if(this.intervencion==null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Fecha de intervención"});
+		}
+		if(this.situacion==null)
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Situacion"});
+		}
 	}
 	
 	@Override

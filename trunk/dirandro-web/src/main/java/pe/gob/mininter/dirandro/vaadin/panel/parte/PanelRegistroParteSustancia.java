@@ -13,6 +13,8 @@ import pe.gob.mininter.dirandro.service.DrogaService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.PaisService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -149,7 +151,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 			cmbMedidaMuestra.setInputPrompt("Medida de la Muestra");
 			cmbSituacion.setInputPrompt("Situacion de la Droga");
 			cmbTipoDroga.setInputPrompt("Tipo de Droga");
-			
+			cmbTipoDroga.setRequired(true);
 			modeloMarcaService = Injector.obtenerServicio(ModeloMarcaService.class);
 			paisService = Injector.obtenerServicio(PaisService.class);
 			drogaService = Injector.obtenerServicio(DrogaService.class);
@@ -173,6 +175,9 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 			btnDrRegistrar.addListener((ClickListener) this);
 			//TODO: Arreglar para que sea predefinido
 			cmbTipoMedida.select(new ModeloMarca(4002l));
+			
+			cargarDrogas();
+			
 			inicializado=true;
 		}
 	}
@@ -180,9 +185,6 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 	@Override
 	public void attach() {
 		super.attach();
-		if (expediente != null && !expediente.esNuevo()) {
-			cargarDrogas();
-		}
 	}
 
 	public void setExpediente(Expediente expediente) {
@@ -247,27 +249,31 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 	public String generateDescription(Component source, Object itemId, Object propertyId) {
 		Item item=tblSustancias.getItem(itemId);
 		Droga droga = (Droga) item.getItemProperty(COLUMN_DROGA).getValue();
-		return droga.getObservacion();
+		if(droga!=null)
+			return droga.getObservacion();
+		return "";
 	}
 
 	private void cargarDrogas() {
 		List<Droga> drogas = drogaService.obtenerDrogasExpediente(expediente);
 
 		container.removeAllItems();
-
+		
+		if(drogas!=null)
 		for (Droga droga : drogas) {
 			Item item = container.addItem(droga.getId());
-			item.getItemProperty(COLUMN_TIPO_DROGA).setValue(droga.getTipoDroga().getNombre());
-			item.getItemProperty(COLUMN_TIPO_MEDIDA).setValue(droga.getTipoMedida().getNombre());
+			//TODO replicar validaciones con HarecUtil
+			item.getItemProperty(COLUMN_TIPO_DROGA).setValue(HarecUtil.valorNombreToEmpty(droga.getTipoDroga()));
+			item.getItemProperty(COLUMN_TIPO_MEDIDA).setValue(HarecUtil.marcaModeloNombreToEmpty(droga.getTipoMedida()));
 			item.getItemProperty(COLUMN_PESO_BRUTO).setValue(droga.getPesoBruto());
 			item.getItemProperty(COLUMN_PESO_NETO).setValue(droga.getPesoNeto());
-			item.getItemProperty(COLUMN_SITUACION).setValue(droga.getSituaccion().getNombre());
-			item.getItemProperty(COLUMN_MEDIDA_MUESTRA).setValue(droga.getTipoMedidaMuestra().getNombre());
+			item.getItemProperty(COLUMN_SITUACION).setValue(HarecUtil.valorNombreToEmpty(droga.getSituaccion()));
+			item.getItemProperty(COLUMN_MEDIDA_MUESTRA).setValue(HarecUtil.marcaModeloNombreToEmpty(droga.getTipoMedidaMuestra()));
 			item.getItemProperty(COLUMN_SOLES).setValue(droga.getValorSoles());
 			item.getItemProperty(COLUMN_DOLARES).setValue(droga.getValorDolares());
 			item.getItemProperty(COLUMN_CAMBIO).setValue(droga.getTipoCambio());
-			item.getItemProperty(COLUMN_PROCEDENCIA).setValue(droga.getProcedencia().getNombre());
-			item.getItemProperty(COLUMN_DESTINO).setValue(droga.getDestino().getNombre());
+			item.getItemProperty(COLUMN_PROCEDENCIA).setValue(HarecUtil.paisNombreToEmpty(droga.getProcedencia()));
+			item.getItemProperty(COLUMN_DESTINO).setValue(HarecUtil.paisNombreToEmpty(droga.getDestino()));
 			item.getItemProperty(COLUMN_DROGA).setValue(droga);
 		}
 
@@ -338,19 +344,23 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 		Droga droga = new Droga();
 		droga.setTipoDroga(cmbTipoDroga.getValor());
 		droga.setTipoMedida((ModeloMarca)cmbMedida.getValue());
-		droga.setPesoBruto(Double.valueOf((String)txtPesoBruto.getValue()));
-		droga.setPesoNeto(Double.valueOf((String)txtPesoBruto.getValue()));
+		droga.setPesoBruto(HarecUtil.toDouble(txtPesoBruto.getValue())); 
+		droga.setPesoNeto(HarecUtil.toDouble(txtPesoBruto.getValue()));
 		droga.setExpediente(expediente);
 		droga.setSituaccion(cmbSituacion.getValor());
 		droga.setTipoMedidaMuestra((ModeloMarca) cmbMedidaMuestra.getValue());
-		droga.setPesoMuestra(Double.valueOf((String)txtDrPesoMuestra.getValue()));
-		droga.setValorSoles((Double.valueOf((String)txtDrValorSoles.getValue())));
-		droga.setValorDolares(Double.valueOf((String)txtDrValorDolares.getValue()));
-		droga.setTipoCambio(Double.valueOf((String)txtDrTipoCambio.getValue()));
+		droga.setPesoMuestra(HarecUtil.toDouble(txtDrPesoMuestra.getValue()));
+		droga.setValorSoles(HarecUtil.toDouble(txtDrValorSoles.getValue()));
+		droga.setValorDolares(HarecUtil.toDouble(txtDrValorDolares.getValue()));
+		droga.setTipoCambio(HarecUtil.toDouble(txtDrTipoCambio.getValue()));
 		droga.setProcedencia( (Pais) cmbProcedencia.getValue() );
 		droga.setDestino( (Pais) cmbDestino.getValue() );
 		droga.setObservacion((String)txtDrObservaciones.getValue());
+		
 		drogaService.crear(droga);
+		
+		AlertDialog alertDialog = new  AlertDialog("Registro de Sustancia", "Se ha registrado la sustancia correctamente", "Aceptar", "400");
+		getApplication().getMainWindow().addWindow(alertDialog);
 		
 		cargarDrogas();
 		
