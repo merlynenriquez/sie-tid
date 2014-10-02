@@ -2,6 +2,8 @@ package pe.gob.mininter.dirandro.vaadin.panel.parte;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.DetPerTelExp;
 import pe.gob.mininter.dirandro.model.Expediente;
@@ -15,6 +17,7 @@ import pe.gob.mininter.dirandro.service.NumeroService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.TelefonoService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarNumero;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarTelefono;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
@@ -118,6 +121,9 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 			cmbSituacion.setInputPrompt("Situacion del Bien");
 			cmbEquipo.setInputPrompt("Seleccionar Equipo por Serie");
 			
+			cmbEstado.setRequired(true);
+			cmbSituacion.setRequired(true);
+			
 			cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 			cmbSituacion.attach();
 			cmbEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_OBJETOS);
@@ -219,16 +225,16 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 			item.getItemProperty("id").setValue(expTelefono.getId());
 			item.getItemProperty("implicado").setValue(expTelefono.getImplicado());
 			item.getItemProperty("propietario").setValue(expTelefono.getPropietario());
-			item.getItemProperty("implicado.nombre").setValue(expTelefono.getImplicado().getNombreCompleto());
+			item.getItemProperty("implicado.nombre").setValue(expTelefono.getImplicado()!=null?expTelefono.getImplicado().getNombreCompleto():StringUtils.EMPTY);
 			item.getItemProperty("operadora.id").setValue(expTelefono.getOperadora() != null ? expTelefono.getOperadora().getId() : null);
 			item.getItemProperty("operadora.nombre").setValue(expTelefono.getOperadora() != null ? expTelefono.getOperadora().getNombre() : null);
-			item.getItemProperty("situacion.id").setValue(expTelefono.getSituacion().getId());
-			item.getItemProperty("situacion.nombre").setValue(expTelefono.getSituacion().getNombre());
-			item.getItemProperty("estado.id").setValue(expTelefono.getEstado().getId());
-			item.getItemProperty("estado.nombre").setValue(expTelefono.getEstado().getNombre());
+			item.getItemProperty("situacion.id").setValue(HarecUtil.valorIdToEmpty( expTelefono.getSituacion()));
+			item.getItemProperty("situacion.nombre").setValue(HarecUtil.valorNombreToEmpty(expTelefono.getSituacion()));
+			item.getItemProperty("estado.id").setValue(HarecUtil.valorIdToEmpty(expTelefono.getEstado()));
+			item.getItemProperty("estado.nombre").setValue(HarecUtil.valorNombreToEmpty(expTelefono.getEstado()));
 			item.getItemProperty("equipo").setValue(expTelefono.getEquipo());
 			item.getItemProperty("numero").setValue(expTelefono.getNumeroTelefonico());
-			item.getItemProperty("observacion").setValue(expTelefono.getObservacion());
+			item.getItemProperty("observacion").setValue(HarecUtil.nullToEmpty( expTelefono.getObservacion() ));
 		}
 	}
 	
@@ -277,6 +283,13 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 		if(event.getButton().equals(btnRegistrarEquipo)){			
 			pnlAgregarTelefono = new PanelAgregarTelefono();
 			pnlAgregarTelefono.setPadre(this);
+			
+			if(this.getParent().getParent()!=null){
+				pnlAgregarTelefono.setParent(this.getParent().getParent());
+			}else{
+				pnlAgregarTelefono.setParent(this.getParent());
+			}
+			
 			Window window=new Window(){
 				
 				private static final long serialVersionUID = 1L;
@@ -290,12 +303,18 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 			window.setResizable(false);
 			window.setWidth("550px");
 			window.setHeight("-1px");
-			getWindow().addWindow(window);
-			
+			getApplication().getMainWindow().addWindow(window);
 		}
 		if(event.getButton().equals(btnRegistrarTelefono)){			
 			pnlAgregarNumero = new PanelAgregarNumero();
 			pnlAgregarNumero.setPadre(this);
+			
+			if(this.getParent().getParent()!=null){
+				pnlAgregarNumero.setParent(this.getParent().getParent());
+			}else{
+				pnlAgregarNumero.setParent(this.getParent());
+			}
+			
 			Window window=new Window(){
 				
 				private static final long serialVersionUID = 1L;
@@ -309,7 +328,7 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 			window.setResizable(false);
 			window.setWidth("550px");
 			window.setHeight("-1px");
-			getWindow().addWindow(window);
+			getApplication().getMainWindow().addWindow(window);
 			
 		}
 		if(event.getButton().equals(btnRegistrar)) {

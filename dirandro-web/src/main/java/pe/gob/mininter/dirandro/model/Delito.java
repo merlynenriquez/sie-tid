@@ -109,6 +109,23 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 	}
 	
 	@Override
+	public void validar() {
+		if(StringUtils.isBlank(nombre)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre del Delito"});
+		}
+		if(estado == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		}
+		if(codigoProcesal == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Codigo Procesal"});
+		}
+	}
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -131,19 +148,6 @@ public class Delito extends AuditoriaBean implements Validador, Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	@Override
-	public void validar() {
-		if(StringUtils.isBlank(nombre)){
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Nombre del Delito"});
-		}
-		if(estado == null){
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
-		}
-		if(codigoProcesal == null){
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Codigo Procesal"});
-		}
 	}
 
 }

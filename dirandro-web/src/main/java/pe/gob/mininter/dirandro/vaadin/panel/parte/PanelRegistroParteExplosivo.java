@@ -306,20 +306,20 @@ public class PanelRegistroParteExplosivo extends CustomComponent implements Clic
 			item.getItemProperty("empresa.nombre").setValue(explosivo.getEmpresaImplicada()!=null?HarecUtil.nullToEmpty(explosivo.getEmpresaImplicada().getRazonSocial()):null);
 			
 			if(explosivo.getMarca()!=null){
-				item.getItemProperty("tipo.id").setValue(explosivo.getMarca().getPadre()!=null?HarecUtil.nullToEmpty(explosivo.getMarca().getPadre().getId()):null);
-				item.getItemProperty("tipo.nombre").setValue(explosivo.getMarca().getPadre()!=null?HarecUtil.nullToEmpty(explosivo.getMarca().getPadre().getNombre()):null);
+				item.getItemProperty("tipo.id").setValue(HarecUtil.marcaModeloIdToEmpty(explosivo.getMarca().getPadre()));
+				item.getItemProperty("tipo.nombre").setValue(HarecUtil.marcaModeloNombreToEmpty(explosivo.getMarca().getPadre()));
 			}
 			
-			item.getItemProperty("marca.id").setValue(explosivo.getMarca()!=null?HarecUtil.nullToEmpty(explosivo.getMarca().getId()):null);
-			item.getItemProperty("marca.nombre").setValue(explosivo.getMarca()!=null?HarecUtil.nullToEmpty(explosivo.getMarca().getNombre()):null);
+			item.getItemProperty("marca.id").setValue(HarecUtil.marcaModeloIdToEmpty(explosivo.getMarca()));
+			item.getItemProperty("marca.nombre").setValue(HarecUtil.marcaModeloNombreToEmpty(explosivo.getMarca()));
 				
-			item.getItemProperty("tipoMedida.id").setValue(explosivo.getTipoMedida()!=null?HarecUtil.nullToEmpty(explosivo.getTipoMedida().getId()):null);
-			item.getItemProperty("tipoMedida.nombre").setValue(explosivo.getTipoMedida()!=null?HarecUtil.nullToEmpty(explosivo.getTipoMedida().getNombre()):null);
+			item.getItemProperty("tipoMedida.id").setValue(HarecUtil.marcaModeloIdToEmpty(explosivo.getTipoMedida()));
+			item.getItemProperty("tipoMedida.nombre").setValue(HarecUtil.marcaModeloNombreToEmpty(explosivo.getTipoMedida()));
 			
-			item.getItemProperty("situacion.id").setValue(HarecUtil.nullToEmpty(explosivo.getSituacion().getId()));
-			item.getItemProperty("situacion.nombre").setValue(HarecUtil.nullToEmpty(explosivo.getSituacion().getNombre()));
-			item.getItemProperty("estado.id").setValue(HarecUtil.nullToEmpty(explosivo.getEstado().getId()));
-			item.getItemProperty("estado.nombre").setValue(HarecUtil.nullToEmpty(explosivo.getEstado().getNombre()));
+			item.getItemProperty("situacion.id").setValue(HarecUtil.valorIdToEmpty(explosivo.getSituacion()));
+			item.getItemProperty("situacion.nombre").setValue(HarecUtil.valorNombreToEmpty(explosivo.getSituacion()));
+			item.getItemProperty("estado.id").setValue(HarecUtil.valorIdToEmpty(explosivo.getEstado()));
+			item.getItemProperty("estado.nombre").setValue(HarecUtil.valorNombreToEmpty(explosivo.getEstado()));
 			item.getItemProperty("medida").setValue(HarecUtil.nullToEmpty(explosivo.getMedida()));
 			item.getItemProperty("cantidad").setValue(HarecUtil.nullToEmpty(explosivo.getCantidad()));
 			item.getItemProperty("descripcion").setValue(HarecUtil.nullToEmpty(explosivo.getDescripcion()));

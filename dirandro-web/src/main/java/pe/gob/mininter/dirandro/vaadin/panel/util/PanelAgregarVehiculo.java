@@ -157,6 +157,7 @@ public class PanelAgregarVehiculo extends CustomComponent implements ClickListen
 			
 			AlertDialog alertDialog = new  AlertDialog("Registro de Vehiculo", "Se ha registrado el vehículo correctamente", "Aceptar", "400");
 			getApplication().getMainWindow().addWindow(alertDialog);
+			
 			btnRegistrarVehiculo.setEnabled(false);
 			padre.setVehiculoPopUp(vehiculo);
 			padre.actualizarVehiculo(vehiculoService.buscar(null));

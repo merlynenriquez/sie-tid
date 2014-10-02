@@ -1,6 +1,5 @@
 package pe.gob.mininter.dirandro.vaadin.panel.parte;
 
-import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -33,8 +32,6 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
@@ -44,6 +41,8 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 public class PanelRegistroParteArma extends CustomComponent implements ClickListener {
 
@@ -343,10 +342,10 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 			item.getItemProperty("empresa.nombre").setValue(detarma.getEmpresaImplicada()!=null?HarecUtil.nullToEmpty(detarma.getEmpresaImplicada().getRazonSocial()):null);
 			item.getItemProperty("propietario.id").setValue(detarma.getPropietario()!=null?HarecUtil.nullToEmpty(detarma.getPropietario().getId()):null);
 			item.getItemProperty("propietario.nombre").setValue(detarma.getPropietario()!=null?HarecUtil.nullToEmpty(detarma.getPropietario().getNombreCompleto()):null);
-			item.getItemProperty("situacion.id").setValue(HarecUtil.nullToEmpty(detarma.getSituacion().getId()));
-			item.getItemProperty("situacion.nombre").setValue(HarecUtil.nullToEmpty(detarma.getSituacion().getNombre()));
-			item.getItemProperty("estado.id").setValue(HarecUtil.nullToEmpty(detarma.getEstado().getId()));
-			item.getItemProperty("estado.nombre").setValue(HarecUtil.nullToEmpty(detarma.getEstado().getNombre()));
+			item.getItemProperty("situacion.id").setValue(HarecUtil.valorIdToEmpty(detarma.getSituacion()));
+			item.getItemProperty("situacion.nombre").setValue(HarecUtil.valorNombreToEmpty(detarma.getSituacion()));
+			item.getItemProperty("estado.id").setValue(HarecUtil.valorIdToEmpty(detarma.getEstado()));
+			item.getItemProperty("estado.nombre").setValue(HarecUtil.valorNombreToEmpty(detarma.getEstado()));
 			item.getItemProperty("cantidad").setValue(HarecUtil.nullToEmpty(detarma.getCantidadMunicion()));
 			item.getItemProperty("observacion").setValue(HarecUtil.nullToEmpty(detarma.getObservacion()));
 			item.getItemProperty("numerolicencia").setValue(HarecUtil.nullToEmpty(detarma.getNroLicencia()));
@@ -430,9 +429,10 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		}
 		
 		if(	event.getButton().equals(btnRegistrar)  ){
+			
 			expedienteArma.setArma((Arma)cmbArmaSerie.getValue());
 			expedienteArma.setExpediente(expediente);
-			expedienteArma.setCantidadMunicion(txtArmCantidad.getValue()!=null? new BigDecimal((String)txtArmCantidad.getValue()):null);
+			expedienteArma.setCantidadMunicion(HarecUtil.toBigDecimal(txtArmCantidad.getValue()));
 			expedienteArma.setPropietario((Persona)cmbDuenio.getValue());
 			
 			if(listaSeleccionada.equals(OPCION_PERSONA))
@@ -556,6 +556,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		cmbArmaSerie.setImmediate(false);
 		cmbArmaSerie.setWidth("250px");
 		cmbArmaSerie.setHeight("-1px");
+		cmbArmaSerie.setRequired(true);
 		pnlArmasBody1.addComponent(cmbArmaSerie);
 		
 		// btnAgregar
@@ -655,6 +656,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		txtArmCantidad.setImmediate(false);
 		txtArmCantidad.setWidth("-1px");
 		txtArmCantidad.setHeight("-1px");
+		txtArmCantidad.setInputPrompt("Cantidad Munición");
 		pnlArmasBody4_1.addComponent(txtArmCantidad);
 		
 		// cmbArmSituacion
@@ -691,6 +693,7 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 		txtArmObservacion.setImmediate(false);
 		txtArmObservacion.setWidth("900px");
 		txtArmObservacion.setHeight("100px");
+		txtArmObservacion.setInputPrompt("Obsevaciones");
 		pnlArmasBody5.addComponent(txtArmObservacion);
 		
 		return pnlArmasBody5;

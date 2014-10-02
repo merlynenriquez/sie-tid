@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -170,8 +174,25 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if (tipoTamano == null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Tamaño" });
+		}
+		if (transmision== null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Transmisión" });
+		}
+		if (cilindros== null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Número de Cilindros" });
+		}
+		if (StringUtils.isBlank(placa)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Número de la placa" });
+		}
+		if (modeloMarca== null) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Marca" });
+		}
+	}
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
 	}
 	
 	@Override

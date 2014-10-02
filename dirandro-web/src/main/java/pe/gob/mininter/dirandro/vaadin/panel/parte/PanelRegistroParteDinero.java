@@ -2,13 +2,12 @@ package pe.gob.mininter.dirandro.vaadin.panel.parte;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Importe;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ImporteService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -158,13 +157,13 @@ public class PanelRegistroParteDinero extends CustomComponent implements ClickLi
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnRegistrar)) {
 			expImporte.setBanco(cmbBanco.getValue() != null ? cmbBanco.getValor() : null);
-			expImporte.setMoneda(txtMonto.getValue() != null ? Double.valueOf(txtMonto.getValue().toString()) : null);
+			expImporte.setMoneda(HarecUtil.toDouble(txtMonto.getValue()));
 			expImporte.setTipoMoneda(cmbTipoMoneda.getValor());
 			expImporte.setTipoCuenta(cmbTipoCuenta.getValue() != null ? cmbTipoCuenta.getValor() : null);
 			expImporte.setSituacion(cmbSituacion.getValor());
-			expImporte.setNroCuenta(txtNroCuenta.getValue() != null ? txtNroCuenta.getValue().toString() : StringUtils.EMPTY);
-			expImporte.setNroTarjeta(txtNroTarjeta.getValue() != null ? txtNroTarjeta.getValue().toString() : StringUtils.EMPTY);
-			expImporte.setAutenticidad(rbAutenticidad.getValue().toString());
+			expImporte.setNroCuenta(HarecUtil.nullToEmpty(txtNroCuenta.getValue()));
+			expImporte.setNroTarjeta(HarecUtil.nullToEmpty(txtNroTarjeta.getValue()));
+			expImporte.setAutenticidad(HarecUtil.nullToEmpty(rbAutenticidad.getValue()));
 			expImporte.setExpediente(expediente);
 			
 			if(expImporte.esNuevo()) {
@@ -238,18 +237,18 @@ public class PanelRegistroParteDinero extends CustomComponent implements ClickLi
 		for (Importe importe : lstExpImportes) {
 			Item item = container.addItem(importe.getId());
 			item.getItemProperty(COLUMN_ID).setValue(importe.getId());
-			item.getItemProperty(COLUMN_TIPO_MONEDA_ID).setValue(importe.getTipoMoneda().getId());
-			item.getItemProperty(COLUMN_TIPO_MONEDA_NOMBRE).setValue(importe.getTipoMoneda().getNombre());
-			item.getItemProperty(COLUMN_SITUACION_ID).setValue(importe.getSituacion().getId());
-			item.getItemProperty(COLUMN_SITUACION_NOMBRE).setValue(importe.getSituacion().getNombre());
-			item.getItemProperty(COLUMN_TIPO_CUENTA_ID).setValue(importe.getTipoCuenta().getId());
-			item.getItemProperty(COLUMN_TIPO_CUENTA_NOMBRE).setValue(importe.getTipoCuenta().getNombre());
+			item.getItemProperty(COLUMN_TIPO_MONEDA_ID).setValue(HarecUtil.valorIdToEmpty(importe.getTipoMoneda()));
+			item.getItemProperty(COLUMN_TIPO_MONEDA_NOMBRE).setValue(HarecUtil.valorNombreToEmpty(importe.getTipoMoneda()));
+			item.getItemProperty(COLUMN_SITUACION_ID).setValue(HarecUtil.valorIdToEmpty(importe.getSituacion()));
+			item.getItemProperty(COLUMN_SITUACION_NOMBRE).setValue(HarecUtil.valorNombreToEmpty(importe.getSituacion()));
+			item.getItemProperty(COLUMN_TIPO_CUENTA_ID).setValue(HarecUtil.valorIdToEmpty(importe.getTipoCuenta()));
+			item.getItemProperty(COLUMN_TIPO_CUENTA_NOMBRE).setValue(HarecUtil.valorNombreToEmpty(importe.getTipoCuenta()));
 			item.getItemProperty(COLUMN_MONTO).setValue(importe.getMoneda());
-			item.getItemProperty(COLUMN_BANCO_ID).setValue(importe.getBanco().getId());
-			item.getItemProperty(COLUMN_BANCO_NOMBRE).setValue(importe.getBanco().getNombre());
-			item.getItemProperty(COLUMN_NRO_CUENTA).setValue(importe.getNroCuenta());
-			item.getItemProperty(COLUMN_NRO_TARJETA).setValue(importe.getNroTarjeta());
-			item.getItemProperty(COLUMN_AUTENTICIDAD).setValue(importe.getAutenticidad());
+			item.getItemProperty(COLUMN_BANCO_ID).setValue(HarecUtil.valorIdToEmpty(importe.getBanco()));
+			item.getItemProperty(COLUMN_BANCO_NOMBRE).setValue(HarecUtil.valorNombreToEmpty(importe.getBanco()));
+			item.getItemProperty(COLUMN_NRO_CUENTA).setValue(HarecUtil.nullToEmpty(importe.getNroCuenta()));
+			item.getItemProperty(COLUMN_NRO_TARJETA).setValue(HarecUtil.nullToEmpty(importe.getNroTarjeta()));
+			item.getItemProperty(COLUMN_AUTENTICIDAD).setValue(HarecUtil.nullToEmpty(importe.getAutenticidad()));
 		}
 	}
 	
