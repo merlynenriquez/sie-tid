@@ -34,6 +34,7 @@ import pe.gob.mininter.dirandro.service.ParentescoService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.UbigeoService;
 import pe.gob.mininter.dirandro.service.ValorService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.util.AdjuntarReceiver;
@@ -626,7 +627,16 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		persona.setPerPersona( (Persona)cmbPerPersonaVerdadera.getValue() );
 		persona.setTipoDocumento( (Valor)cmbPerTipoDoc.getValue() );
 		persona.setLugarNacimiento((Distrito) cmbPerLugarNac.getValue());
-		persona.validar();
+		
+		HarecUtil.validar(getWindow(), persona, new BeanValidar[]{
+			new BeanValidar("tipoDocumento", new Object[]{"Tipo de Documento"}, cmbPerTipoDoc),
+			new BeanValidar("nroDocumento", new Object[]{"Nro de Documento"}, txtPerNumDoc),
+			new BeanValidar("nombres", new Object[]{"Nombres"}, txtPerNombres),
+			new BeanValidar("apePaterno", new Object[]{"Apellido Paterno"}, txtPerApePaterno),
+			new BeanValidar("apeMaterno", new Object[]{"Apellido Materno"}, txtPerApeMaterno),
+			new BeanValidar("sexo", new Object[]{"Sexo"}, rbPerSexo),
+			new BeanValidar("nacionalidad", new Object[]{"Nacionalidad"}, cmbPerNacionalidad)});
+		
 		if(flagNuevaPersona)
 			personaService.crear(persona);
 		else

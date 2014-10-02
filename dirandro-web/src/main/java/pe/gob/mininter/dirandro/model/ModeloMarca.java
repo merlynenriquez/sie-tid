@@ -11,7 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -36,6 +41,7 @@ public class ModeloMarca extends AuditoriaBean implements Validador, Serializabl
 	private Long id;
 
 	@Column(length=200)
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String nombre;
 	
 	//bi-directional many-to-one association to ModeloMarca
@@ -80,14 +86,9 @@ public class ModeloMarca extends AuditoriaBean implements Validador, Serializabl
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		/*if (tipoDocumento == null) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Documento" });
+		if (StringUtils.isBlank(nombre)) {
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Nombre" });
 		}
-		if (StringUtils.isBlank(nroDocumento)) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Numero de Documento" });
-		}
-	*/
 	}
 
 	@Override

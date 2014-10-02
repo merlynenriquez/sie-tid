@@ -12,6 +12,7 @@ import pe.gob.mininter.dirandro.service.CentroPobladoService;
 import pe.gob.mininter.dirandro.service.UbigeoService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -158,29 +159,9 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 					
 					centroPoblado.setId(Long.valueOf(item.getItemProperty("id").getValue().toString()));
 					txtNombre.setValue(item.getItemProperty("nombre").getValue());
-					if(!StringUtils.isEmpty(item.getItemProperty("categoria.id").getValue().toString())){
-						Long valor = Long.valueOf(item.getItemProperty("categoria.id").getValue().toString());
-						for(Valor tipo : lstCategoria){
-							if(tipo.getId().equals(valor)){
-								cmbCategoria.select(tipo);		
-							}
-						}	
-					}
-					if(!StringUtils.isEmpty(item.getItemProperty("estado.id").getValue().toString())){
-						Long valor = Long.valueOf(item.getItemProperty("estado.id").getValue().toString());
-						for(Valor tipo : lstEstados){
-							if(tipo.getId().equals(valor)){
-								cmbEstado.select(tipo);		
-							}
-						}	
-					}
-					if(!StringUtils.isEmpty(item.getItemProperty("distrito.id").getValue().toString())){
-						Long valor = Long.valueOf(item.getItemProperty("distrito.id").getValue().toString());
-						for(Distrito dist : lstDistritos){
-							if(dist.getId().equals(valor))
-								cmbDistrito.select(dist);
-						}
-					}
+					cmbCategoria.select(new Valor((Long) item.getItemProperty("categoria.id").getValue()));
+					cmbEstado.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
+					cmbDistrito.select((Distrito) item.getItemProperty("distrito").getValue());
 				}
 			}
 		});
@@ -198,6 +179,7 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		container.addContainerProperty("categoria.id", Long.class, null);
 		container.addContainerProperty("estado.id", Long.class, null);
 		container.addContainerProperty("nombre", String.class, null);
+		container.addContainerProperty("distrito", Distrito.class, null);
 		container.addContainerProperty("distrito.nombre", String.class, null);
 		container.addContainerProperty("distrito.id", Long.class, null);
 		
@@ -216,12 +198,13 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		for (CentroPoblado entidad: lstEntidades){
 			Item item = container.addItem(con++);
 			item.getItemProperty("id").setValue(entidad.getId());
-			item.getItemProperty("categoria.id").setValue(entidad.getCategoria()!=null?entidad.getCategoria().getId():0l);
-			item.getItemProperty("categoria.nombre").setValue(entidad.getCategoria()!=null?entidad.getCategoria().getNombre():StringUtils.EMPTY);
-			item.getItemProperty("estado.id").setValue(entidad.getEstado()!=null?entidad.getEstado().getId():0l);
+			item.getItemProperty("categoria.id").setValue(entidad.getCategoria() != null ? entidad.getCategoria().getId() : null);
+			item.getItemProperty("categoria.nombre").setValue(entidad.getCategoria() != null ? entidad.getCategoria().getNombre() : StringUtils.EMPTY);
+			item.getItemProperty("estado.id").setValue(entidad.getEstado() != null ? entidad.getEstado().getId() : null);
 			item.getItemProperty("nombre").setValue(entidad.getNombre());
-			item.getItemProperty("distrito.id").setValue(entidad.getDistrito()!=null?entidad.getDistrito().getId():0l);
-			item.getItemProperty("distrito.nombre").setValue(entidad.getDistrito()!=null?entidad.getDistrito().getNombre():StringUtils.EMPTY);
+			item.getItemProperty("distrito").setValue(entidad.getDistrito());
+			item.getItemProperty("distrito.id").setValue(entidad.getDistrito() != null ? entidad.getDistrito().getId() : null);
+			item.getItemProperty("distrito.nombre").setValue(entidad.getDistrito() != null ? entidad.getDistrito().getNombre() : StringUtils.EMPTY);
 		}
 	}
 	
@@ -253,22 +236,26 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnCrearEstado)){
+			StringBuilder sbContenido = new StringBuilder();
 			centroPoblado.setNombre(txtNombre.getValue().toString());
-			centroPoblado.setEstado((Valor)cmbEstado.getValue());
-			centroPoblado.setCategoria((Valor)cmbCategoria.getValue());
+			centroPoblado.setEstado((Valor) cmbEstado.getValue());
+			centroPoblado.setCategoria((Valor) cmbCategoria.getValue());
 			centroPoblado.setDistrito((Distrito) cmbDistrito.getValue());
 			centroPoblado.validar();
 			if(flagNuevaEstado){
 				centroPobladoService.crear(centroPoblado);
+				sbContenido.append("Centro Poblado : ").append(centroPoblado.getNombre()).append(" se ha "+ Constante.OPERACION.CREAR_REGISTRO+" satisfactoriamente.");
 			}else{
 				centroPobladoService.actualizar(centroPoblado);
+				sbContenido.append("Centro Poblado : ").append(centroPoblado.getNombre()).append(" se ha "+ Constante.OPERACION.ACTUALIZAR_REGISTRO+" satisfactoriamente.");
 			}
-			refrescar();
+			AlertDialog alertDialog = new  AlertDialog("Centro Poblado", sbContenido.toString(), "Aceptar", "400");
+			getApplication().getMainWindow().addWindow(alertDialog);
 		}
 		if(event.getButton().equals(btnEliminar)){
 			centroPobladoService.eliminarXId(centroPoblado.getId());
-			refrescar();
 		}	
+		refrescar();
 	}
 
 	@Override
@@ -357,9 +344,9 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		
 		// lblFiltroBusqueda
 		lblFiltroBusqueda = new Label();
-		lblFiltroBusqueda.setStyleName("h1");
+		lblFiltroBusqueda.setStyleName("h2");
 		lblFiltroBusqueda.setImmediate(false);
-		lblFiltroBusqueda.setWidth("-1px");
+		lblFiltroBusqueda.setWidth("560px");
 		lblFiltroBusqueda.setHeight("-1px");
 		lblFiltroBusqueda.setValue("Fitro de Busqueda");
 		pnlListadoEstado.addComponent(lblFiltroBusqueda);
@@ -418,12 +405,12 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 	private VerticalLayout buildPnlDatosEstado() {
 		// common part: create layout
 		pnlDatosEstado = new VerticalLayout();
-		pnlDatosEstado.setStyleName("h1");
+		pnlDatosEstado.setStyleName("h2");
 		pnlDatosEstado.setCaption("Administración de Centros Poblados");
 		pnlDatosEstado.setImmediate(false);
 		pnlDatosEstado.setWidth("-1px");
 		pnlDatosEstado.setHeight("-1px");
-		pnlDatosEstado.setMargin(true);
+		pnlDatosEstado.setMargin(false);
 		pnlDatosEstado.setSpacing(true);
 		
 		// txtNombre
@@ -433,14 +420,14 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		txtNombre.setWidth("220px");
 		txtNombre.setHeight("-1px");
 		txtNombre.setRequired(true);
-		txtNombre.setInputPrompt("Nombre del Estado");
+		txtNombre.setInputPrompt("Nombre del Centro Poblado");
 		pnlDatosEstado.addComponent(txtNombre);
 		
 		// cmbCategoria
 		cmbCategoria = new ComboBox();
 		cmbCategoria.setCaption("Categoria");
 		cmbCategoria.setImmediate(false);
-		cmbCategoria.setWidth("-1px");
+		cmbCategoria.setWidth("250px");
 		cmbCategoria.setHeight("-1px");
 		pnlDatosEstado.addComponent(cmbCategoria);
 		
@@ -448,7 +435,7 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		cmbDistrito = new ComboBox();
 		cmbDistrito.setCaption("Distrito");
 		cmbDistrito.setImmediate(false);
-		cmbDistrito.setWidth("-1px");
+		cmbDistrito.setWidth("250px");
 		cmbDistrito.setHeight("-1px");
 		pnlDatosEstado.addComponent(cmbDistrito);
 		
@@ -456,7 +443,7 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		cmbEstado = new ComboBox();
 		cmbEstado.setCaption("Estado");
 		cmbEstado.setImmediate(false);
-		cmbEstado.setWidth("-1px");
+		cmbEstado.setWidth("200px");
 		cmbEstado.setHeight("-1px");
 		cmbEstado.setRequired(true);
 		pnlDatosEstado.addComponent(cmbEstado);
@@ -477,7 +464,7 @@ public class PanelMantenPoblado extends DirandroComponent implements TextChangeL
 		pnlEstadoBotones.setImmediate(false);
 		pnlEstadoBotones.setWidth("-1px");
 		pnlEstadoBotones.setHeight("-1px");
-		pnlEstadoBotones.setMargin(false);
+		pnlEstadoBotones.setMargin(true);
 		pnlEstadoBotones.setSpacing(true);
 		
 		// btnCrearEstado

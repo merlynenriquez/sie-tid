@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Expediente;
@@ -188,11 +187,23 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 				}
 	
 			});
+
+			tblIntervinientes.setSelectable(true);
+			tblIntervinientes.setImmediate(true);
+			tblIntervinientes.setNullSelectionAllowed(true);
+			tblIntervinientes.setNullSelectionItemId(null);
+			tblIntervinientes.addListener(new ValueChangeListener() {
+				
+				private static final long serialVersionUID = 4944319484424744679L;
+
+				@Override
+				public void valueChange(ValueChangeEvent event) {
+						
+				}
+			});
 	
 			containerTabla();
-			
 			cargarIntervinientes();
-			
 			inicializado=true;
 		}
 	}
@@ -395,16 +406,13 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		detExpedientePersona.setSituacion(cmbInterSituacion.getValor());
 		detExpedientePersona.setIntervencion((Date) dtInterFechaInter.getValue());
 		
-		if(cmbIntervinientes.getValue()==null){
-			cmbIntervinientes.focus();
-                throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX,new Object[]{"Involucrado"});
-        }
-        HarecUtil.validar(getWindow(), detExpedientePersona, 
-                        new BeanValidar[]{new BeanValidar("estadoDato", new Object[]{"Estado del dato"}, cmbInterEstadoDato),
+        HarecUtil.validar(getWindow(), detExpedientePersona, new BeanValidar[]{
+        						new BeanValidar("estadoDato", new Object[]{"Estado del dato"}, cmbInterEstadoDato),
                                 new BeanValidar("intervencion", new Object[]{"Fecha de intervención"}, dtInterFechaInter),
-                                new BeanValidar("situacion", new Object[]{"Situacion"}, cmbInterSituacion)});
+                                new BeanValidar("situacion", new Object[]{"Situacion"}, cmbInterSituacion),
+                                new BeanValidar("involucrado", new Object[]{"Involucrado"}, cmbIntervinientes)});
 		
-		expedientePersonaService.crear(detExpedientePersona);	
+		expedientePersonaService.crear(detExpedientePersona);
 		
 		AlertDialog alertDialog = new  AlertDialog("Registro de Persona", "Se ha registrado a la persona correctamente", "Aceptar", "400");
 		getApplication().getMainWindow().addWindow(alertDialog);
@@ -445,11 +453,11 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 
 		lytDatos.setVisible(true);
 		String html = MessageFormat.format(plantilla, persona
-				.getTipoDocumento().getNombre(), // 0
-				persona.getNroDocumento(), // 1
-				persona.getNombreCompleto(), // 2
-				persona.getNacionalidad().getNombre(),// 3
-				persona.getSexo());// 4
+				.getTipoDocumento().getNombre(),
+				persona.getNroDocumento(),
+				persona.getNombreCompleto(),
+				persona.getNacionalidad().getNombre(),
+				persona.getSexo());
 
 		lytDatos.setVisible(true);
 		lblDatosInterviniente.setVisible(true);

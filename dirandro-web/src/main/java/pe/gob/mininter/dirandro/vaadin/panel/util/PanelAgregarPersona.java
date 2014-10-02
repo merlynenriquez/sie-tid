@@ -4,18 +4,19 @@ package pe.gob.mininter.dirandro.vaadin.panel.util;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.model.Distrito;
-import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Pais;
 import pe.gob.mininter.dirandro.model.Persona;
 import pe.gob.mininter.dirandro.model.Valor;
-import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.UbigeoService;
 import pe.gob.mininter.dirandro.service.ValorService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenEmpresa;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenLetrado;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenPolicia;
@@ -83,20 +84,13 @@ public class PanelAgregarPersona extends CustomComponent implements ClickListene
 	private static final long serialVersionUID = 4354750785128082366L;
 	
 	private Persona persona;
-	private Empresa empresa;
-	
-	private List<Valor> lstTipoDocumento;
-	private List<Pais> lstNacionalidad;
-	private List<Valor> lstEstadoCivil;
-	private List<Distrito> lstLugarNacimiento;	
-	
+		
 	private ValorService valorService;
 	private UbigeoService ubigeoService;
 	private PersonaService personaService;
-	private EmpresaService empresaService;
 	
 	private PanelMantenPolicia pnlMantenPolicia= null;
-	private pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenLetrado pnlMantenLetrado = null;
+	private PanelMantenLetrado pnlMantenLetrado = null;
 	private PanelMantenEmpresa pnlMantenEmpresa = null;
 	
 	private PanelAgregarPersonaListener panelAgregarPersonaReponder;
@@ -108,10 +102,7 @@ public class PanelAgregarPersona extends CustomComponent implements ClickListene
 		valorService = Injector.obtenerServicio(ValorService.class);
 		ubigeoService = Injector.obtenerServicio(UbigeoService.class );
 		personaService = Injector.obtenerServicio(PersonaService.class);
-		empresaService = Injector.obtenerServicio(EmpresaService.class);
 		
-		lstNacionalidad = ubigeoService.obtenerPaises();
-		lstLugarNacimiento = ubigeoService.obtenerTodos();
 		
 		postConstruct();
 	}
@@ -143,21 +134,23 @@ public class PanelAgregarPersona extends CustomComponent implements ClickListene
 		rbSexo.addItem("F");
 		
 		cmbTipoDocumento.setInputPrompt("tipoDocumento");				
-		lstTipoDocumento = valorService.obtenerLista(Constante.LISTA.CODIGO.DOCUMENTO_TIPO);		
+		List<Valor> lstTipoDocumento = valorService.obtenerLista(Constante.LISTA.CODIGO.DOCUMENTO_TIPO);		
 		BeanItemContainer<Valor> bicTipoDocumentos = new BeanItemContainer<Valor>(Valor.class,  lstTipoDocumento);		
 		cmbTipoDocumento.setContainerDataSource(bicTipoDocumentos);		
 		cmbTipoDocumento.setItemCaptionPropertyId("nombre");
 		
 		cmbEstadoCivil.setInputPrompt("estadoCivil");				
-		lstEstadoCivil = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO_CIVIL);		
+		List<Valor> lstEstadoCivil = valorService.obtenerLista(Constante.LISTA.CODIGO.ESTADO_CIVIL);		
 		BeanItemContainer<Valor> bicEstadoCiviles = new BeanItemContainer<Valor>(Valor.class,  lstEstadoCivil);		
 		cmbEstadoCivil.setContainerDataSource(bicEstadoCiviles);		
 		cmbEstadoCivil.setItemCaptionPropertyId("nombre");
 		
+		List<Pais> lstNacionalidad = ubigeoService.obtenerPaises();
 		cmbNacionalidad.setInputPrompt("Nacionalidad");
 		cmbNacionalidad.setItemCaptionPropertyId("nombre");
 		cmbNacionalidad.setContainerDataSource(new BeanItemContainer<Pais>(Pais.class, lstNacionalidad));
 		
+		List<Distrito> lstLugarNacimiento = ubigeoService.obtenerTodos();	
 		cmbLugarNacimiento.setInputPrompt("Distrito - Provincia - Departamento");
 		cmbLugarNacimiento.setItemCaptionPropertyId("nombreCompleto");
 		cmbLugarNacimiento.setContainerDataSource(new BeanItemContainer<Distrito>(Distrito.class,  lstLugarNacimiento));
@@ -203,25 +196,26 @@ public class PanelAgregarPersona extends CustomComponent implements ClickListene
 	private void registrarPersona(){
 		
 		persona = new Persona();
-		persona.setNombres( txtNombre.getValue().toString() );
-		persona.setApeMaterno( txtMaterno.getValue().toString());
-		persona.setApePaterno( txtPaterno.getValue().toString());
-		persona.setNroDocumento(txtNumero.getValue().toString());		
-		persona.setTipoDocumento((Valor)cmbTipoDocumento.getValue());
-		persona.setEstadoCivil((Valor)this.cmbEstadoCivil.getValue());
-		persona.setFecNacimiento((Date)dfFechaNacimiento.getValue());
-		persona.setNacionalidad((Pais)cmbNacionalidad.getValue());
-		persona.setSexo(rbSexo.getValue().toString());
-		personaService.crear(persona);
-		//persona = personaService.obtener(persona.getId());
+		persona.setNombres(txtNombre.getValue() != null ? txtNombre.getValue().toString() : StringUtils.EMPTY);
+		persona.setApeMaterno(txtMaterno.getValue() != null ? txtMaterno.getValue().toString() : StringUtils.EMPTY);
+		persona.setApePaterno(txtPaterno.getValue() != null ? txtPaterno.getValue().toString() : StringUtils.EMPTY);
+		persona.setNroDocumento(txtNumero.getValue() != null ? txtNumero.getValue().toString() : StringUtils.EMPTY);		
+		persona.setTipoDocumento((Valor) cmbTipoDocumento.getValue());
+		persona.setEstadoCivil((Valor) cmbEstadoCivil.getValue());
+		persona.setFecNacimiento((Date) dfFechaNacimiento.getValue());
+		persona.setNacionalidad((Pais) cmbNacionalidad.getValue());
+		persona.setSexo(rbSexo.getValue() != null ? rbSexo.getValue().toString() : StringUtils.EMPTY);
 		
-		//Valor tipoDoc = (Valor)cmbTipoDocumento.getValue();
-		if(Constante.VALOR.CODIGO.RUC.equals(persona.getTipoDocumento().getCodigo())) {
-			empresa = new Empresa();
-			empresa.setRepresentante(persona);
-			empresa.setRuc(persona.getNroDocumento());
-			//empresa.setRazonSocial(razonSocial)
-		} 
+		HarecUtil.validar(getWindow(), persona, new BeanValidar[]{
+				new BeanValidar("tipoDocumento", new Object[]{"Tipo de Documento"}, cmbTipoDocumento),
+				new BeanValidar("nroDocumento", new Object[]{"Nro de Documento"}, txtNumero),
+				new BeanValidar("nombres", new Object[]{"Nombres"}, txtNombre),
+				new BeanValidar("apePaterno", new Object[]{"Apellido Paterno"}, txtPaterno),
+				new BeanValidar("apeMaterno", new Object[]{"Apellido Materno"}, txtMaterno),
+				new BeanValidar("sexo", new Object[]{"Sexo"}, rbSexo),
+				new BeanValidar("nacionalidad", new Object[]{"Nacionalidad"}, cmbNacionalidad)});
+		
+		personaService.crear(persona);
 	}
 	
 	@AutoGenerated

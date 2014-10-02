@@ -131,12 +131,7 @@ public class PanelMantenPais extends DirandroComponent implements ClickListener{
 						}
 					}
 					
-					for (Valor estado : lstEstados) {
-						if(estado.getId().equals((Long)item.getItemProperty("estado.id").getValue())){
-							cmbEstado.select(estado);
-							break;
-						}
-					}
+					cmbEstado.select(new Valor((Long)item.getItemProperty("estado.id").getValue()));
 					
 					habilitarEdicion(!esModoNuevo);
 				}
@@ -216,7 +211,7 @@ public class PanelMantenPais extends DirandroComponent implements ClickListener{
 			pais.setNombre((String) txtNombre.getValue());
 			pais.setEstado((Valor) cmbEstado.getValue());
 			if (cmbNivel.getValue() != null) pais.setPadre((Pais) cmbNivel.getValue());			
-			pais.setNacionalidad(txtNacionalidad.getValue() != null ? txtNacionalidad.getValue().toString() : StringUtils.EMPTY);
+				pais.setNacionalidad(txtNacionalidad.getValue() != null ? txtNacionalidad.getValue().toString() : StringUtils.EMPTY);
 			
 			if (flagNuevoPais) {
 				paisService.crear(pais);

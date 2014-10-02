@@ -185,7 +185,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					wdExpediente.addComponent(panelRegistroParte);
 						
 					wdExpediente.setCaption("Modificar Expediente");
-					wdExpediente.setWidth("1000px");
+					wdExpediente.setWidth("1050px");
 					getWindow().addWindow(wdExpediente);
 				}
 			}

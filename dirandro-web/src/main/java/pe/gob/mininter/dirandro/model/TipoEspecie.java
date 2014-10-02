@@ -12,7 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import pe.gob.mininter.dirandro.util.Validador;
+import org.hibernate.validator.constraints.NotBlank;
+
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -22,11 +24,8 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="MNT_TIPO_ESPECIE")
-public class TipoEspecie extends AuditoriaBean implements Validador, Serializable {
+public class TipoEspecie extends AuditoriaBean implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2491507680984090721L;
 
 	@Id
@@ -36,6 +35,7 @@ public class TipoEspecie extends AuditoriaBean implements Validador, Serializabl
 	private Long id;
 
 	@Column(length=400)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String nombre;
 
 	//bi-directional many-to-one association to TipoEspecie
@@ -67,11 +67,4 @@ public class TipoEspecie extends AuditoriaBean implements Validador, Serializabl
 	public void setPadre(TipoEspecie padre) {
 		this.padre = padre;
 	}
-
-	@Override
-	public void validar() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

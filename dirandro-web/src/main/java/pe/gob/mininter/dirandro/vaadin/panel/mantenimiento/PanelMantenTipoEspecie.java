@@ -8,7 +8,9 @@ import org.apache.commons.lang.StringUtils;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.TipoEspecie;
 import pe.gob.mininter.dirandro.service.TipoEspecieService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -111,6 +113,7 @@ public class PanelMantenTipoEspecie extends DirandroComponent implements ClickLi
 		treeModeloMarca.setNullSelectionAllowed(true);
 		treeModeloMarca.setNullSelectionItemId(null);
 		treeModeloMarca.addListener(new ValueChangeListener() {
+			
 			private static final long serialVersionUID = -6124596484581515359L;
 			@Override
 			public void valueChange(ValueChangeEvent event) {
@@ -130,9 +133,7 @@ public class PanelMantenTipoEspecie extends DirandroComponent implements ClickLi
 							break;
 						}
 					}
-					
 					habilitarEdicion(!esModoNuevo);
-					
 				}
 			}
 		});
@@ -240,8 +241,9 @@ public class PanelMantenTipoEspecie extends DirandroComponent implements ClickLi
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnCrear)){
 			
-			tipoEspecie.setNombre(txtTipoEspecie.getValue().toString());
+			tipoEspecie.setNombre((String) txtTipoEspecie.getValue());
 			tipoEspecie.setPadre((TipoEspecie)cmbEspeciePadre.getValue());
+			HarecUtil.validar(getWindow(), tipoEspecie, new BeanValidar[]{new BeanValidar("nombre", new Object[]{"Nombre"}, txtTipoEspecie)});
 			
 			if(flagNuevaEstado){
 				tipoEspecieService.crear(tipoEspecie);
@@ -283,7 +285,7 @@ public class PanelMantenTipoEspecie extends DirandroComponent implements ClickLi
 		PanelSecundario.setStyleName("whiteBackGround");
 		PanelSecundario.setImmediate(false);
 		PanelSecundario.setWidth("-1px");
-		PanelSecundario.setHeight("325px");
+		PanelSecundario.setHeight("-1px");
 		PanelSecundario.setMargin(true);
 		PanelSecundario.setSpacing(true);
 		
@@ -325,7 +327,7 @@ public class PanelMantenTipoEspecie extends DirandroComponent implements ClickLi
 		PanelContieneTabla.setCaption("Filtro de Busqueda");
 		PanelContieneTabla.setImmediate(false);
 		PanelContieneTabla.setWidth("420px");
-		PanelContieneTabla.setHeight("324px");
+		PanelContieneTabla.setHeight("-1px");
 		PanelContieneTabla.setMargin(false);
 		
 		// PanelFiltroTabla

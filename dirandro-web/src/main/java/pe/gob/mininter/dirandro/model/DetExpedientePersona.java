@@ -17,14 +17,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 @Entity
 @Table(name="EXP_DET_EXPEDIENTE_PERSONA")
-public class DetExpedientePersona extends AuditoriaBean implements Validador, Serializable {
+public class DetExpedientePersona extends AuditoriaBean implements Serializable {
 	
 	private static final long serialVersionUID = -3388910551739102700L;
 
@@ -193,7 +191,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 		return involucrado.getNombreCompleto();
 	}
 
-	@Override
+	/*@Override
 	public void validar() {
 		if( this.getEmpresaInvolucrada() == null && this.getInvolucrado() == null)
 		{
@@ -211,7 +209,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 		{
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Situacion"});
 		}
-	}
+	}*/
 	
 	@Override
 	public int hashCode() {
