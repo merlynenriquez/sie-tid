@@ -13,6 +13,7 @@ import pe.gob.mininter.dirandro.service.ExpedienteEspecieService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.TipoEspecieService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -84,8 +85,7 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 	private List<ModeloMarca> lstMedidas;
 	
 	private Expediente expediente;
-	private Long idEspecie;
-	private boolean flagNuevaEspecie;
+	private Especie expEspecie;
 	private boolean inicializado=false;
 	
 	public PanelRegistroParteEspecie() {
@@ -139,7 +139,8 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 					habilitarEdicion(!esModoNuevo);
 					if (!esModoNuevo) {
 						Item item = tblEspListaEspecies.getItem(tblEspListaEspecies.getValue());
-						idEspecie = (Long) item.getItemProperty("id").getValue();
+						expEspecie.setId( (Long) item.getItemProperty("id").getValue());
+						
 						txtEspNombre.setValue(item.getItemProperty("nombre").getValue());
 						txtEspNumeroSerie.setValue(item.getItemProperty("nroSerie").getValue() != null ? item.getItemProperty("nroSerie").getValue() : StringUtils.EMPTY);
 						txtEspMedida.setValue(item.getItemProperty("medida").getValue() != null ? item.getItemProperty("medida").getValue() : StringUtils.EMPTY);
@@ -235,22 +236,19 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 	public void buttonClick(ClickEvent event) {
 		
 		if (event.getButton().equals(btnEspRegistrar)) {
-			Especie expEspecie = new Especie();
-			expEspecie.setNombre(txtEspNombre.getValue().toString());
-			expEspecie.setSerie(txtEspNumeroSerie.getValue() != null ? txtEspNumeroSerie.getValue().toString() : StringUtils.EMPTY);
+			expEspecie.setNombre(HarecUtil.nullToEmpty(txtEspNombre.getValue()));
+			expEspecie.setSerie(HarecUtil.nullToEmpty(txtEspNumeroSerie.getValue()));
 			expEspecie.setSituacion((Valor) cmbEspSituacion.getValue());
-			expEspecie.setEstado(cmbEspEstado.getValue() != null ? (Valor) cmbEspEstado.getValue() : null);
-			expEspecie.setTipoMedida(cmbTipoMedida.getValue() != null ?  (ModeloMarca) cmbTipoMedida.getValue() : null);
-			expEspecie.setMedida(txtEspMedida.getValue() != "" ? Double.parseDouble(txtEspMedida.getValue().toString()) : null);
+			expEspecie.setEstado(cmbEspEstado.getValor());
+			expEspecie.setTipoMedida((ModeloMarca) cmbTipoMedida.getValue());
+			expEspecie.setMedida(HarecUtil.toDouble(txtEspMedida.getValue()));
 			expEspecie.setTipoEspecie((TipoEspecie) cmbEspTipo.getValue());
+			expEspecie.setCantidad(HarecUtil.toInteger(txtEspCantidad.getValue()));
 			expEspecie.setExpediente(expediente);
-			expEspecie.setCantidad(Integer.parseInt(txtEspCantidad.getValue().toString()));
-			expEspecie.validar();
 			
-			if(flagNuevaEspecie)			
+			if(expEspecie.esNuevo())			
 				expEspecieService.crear(expEspecie);
 			else{
-				expEspecie.setId(idEspecie);
 				expEspecieService.actualizar(expEspecie);
 			}
 			refrescar();
@@ -269,11 +267,11 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 		container.addContainerProperty("tipoMedida.id", Long.class, null);
 		container.addContainerProperty("subTipoMedida.id", Long.class, null);
 		container.addContainerProperty("tipoMedida.nombre", String.class, null);
-		container.addContainerProperty("medida", Double.class, null);
+		container.addContainerProperty("medida", String.class, null);
 		container.addContainerProperty("estado.id", Long.class, null);
 		container.addContainerProperty("situacion.id", Long.class, null);
 		container.addContainerProperty("situacion", String.class, null);
-		container.addContainerProperty("cantidad", Integer.class, null);
+		container.addContainerProperty("cantidad", String.class, null);
 		
 		tblEspListaEspecies.setContainerDataSource(container);
 		tblEspListaEspecies.setVisibleColumns(new Object[]{"nombre", "tipo.familia", "subtipo.nombre", "tipoMedida.nombre", "medida", "situacion"});
@@ -298,17 +296,16 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 			item.getItemProperty("tipoMedida.id").setValue(especie.getTipoMedida() != null ? especie.getTipoMedida().getPadre().getId() : null);
 			item.getItemProperty("subTipoMedida.id").setValue(especie.getTipoMedida() != null ? especie.getTipoMedida().getId() : null);
 			item.getItemProperty("tipoMedida.nombre").setValue(especie.getTipoMedida() != null ? especie.getTipoMedida().getNombre() : StringUtils.EMPTY);
-			item.getItemProperty("medida").setValue(especie.getMedida());
+			item.getItemProperty("medida").setValue(HarecUtil.nullToEmpty(especie.getMedida()));
 			item.getItemProperty("nroSerie").setValue(especie.getSerie());
 			item.getItemProperty("estado.id").setValue(especie.getEstado() != null ? especie.getEstado().getId() : null);
 			item.getItemProperty("situacion.id").setValue(especie.getSituacion() != null ? especie.getSituacion().getId() : null);
 			item.getItemProperty("situacion").setValue(especie.getSituacion() != null ? especie.getSituacion().getNombre() : StringUtils.EMPTY);
-			item.getItemProperty("cantidad").setValue(especie.getCantidad());
+			item.getItemProperty("cantidad").setValue(HarecUtil.nullToEmpty(especie.getCantidad()));
 		}
 	}
 	
 	private void habilitarEdicion(boolean flag){
-		flagNuevaEspecie = !flag;
 		if(flag){
 			btnEspRegistrar.setCaption("Actualizar");
 		}
@@ -324,6 +321,7 @@ public class PanelRegistroParteEspecie extends CustomComponent implements ClickL
 	}
 		
 	private void limpiar(){
+		expEspecie = new Especie();
 		cmbEspTipo.select(null);
 		cmbEspFamilia.select(null);
 		cmbGeneralMedida.select(null);

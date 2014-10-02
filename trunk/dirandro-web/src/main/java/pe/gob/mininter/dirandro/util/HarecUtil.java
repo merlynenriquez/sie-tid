@@ -468,12 +468,10 @@ public abstract class HarecUtil {
 	public static String nullToEmpty(Object valor){
 		try {
 			if(valor != null){
-				//if(valor instanceof String)
 				if(StringUtils.isEmpty(valor.toString())){
 					return StringUtils.EMPTY;
 				}
-				return valor.toString();	
-				
+				return valor.toString();
 			}else{
 				return StringUtils.EMPTY; 
 			}
@@ -520,6 +518,23 @@ public abstract class HarecUtil {
 				return null; 
 			}
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static Integer toInteger(Object valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.toString())){
+					return null;
+				}
+				return Integer.valueOf((String)valor);
+			}else{
+				return null; 
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return null;
 		}
 	}
@@ -539,6 +554,21 @@ public abstract class HarecUtil {
 		}
 	}
 	
+	public static Long valorIdToEmpty(Valor valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getNombre())){
+					return null;
+				}
+				return valor.getId();
+			}else{
+				return null; 
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public static String marcaModeloNombreToEmpty(ModeloMarca valor){
 		try {
 			if(valor != null){
@@ -551,6 +581,21 @@ public abstract class HarecUtil {
 			}
 		} catch (Exception e) {
 			return StringUtils.EMPTY;
+		}
+	}
+	
+	public static Long marcaModeloIdToEmpty(ModeloMarca valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getNombre())){
+					return null;
+				}
+				return valor.getId();
+			}else{
+				return null; 
+			}
+		} catch (Exception e) {
+			return null;
 		}
 	}
 	

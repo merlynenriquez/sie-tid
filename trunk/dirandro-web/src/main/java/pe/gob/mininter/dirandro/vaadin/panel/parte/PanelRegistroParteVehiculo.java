@@ -13,6 +13,7 @@ import pe.gob.mininter.dirandro.service.ExpedienteVehiculoService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.VehiculoService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarVehiculo;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
@@ -91,8 +92,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 	private Expediente expediente;
 	private List<Persona> lstPersonas;
 	private List<Vehiculo> lstVehiculos;
-	private boolean flagNuevoVehiculo;
-	private Long idExpVehiculo;
+	private DetPerVehExp expVehiculo;
 	private boolean inicializado=false;
 	
 	public PanelRegistroParteVehiculo() {
@@ -164,7 +164,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 					habilitarEdicion(!esModoNuevo);
 					if (!esModoNuevo) {
 						Item item = tblVehLista.getItem(tblVehLista.getValue());
-						idExpVehiculo = (Long) item.getItemProperty("id").getValue();
+						expVehiculo.setId((Long) item.getItemProperty("id").getValue());
 						txtPlacaMontada.setValue(item.getItemProperty("placaMontada").getValue() != null ? item.getItemProperty("placaMontada").getValue().toString() : StringUtils.EMPTY);
 						txtTipodeUso.setValue(item.getItemProperty("tipoUso").getValue() != null ? item.getItemProperty("tipoUso").getValue().toString() : StringUtils.EMPTY);
 						txaObservacion.setValue(item.getItemProperty("observacion").getValue() != null ? item.getItemProperty("observacion").getValue().toString() : StringUtils.EMPTY);
@@ -229,6 +229,14 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 		tblVehLista.setContainerDataSource(container);
 		tblVehLista.setVisibleColumns(new Object[]{"id","vehiculo.placa","vehiculo.tipoTamano","vehiculo.fabricacion","estadoChasis","estadoMotor","personaImplicada.nombre"});
 		
+		tblVehLista.setColumnHeader("id", "Id");
+		tblVehLista.setColumnHeader("vehiculo.placa", "Placa");
+		tblVehLista.setColumnHeader("vehiculo.tipoTamano", "Tamaño");
+		tblVehLista.setColumnHeader("vehiculo.fabricacion", "Fabricación");
+		tblVehLista.setColumnHeader("estadoChasis", "Estado Chasis");
+		tblVehLista.setColumnHeader("estadoMotor", "Estado Motor");
+		tblVehLista.setColumnHeader("personaImplicada.nombre", "Implicado");
+		
 		int con=1;
 		for (DetPerVehExp expVehiculo : lstExpVehiculos){
 			Item item = container.addItem(con++);
@@ -236,22 +244,26 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 			item.getItemProperty("vehiculo").setValue(expVehiculo.getVehiculo());
 			item.getItemProperty("vehiculo.id").setValue(expVehiculo.getVehiculo() != null ? expVehiculo.getVehiculo().getId() : null);
 			item.getItemProperty("vehiculo.placa").setValue(expVehiculo.getVehiculo().getPlaca());
-			item.getItemProperty("vehiculo.tipoTamano").setValue(expVehiculo.getVehiculo().getTipoTamano().getNombre());
-			item.getItemProperty("vehiculo.fabricacion").setValue(expVehiculo.getVehiculo().getPeriodoFabricacion().getNombre());
-			item.getItemProperty("estado.id").setValue(expVehiculo.getEstado().getId());
-			item.getItemProperty("estadoChasis.id").setValue(expVehiculo.getEstadoChasis().getId());
-			item.getItemProperty("estadoMotor.id").setValue(expVehiculo.getEstadoMotor().getId());
-			item.getItemProperty("situacion.id").setValue(expVehiculo.getSituacionLegal().getId());
-			item.getItemProperty("estadoChasis").setValue(expVehiculo.getEstadoChasis().getNombre());
-			item.getItemProperty("estadoMotor").setValue(expVehiculo.getEstadoMotor().getNombre());
+			item.getItemProperty("vehiculo.tipoTamano").setValue(HarecUtil.valorNombreToEmpty(expVehiculo.getVehiculo().getTipoTamano()));
+			item.getItemProperty("vehiculo.fabricacion").setValue(HarecUtil.valorNombreToEmpty(expVehiculo.getVehiculo().getPeriodoFabricacion()));
+			item.getItemProperty("estado.id").setValue(HarecUtil.valorIdToEmpty(expVehiculo.getEstado()));
+			item.getItemProperty("estadoChasis.id").setValue(HarecUtil.valorIdToEmpty(expVehiculo.getEstadoChasis()));
+			item.getItemProperty("estadoMotor.id").setValue(HarecUtil.valorIdToEmpty(expVehiculo.getEstadoMotor()));
+			item.getItemProperty("situacion.id").setValue(HarecUtil.valorIdToEmpty(expVehiculo.getSituacionLegal()));
+			item.getItemProperty("estadoChasis").setValue(HarecUtil.valorNombreToEmpty(expVehiculo.getEstadoChasis()));
+			item.getItemProperty("estadoMotor").setValue(HarecUtil.valorNombreToEmpty(expVehiculo.getEstadoMotor()));
 			item.getItemProperty("placaMontada").setValue(expVehiculo.getPlacaMontada());
 			item.getItemProperty("tipoUso").setValue(expVehiculo.getTipoUso());
 			item.getItemProperty("observacion").setValue(expVehiculo.getObservaciones());
-			item.getItemProperty("propietario.id").setValue(expVehiculo.getPropietario().getId());
-			item.getItemProperty("propietario").setValue(expVehiculo.getPropietario());
-			item.getItemProperty("personaImplicada.id").setValue(expVehiculo.getPersonaImplicada().getId());
-			item.getItemProperty("personaImplicada").setValue(expVehiculo.getPersonaImplicada());
-			item.getItemProperty("personaImplicada.nombre").setValue(expVehiculo.getPersonaImplicada().getNombreCompleto());
+			if(expVehiculo.getPropietario()!=null){
+				item.getItemProperty("propietario").setValue(expVehiculo.getPropietario());
+				item.getItemProperty("propietario.id").setValue(expVehiculo.getPropietario().getId());
+			}
+			if(expVehiculo.getPersonaImplicada()!=null){
+				item.getItemProperty("personaImplicada.id").setValue(expVehiculo.getPersonaImplicada().getId());
+				item.getItemProperty("personaImplicada").setValue(expVehiculo.getPersonaImplicada());
+				item.getItemProperty("personaImplicada.nombre").setValue(expVehiculo.getPersonaImplicada().getNombreCompleto());	
+			}
 		}
 			
 	}
@@ -284,7 +296,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 			getApplication().getMainWindow().addWindow(window);
 		}
 		if (event.getButton().equals(btnRegistrarDetalle)) {
-			DetPerVehExp expVehiculo = new DetPerVehExp();
+			
 			//TODO: Cambiar para el pase de produccion
 			expVehiculo.setVehiculo((Vehiculo) cmbVehVehiculo.getValue());
 			expVehiculo.setExpediente(expediente);
@@ -298,10 +310,9 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 			expVehiculo.setPlacaMontada(txtPlacaMontada.getValue() != null ? txtPlacaMontada.getValue().toString() : StringUtils.EMPTY);
 			expVehiculo.setTipoUso(txtTipodeUso.getValue() != null ? txtTipodeUso.getValue().toString() : StringUtils.EMPTY);
 			
-			if (flagNuevoVehiculo) {
+			if (expVehiculo.esNuevo()) {
 				expVehiculoService.crear(expVehiculo);
 			} else{
-				expVehiculo.setId(idExpVehiculo);
 				expVehiculoService.actualizar(expVehiculo);
 			}
 			
@@ -329,7 +340,6 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 	}
 	
 	private void habilitarEdicion(boolean flag){
-		flagNuevoVehiculo = !flag;
 		if(flag){
 			btnRegistrarDetalle.setCaption("Actualizar");
 		}
@@ -339,6 +349,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 	}
 
 	private void limpiar(){
+		expVehiculo = new DetPerVehExp();
 		cmbVehVehiculo.select(null);
 		cmbEstado.select(null);
 		cmbEstadoChasis.select(null);

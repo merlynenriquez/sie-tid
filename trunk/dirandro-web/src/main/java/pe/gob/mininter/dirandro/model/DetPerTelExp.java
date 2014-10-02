@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -76,10 +78,6 @@ public class DetPerTelExp extends AuditoriaBean implements Validador, Serializab
 	private Numero numeroTelefonico;
 
 	public DetPerTelExp() {
-	}
-
-	public boolean esNuevo(){
-		return id == null || id.longValue() == 0;
 	}
 	
 	public Long getId() {
@@ -164,8 +162,47 @@ public class DetPerTelExp extends AuditoriaBean implements Validador, Serializab
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
+		if(expediente == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Expediente"});
+		}
+		if(this.numeroTelefonico == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Número Telefónico"});
+		}
+		if(estado == null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Estado"});
+		}
+		if(situacion== null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Situacion"});
+		}
 		
 	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DetPerTelExp other = (DetPerTelExp) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

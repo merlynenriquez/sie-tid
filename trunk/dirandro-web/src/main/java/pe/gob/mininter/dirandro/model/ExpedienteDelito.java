@@ -86,13 +86,17 @@ public class ExpedienteDelito extends AuditoriaBean implements Validador, Serial
 
 	@Override
 	public void validar() {
-		if( this.prioridad==null )
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Prioridad"});
-		}
 		if (expediente == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Expediente" });
 		}
+		if( this.delito==null )
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Delito"});
+		}
+		if( this.prioridad==null )
+		{
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Prioridad"});
+		}		
 	}
 
 	public boolean esNuevo(){
