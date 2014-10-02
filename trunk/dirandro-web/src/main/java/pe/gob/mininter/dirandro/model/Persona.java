@@ -14,12 +14,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -29,7 +28,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="PER_PERSONA")
-public class Persona extends AuditoriaBean implements Validador, Serializable {
+public class Persona extends AuditoriaBean implements Serializable {
 	
 	/**
 	 * 
@@ -43,9 +42,11 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	private Long id;
 
 	@Column(name="APE_MATERNO", length=200)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String apeMaterno;
 
 	@Column(name="APE_PATERNO", length=200)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String apePaterno;
 
 	@Temporal(TemporalType.DATE)
@@ -53,12 +54,15 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	private Date fecNacimiento;
 
 	@Column(length=300)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String nombres;
 
 	@Column(name="NRO_DOCUMENTO", length=40)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String nroDocumento;
 
 	@Column(length=2)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String sexo;
 
 	//bi-directional many-to-one association to Valor
@@ -69,6 +73,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="NACIONALIDAD")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Pais nacionalidad;
 
 	//bi-directional many-to-one association to Valor
@@ -79,6 +84,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DOCUMENTO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor tipoDocumento;
 
 	//bi-directional many-to-one association to Persona
@@ -202,7 +208,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 		this.lugarNacimiento = lugarNacimiento;
 	}
 
-	@Override
+	/*@Override
 	public void validar() {
 		if (tipoDocumento == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Documento" });
@@ -222,7 +228,7 @@ public class Persona extends AuditoriaBean implements Validador, Serializable {
 		if (nacionalidad == null || nacionalidad.getId() == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Nacionalidad" });
 		}
-	}
+	}*/
 	
 	public String getNombreCompleto(){
 		return this.nombres + " " + this.apePaterno + " " + this.apeMaterno;

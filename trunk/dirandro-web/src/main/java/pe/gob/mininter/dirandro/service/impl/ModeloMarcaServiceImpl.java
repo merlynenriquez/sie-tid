@@ -37,7 +37,7 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 
 	@Override
 	public List<ModeloMarca> buscar(ModeloMarca modeloMarca) {
-		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);		 
+		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);
 		if (modeloMarca!=null){
 			if(modeloMarca.getNombre()!= null ){
 				filtro.add(Restrictions.ilike("nombre",modeloMarca.getNombre(),MatchMode.ANYWHERE));
@@ -199,4 +199,12 @@ public class ModeloMarcaServiceImpl extends BaseServiceImpl<ModeloMarca, Long> i
 		return lstModelos;		
 	}
 
+	
+	@Override
+	public List<ModeloMarca> buscarPadres() {
+		Busqueda filtro = Busqueda.forClass(ModeloMarca.class);
+		filtro.add(Restrictions.isNull("padre"));
+		List<ModeloMarca> lstPadres = modeloMarcaHibernate.buscar(filtro);
+		return lstPadres;
+	}
 }

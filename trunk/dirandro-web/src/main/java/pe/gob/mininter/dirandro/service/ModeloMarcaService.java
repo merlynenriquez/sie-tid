@@ -23,4 +23,6 @@ public interface ModeloMarcaService extends BaseService<ModeloMarca,Long>{
 	public List<ModeloMarca> buscarPadres(ModeloMarca modeloMarca,Valor valor);
 	
 	public List<ModeloMarca> buscarHijos(ModeloMarca modelo);
+	
+	public List<ModeloMarca> buscarPadres();
 }

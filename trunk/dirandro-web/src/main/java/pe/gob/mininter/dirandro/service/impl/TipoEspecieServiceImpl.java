@@ -38,16 +38,7 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(TipoEspecie tipoEspecie) {
-		tipoEspecie.validar();
-		Busqueda filtro = Busqueda.forClass(TipoEspecie.class);
-		/*filtro.add(Restrictions.eq("nombres", object.getNombres()));
-		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
-		/*if (PoliciaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_Policia_EXISTENTE,
-					new Object[] { object.getNombres() });
-		}*/
-		if(tipoEspecie.getPadre()!=null && tipoEspecie.getPadre().getId()!=null){
+		if (tipoEspecie.getPadre() != null && tipoEspecie.getPadre().getId() != null) {
 			if(tipoEspecie.getId().equals(tipoEspecie.getPadre().getId())){
 				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_BUCLE_PADRE, new Object[] { tipoEspecie.getNombre() });
 			}
@@ -65,9 +56,7 @@ public class TipoEspecieServiceImpl extends BaseServiceImpl<TipoEspecie, Long> i
 	public Map<String, List<TipoEspecie>> listarTipoEspecieMap(){
 		Busqueda filtro = Busqueda.forClass(TipoEspecie.class);
 		
-		filtro.addOrder(Order.asc("id"));
-		filtro.addOrder(Order.asc("padre"));
-		
+		filtro.addOrder(Order.asc("nombre"));
 		List<TipoEspecie> tipos = tipoEspecieHibernate.buscar(filtro);
 		return HarecUtil.ordenarTipoEspecie(tipos);
 	}

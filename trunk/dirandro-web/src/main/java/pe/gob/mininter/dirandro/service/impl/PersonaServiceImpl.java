@@ -38,7 +38,6 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona, Long> implement
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(Persona object) {
-		object.validar();
 		Busqueda filtro = Busqueda.forClass(Persona.class);
 		filtro.add(Restrictions.eq("nombres", object.getNombres()));
 		if (personaHibernate.buscar(filtro).size()>0) {
@@ -52,7 +51,6 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona, Long> implement
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(Persona object) {
-		object.validar();
 		Busqueda filtro = Busqueda.forClass(Persona.class);
 		filtro.add(Restrictions.eq("nombres", object.getNombres()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));

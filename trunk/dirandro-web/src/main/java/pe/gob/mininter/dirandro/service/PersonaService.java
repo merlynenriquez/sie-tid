@@ -8,7 +8,9 @@ import pe.gob.mininter.dirandro.model.Persona;
 public interface PersonaService extends BaseService<Persona,Long>{
 	
 	public List<Persona> buscar(Persona persona);
-	Map<String,List<Persona>> listarPersonas();
+	
+	public Map<String,List<Persona>> listarPersonas();
+	
 	public Persona obtener(Long id);	
 	
 }

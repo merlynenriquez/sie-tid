@@ -24,8 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.vaadin.ui.Window;
-
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Delito;
 import pe.gob.mininter.dirandro.model.Dependencia;
@@ -38,6 +36,8 @@ import pe.gob.mininter.dirandro.model.TipoEspecie;
 import pe.gob.mininter.dirandro.model.TipoHecho;
 import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.model.Valor;
+
+import com.vaadin.ui.Window;
 
 public abstract class HarecUtil {
 	
@@ -635,7 +635,7 @@ public abstract class HarecUtil {
 	    for (BeanValidar validar : listValidar) {
 	    Set<ConstraintViolation<Object>> constraintViolations = validator.validateProperty(object, validar.getPropiedad());
 	    for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
-	        if(validar.getObjecto()!=null){
+			if (validar.getObjecto() != null) {
 	                validar.getObjecto().focus();
 	        }
 	        throw new ValidacionException(constraintViolation.getMessage(),validar.getArgs());

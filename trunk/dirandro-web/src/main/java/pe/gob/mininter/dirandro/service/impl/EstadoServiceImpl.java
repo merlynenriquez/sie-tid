@@ -33,7 +33,7 @@ public class EstadoServiceImpl extends BaseServiceImpl<Estado, Long> implements 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(Estado object) {
-		//object.validar();
+		object.validar();
 		Busqueda filtro = Busqueda.forClass(Estado.class);
 		filtro.add(Restrictions.eq("codigo", object.getNombre()));
 		if (estadoHibernate.buscar(filtro).size()>0) {
@@ -47,7 +47,7 @@ public class EstadoServiceImpl extends BaseServiceImpl<Estado, Long> implements 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(Estado object) {
-		//object.validar();
+		object.validar();
 		Busqueda filtro = Busqueda.forClass(Estado.class);
 		filtro.add(Restrictions.eq("codigo", object.getNombre()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));

@@ -30,14 +30,13 @@ public class ExpedientePersonaServiceImpl extends BaseServiceImpl<DetExpedienteP
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(DetExpedientePersona object) {
-		//object.validar();
+		//TODO: Validar las restricciones
 		super.crear(object);
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(DetExpedientePersona object) {
-		object.validar();
 		expPersonaHibernate.actualizar(object);
 	}
 
