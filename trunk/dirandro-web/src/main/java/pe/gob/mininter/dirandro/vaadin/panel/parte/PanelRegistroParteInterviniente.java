@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Expediente;
@@ -17,7 +18,9 @@ import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.ExpedientePersonaService;
 import pe.gob.mininter.dirandro.service.OrganizacionService;
 import pe.gob.mininter.dirandro.service.PersonaService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarEmpresa;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarPersona;
@@ -391,6 +394,15 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		detExpedientePersona.setOcupacion(cmbInterOcupacion.getValor());
 		detExpedientePersona.setSituacion(cmbInterSituacion.getValor());
 		detExpedientePersona.setIntervencion((Date) dtInterFechaInter.getValue());
+		
+		if(cmbIntervinientes.getValue()==null){
+			cmbIntervinientes.focus();
+                throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX,new Object[]{"Involucrado"});
+        }
+        HarecUtil.validar(getWindow(), detExpedientePersona, 
+                        new BeanValidar[]{new BeanValidar("estadoDato", new Object[]{"Estado del dato"}, cmbInterEstadoDato),
+                                new BeanValidar("intervencion", new Object[]{"Fecha de intervención"}, dtInterFechaInter),
+                                new BeanValidar("situacion", new Object[]{"Situacion"}, cmbInterSituacion)});
 		
 		expedientePersonaService.crear(detExpedientePersona);	
 		

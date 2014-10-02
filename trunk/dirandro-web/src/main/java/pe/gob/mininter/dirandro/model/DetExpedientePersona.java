@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -38,10 +39,12 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 
 	@ManyToOne
 	@JoinColumn(name="ESTADO_DATO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor estadoDato;
 
 	@Column(name="INTERVENCION")
 	@Temporal( TemporalType.TIMESTAMP)
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private Date intervencion;
 
 	//bi-directional many-to-one association to Valor
@@ -55,6 +58,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Validador, Se
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to Valor

@@ -30,7 +30,7 @@ public class ExpedientePersonaServiceImpl extends BaseServiceImpl<DetExpedienteP
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(DetExpedientePersona object) {
-		object.validar();
+		//object.validar();
 		super.crear(object);
 	}
 	
