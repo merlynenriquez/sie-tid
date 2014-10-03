@@ -2,7 +2,6 @@ package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -28,11 +25,8 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="ORG_INTEGRANTE")
-public class Integrante extends AuditoriaBean implements Validador, Serializable {
+public class Integrante extends AuditoriaBean implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8006992786865932374L;
 
 	@Id
@@ -45,14 +39,6 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	@Column(name="ES_LIDER", precision=22)
 	private BigDecimal esLider;
 
-	/*//bi-directional many-to-one association to Expediente
-	@OneToMany(mappedBy="orgIntegrante")
-	private List<Expediente> expExpedientes;
-
-	//bi-directional many-to-one association to Ruta
-	@OneToMany(mappedBy="orgIntegrante")
-	private List<Ruta> expRutas;*/
-
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="FUNCION")
@@ -63,16 +49,16 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	@JoinColumn(name="ESTADO", nullable=false)
 	private Valor estado;
 
-	//bi-directional many-to-one association to Equipo
+	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="EQUIPO", nullable=false)
-	private Equipo equipo;
+	@JoinColumn(name="POLICIA", nullable=false)
+	private Policia policia;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="INTEGRANTE", nullable=false)
-	private Usuario usuario;
-
+	@JoinColumn(name="DEPENDENCIA", nullable=false)
+	private Dependencia dependencia;
+	
 	public Integrante() {
 	}
 
@@ -92,22 +78,6 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 		this.esLider = esLider;
 	}
 
-	/*public List<Expediente> getExpExpedientes() {
-		return expExpedientes;
-	}
-
-	public void setExpExpedientes(List<Expediente> expExpedientes) {
-		this.expExpedientes = expExpedientes;
-	}
-
-	public List<Ruta> getExpRutas() {
-		return expRutas;
-	}
-
-	public void setExpRutas(List<Ruta> expRutas) {
-		this.expRutas = expRutas;
-	}*/
-
 	public Valor getFuncion() {
 		return funcion;
 	}
@@ -123,32 +93,26 @@ public class Integrante extends AuditoriaBean implements Validador, Serializable
 	public void setEstado(Valor estado) {
 		this.estado = estado;
 	}
-	
-	public Equipo getEquipo() {
-		return equipo;
+
+	public Policia getPolicia() {
+		return policia;
 	}
 
-	public void setEquipo(Equipo equipo) {
-		this.equipo = equipo;
+	public void setPolicia(Policia policia) {
+		this.policia = policia;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Dependencia getDependencia() {
+		return dependencia;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
 	}
 
 	@Transient
 	public String getNombreCompletoIntegrante() {
-		return usuario != null ? usuario.getNombreCompleto() : StringUtils.EMPTY;
-	}
-
-	@Override
-	public void validar() {
-		// TODO Auto-generated method stub
-		
+		return policia != null ? policia.getNombreCompleto() : StringUtils.EMPTY;
 	}
 
 	@Override

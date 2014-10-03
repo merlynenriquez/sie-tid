@@ -34,7 +34,7 @@ public class DetPerTelExp extends AuditoriaBean implements Validador, Serializab
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
-	@Column(length=500)
+	@Column(length=4000)
 	private String observacion;
 	
 	//bi-directional many-to-one association to Valor

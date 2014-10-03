@@ -45,20 +45,11 @@ public class IntegranteServiceImpl extends BaseServiceImpl<Integrante, Long> imp
 			if (integrante.getId() != null) {
 				filtro.add(Restrictions.eq("id", integrante.getId()));
 			}
-			if (integrante.getEquipo() != null && integrante.getEquipo().getId() != null) {
-				filtro.createAlias("equipo", "t");
-				filtro.add(Restrictions.eq("t.id", integrante.getEquipo().getId()));
-			}
+			
 			if (integrante.getEstado() != null && integrante.getEstado().getNombre() != null) {
 				filtro.createAlias("estado", "e");
 				filtro.add(Restrictions.ilike("e.nombre",integrante.getEstado().getNombre(), MatchMode.ANYWHERE));
-			}
-			if (integrante.getUsuario() != null && integrante.getUsuario().getNombres() != null) {
-				filtro.createAlias("integrante", "u");
-				filtro.add(Restrictions.or(Restrictions.ilike("u.nombres", integrante.getUsuario().getNombres(), MatchMode.ANYWHERE), Restrictions.or(Restrictions.ilike("u.apeMat", integrante.getUsuario().getNombres(), MatchMode.ANYWHERE),
-						Restrictions.or(Restrictions.ilike("u.apePat",integrante.getUsuario().getNombres(),MatchMode.ANYWHERE), Restrictions.ilike("u.usuario", integrante.getUsuario().getNombres(), MatchMode.ANYWHERE))))
-				);
-			}
+			}			
 		}
 		
 		filtro.createAlias("estado", "e");
