@@ -39,6 +39,10 @@ public class Policia implements Serializable {
 	@OneToMany(mappedBy="perPolicia")
 	private List<Hojaremision> hrHojaremisions;
 
+	//bi-directional many-to-one association to Integrante
+	@OneToMany(mappedBy="perPolicia")
+	private List<Integrante> orgIntegrantes;
+
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="CARGO")
@@ -139,6 +143,28 @@ public class Policia implements Serializable {
 		hrHojaremision.setPerPolicia(null);
 
 		return hrHojaremision;
+	}
+
+	public List<Integrante> getOrgIntegrantes() {
+		return this.orgIntegrantes;
+	}
+
+	public void setOrgIntegrantes(List<Integrante> orgIntegrantes) {
+		this.orgIntegrantes = orgIntegrantes;
+	}
+
+	public Integrante addOrgIntegrante(Integrante orgIntegrante) {
+		getOrgIntegrantes().add(orgIntegrante);
+		orgIntegrante.setPerPolicia(this);
+
+		return orgIntegrante;
+	}
+
+	public Integrante removeOrgIntegrante(Integrante orgIntegrante) {
+		getOrgIntegrantes().remove(orgIntegrante);
+		orgIntegrante.setPerPolicia(null);
+
+		return orgIntegrante;
 	}
 
 	public Valor getCfgValor1() {
