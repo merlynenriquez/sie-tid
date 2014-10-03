@@ -21,6 +21,7 @@ import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
+import pe.gob.mininter.dirandro.vaadin.panel.PanelAbogadoPersona;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarEmpresa;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarPersona;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
@@ -118,6 +119,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 	private static final String COLUMN_SITUACION = "COLUMN_SITUACION";
 	private static final String COLUMN_ALIAS = "COLUMN_ALIAS";
 	private static final String COLUMN_EXP_INTERVINIENTE = "COLUMN_EXP_INTERVINIENTE";
+	private static final String COLUMN_ABOGADOS = "COLUMN_ABOGADOS";
 
 	public PanelRegistroParteInterviniente() {
 		buildMainLayout();
@@ -230,6 +232,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		container.addContainerProperty(COLUMN_SITUACION, String.class, null);
 		container.addContainerProperty(COLUMN_ALIAS, String.class, null);
 		container.addContainerProperty(COLUMN_EXP_INTERVINIENTE, DetExpedientePersona.class, null);
+		container.addContainerProperty(COLUMN_ABOGADOS, Button.class, null);
 
 		tblIntervinientes.setContainerDataSource(container);
 
@@ -241,21 +244,23 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		tblIntervinientes.setColumnHeader(COLUMN_FECHA_INTERVENCION, "Fecha Intervención");
 		tblIntervinientes.setColumnHeader(COLUMN_SITUACION, "Siguación"); 
 		tblIntervinientes.setColumnHeader(COLUMN_ALIAS, "Alias");
+		tblIntervinientes.setColumnHeader(COLUMN_ABOGADOS, "");
 
 		tblIntervinientes.setVisibleColumns(new Object[] {
 				COLUMN_TIPO_INTERVINIENTE, COLUMN_INTERVINIENTE,
 				COLUMN_ESTADO_DATO, COLUMN_ORGANIZACION, COLUMN_OCUPACION,
-				COLUMN_FECHA_INTERVENCION, COLUMN_SITUACION, COLUMN_ALIAS });
+				COLUMN_FECHA_INTERVENCION, COLUMN_SITUACION, COLUMN_ALIAS, COLUMN_ABOGADOS });
 
 		tblIntervinientes.setColumnWidth(COLUMN_TIPO_INTERVINIENTE, 60);
-		tblIntervinientes.setColumnWidth(COLUMN_INTERVINIENTE, 150);
-		tblIntervinientes.setColumnWidth(COLUMN_ESTADO_DATO, 100);
-		tblIntervinientes.setColumnWidth(COLUMN_ORGANIZACION, 100);
-		tblIntervinientes.setColumnWidth(COLUMN_OCUPACION, 100);																																																																																																																																																																																																																																																																																																																																																																								
+		tblIntervinientes.setColumnWidth(COLUMN_INTERVINIENTE, 140);
+		tblIntervinientes.setColumnWidth(COLUMN_ESTADO_DATO, 90);
+		tblIntervinientes.setColumnWidth(COLUMN_ORGANIZACION, 90);
+		tblIntervinientes.setColumnWidth(COLUMN_OCUPACION, 90);																																																																																																																																																																																																																																																																																																																																																																								
 		 
 		tblIntervinientes.setColumnWidth(COLUMN_FECHA_INTERVENCION, 80);
 		tblIntervinientes.setColumnWidth(COLUMN_SITUACION, 100);
-		tblIntervinientes.setColumnWidth(COLUMN_ALIAS, 100);
+		tblIntervinientes.setColumnWidth(COLUMN_ALIAS, 90);
+		tblIntervinientes.setColumnWidth(COLUMN_ABOGADOS, 50);
 	}
 
 	public void cargarIntervinientes() {
@@ -277,6 +282,25 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 			item.getItemProperty(COLUMN_SITUACION).setValue(interviniente.getSituacion() != null ? interviniente.getSituacion().getNombre() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMN_ALIAS).setValue(interviniente.getAlias());
 			item.getItemProperty(COLUMN_EXP_INTERVINIENTE).setValue(interviniente);
+			Button abogado=new Button();
+			abogado.setCaption("Agregar");
+			abogado.addListener(new ClickListener() {
+				
+				@Override
+				public void buttonClick(ClickEvent event) {
+					PanelAbogadoPersona panelAbogadoPersona=new PanelAbogadoPersona();
+					Window wdAbogado = new Window();
+					
+					wdAbogado.setModal(false);
+					wdAbogado.setResizable(false);
+					wdAbogado.addComponent(panelAbogadoPersona);
+						
+					wdAbogado.setCaption("Abogados");
+					wdAbogado.setWidth("1050px");
+					getApplication().getMainWindow().getWindow().addWindow(wdAbogado);
+				}
+			});
+			item.getItemProperty(COLUMN_ABOGADOS).setValue(abogado);
 		}
 	}
 

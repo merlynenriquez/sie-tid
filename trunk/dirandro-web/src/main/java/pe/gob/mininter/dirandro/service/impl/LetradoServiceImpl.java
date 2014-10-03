@@ -52,18 +52,24 @@ public class LetradoServiceImpl extends BaseServiceImpl<Letrado, Long> implement
 	public List<Letrado> buscar(Letrado letrado) {
 		Busqueda filtro = Busqueda.forClass(Letrado.class);
 		if (letrado != null) {
-			
-			filtro.createAlias("perPersona", "per");
-						
-			if (letrado.getPersona().getNombres() != null) {
-				filtro.add(Restrictions.ilike("per.nombres",letrado.getPersona().getNombres() , MatchMode.ANYWHERE));
+			if(letrado.getPersona()!=null){
+				filtro.createAlias("perPersona", "per");
+				if (letrado.getPersona().getNombres() != null) {
+					filtro.add(Restrictions.ilike("per.nombres",letrado.getPersona().getNombres() , MatchMode.ANYWHERE));
+				}
+				if (letrado.getPersona().getApePaterno() != null) {
+					filtro.add(Restrictions.ilike("per.apePaterno",letrado.getPersona().getApePaterno() , MatchMode.ANYWHERE));
+				}
+				
+				if (letrado.getPersona().getNroDocumento()!= null) {
+					filtro.add(Restrictions.ilike("per.nroDocumento", letrado.getPersona().getNroDocumento(), MatchMode.ANYWHERE));
+				}
 			}
-			if (letrado.getPersona().getApePaterno() != null) {
-				filtro.add(Restrictions.ilike("per.apePaterno",letrado.getPersona().getApePaterno() , MatchMode.ANYWHERE));
-			}
-			
-			if (letrado.getPersona().getNroDocumento()!= null) {
-				filtro.add(Restrictions.ilike("per.nroDocumento", letrado.getPersona().getNroDocumento(), MatchMode.ANYWHERE));
+			if(letrado.getTipo()!=null){
+				filtro.createAlias("tipo", "t");
+				if(letrado.getTipo().getCodigo()!=null){
+					filtro.add(Restrictions.eq("t.codigo", letrado.getTipo().getCodigo()));
+				}
 			}
 		}
 		//filtro.addOrder(Order.asc("codigo"));
