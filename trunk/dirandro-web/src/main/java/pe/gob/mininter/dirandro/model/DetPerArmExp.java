@@ -12,12 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
-
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -27,7 +24,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_DET_PER_ARM_EXP")
-public class DetPerArmExp extends AuditoriaBean implements Validador, Serializable {
+public class DetPerArmExp extends AuditoriaBean implements Serializable {
 	
 	/**
 	 * 
@@ -52,16 +49,19 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor estado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to Arma
 	@ManyToOne
 	@JoinColumn(name="ARMA")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Arma arma;
 
 	//bi-directional many-to-one association to Expediente
@@ -178,7 +178,7 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 	public void setNroLicencia(String nroLicencia) {
 		this.nroLicencia = nroLicencia;
 	}
-
+/*
 	@Override
 	public void validar() {
 		if (arma == null) {
@@ -188,7 +188,7 @@ public class DetPerArmExp extends AuditoriaBean implements Validador, Serializab
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Expediente" });
 		}
 	}
-
+*/
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
 	}

@@ -12,12 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -27,7 +26,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_INMUEBLE")
-public class Inmueble extends AuditoriaBean implements Validador, Serializable {
+public class Inmueble extends AuditoriaBean implements Serializable {
 	
 	/**
 	 * 
@@ -41,12 +40,14 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 	private Long id;
 
 	@Column(length=2000)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String descripcion;
 
 	@Column(precision=10, scale=2)
 	private BigDecimal dimension;
 
 	@Column(length=1000)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String direccion;
 
 	@Column(length=100)
@@ -68,6 +69,7 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 	private String resolucion;
 
 	@Column(length=400)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String urbanizacion;
 
 	@Column(name="VALOR_BIEN", precision=10, scale=2)
@@ -79,11 +81,13 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DIRECCION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor tipoDireccion;
 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="UBICACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Distrito ubgDistrito;
 
 	public Inmueble() {
@@ -208,7 +212,7 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 	public void setValorTerreno(Double valorTerreno) {
 		this.valorTerreno = valorTerreno;
 	}
-
+/*
 	@Override
 	public void validar() {
 		if(StringUtils.isBlank( this.descripcion ))
@@ -224,7 +228,11 @@ public class Inmueble extends AuditoriaBean implements Validador, Serializable {
 		}
 	}
 
-
+*/
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

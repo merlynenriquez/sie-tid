@@ -12,12 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -27,7 +26,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_INSTALACION")
-public class Instalacion extends AuditoriaBean implements Validador, Serializable {
+public class Instalacion extends AuditoriaBean implements Serializable {
 	
 	/**
 	 * 
@@ -59,6 +58,7 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	private String longitud;
 
 	@Column(length=400)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String nombre;
 
 	@Column(precision=4)
@@ -70,11 +70,13 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor tipo;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to CentroPoblado
@@ -90,6 +92,7 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	//bi-directional many-to-one association to Organizacion
 	@ManyToOne
 	@JoinColumn(name="ORGANIZACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Organizacion organizacionDelictiva;
 
 	//bi-directional many-to-one association to Distrito
@@ -100,10 +103,6 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	public Instalacion() {
 	}
 
-	public boolean esNuevo(){
-		return id == null || id.longValue() == 0;
-	}
-	
 	public Long getId() {
 		return id;
 	}
@@ -231,7 +230,7 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 	public void setDistrito(Distrito distrito) {
 		this.distrito = distrito;
 	}
-
+/*
 	@Override
 	public void validar() {
 		if(StringUtils.isBlank( nombre ))
@@ -241,6 +240,35 @@ public class Instalacion extends AuditoriaBean implements Validador, Serializabl
 		if (organizacionDelictiva == null || organizacionDelictiva.getId() == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Organizacion Delictiva" });
 		}
+	}*/
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Instalacion other = (Instalacion) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

@@ -12,12 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -27,7 +26,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_DET_PER_INM_EXP")
-public class DetPerInmExp extends AuditoriaBean implements Validador, Serializable {
+public class DetPerInmExp extends AuditoriaBean implements Serializable {
 
 	private static final long serialVersionUID = 8063743236030806260L;
 
@@ -42,6 +41,7 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 	private BigDecimal numeroPisos;
 
 	@Column(name="TIPO_USO", length=400)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String tipoUso;
 
 	//bi-directional many-to-one association to Expediente
@@ -52,6 +52,7 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to Persona
@@ -62,8 +63,8 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 	//bi-directional many-to-one association to Inmueble
 	@ManyToOne
 	@JoinColumn(name="INMUEBLE")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Inmueble inmueble;
-
 
 	public DetPerInmExp() {
 	}
@@ -76,10 +77,6 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 		this.id = id;
 	}	
 
-	public boolean esNuevo(){
-		return id == null || id.longValue() == 0;
-	}
-	
 	public BigDecimal getNumeroPisos() {
 		return this.numeroPisos;
 	}
@@ -128,19 +125,32 @@ public class DetPerInmExp extends AuditoriaBean implements Validador, Serializab
 		this.inmueble = inmueble;
 	}
 
-	@Override
-	public void validar() {
-		if(StringUtils.isBlank( this.tipoUso ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Tipo de Uso"});
-		}
-		
-		if ( this.inmueble == null || this.inmueble.getId() == null) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Inmueble" });
-		}
-		if ( this.expediente== null || this.expediente.getId() == null) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Expediente" });
-		}
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DetPerInmExp other = (DetPerInmExp) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

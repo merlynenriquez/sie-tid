@@ -11,12 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -26,7 +25,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_EXPLOSIVOS")
-public class Explosivo extends AuditoriaBean implements Validador, Serializable {
+public class Explosivo extends AuditoriaBean implements Serializable {
 	
 	/**
 	 * 
@@ -40,6 +39,7 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	private Long id;
 
 	@Column(length=500)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String descripcion;
 
 	@Column(precision=10, scale=4)
@@ -57,6 +57,7 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to Valor
@@ -67,6 +68,7 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor estado;
 
 	//bi-directional many-to-one association to Expediente
@@ -77,6 +79,7 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private ModeloMarca marca;
 
 	//bi-directional many-to-one association to Empresa
@@ -198,17 +201,6 @@ public class Explosivo extends AuditoriaBean implements Validador, Serializable 
 
 	public void setTipoMedida(ModeloMarca tipoMedida) {
 		this.tipoMedida = tipoMedida;
-	}
-
-	@Override
-	public void validar() {
-		if(StringUtils.isBlank( descripcion ))
-		{
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Descripcion"});
-		}
-		if (expediente == null) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Expediente" });
-		}
 	}
 
 	public boolean esNuevo(){

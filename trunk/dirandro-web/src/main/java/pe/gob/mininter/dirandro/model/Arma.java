@@ -11,10 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -24,7 +23,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_ARMAS")
-public class Arma extends AuditoriaBean implements Validador, Serializable {
+public class Arma extends AuditoriaBean implements Serializable {
 	
 	private static final long serialVersionUID = 5081528737398160530L;
 
@@ -48,11 +47,13 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="EST_SERIE")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor estadoSerie;
 
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MODELO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private ModeloMarca modelo;
 
 	public Arma() {
@@ -105,7 +106,7 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 	public void setModelo(ModeloMarca modelo) {
 		this.modelo = modelo;
 	}
-
+/*
 	@Override
 	public void validar() {
 		if ( this.modelo== null || this.modelo.getId() == null) {
@@ -122,10 +123,14 @@ public class Arma extends AuditoriaBean implements Validador, Serializable {
 		{
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Dirección"});
 		}
-		*/
+		* /
+	}
+	*/
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
 	}
 	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

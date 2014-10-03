@@ -15,6 +15,7 @@ import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.MunicionService;
 import pe.gob.mininter.dirandro.service.PersonaService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
@@ -135,12 +136,16 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 	public void postConstruct() {
 		if(expediente!=null && !expediente.esNuevo() && !inicializado){
 			cmbMuniEstado.setInputPrompt("Estado");
+			cmbMuniEstado.setRequired(true);
 			cmbMuniEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
 			cmbMuniEstado.attach();
+			
 			cmbCalibre.setInputPrompt("Calibre");
 			cmbCalibre.setCodigoLista(Constante.LISTA.CODIGO.TIPO_CALIBRE);
 			cmbCalibre.attach();
+			
 			cmbMuniSituacion.setInputPrompt("Situacion");
+			cmbMuniSituacion.setRequired(true);
 			cmbMuniSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 			cmbMuniSituacion.attach();
 			
@@ -309,24 +314,24 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 			item.getItemProperty("persona.nombre").setValue(municion.getPersonaImplicada()!=null?HarecUtil.nullToEmpty(municion.getPersonaImplicada().getNombreCompleto()):null);
 			item.getItemProperty("empresa.id").setValue(municion.getEmpresaImplicada()!=null?HarecUtil.nullToEmpty(municion.getEmpresaImplicada().getId()):null);
 			item.getItemProperty("empresa.nombre").setValue(municion.getEmpresaImplicada()!=null?HarecUtil.nullToEmpty(municion.getEmpresaImplicada().getRazonSocial()):null);
-			item.getItemProperty("calibre.id").setValue(HarecUtil.nullToEmpty(municion.getCalibre().getId()));
-			item.getItemProperty("calibre.nombre").setValue(HarecUtil.nullToEmpty(municion.getCalibre().getNombre()));
+			item.getItemProperty("calibre.id").setValue(HarecUtil.valorIdToEmpty(municion.getCalibre()));
+			item.getItemProperty("calibre.nombre").setValue(HarecUtil.valorNombreToEmpty(municion.getCalibre()));
 			
 			if(municion.getMarca()!=null){
-				item.getItemProperty("tipo.id").setValue(municion.getMarca().getPadre()!=null?HarecUtil.nullToEmpty(municion.getMarca().getPadre().getId()):null);
-				item.getItemProperty("tipo.nombre").setValue(municion.getMarca().getPadre()!=null?HarecUtil.nullToEmpty(municion.getMarca().getPadre().getNombre()):null);
+				item.getItemProperty("tipo.id").setValue(HarecUtil.marcaModeloIdToEmpty(municion.getMarca().getPadre()));
+				item.getItemProperty("tipo.nombre").setValue(HarecUtil.marcaModeloNombreToEmpty(municion.getMarca().getPadre()));
 			}
 			
-			item.getItemProperty("marca.id").setValue(municion.getMarca()!=null?HarecUtil.nullToEmpty(municion.getMarca().getId()):null);
-			item.getItemProperty("marca.nombre").setValue(municion.getMarca()!=null?HarecUtil.nullToEmpty(municion.getMarca().getNombre()):null);
-				
-			item.getItemProperty("tipoMedida.id").setValue(municion.getTipoMedida()!=null?HarecUtil.nullToEmpty(municion.getTipoMedida().getId()):null);
-			item.getItemProperty("tipoMedida.nombre").setValue(municion.getTipoMedida()!=null?HarecUtil.nullToEmpty(municion.getTipoMedida().getNombre()):null);
+			item.getItemProperty("marca.id").setValue(HarecUtil.marcaModeloIdToEmpty(municion.getMarca()));
+			item.getItemProperty("marca.nombre").setValue(HarecUtil.marcaModeloNombreToEmpty(municion.getMarca()));
 			
-			item.getItemProperty("situacion.id").setValue(HarecUtil.nullToEmpty(municion.getSituacion().getId()));
-			item.getItemProperty("situacion.nombre").setValue(HarecUtil.nullToEmpty(municion.getSituacion().getNombre()));
-			item.getItemProperty("estado.id").setValue(HarecUtil.nullToEmpty(municion.getEstado().getId()));
-			item.getItemProperty("estado.nombre").setValue(HarecUtil.nullToEmpty(municion.getEstado().getNombre()));
+			item.getItemProperty("tipoMedida.id").setValue(HarecUtil.marcaModeloIdToEmpty(municion.getTipoMedida()));
+			item.getItemProperty("tipoMedida.nombre").setValue(HarecUtil.marcaModeloNombreToEmpty(municion.getTipoMedida()));
+			
+			item.getItemProperty("situacion.id").setValue(HarecUtil.valorIdToEmpty(municion.getSituacion()));
+			item.getItemProperty("situacion.nombre").setValue(HarecUtil.valorNombreToEmpty(municion.getSituacion()));
+			item.getItemProperty("estado.id").setValue(HarecUtil.valorIdToEmpty(municion.getEstado()));
+			item.getItemProperty("estado.nombre").setValue(HarecUtil.valorNombreToEmpty(municion.getEstado()));
 			item.getItemProperty("medida").setValue(HarecUtil.nullToEmpty(municion.getMedida()));
 			item.getItemProperty("cantidad").setValue(HarecUtil.nullToEmpty(municion.getCantidad()));
 			item.getItemProperty("descripcion").setValue(HarecUtil.nullToEmpty(municion.getDescripcion()));
@@ -389,13 +394,23 @@ public class PanelRegistroParteMunicion extends CustomComponent implements Click
 			municion.setEstado(cmbMuniEstado.getValor());
 			municion.setSituacion(cmbMuniSituacion.getValor());
 			municion.setTipoMedida((ModeloMarca)cmbMuniTipoMedida.getValue());
+			
+			HarecUtil.validar(getWindow(), municion, new BeanValidar[]{
+	        	new BeanValidar("marca", new Object[]{"Marca"}, cmbMuniMarca),
+	        	new BeanValidar("descripcion", new Object[]{"Descripción"}, txtMuniDescripcion),
+	        	new BeanValidar("estado", new Object[]{"Estado"}, cmbMuniEstado),
+	        	new BeanValidar("situacion", new Object[]{"Situación"}, cmbMuniSituacion)
+	        });
+			
 			if(municion.getId()==0)
 				municionService.crear(municion);
 			else
 				municionService.actualizar(municion);
-			refrescar();
+			
 			AlertDialog alertDialog = new  AlertDialog("Registro de Munición", "Se ha registrado la munición correctamente", "Aceptar", "400");
 			getApplication().getMainWindow().addWindow(alertDialog);
+			
+			refrescar();
 			
 		}
 		

@@ -8,6 +8,7 @@ import pe.gob.mininter.dirandro.model.Arma;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.service.ArmaService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
@@ -166,12 +167,19 @@ public class PanelAgregarArmas extends CustomComponent  implements ClickListener
 			arma.setModelo((ModeloMarca)cmbModelo.getValue());
 			arma.setNroSerie(HarecUtil.nullToEmpty(txtSerie.getValue()));
 			
+			HarecUtil.validar(getWindow(), arma, new BeanValidar[]{
+	        	new BeanValidar("modelo", new Object[]{"Clasificación / Marca / Modelo"}, cmbModelo),					
+	        	new BeanValidar("estadoSerie", new Object[]{"Estado de la serie"}, cmbSerieEstado)
+	        });
+	        
+	        logger.debug("grabar arma");
 			armaService.crear(arma);
 			
 			AlertDialog alertDialog = new  AlertDialog("Registro de Arma", "Se ha registrado el arma correctamente", "Aceptar", "400");
 			getApplication().getMainWindow().addWindow(alertDialog);
 			padre.actualizarArmas(arma);
-			 getApplication().getMainWindow().removeWindow(getWindow());
+			getApplication().getMainWindow().removeWindow(getWindow());
+			
 		}else{
 			 getApplication().getMainWindow().removeWindow(getWindow());
 		}
