@@ -191,8 +191,10 @@ create table SIETID.EXP_ARMAS
 (
    ID                   NUMBER(16)           not null,
    MODELO               NUMBER(16),
+   CLASIFICACION        NUMBER(16),
    EST_SERIE            NUMBER(16),
    NRO_SERIE            NVARCHAR2(50),
+   NRO_LICENCIA         NVARCHAR2(10),
    CALIBRE              NUMBER(16),
    INTERNAMIENTO        NVARCHAR2(50),
    CREADOR              NUMBER(16)           not null,
@@ -213,11 +215,18 @@ comment on column SIETID.EXP_ARMAS.MODELO is
 'Identificador del modelo del arma
 ';
 
+comment on column SIETID.EXP_ARMAS.CLASIFICACION is
+'Identificador de la clasificación: escopeta, fusil, revolver
+';
+
 comment on column SIETID.EXP_ARMAS.EST_SERIE is
 'Identificador del estado de la serie del arma';
 
 comment on column SIETID.EXP_ARMAS.NRO_SERIE is
 'Número del serie del arma';
+
+comment on column SIETID.EXP_ARMAS.NRO_LICENCIA is
+'Número de licencia del arma';
 
 comment on column SIETID.EXP_ARMAS.CALIBRE is
 'Número de calibre del arma';
@@ -568,7 +577,6 @@ create table SIETID.EXP_DET_PER_ARM_EXP
    OBSERVACION          NVARCHAR2(2000),
    SITUACION            NUMBER(16),
    CANTIDAD_MUNICION    NUMBER(10),
-   NRO_LICENCIA         NVARCHAR2(50),
    ESTADO               NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -1371,9 +1379,9 @@ create table SIETID.EXP_IMPORTES
    TIPO_CAMBIO          NUMBER(10,2),
    NRO_CUENTA           NVARCHAR2(20),
    NRO_TARJETA          NVARCHAR2(24),
-   AUTENTICIDAD         CHAR(1 BYTE),
    BANCO                NUMBER(16),
    SITUACION            NUMBER(16),
+   ESTADO_MONEDA        NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -2110,34 +2118,13 @@ alter table SIETID.MNT_TIPO_ESPECIE
    add constraint PK_MNT_TIPO_ESPECIE primary key (ID);
 
 /*==============================================================*/
-/* Table: ORG_EQUIPO                                            */
-/*==============================================================*/
-create table SIETID.ORG_EQUIPO 
-(
-   ID                   NUMBER(16)           not null,
-   CODIGO               NVARCHAR2(20)        not null,
-   NOMBRE               NVARCHAR2(200)       not null,
-   TIPO_AGRUPACION      NUMBER(16),
-   PADRE                NUMBER(16),
-   DEPENDENCIA          NUMBER(16),
-   ESTADO               NUMBER(16)           not null,
-   CREADOR              NUMBER(16)           not null,
-   CREACION             TIMESTAMP            not null,
-   EDITOR               NUMBER(16),
-   EDICION              TIMESTAMP
-);
-
-alter table SIETID.ORG_EQUIPO
-   add constraint PK_ORG_EQUIPO primary key (ID);
-
-/*==============================================================*/
 /* Table: ORG_INTEGRANTE                                        */
 /*==============================================================*/
 create table SIETID.ORG_INTEGRANTE 
 (
    ID                   NUMBER(16)           not null,
-   INTEGRANTE           NUMBER(16)           not null,
-   EQUIPO               NUMBER(16)           not null,
+   DEPENDENCIA          NUMBER(16),
+   POLICIA              NUMBER(16),
    FUNCION              NUMBER(16),
    ES_LIDER             SMALLINT             not null,
    ESTADO               NUMBER(16)           not null,
@@ -2373,7 +2360,7 @@ create table SIETID.PER_EMPRESA
 (
    ID                   NUMBER(16)           not null,
    RAZON_SOCIAL         NVARCHAR2(400)       not null,
-   DIRECCION            NVARCHAR2(500)       not null,
+   DIRECCION            NVARCHAR2(500),
    PARTIDA_REGISTRAL    NVARCHAR2(50),
    RUC                  NVARCHAR2(11),
    REPRESENTANTE        NUMBER(16),
@@ -3169,6 +3156,10 @@ alter table SIETID.EXP_ARMAS
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ARMAS
+   add constraint FK_EXP_ARMA_CLASIFICACION foreign key (CLASIFICACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_ARMAS
    add constraint FK_EXP_ARMA_ESTADO_SERIE foreign key (EST_SERIE)
       references SIETID.CFG_VALOR (ID);
 
@@ -3749,6 +3740,10 @@ alter table SIETID.EXP_IMPORTES
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_IMPORTES
+   add constraint FK_EXP_IMPORTE_ESTADO foreign key (ESTADO_MONEDA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_IMPORTES
    add constraint FK_EXP_IMPORTE_SITUACION foreign key (SITUACION)
       references SIETID.CFG_VALOR (ID);
 
@@ -4080,34 +4075,6 @@ alter table SIETID.MNT_TIPO_ESPECIE
    add constraint FK_EXP_TIPO_ESPECIE_PADRE foreign key (PADRE)
       references SIETID.MNT_TIPO_ESPECIE (ID);
 
-alter table SIETID.ORG_EQUIPO
-   add constraint FK_EQUIPO_CREADOR foreign key (CREADOR)
-      references SIETID.SEG_USUARIO (ID);
-
-alter table SIETID.ORG_EQUIPO
-   add constraint FK_EQUIPO_EDITOR foreign key (EDITOR)
-      references SIETID.SEG_USUARIO (ID);
-
-alter table SIETID.ORG_EQUIPO
-   add constraint FK_EQUIPO_ESTADO foreign key (ESTADO)
-      references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.ORG_EQUIPO
-   add constraint FK_EQUIPO_PADRE foreign key (PADRE)
-      references SIETID.ORG_EQUIPO (ID);
-
-alter table SIETID.ORG_EQUIPO
-   add constraint FK_ORG_EQUIPO_AGRUPACION foreign key (TIPO_AGRUPACION)
-      references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.ORG_EQUIPO
-   add constraint FK_ORG_EQUIPO_DEPENDENCIA foreign key (DEPENDENCIA)
-      references SIETID.EXP_DEPENDENCIA (ID);
-
-alter table SIETID.ORG_INTEGRANTE
-   add constraint FK_EQUIPO_INTEGRANTE foreign key (EQUIPO)
-      references SIETID.ORG_EQUIPO (ID);
-
 alter table SIETID.ORG_INTEGRANTE
    add constraint FK_INTEGRANTE_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -4121,12 +4088,16 @@ alter table SIETID.ORG_INTEGRANTE
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.ORG_INTEGRANTE
-   add constraint FK_INTEGRANTE_USUARIO foreign key (INTEGRANTE)
-      references SIETID.SEG_USUARIO (ID);
-
-alter table SIETID.ORG_INTEGRANTE
    add constraint FK_ORG_INTEGRANTE_FUNCION foreign key (FUNCION)
       references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.ORG_INTEGRANTE
+   add constraint FK_ORG_INTEGRANTE_DEPENDENCIA foreign key (DEPENDENCIA)
+      references SIETID.EXP_DEPENDENCIA (ID);
+
+alter table SIETID.ORG_INTEGRANTE
+   add constraint FK_ORG_INTEGRANTE_POLICIA foreign key (POLICIA)
+      references SIETID.PER_POLICIA (ID);
 
 alter table SIETID.PER_CORREO
    add constraint FK_CORREO_CREADOR foreign key (CREADOR)
@@ -4531,5 +4502,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-      
+
 quit;

@@ -50,7 +50,6 @@
 		<mapping class="pe.gob.mininter.dirandro.model.ModeloMarca" />
 		<mapping class="pe.gob.mininter.dirandro.model.Pais" />
 		<mapping class="pe.gob.mininter.dirandro.model.TipoEspecie" />
-		<mapping class="pe.gob.mininter.dirandro.model.Equipo" />
 		<mapping class="pe.gob.mininter.dirandro.model.Integrante" />
 		<mapping class="pe.gob.mininter.dirandro.model.Correo" />
 		<mapping class="pe.gob.mininter.dirandro.model.Detalle" />

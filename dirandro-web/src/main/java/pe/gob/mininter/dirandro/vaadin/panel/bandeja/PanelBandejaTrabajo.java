@@ -240,7 +240,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 			item.getItemProperty(COLUMNA_TIPO_HECHO).setValue(expediente.getTipoHecho() != null ? expediente.getTipoHecho().getNombre() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMNA_DEPENDENCIA).setValue(expediente.getDependencia() != null ? expediente.getDependencia().getNombre() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMNA_TIPO_FINALIDAD).setValue(expediente.getTipoFinalidad() != null ? expediente.getTipoFinalidad().getNombre() : StringUtils.EMPTY);
-			item.getItemProperty(COLUMNA_INTEGRANTE).setValue(expediente.getIntegrante() != null ? expediente.getIntegrante().getUsuario().getNombreCompleto() : StringUtils.EMPTY);
+			//item.getItemProperty(COLUMNA_INTEGRANTE).setValue(expediente.getIntegrante() != null ? expediente.getIntegrante().getUsuario().getNombreCompleto() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMNA_FECHA_REGISTRO).setValue(expediente.getFechaRegistro());
 			item.getItemProperty(COLUMNA_DIAS_ATENCION).setValue(expediente.getDiasAtencion());
 			item.getItemProperty(COLUMNA_LUGAR_HECHO).setValue(expediente.getLugarHecho() != null ? expediente.getLugarHecho().getNombreCompleto() : StringUtils.EMPTY);

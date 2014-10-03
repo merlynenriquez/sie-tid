@@ -38,7 +38,7 @@ public class Empresa extends AuditoriaBean implements Validador, Serializable {
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 	
-	@Column(nullable=false, length=1000)
+	@Column(length=1000)
 	private String direccion;
 
 	@Column(name="PARTIDA_REGISTRAL", length=100)

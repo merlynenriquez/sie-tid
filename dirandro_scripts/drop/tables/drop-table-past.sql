@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     19/09/2014 03:01:09 p.m.                     */
+/* Created on:     9/21/2014 2:08:17 AM                         */
 /*==============================================================*/
 
 
@@ -87,9 +87,6 @@ alter table SIETID.EXP_ARMAS
 
 alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMA_CALIBRE;
-
-alter table SIETID.EXP_ARMAS
-   drop constraint FK_EXP_ARMA_CLASIFICACION;
 
 alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMA_ESTADO_SERIE;
@@ -525,9 +522,6 @@ alter table SIETID.EXP_IMPORTES
 
 alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTE_BANCO;
-
-alter table SIETID.EXP_IMPORTES
-   drop constraint FK_EXP_IMPORTE_ESTADO;
 
 alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTE_SITUACION;
