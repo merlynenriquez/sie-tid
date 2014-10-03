@@ -48,10 +48,15 @@ public class Integrante implements Serializable {
 	@JoinColumn(name="ESTADO", nullable=false)
 	private Valor cfgValor2;
 
-	//bi-directional many-to-one association to Equipo
+	//bi-directional many-to-one association to Dependencia
 	@ManyToOne
-	@JoinColumn(name="EQUIPO", nullable=false)
-	private Equipo orgEquipo;
+	@JoinColumn(name="DEPENDENCIA")
+	private Dependencia expDependencia;
+
+	//bi-directional many-to-one association to Policia
+	@ManyToOne
+	@JoinColumn(name="POLICIA")
+	private Policia perPolicia;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -62,11 +67,6 @@ public class Integrante implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario2;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="INTEGRANTE", nullable=false)
-	private Usuario segUsuario3;
 
 	public Integrante() {
 	}
@@ -163,12 +163,20 @@ public class Integrante implements Serializable {
 		this.cfgValor2 = cfgValor2;
 	}
 
-	public Equipo getOrgEquipo() {
-		return this.orgEquipo;
+	public Dependencia getExpDependencia() {
+		return this.expDependencia;
 	}
 
-	public void setOrgEquipo(Equipo orgEquipo) {
-		this.orgEquipo = orgEquipo;
+	public void setExpDependencia(Dependencia expDependencia) {
+		this.expDependencia = expDependencia;
+	}
+
+	public Policia getPerPolicia() {
+		return this.perPolicia;
+	}
+
+	public void setPerPolicia(Policia perPolicia) {
+		this.perPolicia = perPolicia;
 	}
 
 	public Usuario getSegUsuario1() {
@@ -185,14 +193,6 @@ public class Integrante implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
-	}
-
-	public Usuario getSegUsuario3() {
-		return this.segUsuario3;
-	}
-
-	public void setSegUsuario3(Usuario segUsuario3) {
-		this.segUsuario3 = segUsuario3;
 	}
 
 }

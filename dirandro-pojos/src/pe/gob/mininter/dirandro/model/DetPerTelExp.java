@@ -26,6 +26,9 @@ public class DetPerTelExp implements Serializable {
 
 	private Timestamp edicion;
 
+	@Column(length=4000)
+	private String observacion;
+
 	//bi-directional many-to-one association to DetLlamada
 	@OneToMany(mappedBy="expDetPerTelExp")
 	private List<DetLlamada> expDetLlamadas;
@@ -55,6 +58,11 @@ public class DetPerTelExp implements Serializable {
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
 	private Expediente expExpediente;
 
+	//bi-directional many-to-one association to Numero
+	@ManyToOne
+	@JoinColumn(name="NUMERO")
+	private Numero expNumero;
+
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="DUENO")
@@ -74,11 +82,6 @@ public class DetPerTelExp implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario2;
-
-	//bi-directional many-to-one association to ExpNumero
-	@ManyToOne
-	@JoinColumn(name="NUMERO")
-	private Numero expNumero;
 
 	public DetPerTelExp() {
 	}
@@ -105,6 +108,14 @@ public class DetPerTelExp implements Serializable {
 
 	public void setEdicion(Timestamp edicion) {
 		this.edicion = edicion;
+	}
+
+	public String getObservacion() {
+		return this.observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 	public List<DetLlamada> getExpDetLlamadas() {
@@ -169,6 +180,14 @@ public class DetPerTelExp implements Serializable {
 		this.expExpediente = expExpediente;
 	}
 
+	public Numero getExpNumero() {
+		return this.expNumero;
+	}
+
+	public void setExpNumero(Numero expNumero) {
+		this.expNumero = expNumero;
+	}
+
 	public Persona getPerPersona() {
 		return this.perPersona;
 	}
@@ -199,14 +218,6 @@ public class DetPerTelExp implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
-	}
-
-	public Numero getExpNumero() {
-		return this.expNumero;
-	}
-
-	public void setExpNumero(Numero expNumero) {
-		this.expNumero = expNumero;
 	}
 
 }

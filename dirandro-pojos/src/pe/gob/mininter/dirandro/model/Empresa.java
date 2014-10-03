@@ -24,7 +24,7 @@ public class Empresa implements Serializable {
 	@Column(nullable=false)
 	private Timestamp creacion;
 
-	@Column(nullable=false, length=1000)
+	@Column(length=1000)
 	private String direccion;
 
 	private Timestamp edicion;

@@ -302,6 +302,14 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Municion> expMuniciones2;
 
+	//bi-directional many-to-one association to Numero
+	@OneToMany(mappedBy="segUsuario1")
+	private List<Numero> expNumeros1;
+
+	//bi-directional many-to-one association to Numero
+	@OneToMany(mappedBy="segUsuario2")
+	private List<Numero> expNumeros2;
+
 	//bi-directional many-to-one association to Organizacion
 	@OneToMany(mappedBy="segUsuario1")
 	private List<Organizacion> expOrganizacions1;
@@ -413,10 +421,6 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to Integrante
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Integrante> orgIntegrantes2;
-
-	//bi-directional many-to-one association to Integrante
-	@OneToMany(mappedBy="segUsuario3")
-	private List<Integrante> orgIntegrantes3;
 
 	//bi-directional many-to-one association to Correo
 	@OneToMany(mappedBy="segUsuario1")
@@ -598,14 +602,6 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to Provincia
 	@OneToMany(mappedBy="segUsuario2")
 	private List<Provincia> ubgProvincias2;
-
-	//bi-directional many-to-one association to ExpNumero
-	@OneToMany(mappedBy="segUsuario1")
-	private List<Numero> expNumeros1;
-
-	//bi-directional many-to-one association to ExpNumero
-	@OneToMany(mappedBy="segUsuario2")
-	private List<Numero> expNumeros2;
 
 	public Usuario() {
 	}
@@ -2098,6 +2094,50 @@ public class Usuario implements Serializable {
 		return expMuniciones2;
 	}
 
+	public List<Numero> getExpNumeros1() {
+		return this.expNumeros1;
+	}
+
+	public void setExpNumeros1(List<Numero> expNumeros1) {
+		this.expNumeros1 = expNumeros1;
+	}
+
+	public Numero addExpNumeros1(Numero expNumeros1) {
+		getExpNumeros1().add(expNumeros1);
+		expNumeros1.setSegUsuario1(this);
+
+		return expNumeros1;
+	}
+
+	public Numero removeExpNumeros1(Numero expNumeros1) {
+		getExpNumeros1().remove(expNumeros1);
+		expNumeros1.setSegUsuario1(null);
+
+		return expNumeros1;
+	}
+
+	public List<Numero> getExpNumeros2() {
+		return this.expNumeros2;
+	}
+
+	public void setExpNumeros2(List<Numero> expNumeros2) {
+		this.expNumeros2 = expNumeros2;
+	}
+
+	public Numero addExpNumeros2(Numero expNumeros2) {
+		getExpNumeros2().add(expNumeros2);
+		expNumeros2.setSegUsuario2(this);
+
+		return expNumeros2;
+	}
+
+	public Numero removeExpNumeros2(Numero expNumeros2) {
+		getExpNumeros2().remove(expNumeros2);
+		expNumeros2.setSegUsuario2(null);
+
+		return expNumeros2;
+	}
+
 	public List<Organizacion> getExpOrganizacions1() {
 		return this.expOrganizacions1;
 	}
@@ -2712,28 +2752,6 @@ public class Usuario implements Serializable {
 		orgIntegrantes2.setSegUsuario2(null);
 
 		return orgIntegrantes2;
-	}
-
-	public List<Integrante> getOrgIntegrantes3() {
-		return this.orgIntegrantes3;
-	}
-
-	public void setOrgIntegrantes3(List<Integrante> orgIntegrantes3) {
-		this.orgIntegrantes3 = orgIntegrantes3;
-	}
-
-	public Integrante addOrgIntegrantes3(Integrante orgIntegrantes3) {
-		getOrgIntegrantes3().add(orgIntegrantes3);
-		orgIntegrantes3.setSegUsuario3(this);
-
-		return orgIntegrantes3;
-	}
-
-	public Integrante removeOrgIntegrantes3(Integrante orgIntegrantes3) {
-		getOrgIntegrantes3().remove(orgIntegrantes3);
-		orgIntegrantes3.setSegUsuario3(null);
-
-		return orgIntegrantes3;
 	}
 
 	public List<Correo> getPerCorreos1() {
@@ -3632,50 +3650,6 @@ public class Usuario implements Serializable {
 		ubgProvincias2.setSegUsuario2(null);
 
 		return ubgProvincias2;
-	}
-
-	public List<Numero> getExpNumeros1() {
-		return this.expNumeros1;
-	}
-
-	public void setExpNumeros1(List<Numero> expNumeros1) {
-		this.expNumeros1 = expNumeros1;
-	}
-
-	public Numero addExpNumeros1(Numero expNumeros1) {
-		getExpNumeros1().add(expNumeros1);
-		expNumeros1.setSegUsuario1(this);
-
-		return expNumeros1;
-	}
-
-	public Numero removeExpNumeros1(Numero expNumeros1) {
-		getExpNumeros1().remove(expNumeros1);
-		expNumeros1.setSegUsuario1(null);
-
-		return expNumeros1;
-	}
-
-	public List<Numero> getExpNumeros2() {
-		return this.expNumeros2;
-	}
-
-	public void setExpNumeros2(List<Numero> expNumeros2) {
-		this.expNumeros2 = expNumeros2;
-	}
-
-	public Numero addExpNumeros2(Numero expNumeros2) {
-		getExpNumeros2().add(expNumeros2);
-		expNumeros2.setSegUsuario2(this);
-
-		return expNumeros2;
-	}
-
-	public Numero removeExpNumeros2(Numero expNumeros2) {
-		getExpNumeros2().remove(expNumeros2);
-		expNumeros2.setSegUsuario2(null);
-
-		return expNumeros2;
 	}
 
 }

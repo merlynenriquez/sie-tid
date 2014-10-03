@@ -3,6 +3,7 @@ package pe.gob.mininter.dirandro.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -65,10 +66,6 @@ public class Equipo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="CREADOR", nullable=false)
 	private Usuario segUsuario2;
-
-	//bi-directional many-to-one association to Integrante
-	@OneToMany(mappedBy="orgEquipo")
-	private List<Integrante> orgIntegrantes;
 
 	public Equipo() {
 	}
@@ -181,28 +178,6 @@ public class Equipo implements Serializable {
 
 	public void setSegUsuario2(Usuario segUsuario2) {
 		this.segUsuario2 = segUsuario2;
-	}
-
-	public List<Integrante> getOrgIntegrantes() {
-		return this.orgIntegrantes;
-	}
-
-	public void setOrgIntegrantes(List<Integrante> orgIntegrantes) {
-		this.orgIntegrantes = orgIntegrantes;
-	}
-
-	public Integrante addOrgIntegrante(Integrante orgIntegrante) {
-		getOrgIntegrantes().add(orgIntegrante);
-		orgIntegrante.setOrgEquipo(this);
-
-		return orgIntegrante;
-	}
-
-	public Integrante removeOrgIntegrante(Integrante orgIntegrante) {
-		getOrgIntegrantes().remove(orgIntegrante);
-		orgIntegrante.setOrgEquipo(null);
-
-		return orgIntegrante;
 	}
 
 }
