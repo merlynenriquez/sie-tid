@@ -51,7 +51,6 @@ public class ExpedienteInmuebleServiceImpl extends BaseServiceImpl<DetPerInmExp,
 		if (object==null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_INMUEBLE_EXISTENTE ,new Object[] { "Inmueble" });
 		}
-		object.validar();
 		Busqueda filtro = Busqueda.forClass(DetPerInmExp.class);
 		if(object.getExpediente()!=null){
 			filtro.createAlias("expediente", "e");
@@ -70,7 +69,6 @@ public class ExpedienteInmuebleServiceImpl extends BaseServiceImpl<DetPerInmExp,
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(DetPerInmExp object) {
-		object.validar();
 		Busqueda filtro = Busqueda.forClass(DetPerInmExp.class);
 		
 		if (expedienteInmuebleHibernate.buscar(filtro).size()>0) {

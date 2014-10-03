@@ -1,6 +1,5 @@
 package pe.gob.mininter.dirandro.vaadin.panel.parte;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +14,7 @@ import pe.gob.mininter.dirandro.service.CentroPobladoService;
 import pe.gob.mininter.dirandro.service.InstalacionService;
 import pe.gob.mininter.dirandro.service.OrganizacionService;
 import pe.gob.mininter.dirandro.service.UbigeoService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
@@ -132,10 +132,14 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 	
 	public void postConstruct() {
 		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+			
 			cmbTipoInstalacion.setInputPrompt("Tipo Instalacion");
+			cmbTipoInstalacion.setRequired(true);
 			cmbTipoInstalacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INSTALACION);
 			cmbTipoInstalacion.attach();
+			
 			cmbSituacion.setInputPrompt("Situacion");
+			cmbSituacion.setRequired(true);
 			cmbSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 			cmbSituacion.attach();
 			
@@ -252,14 +256,17 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 		for (Instalacion instalacion : lstInstalaciones){
 			Item item = container.addItem(con++);
 			item.getItemProperty("id").setValue(instalacion.getId());
-			item.getItemProperty("tipo.id").setValue(instalacion.getTipo()!=null?instalacion.getTipo().getId():null);
-			item.getItemProperty("tipo.nombre").setValue(instalacion.getTipo()!=null?instalacion.getTipo().getNombre():StringUtils.EMPTY);
+			
 			item.getItemProperty("organizacion.id").setValue(instalacion.getOrganizacionDelictiva()!=null?instalacion.getOrganizacionDelictiva().getId():null);
 			item.getItemProperty("organizacion.nombre").setValue(instalacion.getOrganizacionDelictiva()!=null?instalacion.getOrganizacionDelictiva().getNombre():StringUtils.EMPTY);
 			item.getItemProperty("cp.id").setValue(instalacion.getExpCentroPoblado()!=null?instalacion.getExpCentroPoblado().getId():null);
 			item.getItemProperty("cp.nombre").setValue(instalacion.getExpCentroPoblado()!=null?instalacion.getExpCentroPoblado().getNombre():StringUtils.EMPTY);
-			item.getItemProperty("situacion.id").setValue(instalacion.getSituacion()!=null?instalacion.getSituacion().getId():null);
-			item.getItemProperty("situacion.nombre").setValue(instalacion.getSituacion()!=null?instalacion.getSituacion().getNombre():StringUtils.EMPTY);
+			
+			item.getItemProperty("tipo.id").setValue(HarecUtil.valorIdToEmpty(instalacion.getTipo()));
+			item.getItemProperty("tipo.nombre").setValue(HarecUtil.valorNombreToEmpty(instalacion.getTipo()));
+			item.getItemProperty("situacion.id").setValue(HarecUtil.valorIdToEmpty(instalacion.getSituacion()));
+			item.getItemProperty("situacion.nombre").setValue(HarecUtil.valorNombreToEmpty(instalacion.getSituacion()));
+			
 			item.getItemProperty("ubicacion.id").setValue(instalacion.getDistrito()!=null?instalacion.getDistrito().getId():null);
 			item.getItemProperty("ubicacion.nombre").setValue(instalacion.getDistrito()!=null?instalacion.getDistrito().getNombre():StringUtils.EMPTY);
 			item.getItemProperty("nombre").setValue(instalacion.getNombre());
@@ -287,10 +294,10 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 
 		instalacion.setExpediente(expediente);
 		
-		instalacion.setAlturaMt(!StringUtils.isEmpty(txtAlto.getValue().toString())? new BigDecimal((String)txtAlto.getValue()) : null);
-		instalacion.setAnchoMt(!StringUtils.isEmpty(txtAncho.getValue().toString())?new BigDecimal((String)txtAncho.getValue()):null);
-		instalacion.setLargoMt(!StringUtils.isEmpty(txtLargo.getValue().toString())?new BigDecimal((String)txtLargo.getValue()):null);
-		instalacion.setRadio(!StringUtils.isEmpty(txtRadio.getValue().toString())?Integer.valueOf((String)txtRadio.getValue()):null);
+		instalacion.setAlturaMt(HarecUtil.toBigDecimal(txtAlto.getValue()));
+		instalacion.setAnchoMt(HarecUtil.toBigDecimal(txtAncho.getValue()));
+		instalacion.setLargoMt(HarecUtil.toBigDecimal(txtLargo.getValue()));
+		instalacion.setRadio(HarecUtil.toInteger(txtRadio.getValue()));
 		
 		instalacion.setDescripcion((String)txtDescripcion.getValue());
 		instalacion.setDistrito((Distrito)cmbUbicacion.getValue());
@@ -302,6 +309,13 @@ public class PanelRegistroParteInstalacion extends CustomComponent implements Cl
 		instalacion.setSituacion((Valor)cmbSituacion.getValue());
 		instalacion.setTipo((Valor)cmbTipoInstalacion.getValue());
 		instalacion.setZonaProduccion((String)txtZonaProduccion.getValue());
+		
+		HarecUtil.validar(getWindow(), instalacion, new BeanValidar[]{
+			new BeanValidar("tipo", new Object[]{"Tipo de instalación"}, cmbTipoInstalacion),
+			new BeanValidar("organizacionDelictiva", new Object[]{"Organización Delictiva"}, cmbOrganizacion),
+        	new BeanValidar("nombre", new Object[]{"Nombre"}, txtNombre),
+        	new BeanValidar("situacion", new Object[]{"Situacion"}, cmbSituacion),
+        });
 		
 		if(instalacion.esNuevo()){
 			instalacionService.crear(instalacion);

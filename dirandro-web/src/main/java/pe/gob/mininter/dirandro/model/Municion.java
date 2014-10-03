@@ -12,12 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 
-import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -27,7 +26,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="EXP_MUNICIONES")
-public class Municion extends AuditoriaBean implements Validador, Serializable {
+public class Municion extends AuditoriaBean implements Serializable {
 	
 	private static final long serialVersionUID = 5539914583114696827L;
 
@@ -38,10 +37,8 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	private Long id;
 
 	@Column(length=500)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String descripcion;
-
-	//@Column(name="EMPRESA_PROPIETARIA", precision=16)
-//	private BigDecimal empresaPropietaria;
 
 	@Column(precision=10, scale=4)
 	private BigDecimal medida;
@@ -55,6 +52,7 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="ESTADO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor estado;
 
 	//bi-directional many-to-one association to Expediente
@@ -65,6 +63,7 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to ModeloMarca
 	@ManyToOne
 	@JoinColumn(name="MARCA")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private ModeloMarca marca;
 
 	//bi-directional many-to-one association to Empresa
@@ -85,6 +84,7 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to ModeloMarca
@@ -202,7 +202,7 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 	public void setSituacion(Valor situacion) {
 		this.situacion = situacion;
 	}
-
+/*
 	@Override
 	public void validar() {
 		if(StringUtils.isBlank( descripcion ))
@@ -213,7 +213,7 @@ public class Municion extends AuditoriaBean implements Validador, Serializable {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[] { "Tipo de Munición y Marca" });
 		}
 	}
-
+*/
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
 	}

@@ -17,6 +17,7 @@ import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.ExpedienteArmaService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.PersonaService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
@@ -32,6 +33,8 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
@@ -41,8 +44,6 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
 public class PanelRegistroParteArma extends CustomComponent implements ClickListener {
 
@@ -148,10 +149,15 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 			
 			limpiarArma();
 			cmbArmEstado.setInputPrompt("Estado");
-			cmbArmEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
-			cmbArmEstado.attach();
 			cmbArmSituacion.setInputPrompt("Situacion");
+			
+			cmbArmEstado.setRequired(true);
+			cmbArmSituacion.setRequired(true);
+			
+			cmbArmEstado.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
 			cmbArmSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
+			
+			cmbArmEstado.attach();
 			cmbArmSituacion.attach();
 			
 			cmbArmaSerie.setInputPrompt("Seleccionar Arma por Nro. de Serie");
@@ -445,6 +451,12 @@ public class PanelRegistroParteArma extends CustomComponent implements ClickList
 			expedienteArma.setObservacion(HarecUtil.nullToEmpty(txtArmObservacion.getValue()));
 			expedienteArma.setNroLicencia(HarecUtil.nullToEmpty(txtNroLicencia.getValue()));
 			
+			HarecUtil.validar(getWindow(), expedienteArma, new BeanValidar[]{
+	        	new BeanValidar("arma", new Object[]{"Arma"}, cmbArmaSerie),
+	        	new BeanValidar("situacion", new Object[]{"Situación"}, cmbArmSituacion),
+	        	new BeanValidar("estado", new Object[]{"Estado del arma"}, cmbArmEstado)
+	        });
+	        
 			if(expedienteArma.esNuevo())
 				expedienteArmaService.crear(expedienteArma);
 			else

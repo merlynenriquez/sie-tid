@@ -47,10 +47,10 @@ public class InmuebleServiceImpl extends BaseServiceImpl<Inmueble, String> imple
 		if (object==null) {
 			throw new ValidacionException("NO existe Registro",
 					//Constante.CODIGO_MENSAJE.VALIDAR_ESTADO_EXISTENTE,
-					new Object[] { "Inmueble" });		}
-		object.validar();
+					new Object[] { "Inmueble" });
+		}
+		//object.validar();
 		expedienteInmuebleHibernate.crear(object);
-		
 	}
 	
 	@Override

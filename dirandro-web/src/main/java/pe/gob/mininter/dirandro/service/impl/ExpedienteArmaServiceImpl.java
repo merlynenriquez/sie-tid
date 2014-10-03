@@ -5,8 +5,6 @@ import java.util.List;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteArmaHibernate;
 import pe.gob.mininter.dirandro.model.DetPerArmExp;
@@ -29,35 +27,6 @@ public class ExpedienteArmaServiceImpl extends BaseServiceImpl<DetPerArmExp, Lon
 		this.expedienteArmaHibernate = expedienteArmaHibernate;
 	}
 	
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void crear(DetPerArmExp object) {
-		object.validar();
-		//Busqueda filtro = Busqueda.forClass(Municion.class);
-		//filtro.add(Restrictions.eq("nombres", object.get));
-		/*if (PoliciaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_Policia_EXISTENTE,
-					new Object[] { object.getNombres() });
-		}*/
-		expedienteArmaHibernate.crear(object);
-	}
-	
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public void actualizar(DetPerArmExp object) {
-		object.validar();
-		//Busqueda filtro = Busqueda.forClass(Municion.class);
-		/*filtro.add(Restrictions.eq("nombres", object.getNombres()));
-		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));
-		/*if (PoliciaHibernate.buscar(filtro).size()>0) {
-			throw new ValidacionException(
-					Constante.CODIGO_MENSAJE.VALIDAR_Policia_EXISTENTE,
-					new Object[] { object.getNombres() });
-		}*/
-		expedienteArmaHibernate.actualizar(object);
-	}
-
 	@Override
 	public List<DetPerArmExp> buscar(DetPerArmExp detarma) {
 		Busqueda filtro = Busqueda.forClass(DetPerArmExp.class);

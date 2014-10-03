@@ -14,6 +14,7 @@ import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.ExpedienteInmuebleService;
 import pe.gob.mininter.dirandro.service.InmuebleService;
 import pe.gob.mininter.dirandro.service.PersonaService;
+import pe.gob.mininter.dirandro.util.BeanValidar;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
@@ -117,6 +118,7 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 			actualizarInmuebles(null);
 			
 			cmbInmSituacion.setInputPrompt("Situacion");
+			cmbInmSituacion.setRequired(true);
 			cmbInmSituacion.setCodigoLista(Constante.LISTA.CODIGO.SITUACION_GENERAL);
 			cmbInmSituacion.attach();
 			
@@ -259,6 +261,13 @@ public class PanelRegistroParteInmueble extends CustomComponent implements Click
 			inmueble.setPropietario((Persona)cmbInmPropietario.getValue());
 			inmueble.setSituacion((Valor)cmbInmSituacion.getValue());
 			inmueble.setTipoUso(txtInmTipodeUso.getValue().toString());
+			
+			HarecUtil.validar(getWindow(), inmueble, new BeanValidar[]{
+				new BeanValidar("inmueble", new Object[]{"Inmueble"}, cmbInmInmueble),
+				new BeanValidar("tipoUso", new Object[]{"Tipo de Uso"}, txtInmTipodeUso),
+	        	new BeanValidar("situacion", new Object[]{"Situacion"}, cmbInmSituacion),
+	        });
+			
 			if(inmueble.esNuevo()){
 				expedienteInmuebleService.crear(inmueble);
 			}else{
