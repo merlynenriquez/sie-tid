@@ -162,6 +162,8 @@ public abstract class Constante {
 			public final static String COMI = "COMI";
 			public static final String RUC = "R";
 			
+			public final static String ABO = "ABO";
+			
 		}
 
 	}
