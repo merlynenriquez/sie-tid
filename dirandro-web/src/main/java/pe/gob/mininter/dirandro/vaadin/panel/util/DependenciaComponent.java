@@ -62,8 +62,8 @@ public class DependenciaComponent extends CustomComponent{
 	
 	private DependenciaService dependenciaService;
 	private List<Dependencia> listaNivel1,listaNivel2,listaNivel3,listaNivel4,listaNivel5,listaNivel6,listaNivel7;
-	private DependenciaSelector padre;
-	
+	private Dependencia dependencia;
+		
 	public DependenciaComponent() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
@@ -71,8 +71,12 @@ public class DependenciaComponent extends CustomComponent{
 		postConstruct();
 	}
 
-	public void setPadre(DependenciaSelector padre) {
-		this.padre = padre;
+	public Dependencia getDependencia() {
+		return dependencia;
+	}
+
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
 	}
 
 	public void postConstruct() {
@@ -238,13 +242,12 @@ public class DependenciaComponent extends CustomComponent{
 				private static final long serialVersionUID = 5141713121939621261L;
 
 				public void buttonClick(ClickEvent event) {
-		            padre.setDependencia((Dependencia)event.getButton().getData());
+		         	setDependencia((Dependencia)event.getButton().getData());
+					detach();
 		            getApplication().getMainWindow().removeWindow(getWindow());
 		        } 
 		    });
-		    
 			item.getItemProperty("seleccionar").setValue(detailsField);
-			
 		}
 	
 	}
