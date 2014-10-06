@@ -53,22 +53,30 @@ public class LetradoServiceImpl extends BaseServiceImpl<Letrado, Long> implement
 		Busqueda filtro = Busqueda.forClass(Letrado.class);
 		if (letrado != null) {
 			if(letrado.getPersona()!=null){
-				filtro.createAlias("perPersona", "per");
+				filtro.createAlias("persona", "p");
 				if (letrado.getPersona().getNombres() != null) {
-					filtro.add(Restrictions.ilike("per.nombres",letrado.getPersona().getNombres() , MatchMode.ANYWHERE));
+					filtro.add(Restrictions.ilike("p.nombres",letrado.getPersona().getNombres() , MatchMode.ANYWHERE));
 				}
-				if (letrado.getPersona().getApePaterno() != null) {
+				/*if (letrado.getPersona().getApePaterno() != null) {
 					filtro.add(Restrictions.ilike("per.apePaterno",letrado.getPersona().getApePaterno() , MatchMode.ANYWHERE));
 				}
 				
 				if (letrado.getPersona().getNroDocumento()!= null) {
 					filtro.add(Restrictions.ilike("per.nroDocumento", letrado.getPersona().getNroDocumento(), MatchMode.ANYWHERE));
-				}
+				}*/
 			}
 			if(letrado.getTipo()!=null){
 				filtro.createAlias("tipo", "t");
 				if(letrado.getTipo().getCodigo()!=null){
 					filtro.add(Restrictions.eq("t.codigo", letrado.getTipo().getCodigo()));
+				}
+				if (letrado.getTipo().getNombre() != null) {
+					filtro.add(Restrictions.ilike("t.nombre",letrado.getTipo().getNombre() , MatchMode.ANYWHERE));
+				}
+			}
+			if(letrado.getNroColegiatura()!=null){
+				if (letrado.getNroColegiatura() != null) {
+					filtro.add(Restrictions.ilike("nroColegiatura",letrado.getNroColegiatura() , MatchMode.ANYWHERE));
 				}
 			}
 		}

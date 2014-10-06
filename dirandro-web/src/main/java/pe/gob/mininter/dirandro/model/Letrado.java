@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -35,16 +38,19 @@ public class Letrado extends AuditoriaBean implements Validador, Serializable {
 	private Long id;
 
 	@Column(name="NRO_COLEGIATURA", length=20)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private String nroColegiatura;
 	
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="tipo")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor tipo;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
 	@JoinColumn(name="PERSONA")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Persona persona;
 
 	public Letrado() {

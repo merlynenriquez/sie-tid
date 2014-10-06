@@ -62,6 +62,8 @@ public class TablaFiltro extends CustomComponent implements
 
 	
 
+	
+
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
 	
@@ -284,7 +286,19 @@ public class TablaFiltro extends CustomComponent implements
 
 		}	
 		
+		int anchoInt = 0;
+		for (Columna col : container.getColumnas()) {
+			if (!tblContenido.isColumnCollapsed(col.getPropertyId())) {
+				anchoInt += tblContenido.getColumnWidth(col.getPropertyId())
+						+ getSeparadorColumna();
+			}
+		}
+		anchoInt += getSeparadorTabla();
+		tblContenido.setWidth(anchoInt, Sizeable.UNITS_PIXELS);
 		
+		/*lytFiltroTabla.setSizeUndefined();
+		lytFiltroTabla.setWidth("100%");
+		lytFiltroTabla.setHeight("100%");*/
 		
 	}
 	

@@ -15,7 +15,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -31,16 +33,18 @@ public class AbogadoPersona extends AuditoriaBean implements Validador, Serializ
 	private static final long serialVersionUID = 6618362410494391936L;
 
 	@Id
-	@SequenceGenerator(name="EXP_ABOGADO_PERSONA_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="EXP_ABOGADO_PERSONA_ID_GENERATOR", sequenceName="SEQ_ABOGADO_PERSONA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_ABOGADO_PERSONA_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
 
 	@Column(precision=16)
-	private BigDecimal estado;
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
+	private Long estado;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="FEC_INI_REPRESENTACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private Date fecIniRepresentacion;
 
 	//bi-directional many-to-one association to DetExpedientePersona
@@ -51,6 +55,7 @@ public class AbogadoPersona extends AuditoriaBean implements Validador, Serializ
 	//bi-directional many-to-one association to Letrado
 	@ManyToOne
 	@JoinColumn(name="ABOGADO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Letrado perLetrado;
 
 	public AbogadoPersona() {
@@ -64,11 +69,11 @@ public class AbogadoPersona extends AuditoriaBean implements Validador, Serializ
 		this.id = id;
 	}
 
-	public BigDecimal getEstado() {
-		return this.estado;
+	public Long getEstado() {
+		return estado;
 	}
 
-	public void setEstado(BigDecimal estado) {
+	public void setEstado(Long estado) {
 		this.estado = estado;
 	}
 
