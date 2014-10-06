@@ -198,7 +198,7 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 			window.addComponent(panelDependencia);
 			window.setModal(true);
 			window.setResizable(false);
-			window.setWidth("550px");
+			window.setWidth("620px");
 			window.setHeight("-1px");
 			getApplication().getMainWindow().addWindow(window);
 			
