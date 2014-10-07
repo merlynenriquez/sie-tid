@@ -71,7 +71,7 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_DROGA")
-	private Valor tipoDroga;
+	private ModeloMarca tipoDroga;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -160,14 +160,6 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 		this.valorSoles = valorSoles;
 	}
 
-	public Valor getTipoDroga() {
-		return tipoDroga;
-	}
-
-	public void setTipoDroga(Valor tipoDroga) {
-		this.tipoDroga = tipoDroga;
-	}
-
 	public Valor getSituaccion() {
 		return situaccion;
 	}
@@ -210,6 +202,14 @@ public class Droga extends AuditoriaBean implements Validador, Serializable {
 
 	public ModeloMarca getTipoMedidaMuestra() {
 		return tipoMedidaMuestra;
+	}
+
+	public ModeloMarca getTipoDroga() {
+		return tipoDroga;
+	}
+
+	public void setTipoDroga(ModeloMarca tipoDroga) {
+		this.tipoDroga = tipoDroga;
 	}
 
 	public void setTipoMedidaMuestra(ModeloMarca tipoMedidaMuestra) {
