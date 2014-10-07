@@ -1373,6 +1373,7 @@ create table SIETID.EXP_IMPORTES
    ID                   NUMBER(16)           not null,
    EXPEDIENTE           NUMBER(16)           not null,
    TIPO_PRESENTECION    NUMBER(16),
+   AUTENTICIDAD         NCHAR(1)             not null,
    TIPO_MONEDA          NUMBER(16),
    MONEDA               NUMBER(10,2),
    TIPO_CUENTA          NUMBER(16),
@@ -1999,7 +2000,6 @@ create table SIETID.MNT_MODELO_MARCA
 (
    ID                   NUMBER(16)           not null,
    NOMBRE               NVARCHAR2(100),
-   TIPO                 NUMBER(16),
    PADRE                NUMBER(16),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
@@ -2017,10 +2017,6 @@ comment on column SIETID.MNT_MODELO_MARCA.ID is
 
 comment on column SIETID.MNT_MODELO_MARCA.NOMBRE is
 'Nombre o descripción del modelo / marca
-';
-
-comment on column SIETID.MNT_MODELO_MARCA.TIPO is
-'Identificador del tipo de marca/modelo
 ';
 
 comment on column SIETID.MNT_MODELO_MARCA.PADRE is
@@ -3516,8 +3512,8 @@ alter table SIETID.EXP_DROGAS
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DROGAS
-   add constraint FK_EXP_DROGAS_TIPO_DROGA foreign key (TIPO_DROGA)
-      references SIETID.CFG_VALOR (ID);
+   add constraint FK_EXP_DROGA_TIPO foreign key (TIPO_DROGA)
+      references SIETID.MNT_MODELO_MARCA (ID);
 
 alter table SIETID.EXP_DROGAS
    add constraint FK_EXP_DROGA_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
@@ -4030,10 +4026,6 @@ alter table HR_HOJAREMISION_MUESTRA
 alter table HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_MUESTRA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
-
-alter table SIETID.MNT_MODELO_MARCA
-   add constraint FK_EXP_MODELO_MARCA_TIPO foreign key (TIPO)
-      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.MNT_MODELO_MARCA
    add constraint FK_MODELO_CREADOR foreign key (CREADOR)

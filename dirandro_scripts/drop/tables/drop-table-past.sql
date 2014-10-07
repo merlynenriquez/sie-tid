@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     9/21/2014 2:08:17 AM                         */
+/* Created on:     03/10/2014 04:01:06 p.m.                     */
 /*==============================================================*/
 
 
@@ -87,6 +87,9 @@ alter table SIETID.EXP_ARMAS
 
 alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMA_CALIBRE;
+
+alter table SIETID.EXP_ARMAS
+   drop constraint FK_EXP_ARMA_CLASIFICACION;
 
 alter table SIETID.EXP_ARMAS
    drop constraint FK_EXP_ARMA_ESTADO_SERIE;
@@ -524,6 +527,9 @@ alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTE_BANCO;
 
 alter table SIETID.EXP_IMPORTES
+   drop constraint FK_EXP_IMPORTE_ESTADO;
+
+alter table SIETID.EXP_IMPORTES
    drop constraint FK_EXP_IMPORTE_SITUACION;
 
 alter table SIETID.EXP_IMPORTES
@@ -772,27 +778,6 @@ alter table SIETID.MNT_TIPO_ESPECIE
 alter table SIETID.MNT_TIPO_ESPECIE
    drop constraint FK_EXP_TIPO_ESPECIE_PADRE;
 
-alter table SIETID.ORG_EQUIPO
-   drop constraint FK_EQUIPO_CREADOR;
-
-alter table SIETID.ORG_EQUIPO
-   drop constraint FK_EQUIPO_EDITOR;
-
-alter table SIETID.ORG_EQUIPO
-   drop constraint FK_EQUIPO_ESTADO;
-
-alter table SIETID.ORG_EQUIPO
-   drop constraint FK_EQUIPO_PADRE;
-
-alter table SIETID.ORG_EQUIPO
-   drop constraint FK_ORG_EQUIPO_AGRUPACION;
-
-alter table SIETID.ORG_EQUIPO
-   drop constraint FK_ORG_EQUIPO_DEPENDENCIA;
-
-alter table SIETID.ORG_INTEGRANTE
-   drop constraint FK_EQUIPO_INTEGRANTE;
-
 alter table SIETID.ORG_INTEGRANTE
    drop constraint FK_INTEGRANTE_CREADOR;
 
@@ -803,10 +788,13 @@ alter table SIETID.ORG_INTEGRANTE
    drop constraint FK_INTEGRANTE_ESTADO;
 
 alter table SIETID.ORG_INTEGRANTE
-   drop constraint FK_INTEGRANTE_USUARIO;
+   drop constraint FK_ORG_INTEGRANTE_FUNCION;
 
 alter table SIETID.ORG_INTEGRANTE
-   drop constraint FK_ORG_INTEGRANTE_FUNCION;
+   drop constraint FK_ORG_INTEGRANTE_DEPENDENCIA;
+
+alter table SIETID.ORG_INTEGRANTE
+   drop constraint FK_ORG_INTEGRANTE_POLICIA;
 
 alter table SIETID.PER_CORREO
    drop constraint FK_CORREO_CREADOR;
@@ -1337,11 +1325,6 @@ alter table SIETID.MNT_TIPO_ESPECIE
    drop primary key cascade;
 
 drop table SIETID.MNT_TIPO_ESPECIE cascade constraints;
-
-alter table SIETID.ORG_EQUIPO
-   drop primary key cascade;
-
-drop table SIETID.ORG_EQUIPO cascade constraints;
 
 alter table SIETID.ORG_INTEGRANTE
    drop primary key cascade;

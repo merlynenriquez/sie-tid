@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     03/10/2014 04:01:06 p.m.                     */
+/* Created on:     10/7/2014 1:48:12 AM                         */
 /*==============================================================*/
 
 
@@ -359,7 +359,7 @@ alter table SIETID.EXP_DROGAS
    drop constraint FK_EXP_DROGAS_SITUACION;
 
 alter table SIETID.EXP_DROGAS
-   drop constraint FK_EXP_DROGAS_TIPO_DROGA;
+   drop constraint FK_EXP_DROGA_TIPO;
 
 alter table SIETID.EXP_DROGAS
    drop constraint FK_EXP_DROGA_TIPO_MEDIDA;
@@ -744,9 +744,6 @@ alter table HR_HOJAREMISION_MUESTRA
 
 alter table HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_MUESTRA_EDITOR;
-
-alter table SIETID.MNT_MODELO_MARCA
-   drop constraint FK_EXP_MODELO_MARCA_TIPO;
 
 alter table SIETID.MNT_MODELO_MARCA
    drop constraint FK_MODELO_CREADOR;
