@@ -641,11 +641,11 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		
 		// txaDescripcion
 		txaDescripcion = new TextArea();
-		txaDescripcion.setCaption("Descripción del Caso");
+		txaDescripcion.setCaption("Observaciones");
 		txaDescripcion.setImmediate(false);
 		txaDescripcion.setWidth("700px");
 		txaDescripcion.setHeight("50px");
-		txaDescripcion.setInputPrompt("Breve descripción del Caso");
+		txaDescripcion.setInputPrompt("Observaciones");
 		pnlHecho.addComponent(txaDescripcion);
 		
 		// horizontalLayout_4
