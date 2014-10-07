@@ -16,6 +16,7 @@ import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.dialogs.ConfirmDialog;
+import pe.gob.mininter.dirandro.vaadin.panel.seguridad.PanelSegEquipos;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -125,6 +126,7 @@ public class PanelMantenDependencia extends DirandroComponent implements ClickLi
 	
 	private DependenciaService dependenciasService;
 	private PredecesorService predecesorService;
+	private PanelSegEquipos pnlPadre;
 	
 	private boolean flagNuevaDependencia;
 	private boolean flagNuevaPredecesor;
@@ -140,6 +142,10 @@ public class PanelMantenDependencia extends DirandroComponent implements ClickLi
 		postConstruct();		
 	}
 	
+	public void setPnlPadre(PanelSegEquipos pnlPadre) {
+		this.pnlPadre = pnlPadre;
+	}
+
 	private void refrescar(String nombre){
 		habilitarEdicion(false);
 		limpiar(nombre);
@@ -229,6 +235,10 @@ public class PanelMantenDependencia extends DirandroComponent implements ClickLi
 					predecesor.setDependencia(dependencia);
 					cargarPredecesorCombo();
 					cargarPredecesores(predecesorService.buscar(predecesor),true);
+					if (pnlPadre != null) {
+						pnlPadre.setDependencia((Dependencia) item.getItemProperty("dependencia").getValue());
+					}
+					
 				}
 			}
 		});
@@ -289,6 +299,7 @@ public class PanelMantenDependencia extends DirandroComponent implements ClickLi
 	private void cargarDependencias(Map<String,List<Dependencia>> map){			
 		
 		HierarchicalContainer hwContainer = new HierarchicalContainer();
+		hwContainer.addContainerProperty("dependencia", Dependencia.class, null);
 		hwContainer.addContainerProperty("id", Long.class, 0L);
 		hwContainer.addContainerProperty("nombre", String.class, "");
 		hwContainer.addContainerProperty("codigo", String.class, "");
@@ -319,6 +330,7 @@ public class PanelMantenDependencia extends DirandroComponent implements ClickLi
 		Item item = null;
 		for (Dependencia dependencia : map.get(nombre)) {			
 			item = hwContainer.addItem(dependencia.getId());
+			item.getItemProperty("dependencia").setValue(dependencia);
 			item.getItemProperty("id").setValue(dependencia.getId());
 			item.getItemProperty("codigo").setValue(dependencia.getCodigo());
 			item.getItemProperty("nombre").setValue(dependencia.getNombre());

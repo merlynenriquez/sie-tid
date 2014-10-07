@@ -263,7 +263,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 		for (Droga droga : drogas) {
 			Item item = container.addItem(droga.getId());
 			//TODO replicar validaciones con HarecUtil
-			item.getItemProperty(COLUMN_TIPO_DROGA).setValue(HarecUtil.valorNombreToEmpty(droga.getTipoDroga()));
+			item.getItemProperty(COLUMN_TIPO_DROGA).setValue(HarecUtil.marcaModeloNombreToEmpty(droga.getTipoDroga()));
 			item.getItemProperty(COLUMN_TIPO_MEDIDA).setValue(HarecUtil.marcaModeloNombreToEmpty(droga.getTipoMedida()));
 			item.getItemProperty(COLUMN_PESO_BRUTO).setValue(droga.getPesoBruto());
 			item.getItemProperty(COLUMN_PESO_NETO).setValue(droga.getPesoNeto());
@@ -342,8 +342,8 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 
 	private void buttonClickBtnDrRegistrar() {
 		Droga droga = new Droga();
-		droga.setTipoDroga(cmbTipoDroga.getValor());
-		droga.setTipoMedida((ModeloMarca)cmbMedida.getValue());
+		droga.setTipoDroga((ModeloMarca) cmbTipoDroga.getValue());
+		droga.setTipoMedida((ModeloMarca) cmbMedida.getValue());
 		droga.setPesoBruto(HarecUtil.toDouble(txtPesoBruto.getValue())); 
 		droga.setPesoNeto(HarecUtil.toDouble(txtPesoBruto.getValue()));
 		droga.setExpediente(expediente);
