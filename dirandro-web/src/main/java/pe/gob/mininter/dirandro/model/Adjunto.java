@@ -152,14 +152,14 @@ public class Adjunto extends AuditoriaBean implements Validador, Serializable {
 
 	@Override
 	public void validar() {
-		if( this.getTipo() == null)
+	/*	if( this.getTipo() == null)
 		{
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Tipo de adjunto"});
 		}
 		if( this.getOutputStream() == null)
 		{
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Adjunto"});
-		}
+		}*/
 	}
 
 	public boolean esNuevo(){
