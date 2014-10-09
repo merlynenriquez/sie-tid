@@ -193,6 +193,10 @@ public abstract class Constante {
 			public final static Long PRESENTACIONES = 4004l;
 		}
 		
+		public static class DROGAS{
+			public final static Long TIPOS = 7l;
+		}
+		
 		public static class COMUNICACIONES{
 			public final static Long COD_COMUNICACION = 4l;
 		}

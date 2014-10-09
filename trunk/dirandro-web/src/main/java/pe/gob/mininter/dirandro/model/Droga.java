@@ -26,9 +26,6 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="EXP_DROGAS")
 public class Droga extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 791716717760796752L;
 
 	@Id
