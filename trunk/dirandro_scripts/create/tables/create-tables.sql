@@ -194,7 +194,6 @@ create table SIETID.EXP_ARMAS
    CLASIFICACION        NUMBER(16),
    EST_SERIE            NUMBER(16),
    NRO_SERIE            NVARCHAR2(50),
-   NRO_LICENCIA         NVARCHAR2(10),
    CALIBRE              NUMBER(16),
    INTERNAMIENTO        NVARCHAR2(50),
    CREADOR              NUMBER(16)           not null,
@@ -224,9 +223,6 @@ comment on column SIETID.EXP_ARMAS.EST_SERIE is
 
 comment on column SIETID.EXP_ARMAS.NRO_SERIE is
 'Número del serie del arma';
-
-comment on column SIETID.EXP_ARMAS.NRO_LICENCIA is
-'Número de licencia del arma';
 
 comment on column SIETID.EXP_ARMAS.CALIBRE is
 'Número de calibre del arma';
@@ -571,6 +567,7 @@ create table SIETID.EXP_DET_PER_ARM_EXP
    ID                   NUMBER(16)           not null,
    PERSONA              NUMBER(16),
    ARMA                 NUMBER(16),
+   NRO_LICENCIA         NVARCHAR2(20),
    EXPEDIENTE           NUMBER(16)           not null,
    PROPIETARIO          NUMBER(16),
    EMPRESA              NUMBER(16),
