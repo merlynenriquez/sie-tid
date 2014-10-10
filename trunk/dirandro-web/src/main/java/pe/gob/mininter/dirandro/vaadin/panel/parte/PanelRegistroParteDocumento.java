@@ -81,7 +81,6 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 		
 		documentoService = Injector.obtenerServicio(DocumentoService.class);
 		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
-		
 		postConstruct();
 
 	}
@@ -136,9 +135,8 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 			btnAgregar.addListener( (ClickListener) this);
 			cargarDocumentos();
 			
-			//this.setParent(this);
-			pnlDocumento.setPadre(this);
 		}
+		pnlDocumento.setPadre(this);
 	}
 
 	public void cargarDocumentos() {
@@ -164,6 +162,7 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 
 	@Override
 	public void buttonClick(ClickEvent event) {
+		
 		if(event.getButton().equals(btnAgregar)) {
 			buttonClickBtnAgregar();
 		}
@@ -171,7 +170,6 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 	}
 
 	public void obtenerDependencia(){
-
 		
 		panelDependencia = new DependenciaComponent();
 		
@@ -191,7 +189,8 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 
 			@Override
 			public void detach() {
-				setDependencia(panelDependencia.getDependencia());
+				if(panelDependencia.getDependencia()!=null)
+					setDependencia(panelDependencia.getDependencia());
 			}
 			  
 		};
