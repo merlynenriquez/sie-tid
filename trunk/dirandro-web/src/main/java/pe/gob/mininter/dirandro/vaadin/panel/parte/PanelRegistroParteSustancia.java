@@ -15,6 +15,7 @@ import pe.gob.mininter.dirandro.service.PaisService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
+import pe.gob.mininter.dirandro.vaadin.panel.PanelDetalleDroga;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -37,6 +38,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 public class PanelRegistroParteSustancia extends CustomComponent implements ClickListener, ItemDescriptionGenerator {
 
@@ -136,6 +138,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 	private static final String COLUMN_PROCEDENCIA = "COLUMN_PROCEDENCIA";
 	private static final String COLUMN_DESTINO = "COLUMN_DESTINO";
 	private static final String COLUMN_DROGA = "COLUMN_DROGA";
+	private static final String COLUMN_DETALLE = "COLUMN_DETALLE";
 	
 	private boolean inicializado=false;
 	private List<ModeloMarca> lstSubTiposDroga;
@@ -241,6 +244,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 		container.addContainerProperty(COLUMN_PROCEDENCIA, String.class, null);
 		container.addContainerProperty(COLUMN_DESTINO, String.class, null);
 		container.addContainerProperty(COLUMN_DROGA, Droga.class, null);
+		container.addContainerProperty(COLUMN_DETALLE, Button.class, null);
 
 		tblSustancias.setContainerDataSource(container);
 
@@ -255,12 +259,12 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 		tblSustancias.setColumnHeader(COLUMN_CAMBIO, "Cambio");
 		tblSustancias.setColumnHeader(COLUMN_PROCEDENCIA, "Procedencia");
 		tblSustancias.setColumnHeader(COLUMN_DESTINO, "Destino");
+		tblSustancias.setColumnHeader(COLUMN_DETALLE, "Registrar Detalle");
 
 		tblSustancias.setVisibleColumns(new Object[] { COLUMN_TIPO_DROGA,
 				COLUMN_TIPO_MEDIDA, COLUMN_PESO_BRUTO, COLUMN_PESO_NETO,
-				COLUMN_SITUACION, COLUMN_MEDIDA_MUESTRA, COLUMN_SOLES,
-				COLUMN_DOLARES, COLUMN_CAMBIO, COLUMN_PROCEDENCIA,
-				COLUMN_DESTINO });
+				COLUMN_SITUACION, COLUMN_MEDIDA_MUESTRA, COLUMN_PROCEDENCIA,
+				COLUMN_DESTINO, COLUMN_DETALLE });
 
 		tblSustancias.setColumnWidth(COLUMN_TIPO_DROGA, 100);
 		tblSustancias.setColumnWidth(COLUMN_TIPO_MEDIDA, 100);
@@ -307,6 +311,26 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 			item.getItemProperty(COLUMN_PROCEDENCIA).setValue(HarecUtil.paisNombreToEmpty(droga.getProcedencia()));
 			item.getItemProperty(COLUMN_DESTINO).setValue(HarecUtil.paisNombreToEmpty(droga.getDestino()));
 			item.getItemProperty(COLUMN_DROGA).setValue(droga);
+			Button detalle = new Button();
+			detalle.setCaption("Detalle");
+			detalle.addListener(new ClickListener() {
+				
+				private static final long serialVersionUID = 688255660681167152L;
+
+				@Override
+				public void buttonClick(ClickEvent event) {
+					PanelDetalleDroga pnlDetalleDroga = new PanelDetalleDroga();
+					Window wdDetalle = new Window();
+					wdDetalle.setModal(true);
+					wdDetalle.setResizable(false);
+					wdDetalle.addComponent(pnlDetalleDroga);
+					
+					wdDetalle.setCaption("Registro Detalle");
+					wdDetalle.setWidth("550px");
+					getApplication().getMainWindow().getWindow().addWindow(wdDetalle);
+				}
+			});
+			item.getItemProperty(COLUMN_DETALLE).setValue(detalle);
 		}
 
 	}
