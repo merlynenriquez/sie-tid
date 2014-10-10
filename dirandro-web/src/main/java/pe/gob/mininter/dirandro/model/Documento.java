@@ -30,9 +30,6 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 @Table(name="EXP_DOCUMENTO")
 public class Documento extends AuditoriaBean implements Validador, Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7210926761891471965L;
 
 	@Id
@@ -63,6 +60,14 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 
 	@Column(name="NRO_DOCUMENTO", length=160)
 	private String nroDocumento;
+	
+	@Column(name="CODIGO_ORIGEN", precision=16)
+	private Long codigoOrigen;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TABLA_ORIGEN")
+	private Valor tablaOrigen;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -212,6 +217,22 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	public Long getCodigoOrigen() {
+		return codigoOrigen;
+	}
+
+	public void setCodigoOrigen(Long codigoOrigen) {
+		this.codigoOrigen = codigoOrigen;
+	}
+
+	public Valor getTablaOrigen() {
+		return tablaOrigen;
+	}
+
+	public void setTablaOrigen(Valor tablaOrigen) {
+		this.tablaOrigen = tablaOrigen;
 	}
 
 	/**

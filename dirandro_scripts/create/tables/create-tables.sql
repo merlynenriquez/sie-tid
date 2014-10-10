@@ -868,6 +868,8 @@ create table SIETID.EXP_DOCUMENTO
 (
    ID                   NUMBER(16)           not null,
    EXPEDIENTE           NUMBER(16),
+   TABLA_ORIGEN         NUMBER(16),
+   CODIGO_ORIGEN        NUMBER(16),
    TIPO_DOCUMENTO       NUMBER(16),
    NRO_DOCUMENTO        NVARCHAR2(80),
    ASUNTO               NVARCHAR2(500),
@@ -893,6 +895,9 @@ comment on column SIETID.EXP_DOCUMENTO.ID is
 
 comment on column SIETID.EXP_DOCUMENTO.EXPEDIENTE is
 'Identificador de expediente';
+
+comment on column SIETID.EXP_DOCUMENTO.TABLA_ORIGEN is
+'Oficina A/ policia';
 
 comment on column SIETID.EXP_DOCUMENTO.TIPO_DOCUMENTO is
 'Tipo de documento';
@@ -3477,6 +3482,10 @@ alter table SIETID.EXP_DOCUMENTO
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DOCUMENTO
+   add constraint FK_EXP_DOCUMENTO_PROCEDENCIA foreign key (TABLA_ORIGEN)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_DOCUMENTO
    add constraint FK_EXP_DOCUMENTO_TIPO foreign key (TIPO_DOCUMENTO)
       references SIETID.CFG_VALOR (ID);
 
@@ -4491,5 +4500,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-
+      
 quit;
