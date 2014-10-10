@@ -15,7 +15,6 @@ import pe.gob.mininter.dirandro.service.EntidadService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParteDocumento;
-import pe.gob.mininter.dirandro.vaadin.panel.util.DependenciaComponent;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 import pe.gob.mininter.dirandro.vaadin.util.UploadDirandro;
@@ -36,7 +35,6 @@ import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 public class PanelDocumento extends CustomComponent {
 
@@ -108,7 +106,6 @@ public class PanelDocumento extends CustomComponent {
 	private EntidadService entidadService;
 	private Documento documento;
 	private Dependencia dependencia;
-	private DependenciaComponent panelDependencia;
 	private PanelRegistroParteDocumento padre;
 	
 	private List<Valor> lstProcendencias;
@@ -129,10 +126,12 @@ public class PanelDocumento extends CustomComponent {
 	}
 
 	public void setPadre(PanelRegistroParteDocumento padre) {
+		System.out.println("============SETEADO============"+ padre);
 		this.padre = padre;
 	}
 
 	public PanelDocumento() {
+		System.out.println("===================inicia constructor");
 		buildMainLayout();
 		
 		lytDependencia.setVisible(false);
@@ -177,23 +176,27 @@ public class PanelDocumento extends CustomComponent {
 		});
 		
 		cargarProcedencia();
-		
+		System.out.println("padre antes btnDependencia " + getPadre());
 		btnDependencia.addListener(new ClickListener() {
 			
 			private static final long serialVersionUID = 4539783663387871432L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-
+				System.out.println("padre en boton click " + getPadre());
 				cargaPanelDependencia();
+				
 			}
 			
 		});
-		
+		System.out.println("================fin constructor");
 	}
 	
 	private void cargaPanelDependencia(){
-		padre.obtenerDependencia();
+		if(getPadre()!=null)
+			getPadre().obtenerDependencia();
+		else
+			System.out.println("============NULL===========" + getPadre());
 	}
 	
 	private void cargarProcedencia(){
@@ -207,6 +210,7 @@ public class PanelDocumento extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				
+				System.out.println("=============on change ==========" + getPadre());
 				cmbTipo.removeAllItems();
 				cmbProcendenciaId.removeAllItems();
 				
@@ -279,7 +283,13 @@ public class PanelDocumento extends CustomComponent {
 			documento.setOsDocumento(getOutputStream());
 			documento.setFilename(upArchivo.getFilename());
 			documento.setRegistrable(!rbAdjunto.getValue().equals("No"));
-			
+			documento.setTablaOrigen((Valor) cmbProcedencia.getValue());
+			if (((Valor) cmbProcedencia.getValue()).getCodigo().equals(Constante.VALOR.CODIGO.ENTIDAD)) {
+				documento.setCodigoOrigen( getCodigoProcedencia() );
+			}else if (((Valor) cmbProcedencia.getValue()).getCodigo().equals(Constante.VALOR.CODIGO.DEPENDENCIA)) {
+				if(getDependencia()!=null)
+				documento.setCodigoOrigen( getDependencia().getId() );
+			}
 		}
 		
 		return documento;
