@@ -14,7 +14,7 @@ import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.EntidadService;
 import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
-import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParteDocumento;
+import pe.gob.mininter.dirandro.vaadin.panel.util.DependeciaPadre;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 import pe.gob.mininter.dirandro.vaadin.util.UploadDirandro;
@@ -106,7 +106,10 @@ public class PanelDocumento extends CustomComponent {
 	private EntidadService entidadService;
 	private Documento documento;
 	private Dependencia dependencia;
-	private PanelRegistroParteDocumento padre;
+	/**
+	 * Las ventanas que incluyan a este panel deben extender de esta intrfaz
+	 */
+	private DependeciaPadre padre;
 	
 	private List<Valor> lstProcendencias;
 	private List<Valor> lstTipoEntidades;
@@ -121,12 +124,11 @@ public class PanelDocumento extends CustomComponent {
 		lblDependencia.setValue( dependencia.getNombre() );
 	}
 
-	public PanelRegistroParteDocumento getPadre() {
+	public DependeciaPadre getPadre() {
 		return padre;
 	}
 
-	public void setPadre(PanelRegistroParteDocumento padre) {
-		System.out.println("============SETEADO============"+ padre);
+	public void setPadre(DependeciaPadre padre) {
 		this.padre = padre;
 	}
 
@@ -183,20 +185,17 @@ public class PanelDocumento extends CustomComponent {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				System.out.println("padre en boton click " + getPadre());
+				
 				cargaPanelDependencia();
 				
 			}
 			
 		});
-		System.out.println("================fin constructor");
 	}
 	
 	private void cargaPanelDependencia(){
 		if(getPadre()!=null)
 			getPadre().obtenerDependencia();
-		else
-			System.out.println("============NULL===========" + getPadre());
 	}
 	
 	private void cargarProcedencia(){
@@ -210,7 +209,6 @@ public class PanelDocumento extends CustomComponent {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				
-				System.out.println("=============on change ==========" + getPadre());
 				cmbTipo.removeAllItems();
 				cmbProcendenciaId.removeAllItems();
 				

@@ -32,6 +32,8 @@ import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelDocumento;
+import pe.gob.mininter.dirandro.vaadin.panel.util.DependeciaPadre;
+import pe.gob.mininter.dirandro.vaadin.panel.util.DependenciaComponent;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -52,8 +54,9 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
-public class PanelRegistroPartePrincipal extends CustomComponent implements  ClickListener {
+public class PanelRegistroPartePrincipal extends CustomComponent implements  ClickListener, DependeciaPadre {
 	
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -192,6 +195,8 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 	private List<TipoHecho> lstHechos;
 	private PanelRegistroParteDocumento pnlAgregarDocumento;
 	private PanelRegistroParte pnlRegistroParte;
+	private DependenciaComponent panelDependencia;
+	private Dependencia dependencia;
 	
 	/**
 	 * The constructor should first build the main layout, set the composition
@@ -211,6 +216,15 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 		postConstruct();
 		inicializado=true;
 	}	
+
+	public Dependencia getDependencia() {
+		return dependencia;
+	}
+
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
+		pnlDocumento.setDependencia(dependencia);
+	}
 
 	public void postConstruct() {
 		if( !inicializado){
@@ -253,6 +267,44 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 			cmbDependenciaCargar();
 			cmbTipoHechoCargar();
 		}
+		pnlDocumento.setPadre(this);
+	}
+	
+	@Override
+	public void obtenerDependencia(){
+		
+		panelDependencia = new DependenciaComponent();
+		
+		if(this.getParent().getParent()!=null){
+			panelDependencia.setParent(this.getParent().getParent());
+		}else{
+			panelDependencia.setParent(this.getParent());
+		}
+		Window window=new Window(){
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void close() {
+				 getApplication().getMainWindow().removeWindow(getWindow());
+			}
+
+			@Override
+			public void detach() {
+				if(panelDependencia.getDependencia()!=null)
+					setDependencia(panelDependencia.getDependencia());
+			}
+			  
+		};
+		window.setCaption("Seleccionar Dependencia");
+		window.addComponent(panelDependencia);
+		window.setModal(true);
+		window.setResizable(false);
+		window.setWidth("620px");
+		window.setHeight("-1px");
+		getApplication().getMainWindow().addWindow(window);
+		
+	
 	}
 	
 	private void cmbTipoHechoCargar() {
