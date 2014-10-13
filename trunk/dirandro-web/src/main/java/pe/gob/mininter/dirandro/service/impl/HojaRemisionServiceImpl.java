@@ -1,6 +1,7 @@
 package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,12 @@ public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long>
 								
 		}
 		return hojaDeRemisionHibernate.buscar(filtro);		
+	}
+
+	@Override
+	public List<Hojaremision> buscarBandeja(Map<String, Object> map) {
+		Busqueda filtro = Busqueda.forClass(Hojaremision.class);
+		return hojaDeRemisionHibernate.buscar(filtro);	
 	}
 
 	

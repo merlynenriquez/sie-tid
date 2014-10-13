@@ -22,6 +22,7 @@ import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.util.PlantillaVelocity;
+import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaHojaRemision;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaTrabajo;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscaPersona;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarArmas;
@@ -211,6 +212,11 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Bandeja de Parte Policial</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBandejaTrabajo(acciones, "-1px"), "top");
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_BAN_HR)){
+				lblTituloPanel.setValue("<h2>Bandeja Hoja de Remisión</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBandejaHojaRemision(acciones, "-1px"), "top");
 			}
 			/**
 			 * Menu Registro de Mantenimientos
