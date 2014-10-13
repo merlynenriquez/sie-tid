@@ -303,7 +303,8 @@ public abstract class Constante {
 		// Menu Nro 2 (Registro Principal)
 		public final static String CODIGO_EXP_REG_PP = "EXP_REG_PP";
 		public final static String CODIGO_EXP_REG_HR = "EXP_REG_HR";
-		public final static String CODIGO_EXP_BND = "EXP_BND";
+		public static final String CODIGO_EXP_BAN_PP = "EXP_BAN_PP";
+		public static final String CODIGO_EXP_BAN_HR = "EXP_BAN_HR";
 
 		// Menu Nro 3 (Busqueda de Tablas)
 		public final static String CODIGO_BSQ_VEHICULO = "BSQ_VEHICULO";
@@ -329,8 +330,6 @@ public abstract class Constante {
 		
 		// Menu Nro 6 (Configuracion)
 		public final static String CODIGO_RPT_ATESTADO = "RPT_ATESTADO";
-
-		public static final String CODIGO_EXP_BAN_PP = "EXP_BAN_PP";
 		
 		// Opciones de Acciones de los Botones
 		public static abstract class ACCION {
