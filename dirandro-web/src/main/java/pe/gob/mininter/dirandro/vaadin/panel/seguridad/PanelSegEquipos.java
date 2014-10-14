@@ -7,16 +7,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import pe.gob.mininter.dirandro.model.Dependencia;
-import pe.gob.mininter.dirandro.model.Equipo;
 import pe.gob.mininter.dirandro.model.Integrante;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Policia;
 import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.model.Valor;
-import pe.gob.mininter.dirandro.service.DependenciaService;
 import pe.gob.mininter.dirandro.service.IntegranteService;
 import pe.gob.mininter.dirandro.service.PoliciaService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDependencia;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
@@ -126,6 +125,8 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 
 	public void setDependencia(Dependencia dependencia) {
 		this.dependencia = dependencia;
+		limpiar("integrante");
+		refrescar();
 	}
 
 	private void debugId(){
@@ -151,7 +152,7 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 	
 	//** Inicializar Variables Globales **// 
 	private void inicializarVariables(){
-		cargarIntegrantes(new ArrayList<Integrante>(),true);
+		cargarIntegrantes(new ArrayList<Integrante>());
 		
 		cmbEstadoIntegrante.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
 		cmbEstadoIntegrante.setInputPrompt("Estado");
@@ -162,7 +163,7 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 		List<Policia> lstPolicias = policiaService.buscar(null);
 		cmbNombreIntegrante.setContainerDataSource(new BeanItemContainer<Policia>(Policia.class, lstPolicias));
 		cmbNombreIntegrante.setInputPrompt("Nombre del Policia");
-		cmbNombreIntegrante.setItemCaptionPropertyId("unidad");
+		cmbNombreIntegrante.setItemCaptionPropertyId("nombreCompleto");
 		
 		btnGrabarIntegrante.addListener((ClickListener)this);
 		btnGrabarIntegrante.setIcon(Constante.ICONOS.SAVE);	
@@ -197,29 +198,20 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
                 	Item item = tblIntegrantes.getItem(tblIntegrantes.getValue());
                 	
                 	idIntegrante = (Long) item.getItemProperty("id").getValue();
-                	/*equipo = new Equipo();
-                	equipo.setId(idIntegrante);*/
                 	
-                	for (Valor estadoIntegrante : lstEstados) {
-						if(estadoIntegrante.getId().equals(item.getItemProperty("estado.id").getValue())){
-							cmbEstadoIntegrante.select(estadoIntegrante);
-							break;
-						}
-					}
-                		
-                	for (Valor funcionIntegrante : lstFunciones) {
-						if(funcionIntegrante.getCodigo().equals(item.getItemProperty("funcion.codigo").getValue().toString())){
-							cmbFuncionIntegrante.select(funcionIntegrante);
-							break;
-						}
-					}
+                	Valor estado = new Valor();
+                	estado.setId( HarecUtil.toLong( item.getItemProperty("estado.id").getValue() ) );
+                	cmbEstadoIntegrante.select( estado );
                 	
-                	for (Usuario usuario : lstUsuarios) {
-						if (usuario.getUsuario().equals(item.getItemProperty("integrante.usuario").getValue())) {
-							cmbNombreIntegrante.setValue(usuario);
-							break;
-						}
-					}
+                	
+                	Valor funcion = new Valor();
+                	funcion.setId( HarecUtil.toLong( item.getItemProperty("funcion.id").getValue() ) );
+                	cmbFuncionIntegrante.select( funcion );
+                
+                	logger.debug("integrante "+HarecUtil.toLong( item.getItemProperty("integrante.id").getValue() ));
+                	Policia pol = new Policia();
+                	pol.setId( HarecUtil.toLong( item.getItemProperty("integrante.id").getValue() ) );
+                	cmbNombreIntegrante.setValue(pol);
 				}
             }
         });
@@ -228,11 +220,7 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 	private IndexedContainer cargarContainerIntegrantes(){
 		containerIntegrantes = new IndexedContainer();
 		containerIntegrantes.addContainerProperty("id", Long.class,  null);
-		containerIntegrantes.addContainerProperty("equipo", Equipo.class,  null);
-		containerIntegrantes.addContainerProperty("equipo.id", Long.class,  null);
-		containerIntegrantes.addContainerProperty("equipo.nombre", String.class,  null);
 		containerIntegrantes.addContainerProperty("integrante.id", Long.class, null);
-		containerIntegrantes.addContainerProperty("integrante.usuario", String.class, null);
 		containerIntegrantes.addContainerProperty("integrante.nombreCompleto", String.class,  null);	
 		containerIntegrantes.addContainerProperty("estado.id", Long.class, null);
 		containerIntegrantes.addContainerProperty("estado.nombre", String.class, null);
@@ -242,13 +230,12 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 		return containerIntegrantes;
 	}
 		
-	private void cargarIntegrantes(List<Integrante> lstIntegrantes, boolean flagLimpiar){
+	private void cargarIntegrantes(List<Integrante> lstIntegrantes ){
 		
 		tblIntegrantes.setContainerDataSource(cargarContainerIntegrantes());
 		tblIntegrantes.setVisibleColumns(new Object[]{"id", "integrante.nombreCompleto", "funcion.nombre", "estado.nombre"});		
 				
 		tblIntegrantes.setColumnWidth("integrante.nombreCompleto", 200);	
-		tblIntegrantes.setColumnWidth("equipo.id", 74);
 		tblIntegrantes.setColumnWidth("estado.nombre", 45);
 		tblIntegrantes.setColumnWidth("funcion.nombre", 200);		
 				
@@ -259,10 +246,11 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 		for (Integrante integrante: lstIntegrantes){
 			Item item = containerIntegrantes.addItem(conta++);
 			item.getItemProperty("id").setValue(integrante.getId());
-			/*item.getItemProperty("integrante.id").setValue(integrante.getUsuario().getId());
+			/*
 			item.getItemProperty("integrante.usuario").setValue(integrante.getUsuario().getUsuario());
-			item.getItemProperty("integrante.nombreCompleto").setValue(integrante.getUsuario().getNombres());*/
-			//item.getItemProperty("equipo.nombre").setValue(integrante.getEquipo().getNombre());
+			*/
+			item.getItemProperty("integrante.id").setValue(integrante.getPolicia().getId());
+			item.getItemProperty("integrante.nombreCompleto").setValue(integrante.getNombreCompletoIntegrante());
 			item.getItemProperty("estado.id").setValue(integrante.getEstado() == null ? null : integrante.getEstado().getId());
 			item.getItemProperty("estado.nombre").setValue(integrante.getEstado() == null ? null : integrante.getEstado().getNombre());
 			item.getItemProperty("funcion.id").setValue(integrante.getFuncion() == null ? null : integrante.getFuncion().getId());
@@ -419,13 +407,13 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 	}
 	
 	private void buttonClickGrabarIntegrante(){
-		System.out.println("test?????????????????"+dependencia.getNombre());
-		Integrante integrante = new Integrante();
-		//integrante.setUsuario((Usuario) cmbNombreIntegrante.getValue());
-		integrante.setEstado((Valor) cmbEstadoIntegrante.getValue());
-		integrante.setFuncion((Valor)cmbFuncionIntegrante.getValue());
-		//integrante.setEquipo(equipo);
+		logger.debug(" dependencia "+dependencia.getNombre());
 		
+		Integrante integrante = new Integrante();
+		integrante.setEstado((Valor)cmbEstadoIntegrante.getValue());
+		integrante.setFuncion((Valor)cmbFuncionIntegrante.getValue());
+		integrante.setDependencia(dependencia);
+		integrante.setPolicia((Policia)cmbNombreIntegrante.getValue());
 
 		if(flagNuevoIntegrante){
 			integranteService.crear(integrante);
@@ -460,9 +448,9 @@ public class PanelSegEquipos extends DirandroComponent implements ClickListener 
 	
 	private void refrescar(){
 		Integrante nuevoInt = new Integrante();
-		//nuevoInt.setEquipo(equipo);
+		nuevoInt.setDependencia(dependencia);
 		List<Integrante> lstIntegrantes = integranteService.buscar(nuevoInt);
-		cargarIntegrantes(lstIntegrantes, true);
+		cargarIntegrantes(lstIntegrantes);
 	}
 	
 	private void habilitarEdicion(String nombre, boolean flag){

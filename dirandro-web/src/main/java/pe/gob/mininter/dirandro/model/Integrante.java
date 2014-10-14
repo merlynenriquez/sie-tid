@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,8 +35,8 @@ public class Integrante extends AuditoriaBean implements Serializable {
 	private Long id;
 
 	//TODO: Borrar del Modelo
-	@Column(name="ES_LIDER", precision=22)
-	private BigDecimal esLider;
+	//@Column(name="ES_LIDER", precision=22)
+	//private Integer esLider;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -70,13 +69,13 @@ public class Integrante extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getEsLider() {
-		return esLider;
-	}
-
-	public void setEsLider(BigDecimal esLider) {
-		this.esLider = esLider;
-	}
+//	public Integer getEsLider() {
+//		return esLider;
+//	}
+//
+//	public void setEsLider(Integer esLider) {
+//		this.esLider = esLider;
+//	}
 
 	public Valor getFuncion() {
 		return funcion;
@@ -115,6 +114,10 @@ public class Integrante extends AuditoriaBean implements Serializable {
 		return policia != null ? policia.getNombreCompleto() : StringUtils.EMPTY;
 	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
