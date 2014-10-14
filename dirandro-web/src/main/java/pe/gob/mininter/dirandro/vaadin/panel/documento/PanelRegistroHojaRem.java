@@ -212,6 +212,19 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 	private void debugId(){
 		
 	}
+	
+	@Override
+	public void attach() {
+		// TODO Auto-generated method stub
+		super.attach();
+		if(hojaremision!=null){
+			txtNumero.setValue(hojaremision.getNumero());
+			cmbTipoHr.setValue(hojaremision.getTipoHr());
+			cmbExpediente.setValue(hojaremision.getExpediente());
+			cmbMarca.setValue(hojaremision.getVehiculoMarca());
+			txtPlaca.setValue(hojaremision.getVehiculoPlaca());
+		}
+	}
 	public void postConstruct() {
 		mainLayout.setStyleName("backColor");
 		
@@ -276,6 +289,10 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		btnGrabar.addListener(this);
 		refrescar();
 		cargarContainer();
+	}
+	
+	public void setHojaremision(Hojaremision hojaremision){
+		this.hojaremision=hojaremision;
 	}
 	
 	private void cargarOrigenDivisionesChange(ValueChangeEvent event){
