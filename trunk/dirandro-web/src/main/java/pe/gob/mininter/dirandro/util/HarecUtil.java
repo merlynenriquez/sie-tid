@@ -27,7 +27,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Delito;
 import pe.gob.mininter.dirandro.model.Dependencia;
-import pe.gob.mininter.dirandro.model.Equipo;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Pais;
@@ -346,7 +345,7 @@ public abstract class HarecUtil {
 		return map;
 	}
 	
-	
+	/*
 	public static Map<String, List<Equipo>> ordenarEquipos(List<Equipo> equipos){
 		Map<String, List<Equipo>> map = new HashMap<String, List<Equipo>>();
 		List<Equipo> list2=null;
@@ -376,7 +375,7 @@ public abstract class HarecUtil {
 		}
 		return map;
 	}
-	
+	*/
 	/*
 	public static Map<String, List<Equipo>> obtenerEquipos(List<Equipo> equipos)
 	{
@@ -530,6 +529,22 @@ public abstract class HarecUtil {
 					return null;
 				}
 				return Integer.valueOf((String)valor);
+			}else{
+				return null; 
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static Long toLong(Object valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.toString())){
+					return null;
+				}
+				return Long.valueOf(valor.toString());
 			}else{
 				return null; 
 			}

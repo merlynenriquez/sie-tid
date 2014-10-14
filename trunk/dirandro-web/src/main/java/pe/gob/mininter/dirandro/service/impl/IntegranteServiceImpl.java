@@ -49,14 +49,17 @@ public class IntegranteServiceImpl extends BaseServiceImpl<Integrante, Long> imp
 			if (integrante.getEstado() != null && integrante.getEstado().getNombre() != null) {
 				filtro.createAlias("estado", "e");
 				filtro.add(Restrictions.ilike("e.nombre",integrante.getEstado().getNombre(), MatchMode.ANYWHERE));
-			}			
+			}
+			if(integrante.getDependencia()!=null){
+				filtro.createAlias("dependencia", "dep");
+				filtro.add(Restrictions.eq("dep.id",integrante.getDependencia().getId()));
+			}
 		}
 		
 		filtro.createAlias("estado", "e");
 		filtro.add(Restrictions.eq("e.codigo", Constante.VALOR.CODIGO.ACTIVO));
 		
 		filtro.addOrder(Order.asc("id"));
-		filtro.addOrder(Order.asc("equipo"));
 		return integranteHibernate.buscar(filtro);
 	}
 	
