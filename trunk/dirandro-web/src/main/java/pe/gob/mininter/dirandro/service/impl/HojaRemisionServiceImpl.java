@@ -1,8 +1,12 @@
 package pe.gob.mininter.dirandro.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,8 @@ import pe.gob.mininter.dirandro.dao.hibernate.HojaRemisionHibernate;
 import pe.gob.mininter.dirandro.model.Hojaremision;
 import pe.gob.mininter.dirandro.service.HojaRemisionService;
 import pe.gob.mininter.dirandro.util.Busqueda;
+import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaHojaRemision;
+import pe.gob.mininter.dirandro.vaadin.util.TablaFiltro;
 
 @Service
 public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long> implements HojaRemisionService{
@@ -104,6 +110,52 @@ public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long>
 	@Override
 	public List<Hojaremision> buscarBandeja(Map<String, Object> map) {
 		Busqueda filtro = Busqueda.forClass(Hojaremision.class);
+		if(map!=null){
+			addILikeRestrictions(filtro, "numero", (String)map.get(PanelBandejaHojaRemision.COLUMNA_NUMERO));
+			addILikeRestrictions(filtro, "tipoHr", "th", "nombre", (String)map.get(PanelBandejaHojaRemision.COLUMNA_TIPO_HR));
+			addILikeRestrictions(filtro, "expediente", "ex", "autogenerado", (String)map.get(PanelBandejaHojaRemision.COLUMNA_EXPEDIENTE));
+			addILikeRestrictions(filtro, "origen", "or", "nombre", (String)map.get(PanelBandejaHojaRemision.COLUMNA_DEPENDENCIA_REMITE));
+			addILikeRestrictions(filtro, "destino", "de", "nombre", (String)map.get(PanelBandejaHojaRemision.COLUMNA_DEPENDENCIA_DESTINO));
+			addBetweenGeLeRestrictions(filtro, "fechaEmision", (Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_EMISION+TablaFiltro.KEY_INICIAL), 
+					(Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_EMISION+TablaFiltro.KEY_FINAL));
+			addBetweenGeLeRestrictions(filtro, "fechaTraslado", (Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_TRASLADO+TablaFiltro.KEY_INICIAL), 
+					(Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_TRASLADO+TablaFiltro.KEY_FINAL));
+			if(map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA)!=null) {
+				
+				filtro.createAlias("conductor", "co");
+							
+				filtro.add(Restrictions.or(
+						Restrictions.ilike("co.nombres", (String)map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA), MatchMode.ANYWHERE),
+						Restrictions.ilike("co.apePaterno", (String)map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA), MatchMode.ANYWHERE),
+						Restrictions.ilike("co.apeMaterno", (String)map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA), MatchMode.ANYWHERE)
+						));
+			}
+			addILikeRestrictions(filtro, "nroLicencia", (String)map.get(PanelBandejaHojaRemision.COLUMNA_NRO_LICENCIA));
+			addILikeRestrictions(filtro, "oficio", (String)map.get(PanelBandejaHojaRemision.COLUMNA_OFICIO));
+			addILikeRestrictions(filtro, "vehiculoMarca", "ve", "nombre", (String)map.get(PanelBandejaHojaRemision.COLUMNA_VEHICULO_MARCA));
+			addILikeRestrictions(filtro, "vehiculoPlaca", (String)map.get(PanelBandejaHojaRemision.COLUMNA_VEHICULO_PLACA));
+			addILikeRestrictions(filtro, "motivoTraslado", (String)map.get(PanelBandejaHojaRemision.COLUMNA_MOTIVO_TRASLADO));
+			addBetweenGeLeRestrictions(filtro, "fechaRecepcion", (Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_RECEPCION+TablaFiltro.KEY_INICIAL), 
+					(Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_RECEPCION+TablaFiltro.KEY_FINAL));
+			if(StringUtils.isNotBlank((String)map.get(PanelBandejaHojaRemision.COLUMNA_COSTO_TRASLADO))){
+				filtro.add(Restrictions.eq("costoTraslado", new BigDecimal((String)map.get(PanelBandejaHojaRemision.COLUMNA_COSTO_TRASLADO))));
+			}
+			if(map.get(PanelBandejaHojaRemision.COLUMNA_CUSTODIO)!=null) {
+				
+				filtro.createAlias("custodio", "cu");
+				filtro.createAlias("cu.persona", "pe");
+							
+				filtro.add(Restrictions.or(
+						Restrictions.ilike("pe.nombres", (String)map.get(PanelBandejaHojaRemision.COLUMNA_CUSTODIO), MatchMode.ANYWHERE),
+						Restrictions.ilike("pe.apePaterno", (String)map.get(PanelBandejaHojaRemision.COLUMNA_CUSTODIO), MatchMode.ANYWHERE),
+						Restrictions.ilike("pe.apeMaterno", (String)map.get(PanelBandejaHojaRemision.COLUMNA_CUSTODIO), MatchMode.ANYWHERE)
+						));
+			}
+			addILikeRestrictions(filtro, "observacion", (String)map.get(PanelBandejaHojaRemision.COLUMNA_OBSERVACION));
+			
+			
+			
+		}
 		return hojaDeRemisionHibernate.buscar(filtro);	
 	}
 
