@@ -122,9 +122,9 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		container.addContainerProperty(COLUMNA_EXPEDIENTE, String.class, StringUtils.EMPTY, "Expediente", TipoComponente.TEXT, true, 100);
 		container.addContainerProperty(COLUMNA_DEPENDENCIA_REMITE, String.class, StringUtils.EMPTY, "Remite", TipoComponente.TEXT, true, 100);
 		container.addContainerProperty(COLUMNA_DEPENDENCIA_DESTINO, String.class, StringUtils.EMPTY, "Destino", TipoComponente.TEXT, true, 110);
-		container.addContainerProperty(COLUMNA_FECHA_EMISION, String.class, StringUtils.EMPTY, "Fecha Emision", TipoComponente.DATEPICKER, true, 110);
+		container.addContainerProperty(COLUMNA_FECHA_EMISION, Date.class, StringUtils.EMPTY, "Fecha Emision", TipoComponente.DATEPICKER, true, 110);
 		container.addContainerProperty(COLUMNA_FECHA_TRASLADO, Date.class, null, "Fecha Traslado", TipoComponente.DATEPICKER, false, 120);
-		container.addContainerProperty(COLUMNA_PERSONA, String.class, null, "Persona", TipoComponente.TEXT, false, 120);
+		container.addContainerProperty(COLUMNA_PERSONA, String.class, StringUtils.EMPTY, "Persona", TipoComponente.TEXT, true, 120);
 		container.addContainerProperty(COLUMNA_NRO_LICENCIA, String.class, StringUtils.EMPTY, "Nro Licencia", TipoComponente.TEXT, true, 180);
 		container.addContainerProperty(COLUMNA_OFICIO, String.class, StringUtils.EMPTY, "Oficio", TipoComponente.TEXT, true, 180);
 		container.addContainerProperty(COLUMNA_VEHICULO_MARCA, String.class, StringUtils.EMPTY, "Vehiculo Marca", TipoComponente.TEXT, true, 180);

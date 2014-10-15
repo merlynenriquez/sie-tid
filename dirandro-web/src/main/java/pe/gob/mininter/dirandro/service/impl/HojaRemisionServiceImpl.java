@@ -120,7 +120,7 @@ public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long>
 					(Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_EMISION+TablaFiltro.KEY_FINAL));
 			addBetweenGeLeRestrictions(filtro, "fechaTraslado", (Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_TRASLADO+TablaFiltro.KEY_INICIAL), 
 					(Date)map.get(PanelBandejaHojaRemision.COLUMNA_FECHA_TRASLADO+TablaFiltro.KEY_FINAL));
-			if(map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA)!=null) {
+			if(StringUtils.isNotBlank((String)map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA))) {
 				
 				filtro.createAlias("conductor", "co");
 							
@@ -140,7 +140,7 @@ public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long>
 			if(StringUtils.isNotBlank((String)map.get(PanelBandejaHojaRemision.COLUMNA_COSTO_TRASLADO))){
 				filtro.add(Restrictions.eq("costoTraslado", new BigDecimal((String)map.get(PanelBandejaHojaRemision.COLUMNA_COSTO_TRASLADO))));
 			}
-			if(map.get(PanelBandejaHojaRemision.COLUMNA_CUSTODIO)!=null) {
+			if(StringUtils.isNotBlank((String)map.get(PanelBandejaHojaRemision.COLUMNA_CUSTODIO))) {
 				
 				filtro.createAlias("custodio", "cu");
 				filtro.createAlias("cu.persona", "pe");
