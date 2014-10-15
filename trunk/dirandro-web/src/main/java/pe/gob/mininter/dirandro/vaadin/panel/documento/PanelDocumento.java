@@ -461,7 +461,7 @@ public class PanelDocumento extends CustomComponent {
 		// btnDependencia
 		btnDependencia = new Button();
 		btnDependencia.setCaption("Seleccionar");
-		btnDependencia.setImmediate(false);
+		btnDependencia.setImmediate(true);
 		btnDependencia.setWidth("-1px");
 		btnDependencia.setHeight("-1px");
 		lytDependencia.addComponent(btnDependencia);
