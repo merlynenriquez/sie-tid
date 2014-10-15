@@ -1996,6 +1996,49 @@ alter table HR_HOJAREMISION_MUESTRA
    add constraint PK_HR_HOJAREMISION_MUESTRA primary key (ID);
 
 /*==============================================================*/
+/* Table: HR_PERICIA                                            */
+/*==============================================================*/
+create table HR_PERICIA 
+(
+   ID                   NUMBER(16)           not null,
+   MUESTRA              NUMBER(16),
+   FECHA_PERITAJE       TIMESTAMP,
+   ADJUNTO              NUMBER(16),
+   LOGO                 NUMBER(16),
+   DESCRIPCION_LOGO     NVARCHAR2(2000),
+   ESTADO_PERICIA       NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table HR_PERICIA is
+'Tabla en donde se registran las pericias realizadas
+cada registro corresponde a un item de muestra registrada en la hoja de remision';
+
+comment on column HR_PERICIA.ID is
+'codigo autogenerado que hace unico al registro ';
+
+comment on column HR_PERICIA.MUESTRA is
+'id de la muestra (detalle de la hoja de remision)';
+
+comment on column HR_PERICIA.ADJUNTO is
+'imagen digitalizada del informe de peritaje';
+
+comment on column HR_PERICIA.LOGO is
+'imagen digitalizada o fotografia con el logo de la droga';
+
+comment on column HR_PERICIA.DESCRIPCION_LOGO is
+'descripcion escrita de la imagen del logo de la droga';
+
+comment on column HR_PERICIA.ESTADO_PERICIA is
+'datos obtenidos desde la tabla valor';
+
+alter table HR_PERICIA
+   add constraint PK_HR_PERICIA primary key (ID);
+
+/*==============================================================*/
 /* Table: MNT_MODELO_MARCA                                      */
 /*==============================================================*/
 create table SIETID.MNT_MODELO_MARCA 
@@ -4033,6 +4076,30 @@ alter table HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_MUESTRA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
+alter table HR_PERICIA
+   add constraint FK_HR_PERICIA_ADJUNTO foreign key (ADJUNTO)
+      references SIETID.EXP_ADJUNTO (ID);
+
+alter table HR_PERICIA
+   add constraint FK_HR_PERICIA_ADJUNTO_LOGO foreign key (LOGO)
+      references SIETID.EXP_ADJUNTO (ID);
+
+alter table HR_PERICIA
+   add constraint FK_HR_PERICIA_MUESTRA foreign key (MUESTRA)
+      references HR_HOJAREMISION_MUESTRA (ID);
+
+alter table HR_PERICIA
+   add constraint FK_HR_PERICIA_USUARIO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table HR_PERICIA
+   add constraint FK_HR_PERICIA_USUARIO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table HR_PERICIA
+   add constraint FK_HR_PERICIA_VALOR foreign key (ESTADO_PERICIA)
+      references SIETID.CFG_VALOR (ID);
+
 alter table SIETID.MNT_MODELO_MARCA
    add constraint FK_MODELO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -4500,5 +4567,3 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-      
-quit;
