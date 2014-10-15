@@ -217,12 +217,34 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 	public void attach() {
 		// TODO Auto-generated method stub
 		super.attach();
-		if(hojaremision!=null){
+		if(!hojaremision.esNuevo()){
 			txtNumero.setValue(hojaremision.getNumero());
 			cmbTipoHr.setValue(hojaremision.getTipoHr());
 			cmbExpediente.setValue(hojaremision.getExpediente());
 			cmbMarca.setValue(hojaremision.getVehiculoMarca());
 			txtPlaca.setValue(hojaremision.getVehiculoPlaca());
+			if(hojaremision.getOrigen()!=null){
+				cmbDireccionOrigen.setValue(hojaremision.getOrigen().getPadre().getPadre());
+				cmbDivisionOrigen.setValue(hojaremision.getOrigen().getPadre());
+				cmbDepartamentoOrigen.setValue(hojaremision.getOrigen());
+			}
+			if(hojaremision.getDestino()!=null){
+				cmbDireccionDestino.setValue(hojaremision.getDestino().getPadre().getPadre());
+				cmbDivisionDestino.setValue(hojaremision.getDestino().getPadre());
+				cmbDepartamentoDestino.setValue(hojaremision.getDestino());
+			}
+			txtOficio.setValue(hojaremision.getOficio());
+			dtFechaEmision.setValue(hojaremision.getFechaEmision());
+			dtFechTraslado.setValue(hojaremision.getFechaTraslado());
+			dtFechaRecepcion.setValue(hojaremision.getFechaRecepcion());
+			cmbConductor.setValue(hojaremision.getConductor());
+			cmbCustodio.setValue(hojaremision.getCustodio());
+			txtLicencia.setValue(hojaremision.getNroLicencia());
+			txtCostoTraslado.setValue(hojaremision.getCostoTraslado());
+			txtTraslado.setValue(hojaremision.getMotivoTraslado());
+			txtObservacion.setValue(hojaremision.getObservacion());
+			cargaPanelDetalle();
+			cargarTablaMuestra();		
 		}
 	}
 	public void postConstruct() {
@@ -285,7 +307,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 
 		pnlDetalle.setVisible(false);
 		btnAgregar.addListener(this);
-		btnCancelar.addListener(this);
+		btnCancelar.setVisible(false);
 		btnGrabar.addListener(this);
 		refrescar();
 		cargarContainer();
@@ -434,9 +456,6 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		if(event.getButton().equals(btnGrabar)){
 			btnGrabarClic();
 		}
-		if (event.getButton().equals(btnCancelar)) {
-				
-		}
 		if (event.getButton().equals(btnAgregar)) {
 			btnAgregaDetalleClic();
 		}
@@ -578,7 +597,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		// common part: create layout
 		pnlHoja = new VerticalLayout();
 		pnlHoja.setImmediate(false);
-		pnlHoja.setWidth("900px");
+		pnlHoja.setWidth("950px");
 		pnlHoja.setHeight("-1px");
 		pnlHoja.setMargin(true);
 		pnlHoja.setSpacing(true);
@@ -698,6 +717,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		cmbDivisionOrigen.setImmediate(false);
 		cmbDivisionOrigen.setWidth("300px");
 		cmbDivisionOrigen.setHeight("-1px");
+		cmbDivisionOrigen.setRequired(true);
 		lytOrigen.addComponent(cmbDivisionOrigen);
 		
 		// cmbDepartamentoOrigen
@@ -706,6 +726,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		cmbDepartamentoOrigen.setImmediate(false);
 		cmbDepartamentoOrigen.setWidth("250px");
 		cmbDepartamentoOrigen.setHeight("-1px");
+		cmbDepartamentoOrigen.setRequired(true);
 		lytOrigen.addComponent(cmbDepartamentoOrigen);
 		
 		return lytOrigen;
@@ -735,6 +756,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		cmbDivisionDestino.setImmediate(false);
 		cmbDivisionDestino.setWidth("300px");
 		cmbDivisionDestino.setHeight("-1px");
+		cmbDivisionDestino.setRequired(true);
 		lytDestino.addComponent(cmbDivisionDestino);
 		
 		// cmbDepartamentoDestino
@@ -743,6 +765,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		cmbDepartamentoDestino.setImmediate(false);
 		cmbDepartamentoDestino.setWidth("250px");
 		cmbDepartamentoDestino.setHeight("-1px");
+		cmbDepartamentoDestino.setRequired(true);
 		lytDestino.addComponent(cmbDepartamentoDestino);
 		
 		return lytDestino;
@@ -913,7 +936,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		// common part: create layout
 		pnlDetalle = new VerticalLayout();
 		pnlDetalle.setImmediate(false);
-		pnlDetalle.setWidth("-1px");
+		pnlDetalle.setWidth("950px");
 		pnlDetalle.setHeight("-1px");
 		pnlDetalle.setMargin(false);
 		
