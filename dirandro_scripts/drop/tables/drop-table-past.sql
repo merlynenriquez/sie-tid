@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     10/7/2014 1:48:12 AM                         */
+/* Created on:     10/10/2014 12:14:26 AM                       */
 /*==============================================================*/
 
 
@@ -333,6 +333,9 @@ alter table SIETID.EXP_DOCUMENTO
 
 alter table SIETID.EXP_DOCUMENTO
    drop constraint FK_EXP_DOCUMENTO_PRIORIDAD;
+
+alter table SIETID.EXP_DOCUMENTO
+   drop constraint FK_EXP_DOCUMENTO_PROCEDENCIA;
 
 alter table SIETID.EXP_DOCUMENTO
    drop constraint FK_EXP_DOCUMENTO_TIPO;
