@@ -91,6 +91,10 @@ public abstract class Constante {
 			public static final String BANCO = "BANCOS";
 			public static final String TIPO_CUENTA = "TIPO_CUENTA";
 			public static final String TIPO_DOC_EXP = "DOCUMENTO_EXP";
+			public static final String MODALIDAD_DROGA = "MODALIDAD_DRG";
+			public static final String TRANSPORTE_DROGA = "TRANSPORTE_DRG";
+			public static final String ESTADO_PARTICIPACION = "ESTADO_PARTIC";
+			public static final String PARTICIPACION = "PARTICIPACION";
 			
 		}
 	}

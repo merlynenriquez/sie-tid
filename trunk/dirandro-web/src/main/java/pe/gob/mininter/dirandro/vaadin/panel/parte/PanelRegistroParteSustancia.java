@@ -313,6 +313,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 			item.getItemProperty(COLUMN_DROGA).setValue(droga);
 			Button detalle = new Button();
 			detalle.setCaption("Detalle");
+			detalle.setData(droga);
 			detalle.addListener(new ClickListener() {
 				
 				private static final long serialVersionUID = 688255660681167152L;
@@ -320,6 +321,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 				@Override
 				public void buttonClick(ClickEvent event) {
 					PanelDetalleDroga pnlDetalleDroga = new PanelDetalleDroga();
+					pnlDetalleDroga.recibirDroga((Droga) event.getButton().getData());
 					Window wdDetalle = new Window();
 					wdDetalle.setModal(true);
 					wdDetalle.setResizable(false);
@@ -399,7 +401,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 	private void buttonClickBtnDrRegistrar() {
 		Droga droga = new Droga();
 		droga.setTipoMedida((ModeloMarca) cmbMedida.getValue());
-		droga.setTipoDroga((ModeloMarca) cmbTipoDroga.getValue());
+		droga.setTipoDroga((ModeloMarca) cmbSubTipoDroga.getValue());
 		droga.setPesoBruto(HarecUtil.toDouble(txtPesoBruto.getValue())); 
 		droga.setPesoNeto(HarecUtil.toDouble(txtPesoBruto.getValue()));
 		droga.setExpediente(expediente);
@@ -428,6 +430,8 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 		txtPesoBruto.setValue(StringUtils.EMPTY);
 		txtPesoNeto.setValue(StringUtils.EMPTY);
 		txtPesoNeto.setValue(StringUtils.EMPTY);
+		cmbTipoDroga.select(null);
+		cmbSubTipoDroga.select(null);
 		cmbSituacion.select(null);
 		cmbMedida.select(null);
 		cmbTipoMedidaMuestra.select(null);
