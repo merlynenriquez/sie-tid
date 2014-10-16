@@ -40,6 +40,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.Instalacion" />
 		<mapping class="pe.gob.mininter.dirandro.model.Municion" />
 		<mapping class="pe.gob.mininter.dirandro.model.Organizacion" />
+		<mapping class="pe.gob.mininter.dirandro.model.Pericia" />
 		<mapping class="pe.gob.mininter.dirandro.model.Predecesor" />
 		<mapping class="pe.gob.mininter.dirandro.model.Ruta" />
 		<mapping class="pe.gob.mininter.dirandro.model.SituacionGeneral" />

@@ -11,7 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -39,6 +42,7 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 	private Double canPesoAnalisis;
 
 	@Column(name="CAN_PESO_BRUTO", precision=10, scale=2)
+	//@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private Double canPesoBruto;
 
 	@Column(name="CAN_PESO_DEVUELTO", precision=10, scale=2)
@@ -51,6 +55,7 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 	private Integer cantidad;
 
 	@Column(length=400)
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String descripcion;
 
 	//bi-directional many-to-one association to Valor
@@ -61,11 +66,13 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 	//bi-directional many-to-one association to Droga
 	@ManyToOne
 	@JoinColumn(name="DROGAS")
+	//@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Droga droga;
 
 	//bi-directional many-to-one association to Especie
 	@ManyToOne
 	@JoinColumn(name="ESPECIE")
+	//@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Especie especie;
 
 	//bi-directional many-to-one association to Hojaremision
