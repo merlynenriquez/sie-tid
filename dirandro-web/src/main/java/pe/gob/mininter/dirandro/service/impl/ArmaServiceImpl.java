@@ -31,13 +31,20 @@ public class ArmaServiceImpl extends BaseServiceImpl<Arma, Long> implements Arma
 	public List<Arma> buscar(Arma arma) {
 		Busqueda filtro = Busqueda.forClass(Arma.class);
 		if (arma != null) {
-			
-			if (arma.getCalibre() != null && arma.getCalibre().getId()!=null) {
-				filtro.add(Restrictions.eq("calibre.id", arma.getCalibre().getId()));
-			}
 			if (arma.getModelo() != null && arma.getModelo().getId()!=null) {
-				filtro.add(Restrictions.eq("modelo.id", arma.getModelo().getId()));
+				filtro.createAlias("modelo", "m");
+				filtro.add(Restrictions.eq("m.id", arma.getModelo().getId()));
 			}
+			if (arma.getEstadoSerie() != null && arma.getEstadoSerie().getId()!=null) {
+				filtro.createAlias("estadoSerie", "e");
+				filtro.add(Restrictions.eq("e.id", arma.getModelo().getId()));
+			}
+			addILikeRestrictions(filtro, "nroSerie", arma.getNroSerie());
+			if (arma.getCalibre() != null && arma.getCalibre().getId()!=null) {
+				filtro.createAlias("calibre", "c");
+				filtro.add(Restrictions.eq("c.id", arma.getCalibre().getId()));
+			}
+			addILikeRestrictions(filtro, "internamiento", arma.getInternamiento());
 			
 		}
 		return armaHibernate.buscar(filtro);		

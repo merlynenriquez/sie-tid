@@ -73,10 +73,10 @@ public class Inmueble extends AuditoriaBean implements Serializable {
 	private String urbanizacion;
 
 	@Column(name="VALOR_BIEN", precision=10, scale=2)
-	private Double valorBien;
+	private BigDecimal valorBien;
 
 	@Column(name="VALOR_TERRENO", precision=10, scale=2)
-	private Double valorTerreno;
+	private BigDecimal valorTerreno;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -197,22 +197,23 @@ public class Inmueble extends AuditoriaBean implements Serializable {
 		this.ubgDistrito = ubgDistrito;
 	}
 
-	public Double getValorBien() {
+	public BigDecimal getValorBien() {
 		return valorBien;
 	}
 
-	public void setValorBien(Double valorBien) {
+	public void setValorBien(BigDecimal valorBien) {
 		this.valorBien = valorBien;
 	}
 
-	public Double getValorTerreno() {
+	public BigDecimal getValorTerreno() {
 		return valorTerreno;
 	}
 
-	public void setValorTerreno(Double valorTerreno) {
+	public void setValorTerreno(BigDecimal valorTerreno) {
 		this.valorTerreno = valorTerreno;
 	}
-/*
+
+	/*
 	@Override
 	public void validar() {
 		if(StringUtils.isBlank( this.descripcion ))
