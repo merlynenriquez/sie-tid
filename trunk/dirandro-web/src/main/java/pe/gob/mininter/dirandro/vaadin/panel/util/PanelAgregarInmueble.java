@@ -174,8 +174,8 @@ public class PanelAgregarInmueble extends CustomComponent  implements ClickListe
 			inmueble.setTipoDireccion((Valor)cmbTipoDir.getValue());
 			inmueble.setUbgDistrito((Distrito)cmbUbicacion.getValue());
 			inmueble.setUrbanizacion(HarecUtil.nullToEmpty(txtUrb.getValue()));
-			inmueble.setValorBien(!StringUtils.isEmpty((String)txtValordelBien.getValue())? Double.valueOf(txtValordelBien.getValue().toString()):null);
-			inmueble.setValorTerreno(!StringUtils.isEmpty((String)txtValordelTerreno.getValue())? Double.valueOf(txtValordelTerreno.getValue().toString()):null);
+			inmueble.setValorBien(!StringUtils.isEmpty((String)txtValordelBien.getValue())? new BigDecimal(txtValordelBien.getValue().toString()):null);
+			inmueble.setValorTerreno(!StringUtils.isEmpty((String)txtValordelTerreno.getValue())? new BigDecimal(txtValordelTerreno.getValue().toString()):null);
 			
 			HarecUtil.validar(getWindow(), inmueble, new BeanValidar[]{
 				new BeanValidar("descripcion", new Object[]{"Descripción"}, txtDescripcion),

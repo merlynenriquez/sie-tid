@@ -37,6 +37,18 @@ public class InmuebleServiceImpl extends BaseServiceImpl<Inmueble, String> imple
 			if ( inmueble.getId()!=null) {
 				filtro.add(Restrictions.eq("id", inmueble.getId()));
 			}
+			addILikeRestrictions(filtro, "descripcion", inmueble.getDescripcion());
+			
+			addILikeRestrictions(filtro, "direccion", inmueble.getDireccion());
+			addILikeRestrictions(filtro, "urbanizacion", inmueble.getUrbanizacion());
+			
+			addILikeRestrictions(filtro, "nroInscripcion", inmueble.getNroInscripcion());
+			addILikeRestrictions(filtro, "oficinaRegistral", inmueble.getOficinaRegistral());
+			addILikeRestrictions(filtro, "resolucion", inmueble.getResolucion());
+			
+			addILikeRestrictions(filtro, "observaciones", inmueble.getObservaciones());
+			addILikeRestrictions(filtro, "longitud", inmueble.getLongitud());
+			addILikeRestrictions(filtro, "latitud", inmueble.getLatitud());
 		}
 		return expedienteInmuebleHibernate.buscar(filtro);
 	}
