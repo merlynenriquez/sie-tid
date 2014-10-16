@@ -164,6 +164,8 @@ public abstract class Constante {
 			
 			public final static String ABO = "ABO";
 			
+			public final static String HR_1 = "TP_HR01";
+			public final static String HR_2 = "TP_HR01";
 		}
 
 	}

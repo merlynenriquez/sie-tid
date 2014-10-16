@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,10 @@ public class HojaRemisionMuestraServiceImpl extends BaseServiceImpl<Hojaremision
 		Busqueda filtro = Busqueda.forClass(HojaremisionMuestra.class);
 		
 		if (hojaRemisionMuestra != null) {
-								
+			if (hojaRemisionMuestra.getHojaRemision()!= null) {
+				filtro.createAlias("hojaRemision", "h");
+				filtro.add(Restrictions.eq("h.id",hojaRemisionMuestra.getHojaRemision().getId() ));
+			}			
 		}
 		return hojaRemisionMuestraHibernate.buscar(filtro);		
 	}
