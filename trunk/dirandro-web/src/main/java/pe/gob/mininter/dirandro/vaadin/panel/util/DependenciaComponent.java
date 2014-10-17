@@ -224,7 +224,7 @@ public class DependenciaComponent extends CustomComponent{
 		container.addContainerProperty("seleccionar", Button.class, null);
 		
 		table_1.setContainerDataSource(container);
-		table_1.setVisibleColumns(new Object[]{"nombre","seleccionar"});
+		table_1.setVisibleColumns(new Object[]{"seleccionar","nombre"});
 
 		table_1.setColumnHeader("nombre", "Dependencia");
 		table_1.setColumnHeader("seleccionar", "Seleccionar");
@@ -289,7 +289,7 @@ public class DependenciaComponent extends CustomComponent{
 		// table_1
 		table_1 = new Table();
 		table_1.setImmediate(false);
-		table_1.setWidth("300px");
+		table_1.setWidth("400px");
 		table_1.setHeight("267px");
 		horizontalLayout_1.addComponent(table_1);
 		
