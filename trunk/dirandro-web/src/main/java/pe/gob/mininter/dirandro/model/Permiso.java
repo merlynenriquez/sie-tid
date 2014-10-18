@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -27,7 +30,7 @@ public class Permiso extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = -4708245203204061256L;
 
 	@Id
-	@SequenceGenerator(name="SEG_PERMISO_ID_GENERATOR", sequenceName="SEQ_", allocationSize=1)
+	@SequenceGenerator(name="SEG_PERMISO_ID_GENERATOR", sequenceName="SEQ_PERMISO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_PERMISO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;
@@ -89,4 +92,43 @@ public class Permiso extends AuditoriaBean implements Validador, Serializable {
 		
 	}
 
+	@Override
+    public int hashCode() {
+            HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(5, 31);
+            if(rol != null && opcion != null)
+            {
+                    hashCodeBuilder.append(rol.getCodigo());
+                    hashCodeBuilder.append(opcion.getCodigo());
+            }
+            else
+            {
+                    hashCodeBuilder.append(getId());
+            }
+            return hashCodeBuilder.toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+            if(obj == null)
+            {
+                    return false;
+            }
+            if (obj instanceof Permiso) {
+                    Permiso bean = (Permiso) obj;
+                    EqualsBuilder equalsBuilder = new EqualsBuilder();
+                    if(rol != null && opcion != null && bean.rol != null && bean.opcion != null)
+                    {
+                            equalsBuilder.append(rol.getId(), bean.rol.getId());
+                            equalsBuilder.append(opcion.getId(), bean.opcion.getId());
+                    }
+                    else
+                    {
+                            equalsBuilder.append(getId(), bean.getId());
+                    }
+                    return equalsBuilder.isEquals();
+                    
+            }
+            return false;
+    }
+	
 }
