@@ -43,53 +43,52 @@ public class PermisoServiceImpl extends BaseServiceImpl<Permiso, Long>
 
 	@Override
 	public List<Permiso> obtenerPermisosXRol(Long idRol, boolean estadoActivo) {
-		Busqueda filtro = Busqueda.forClass(Permiso.class);
-		filtro.createAlias("rol", "r");
-		filtro.createAlias("opcion", "o");
-		filtro.add(Restrictions.eq("r.id", idRol));
-		if(estadoActivo)
-		{
-			filtro.createAlias("estado", "e");
-			filtro.add(Restrictions.eq("e.codigo", Constante.VALOR.CODIGO.ACTIVO));
-		}
-		filtro.addOrder(Order.asc("o.padre"));
-		filtro.addOrder(Order.asc("o.tipo"));
-		filtro.addOrder(Order.asc("o.orden"));
-		return permisoHibernate.buscar(filtro);
+		return permisoHibernate.obtenerPermisosXRol(idRol, estadoActivo);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.REQUIRED, readOnly = false)
 	public void guardarPermisos(Long idRol, List<Long> idsOpciones) {
 		List<Permiso> permisosALL = obtenerPermisosXRol(idRol, false);
-		List<Permiso> permisosA = obtenerPermisosXRol(idRol, true);
-		List<Permiso> permisosSel = new ArrayList<Permiso>();
-		for (Long idOpcion : idsOpciones) {
-			Permiso permiso = new Permiso();
-			permiso.setRol(new Rol());
-			permiso.getRol().setId(idRol);
-			permiso.setOpcion(new Opcion());
-			permiso.getOpcion().setId(idOpcion);
-			permisosSel.add(permiso);
-		}
-		List<Permiso> permisosD = ListUtils.subtract(permisosALL, permisosA);
-		
-		List<Permiso> updPermisosD = ListUtils.subtract(permisosA, permisosSel);
-		List<Permiso> updPermisosA = ListUtils.intersection(permisosSel, permisosD);
-		List<Permiso> insPermisosA = ListUtils.subtract(permisosSel, permisosALL);
+        List<Permiso> permisosA = obtenerPermisosXRol(idRol, true);
+        List<Permiso> permisosSel = new ArrayList<Permiso>();
+        for (Long idOpcion : idsOpciones) {
+                Permiso permiso = new Permiso();
+                permiso.setRol(new Rol());
+                permiso.getRol().setId(idRol);
+                permiso.setOpcion(new Opcion());
+                permiso.getOpcion().setId(idOpcion);
+                permisosSel.add(permiso);
+        }
+        List<Permiso> permisosD = ListUtils.subtract(permisosALL, permisosA);
+        
+        List<Permiso> updPermisosD = ListUtils.subtract(permisosA, permisosSel);
+        List<Permiso> updPermisosA = ListUtils.intersection(permisosSel, permisosD);
+        List<Permiso> insPermisosA = ListUtils.subtract(permisosSel, permisosALL);
 		
 		Valor estadoInactivo = valorService.obtenerValor(Constante.LISTA.CODIGO.ESTADO, Constante.VALOR.CODIGO.INACTIVO);
 		Valor estadoActivo = valorService.obtenerValor(Constante.LISTA.CODIGO.ESTADO, Constante.VALOR.CODIGO.ACTIVO);
 		
 		prepararLista(updPermisosD, estadoInactivo);
-		prepararLista(updPermisosA, estadoActivo);
-		prepararLista(insPermisosA, estadoActivo);
-		
-		List<Permiso> permisosU = ListUtils.union(updPermisosD, updPermisosA);
-		List<Permiso> permisos = ListUtils.union(permisosU, insPermisosA);
-		
-		super.grabarTodos(permisos);
+        prepararLista(updPermisosA, estadoActivo);
+        prepararLista(insPermisosA, estadoActivo);
+        
+        List<Permiso> permisosU = ListUtils.union(updPermisosD, updPermisosA);
+        List<Permiso> permisos = ListUtils.union(permisosU, insPermisosA);
+        
+        /*for (Permiso permiso : permisos) {
+        	System.out.println(permiso.getId());
+        	System.out.println(permiso.getOpcion().getId());
+        	System.out.println(permiso.getEstado().getCodigo());
+        	if(permiso.getId()==null){
+        		permisoHibernate.crear(permiso);
+        	}else{
+        		permisoHibernate.actualizar(permiso);
+        	}
+		}*/
+        
+        super.grabarTodos(permisos);
 		
 	}
 	

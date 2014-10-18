@@ -106,4 +106,9 @@ public class RolServiceImpl extends BaseServiceImpl<Rol, Long> implements RolSer
 		rolHibernate.eliminarXId(id);
 	}
 
+	@Override
+	public List<Rol> buscarRoles(Rol rol) {
+		return rolHibernate.busquedaRoles(rol);
+	}
+
 }

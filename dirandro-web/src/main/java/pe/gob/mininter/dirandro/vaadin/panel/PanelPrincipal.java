@@ -50,6 +50,7 @@ import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenTipoHecho;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParte;
 import pe.gob.mininter.dirandro.vaadin.panel.seguridad.PanelSegCambioClave;
 import pe.gob.mininter.dirandro.vaadin.panel.seguridad.PanelSegEquipos;
+import pe.gob.mininter.dirandro.vaadin.panel.seguridad.PanelSegPermiso;
 import pe.gob.mininter.dirandro.vaadin.panel.seguridad.PanelSegUsuario;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroMenuBar;
@@ -330,6 +331,10 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Administración de Equipos e Integrantes</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelSegEquipos(acciones, "-1px"), "top");
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_SEG_PERMISO)){
+				lblTituloPanel.setValue("<h2>Administración de Permisos</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelSegPermiso(null, "-1px"), "top");
 			}
 			
 			/**
