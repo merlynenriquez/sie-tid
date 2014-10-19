@@ -95,6 +95,7 @@ public abstract class Constante {
 			public static final String TRANSPORTE_DROGA = "TRANSPORTE_DRG";
 			public static final String ESTADO_PARTICIPACION = "ESTADO_PARTIC";
 			public static final String PARTICIPACION = "PARTICIPACION";
+			public static final String ESTADO_PERICIA = "ESTADO_PERICIA";
 			
 		}
 	}
@@ -170,6 +171,8 @@ public abstract class Constante {
 			
 			public final static String HR_1 = "TP_HR01";
 			public final static String HR_2 = "TP_HR01";
+			
+			public static final String PERICIA_ESTADO_INICIAL = "EPINI";
 		}
 
 	}
@@ -271,6 +274,8 @@ public abstract class Constante {
 		public final static String VALIDAR_PARAMETRO_EXISTENTE_CODIGO = "validar.parametro.existente.codigo";
 		public final static String VALIDAR_PARAMETRO_EXISTENTE_NOMBRE = "validar.parametro.existente.nombre";
 		
+		public final static String VALIDAR_PERICIA_EXISTENTE = "validar.pericia.existente";
+		
 		/**
 		 * @@author mhurtado
 		 */
@@ -311,6 +316,7 @@ public abstract class Constante {
 		public final static String CODIGO_EXP_REG_HR = "EXP_REG_HR";
 		public static final String CODIGO_EXP_BAN_PP = "EXP_BAN_PP";
 		public static final String CODIGO_EXP_BAN_HR = "EXP_BAN_HR";
+		public static final String CODIGO_EXP_BAN_PR = "EXP_BAN_PR";
 
 		// Menu Nro 3 (Busqueda de Tablas)
 		public final static String CODIGO_BSQ_VEHICULO = "BSQ_VEHICULO";

@@ -35,8 +35,8 @@ public class Integrante extends AuditoriaBean implements Serializable {
 	private Long id;
 
 	//TODO: Borrar del Modelo
-	//@Column(name="ES_LIDER", precision=22)
-	//private Integer esLider;
+	@Column(name="ES_LIDER", precision=22)
+	private Integer esLider;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -69,13 +69,13 @@ public class Integrante extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-//	public Integer getEsLider() {
-//		return esLider;
-//	}
-//
-//	public void setEsLider(Integer esLider) {
-//		this.esLider = esLider;
-//	}
+	public Integer getEsLider() {
+		return esLider;
+	}
+
+	public void setEsLider(Integer esLider) {
+		this.esLider = esLider;
+	}
 
 	public Valor getFuncion() {
 		return funcion;
