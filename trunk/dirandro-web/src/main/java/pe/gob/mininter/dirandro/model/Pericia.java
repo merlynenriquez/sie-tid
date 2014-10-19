@@ -1,7 +1,8 @@
 package pe.gob.mininter.dirandro.model;
 
+import java.io.OutputStream;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -33,8 +37,9 @@ public class Pericia extends AuditoriaBean implements Serializable {
 	@Column(name="DESCRIPCION_LOGO")
 	private String descripcionLogo;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="FECHA_PERITAJE")
-	private Timestamp fechaPeritaje;
+	private Date fechaPeritaje;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -56,14 +61,26 @@ public class Pericia extends AuditoriaBean implements Serializable {
 	@JoinColumn(name="MUESTRA")
 	private HojaremisionMuestra muestra;
 
+	@Transient
+	private OutputStream osLogo;
+	
+	@Transient
+	private String filenameLogo;
+	
+	@Transient
+	private OutputStream osPericia;
+	
+	@Transient
+	private String filenamePericia;
+	
 	public Pericia() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,11 +92,11 @@ public class Pericia extends AuditoriaBean implements Serializable {
 		this.descripcionLogo = descripcionLogo;
 	}
 
-	public Timestamp getFechaPeritaje() {
+	public Date getFechaPeritaje() {
 		return fechaPeritaje;
 	}
 
-	public void setFechaPeritaje(Timestamp fechaPeritaje) {
+	public void setFechaPeritaje(Date fechaPeritaje) {
 		this.fechaPeritaje = fechaPeritaje;
 	}
 
@@ -113,6 +130,38 @@ public class Pericia extends AuditoriaBean implements Serializable {
 
 	public void setMuestra(HojaremisionMuestra muestra) {
 		this.muestra = muestra;
+	}
+
+	public OutputStream getOsLogo() {
+		return osLogo;
+	}
+
+	public void setOsLogo(OutputStream osLogo) {
+		this.osLogo = osLogo;
+	}
+
+	public String getFilenameLogo() {
+		return filenameLogo;
+	}
+
+	public void setFilenameLogo(String filenameLogo) {
+		this.filenameLogo = filenameLogo;
+	}
+
+	public OutputStream getOsPericia() {
+		return osPericia;
+	}
+
+	public void setOsPericia(OutputStream osPericia) {
+		this.osPericia = osPericia;
+	}
+
+	public String getFilenamePericia() {
+		return filenamePericia;
+	}
+
+	public void setFilenamePericia(String filenamePericia) {
+		this.filenamePericia = filenamePericia;
 	}
 
 	public boolean esNuevo(){
