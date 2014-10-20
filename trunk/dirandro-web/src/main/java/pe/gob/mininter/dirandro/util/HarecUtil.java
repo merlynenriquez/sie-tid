@@ -572,7 +572,7 @@ public abstract class HarecUtil {
 	public static Long valorIdToEmpty(Valor valor){
 		try {
 			if(valor != null){
-				if(StringUtils.isEmpty(valor.getNombre())){
+				if( valor.getId() != null){
 					return null;
 				}
 				return valor.getId();
@@ -602,7 +602,7 @@ public abstract class HarecUtil {
 	public static Long marcaModeloIdToEmpty(ModeloMarca valor){
 		try {
 			if(valor != null){
-				if(StringUtils.isEmpty(valor.getNombre())){
+				if( valor.getId() != null ){
 					return null;
 				}
 				return valor.getId();

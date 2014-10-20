@@ -125,4 +125,5 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona, Long> implement
 		filtro.addOrder(Order.asc("nombres")); 
 		return HarecUtil.ordenarPersonas( personaHibernate.buscar(filtro) );
 	}
+
 }
