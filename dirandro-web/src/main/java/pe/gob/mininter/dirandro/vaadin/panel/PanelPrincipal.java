@@ -27,6 +27,7 @@ import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaPericias;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaTrabajo;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscaPersona;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarArmas;
+import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarDocumentos;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarHojaRem;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarInmueble;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarOrganizacion;
@@ -322,6 +323,11 @@ public class PanelPrincipal extends CustomComponent implements Command, Serializ
 				lblTituloPanel.setValue("<h2>Búsqueda de Armas en los Expedientes</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBuscarArmas(acciones, "-1px"), "top");
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_BSQ_DOCUMENTO)){
+				lblTituloPanel.setValue("<h2>Búsqueda de Documentos en los Expedientes</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBuscarDocumentos(acciones, "-1px"), "top");
 			}
 			
 			/**
