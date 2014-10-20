@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -61,6 +61,9 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 	@Temporal( TemporalType.TIMESTAMP)
 	private Date fechaRegistro;
 
+	@Transient
+	private Date fechaRegistroFinal;
+	
 	@Column(name="HORA_HECHO")
 	private Date horaHecho;
 
@@ -312,6 +315,14 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 
 	public void setLugarHecho(Distrito ubgDistrito) {
 		this.lugarHecho = ubgDistrito;
+	}
+
+	public Date getFechaRegistroFinal() {
+		return fechaRegistroFinal;
+	}
+
+	public void setFechaRegistroFinal(Date fechaRegistroFinal) {
+		this.fechaRegistroFinal = fechaRegistroFinal;
 	}
 
 	@Override
