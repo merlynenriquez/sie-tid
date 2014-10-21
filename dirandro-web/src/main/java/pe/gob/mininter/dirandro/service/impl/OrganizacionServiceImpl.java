@@ -14,6 +14,7 @@ import pe.gob.mininter.dirandro.dao.hibernate.OrganizacionHibernate;
 import pe.gob.mininter.dirandro.model.Organizacion;
 import pe.gob.mininter.dirandro.service.OrganizacionService;
 import pe.gob.mininter.dirandro.util.Busqueda;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 
 @Service
 public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, Long> implements OrganizacionService{
@@ -66,24 +67,27 @@ public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, Long>
 
 	@Override
 	public List<Organizacion> buscar(Organizacion organizacion) {
-		
 		Busqueda filtro = Busqueda.forClass(Organizacion.class);
 		
-		
 		if (organizacion != null) {
-			
 			if (organizacion.getNombre() != null && organizacion.getNombre() .length() > 0) {
 				filtro.add(Restrictions.ilike("nombre", organizacion.getNombre(), MatchMode.ANYWHERE));
 			}
-			
 			if (organizacion.getZonaOperacion() != null && organizacion.getZonaOperacion().length() > 0) {
 				filtro.add(Restrictions.ilike("zonaOperacion", organizacion.getZonaOperacion(), MatchMode.ANYWHERE));
 			}
-			
 			if (organizacion.getDescripcion()!= null && organizacion.getDescripcion().length() > 0) {
-				filtro.add(Restrictions.ilike("per.apeMaterno", organizacion.getDescripcion(), MatchMode.ANYWHERE));
+				logger.debug("descripcion " + organizacion.getDescripcion());
+				filtro.add(Restrictions.ilike("descripcion", organizacion.getDescripcion(), MatchMode.ANYWHERE));
 			}
-			
+			if ( !HarecUtil.nullToEmpty( organizacion.getUbicacionActivos()).equals("")) {
+				logger.debug("ubicacionActivos " + organizacion.getUbicacionActivos());
+				filtro.add(Restrictions.ilike("ubicacionActivos", organizacion.getUbicacionActivos(), MatchMode.ANYWHERE));
+			}
+			if ( !HarecUtil.nullToEmpty( organizacion.getNroIntegrantes() ).equals("")) {
+				logger.debug("nro integ " + organizacion.getNroIntegrantes() );
+				filtro.add(Restrictions.ge("nroIntegrantes", organizacion.getNroIntegrantes()));
+			}
 		}
 		return organizacionHibernate.buscar(filtro);		
 	}
