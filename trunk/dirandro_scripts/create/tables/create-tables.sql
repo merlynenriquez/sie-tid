@@ -298,6 +298,7 @@ create table SIETID.EXP_DEPENDENCIA
    PADRE                NUMBER(16),
    ESTADO               NUMBER(16),
    DIRECCION            NVARCHAR2(300),
+   AUTOGENERADO         NUMBER(10),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -327,6 +328,9 @@ comment on column SIETID.EXP_DEPENDENCIA.ESTADO is
 
 comment on column SIETID.EXP_DEPENDENCIA.DIRECCION is
 'Dirección de la dependencia';
+
+comment on column SIETID.EXP_DEPENDENCIA.AUTOGENERADO is
+'Autogenerado para los documentos, solo se va utilizar cuando se genere los atestados';
 
 comment on column SIETID.EXP_DEPENDENCIA.CREADOR is
 'Usuario creador';
@@ -1162,20 +1166,23 @@ create table SIETID.EXP_EXPEDIENTE
    DEPENDENCIA          NUMBER(16),
    TIPO_FINALIDAD       NUMBER(16),
    INTEGRANTE           NUMBER(16),
-   ASUNTO               VARCHAR2(500 BYTE),
+   ASUNTO               NVARCHAR2(500 BYTE),
    FECHA_REGISTRO       TIMESTAMP,
    DIAS_ATENCION        NUMBER(4),
    ESTADO_EXP           NUMBER(16)           not null,
    HORA_HECHO           TIMESTAMP,
    TIPO_DIRECCION       NUMBER(16),
-   DIRECCION_HECHO      VARCHAR2(200 BYTE),
+   DIRECCION_HECHO      NVARCHAR2(200 BYTE),
    LUGAR_HECHO          NUMBER(16),
-   REFERENCIA_HECHO     VARCHAR2(300 BYTE),
+   REFERENCIA_HECHO     NVARCHAR2(300 BYTE),
    JURISDICCION_HECHO   NUMBER(16),
    CODIGO_INTERVINIENTE NUMBER(16),
    TABLA_INTERVINIENTE  NUMBER(16),
    CENTRO_POBLADO       NUMBER(16),
    CUENCA               NUMBER(16),
+   NRO_ATESTADO         NVARCHAR2(250),
+   FECHA_ATESTADO       TIMESTAMP,
+   OBSERVACION_ATESTADO NVARCHAR2(1000),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -1235,6 +1242,9 @@ comment on column SIETID.EXP_EXPEDIENTE.CODIGO_INTERVINIENTE is
 
 comment on column SIETID.EXP_EXPEDIENTE.CUENCA is
 'dato de la tabla valor';
+
+comment on column SIETID.EXP_EXPEDIENTE.NRO_ATESTADO is
+'el autogenerado sera generado desde el ultimo id de la tabla de dependencia';
 
 alter table SIETID.EXP_EXPEDIENTE
    add constraint PK_EXP_EXPEDIENTE primary key (ID);
@@ -1967,7 +1977,7 @@ alter table SIETID.HR_HOJAREMISION
 /*==============================================================*/
 /* Table: HR_HOJAREMISION_MUESTRA                               */
 /*==============================================================*/
-create table HR_HOJAREMISION_MUESTRA 
+create table SIETID.HR_HOJAREMISION_MUESTRA 
 (
    ID                   NUMBER(16)           not null,
    HOJAREMISION         NUMBER(16),
@@ -1986,19 +1996,19 @@ create table HR_HOJAREMISION_MUESTRA
    EDICION              TIMESTAMP
 );
 
-comment on column HR_HOJAREMISION_MUESTRA.ESPECIE is
+comment on column SIETID.HR_HOJAREMISION_MUESTRA.ESPECIE is
 'Traslado de Documentos';
 
-comment on column HR_HOJAREMISION_MUESTRA.CANTIDAD is
+comment on column SIETID.HR_HOJAREMISION_MUESTRA.CANTIDAD is
 'Cantidad en lavado de activos';
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint PK_HR_HOJAREMISION_MUESTRA primary key (ID);
 
 /*==============================================================*/
 /* Table: HR_PERICIA                                            */
 /*==============================================================*/
-create table HR_PERICIA 
+create table SIETID.HR_PERICIA 
 (
    ID                   NUMBER(16)           not null,
    MUESTRA              NUMBER(16),
@@ -2013,29 +2023,29 @@ create table HR_PERICIA
    EDICION              TIMESTAMP
 );
 
-comment on table HR_PERICIA is
+comment on table SIETID.HR_PERICIA is
 'Tabla en donde se registran las pericias realizadas
 cada registro corresponde a un item de muestra registrada en la hoja de remision';
 
-comment on column HR_PERICIA.ID is
+comment on column SIETID.HR_PERICIA.ID is
 'codigo autogenerado que hace unico al registro ';
 
-comment on column HR_PERICIA.MUESTRA is
+comment on column SIETID.HR_PERICIA.MUESTRA is
 'id de la muestra (detalle de la hoja de remision)';
 
-comment on column HR_PERICIA.ADJUNTO is
+comment on column SIETID.HR_PERICIA.ADJUNTO is
 'imagen digitalizada del informe de peritaje';
 
-comment on column HR_PERICIA.LOGO is
+comment on column SIETID.HR_PERICIA.LOGO is
 'imagen digitalizada o fotografia con el logo de la droga';
 
-comment on column HR_PERICIA.DESCRIPCION_LOGO is
+comment on column SIETID.HR_PERICIA.DESCRIPCION_LOGO is
 'descripcion escrita de la imagen del logo de la droga';
 
-comment on column HR_PERICIA.ESTADO_PERICIA is
+comment on column SIETID.HR_PERICIA.ESTADO_PERICIA is
 'datos obtenidos desde la tabla valor';
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint PK_HR_PERICIA primary key (ID);
 
 /*==============================================================*/
@@ -4052,51 +4062,51 @@ alter table SIETID.HR_HOJAREMISION
    add constraint FK_HR_HOJAR_TIPO_HR foreign key (TIPO_HR)
       references SIETID.CFG_VALOR (ID);
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint FK_HOJA_REMISION_TIPO_MEDIDA foreign key (TIPO_MEDIDA)
       references SIETID.MNT_MODELO_MARCA (ID);
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_DROGA_MUESTRA foreign key (DROGAS)
       references SIETID.EXP_DROGAS (ID);
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_HOJAR_ESPECIE foreign key (ESPECIE)
       references SIETID.EXP_ESPECIE (ID);
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_HOJAR_MUESTRA foreign key (HOJAREMISION)
       references SIETID.HR_HOJAREMISION (ID);
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_MUESTRA_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    add constraint FK_HR_MUESTRA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_ADJUNTO foreign key (ADJUNTO)
       references SIETID.EXP_ADJUNTO (ID);
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_ADJUNTO_LOGO foreign key (LOGO)
       references SIETID.EXP_ADJUNTO (ID);
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_MUESTRA foreign key (MUESTRA)
-      references HR_HOJAREMISION_MUESTRA (ID);
+      references SIETID.HR_HOJAREMISION_MUESTRA (ID);
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_USUARIO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_USUARIO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_VALOR foreign key (ESTADO_PERICIA)
       references SIETID.CFG_VALOR (ID);
 

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     10/10/2014 12:14:26 AM                       */
+/* Created on:     10/15/2014 2:25:29 AM                        */
 /*==============================================================*/
 
 
@@ -748,6 +748,24 @@ alter table HR_HOJAREMISION_MUESTRA
 alter table HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_MUESTRA_EDITOR;
 
+alter table HR_PERICIA
+   drop constraint FK_HR_PERICIA_ADJUNTO;
+
+alter table HR_PERICIA
+   drop constraint FK_HR_PERICIA_ADJUNTO_LOGO;
+
+alter table HR_PERICIA
+   drop constraint FK_HR_PERICIA_MUESTRA;
+
+alter table HR_PERICIA
+   drop constraint FK_HR_PERICIA_USUARIO_CREADOR;
+
+alter table HR_PERICIA
+   drop constraint FK_HR_PERICIA_USUARIO_EDITOR;
+
+alter table HR_PERICIA
+   drop constraint FK_HR_PERICIA_VALOR;
+
 alter table SIETID.MNT_MODELO_MARCA
    drop constraint FK_MODELO_CREADOR;
 
@@ -1310,6 +1328,11 @@ alter table HR_HOJAREMISION_MUESTRA
    drop primary key cascade;
 
 drop table HR_HOJAREMISION_MUESTRA cascade constraints;
+
+alter table HR_PERICIA
+   drop primary key cascade;
+
+drop table HR_PERICIA cascade constraints;
 
 alter table SIETID.MNT_MODELO_MARCA
    drop primary key cascade;
