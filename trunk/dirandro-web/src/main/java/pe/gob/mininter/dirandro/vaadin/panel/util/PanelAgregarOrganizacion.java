@@ -83,11 +83,11 @@ public class PanelAgregarOrganizacion extends CustomComponent implements ClickLi
 		if (event.getButton().equals(btnGrabar)) {
 			 registrarOrganizacion();
 			 
-			 if(pnlBuscarOrganizacion != null)
-			 {
-				 pnlBuscarOrganizacion.setOrganizacionPopup(organizacion);
-				 pnlBuscarOrganizacion.refrescarLista();
-			 }
+//			 if(pnlBuscarOrganizacion != null)
+//			 {
+//				 pnlBuscarOrganizacion.setOrganizacionPopup(organizacion);
+//				 pnlBuscarOrganizacion.refrescarLista();
+//			 }
 			 			 
 			 getApplication().getMainWindow().removeWindow(getWindow());
 		}
