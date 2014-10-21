@@ -1,3 +1,4 @@
+
 /*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
@@ -1166,15 +1167,15 @@ create table SIETID.EXP_EXPEDIENTE
    DEPENDENCIA          NUMBER(16),
    TIPO_FINALIDAD       NUMBER(16),
    INTEGRANTE           NUMBER(16),
-   ASUNTO               NVARCHAR2(500 BYTE),
+   ASUNTO               NVARCHAR2(500),
    FECHA_REGISTRO       TIMESTAMP,
    DIAS_ATENCION        NUMBER(4),
    ESTADO_EXP           NUMBER(16)           not null,
    HORA_HECHO           TIMESTAMP,
    TIPO_DIRECCION       NUMBER(16),
-   DIRECCION_HECHO      NVARCHAR2(200 BYTE),
+   DIRECCION_HECHO      NVARCHAR2(200),
    LUGAR_HECHO          NUMBER(16),
-   REFERENCIA_HECHO     NVARCHAR2(300 BYTE),
+   REFERENCIA_HECHO     NVARCHAR2(300),
    JURISDICCION_HECHO   NUMBER(16),
    CODIGO_INTERVINIENTE NUMBER(16),
    TABLA_INTERVINIENTE  NUMBER(16),
