@@ -9,7 +9,7 @@ public interface PersonaService extends BaseService<Persona,Long>{
 	
 	public List<Persona> buscar(Persona persona);
 	
-	public Map<String,List<Persona>> listarPersonas();
+	public Map<String,List<Persona>> listarPersonas( Persona persona );
 	
 	public Persona obtener(Long id);	
 	
