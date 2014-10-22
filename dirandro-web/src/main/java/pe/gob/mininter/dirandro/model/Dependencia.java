@@ -47,6 +47,9 @@ public class Dependencia extends AuditoriaBean implements Validador, Serializabl
 
 	@Column(length=2000)
 	private String nombre;
+	
+	@Column(length=20)
+	private Integer autogenerado;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne

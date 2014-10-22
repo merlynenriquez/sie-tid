@@ -195,7 +195,7 @@ public class PanelRegistroParteSustancia extends CustomComponent implements Clic
 	
 			btnDrRegistrar.addListener((ClickListener) this);
 			//TODO: Arreglar para que sea predefinido
-			cmbTipoMedida.select(new ModeloMarca(4002l));
+			//cmbTipoMedida.select(new ModeloMarca(4002l));
 			
 			tblSustancias.setSelectable(true);
 			tblSustancias.setImmediate(true);

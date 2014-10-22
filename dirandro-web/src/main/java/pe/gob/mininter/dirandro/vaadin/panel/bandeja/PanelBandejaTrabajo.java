@@ -7,10 +7,13 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import pe.gob.mininter.dirandro.model.Droga;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
+import pe.gob.mininter.dirandro.vaadin.panel.PanelDetalleDroga;
+import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroAtestado;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParte;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -58,6 +61,8 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	private static final String COLUMNA_LUGAR_HECHO = "lugarHecho";
 	private static final String COLUMNA_JURISDICCION = "jurisdiccionHecho";
 	private static final String COLUMNA_EXPEDIENTE = "expediente";
+	
+	private static final String COLUMN_DETALLE = "atestado";
 	
 	private static final Action MODIFICAR_EXPEDIENTE = new Action("Modificar Expediente");
 	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE };
@@ -117,6 +122,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 		container.addContainerProperty(COLUMNA_LUGAR_HECHO, String.class, StringUtils.EMPTY, "Lugar Hecho", TipoComponente.TEXT, true, 180);
 		container.addContainerProperty(COLUMNA_JURISDICCION, String.class, StringUtils.EMPTY, "Jurisdicción", TipoComponente.TEXT, true, 100);
 		container.addContainerProperty(COLUMNA_EXPEDIENTE, Expediente.class, null);
+		container.addContainerProperty(COLUMN_DETALLE, Button.class, StringUtils.EMPTY, "Gen. Atestado", TipoComponente.LABEL, true, 120);
 					
 		tblBandeja.setContainerDataSource(container);
 		tblBandeja.setColumnCollapsingAllowed(true);
@@ -245,7 +251,31 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 			item.getItemProperty(COLUMNA_DIAS_ATENCION).setValue(expediente.getDiasAtencion());
 			item.getItemProperty(COLUMNA_LUGAR_HECHO).setValue(expediente.getLugarHecho() != null ? expediente.getLugarHecho().getNombreCompleto() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMNA_JURISDICCION).setValue(expediente.getJurisdiccion() != null ? expediente.getJurisdiccion().getNombre() : StringUtils.EMPTY);
-			item.getItemProperty(COLUMNA_EXPEDIENTE).setValue(expediente);			
+			item.getItemProperty(COLUMNA_EXPEDIENTE).setValue(expediente);	
+			Button detalle = new Button();
+			detalle.setCaption("Detalle");
+			detalle.setData(expediente);
+			detalle.addListener(new ClickListener() {
+				
+				private static final long serialVersionUID = 688255660681167152L;
+
+				@Override
+				public void buttonClick(ClickEvent event) {
+					PanelRegistroAtestado panelAtestado = new PanelRegistroAtestado();
+					//panelAtestado.setPericia(p);
+					
+					Window wdHojaRemision = new Window();
+					
+					wdHojaRemision.setModal(false);
+					wdHojaRemision.setResizable(false);
+					wdHojaRemision.addComponent(panelAtestado);
+						
+					wdHojaRemision.setCaption("Registro de Atestado");
+					wdHojaRemision.setWidth("500px");
+					getApplication().getMainWindow().addWindow(wdHojaRemision);
+				}
+			});
+			item.getItemProperty(COLUMN_DETALLE).setValue(detalle);
 		}
 		
 	}
