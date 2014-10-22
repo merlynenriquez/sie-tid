@@ -47,54 +47,57 @@ public class ExpedientePersonaServiceImpl extends BaseServiceImpl<DetExpedienteP
 	public List<DetExpedientePersona> buscar(DetExpedientePersona expPersona) {
 		Busqueda filtro = Busqueda.forClass(DetExpedientePersona.class);
 		
-		Persona persona = expPersona.getInvolucrado() ;
-		if ( persona != null) {
-		
-			filtro.createAlias("involucrado", "p");
+		if(expPersona!=null){
+			Persona persona = expPersona.getInvolucrado() ;
+			if ( persona != null) {
 			
-			if (persona.getTipoDocumento()!= null && HarecUtil.valorIdToEmpty( persona.getTipoDocumento() ) != null ) {
-				filtro.createAlias("p.tipoDocumento", "t");
-				filtro.add(Restrictions.eq("t.id", persona.getTipoDocumento().getId() ));				
+				filtro.createAlias("involucrado", "p");
+				
+				if (persona.getTipoDocumento()!= null && HarecUtil.valorIdToEmpty( persona.getTipoDocumento() ) != null ) {
+					filtro.createAlias("p.tipoDocumento", "t");
+					filtro.add(Restrictions.eq("t.id", persona.getTipoDocumento().getId() ));				
+				}
+				if ( !HarecUtil.nullToEmpty( persona.getNroDocumento() ).equals("") ) {
+					filtro.add(Restrictions.ilike("p.nroDocumento",persona.getNroDocumento(), MatchMode.ANYWHERE));
+				}
+				if (!HarecUtil.nullToEmpty( persona.getNombres() ).equals("") ) {
+					filtro.add(Restrictions.ilike("p.nombres",persona.getNombres(), MatchMode.ANYWHERE));
+				}
+				if (!HarecUtil.nullToEmpty(persona.getApePaterno() ).equals("") ) {
+					filtro.add(Restrictions.ilike("p.apePaterno",persona.getApePaterno(), MatchMode.ANYWHERE));
+				}
+				if (!HarecUtil.nullToEmpty(persona.getApeMaterno() ).equals("") ) {
+					filtro.add(Restrictions.ilike("p.apeMaterno",persona.getApeMaterno(), MatchMode.ANYWHERE));
+				}
+				if (!HarecUtil.nullToEmpty(persona.getSexo() ).equals("") ) {
+					filtro.add(Restrictions.like("p.sexo",persona.getSexo() ));
+				}
+				if (persona.getEstadoCivil()!= null) {
+					filtro.createAlias("p.estadoCivil", "e");
+					filtro.add(Restrictions.ilike("e.nombre", persona.getEstadoCivil().getNombre(), MatchMode.ANYWHERE));				
+				}		
+				if (persona.getNacionalidad()!= null) {
+					filtro.createAlias("p.nacionalidad", "n");
+					filtro.add(Restrictions.ilike("n.nombre", persona.getNacionalidad().getNombre(), MatchMode.ANYWHERE));				
+				}
 			}
-			if ( !HarecUtil.nullToEmpty( persona.getNroDocumento() ).equals("") ) {
-				filtro.add(Restrictions.ilike("p.nroDocumento",persona.getNroDocumento(), MatchMode.ANYWHERE));
-			}
-			if (!HarecUtil.nullToEmpty( persona.getNombres() ).equals("") ) {
-				filtro.add(Restrictions.ilike("p.nombres",persona.getNombres(), MatchMode.ANYWHERE));
-			}
-			if (!HarecUtil.nullToEmpty(persona.getApePaterno() ).equals("") ) {
-				filtro.add(Restrictions.ilike("p.apePaterno",persona.getApePaterno(), MatchMode.ANYWHERE));
-			}
-			if (!HarecUtil.nullToEmpty(persona.getApeMaterno() ).equals("") ) {
-				filtro.add(Restrictions.ilike("p.apeMaterno",persona.getApeMaterno(), MatchMode.ANYWHERE));
-			}
-			if (!HarecUtil.nullToEmpty(persona.getSexo() ).equals("") ) {
-				filtro.add(Restrictions.like("p.sexo",persona.getSexo() ));
-			}
-			if (persona.getEstadoCivil()!= null) {
-				filtro.createAlias("p.estadoCivil", "e");
-				filtro.add(Restrictions.ilike("e.nombre", persona.getEstadoCivil().getNombre(), MatchMode.ANYWHERE));				
-			}		
-			if (persona.getNacionalidad()!= null) {
-				filtro.createAlias("p.nacionalidad", "n");
-				filtro.add(Restrictions.ilike("n.nombre", persona.getNacionalidad().getNombre(), MatchMode.ANYWHERE));				
-			}
-		}
-		
-		Expediente  expediente = expPersona.getExpediente();
-		if(expediente!=null)
-		{
-			filtro.createAlias("expediente", "e");
 			
-			if ( expediente.getId()!=null) {
-				filtro.add(Restrictions.eq("e.id", expediente.getId()));
+			Expediente  expediente = expPersona.getExpediente();
+			if(expediente!=null)
+			{
+				filtro.createAlias("expediente", "e");
+				
+				if ( expediente.getId()!=null) {
+					filtro.add(Restrictions.eq("e.id", expediente.getId()));
+				}
+				if (expediente.getFechaRegistro() !=null){
+					filtro.add(Restrictions.ge("e.fechaRegistro", expediente.getFechaRegistro()));
+				}
+				if (expediente.getFechaRegistroFinal() !=null){
+					filtro.add(Restrictions.le("e.fechaRegistro", expediente.getFechaRegistroFinal()));
+				}
 			}
-			if (expediente.getFechaRegistro() !=null){
-				filtro.add(Restrictions.ge("e.fechaRegistro", expediente.getFechaRegistro()));
-			}
-			if (expediente.getFechaRegistroFinal() !=null){
-				filtro.add(Restrictions.le("e.fechaRegistro", expediente.getFechaRegistroFinal()));
-			}
+				
 		}
 		
 		return expPersonaHibernate.buscar(filtro);		

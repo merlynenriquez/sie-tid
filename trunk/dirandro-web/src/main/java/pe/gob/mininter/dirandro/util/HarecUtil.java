@@ -28,6 +28,7 @@ import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Delito;
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
+import pe.gob.mininter.dirandro.model.Numero;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Pais;
 import pe.gob.mininter.dirandro.model.Persona;
@@ -572,7 +573,7 @@ public abstract class HarecUtil {
 	public static Long valorIdToEmpty(Valor valor){
 		try {
 			if(valor != null){
-				if( valor.getId() != null){
+				if( valor.getId() == null || valor.getId().longValue() == 0 ){
 					return null;
 				}
 				return valor.getId();
@@ -602,7 +603,7 @@ public abstract class HarecUtil {
 	public static Long marcaModeloIdToEmpty(ModeloMarca valor){
 		try {
 			if(valor != null){
-				if( valor.getId() != null ){
+				if( valor.getId() == null ){
 					return null;
 				}
 				return valor.getId();
@@ -621,6 +622,21 @@ public abstract class HarecUtil {
 					return StringUtils.EMPTY;
 				}
 				return valor.getNombre();
+			}else{
+				return StringUtils.EMPTY; 
+			}
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
+	}
+	
+	public static String numeroToEmpty(Numero valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getNumero())){
+					return StringUtils.EMPTY;
+				}
+				return valor.getNumero();
 			}else{
 				return StringUtils.EMPTY; 
 			}
