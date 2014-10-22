@@ -38,7 +38,7 @@ public class TablaFiltroIndexedContainer extends IndexedContainer {
 	
 	public enum TipoComponente
 	{
-		TEXT,DATEPICKER
+		TEXT,DATEPICKER,LABEL
 	}
 	
 	public class Columna implements Serializable

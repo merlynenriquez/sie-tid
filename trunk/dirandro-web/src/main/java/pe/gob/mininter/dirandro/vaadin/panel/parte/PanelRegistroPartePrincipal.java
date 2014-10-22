@@ -569,7 +569,7 @@ public class PanelRegistroPartePrincipal extends CustomComponent implements  Cli
 	}
 
 	public void setPnlAgregarDocumento(
-			PanelRegistroParteDocumento pnlAgregarDocumento) {
+		PanelRegistroParteDocumento pnlAgregarDocumento) {
 		this.pnlAgregarDocumento = pnlAgregarDocumento;
 	}
 	
