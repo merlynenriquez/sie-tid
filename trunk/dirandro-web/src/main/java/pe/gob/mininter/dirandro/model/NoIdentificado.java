@@ -53,7 +53,10 @@ public class NoIdentificado extends AuditoriaBean implements Validador, Serializ
 
 	@Column(length=200)
 	private String nombres;
-
+	
+	@Column(length=1)
+	private String sexo;
+	
 	//bi-directional many-to-one association to Detalle
 	@OneToMany(mappedBy="perNoIdentificado")
 	private List<Detalle> perDetalles;
@@ -152,6 +155,14 @@ public class NoIdentificado extends AuditoriaBean implements Validador, Serializ
 		this.perPersona = perPersona;
 	}
 
+	public void setSexo(String sexo){
+		this.sexo=sexo;
+	}
+	
+	public String getSexo(){
+		return this.sexo;
+	}
+	
 	@Override
 	public void validar() {
 		

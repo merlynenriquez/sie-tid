@@ -25,7 +25,6 @@ import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.service.HojaRemisionMuestraService;
 import pe.gob.mininter.dirandro.service.HojaRemisionService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
-import pe.gob.mininter.dirandro.service.PericiaService;
 import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.PoliciaService;
 import pe.gob.mininter.dirandro.service.ValorService;
@@ -167,7 +166,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 	private ExpedienteEspecieService especieService;
 	private DrogaService drogaService; 
 	private HojaRemisionMuestraService hojaRemisionMuestraService;
-	private PericiaService periciaService; 
+	 
 	private ValorService valorService;
 	
 	private List<ModeloMarca> lstMarcas;
@@ -206,7 +205,6 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		especieService  = Injector.obtenerServicio(ExpedienteEspecieService.class);
 		drogaService  = Injector.obtenerServicio(DrogaService.class);
 		policiaService = Injector.obtenerServicio(PoliciaService.class);
-		periciaService = Injector.obtenerServicio(PericiaService.class);
 		valorService = Injector.obtenerServicio(ValorService.class);
 		setCompositionRoot(mainLayout);
 		postConstruct();
@@ -618,11 +616,6 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		Pericia p = new Pericia();
 		p.setMuestra(muestra);
 		p.setEstado( valorService.obtenerValor(Constante.LISTA.CODIGO.ESTADO_PERICIA, Constante.VALOR.CODIGO.PERICIA_ESTADO_INICIAL ) );
-		if( periciaService.buscar(p).size()==0){
-			periciaService.crear( p );	
-		}else{
-			p = periciaService.buscar(p).get(0);
-		}
 		
 		PanelSolicitudPericia panelRegistroPericia = new PanelSolicitudPericia();
 		panelRegistroPericia.setPericia(p);

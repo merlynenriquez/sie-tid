@@ -213,6 +213,7 @@ public class PanelRegistroPericia extends CustomComponent {
 		
 		// updPericia
 		updPericia = new UploadDirandro();
+		updPericia.setCaption("Informe de Pericia");
 		updPericia.setImmediate(false);
 		updPericia.setWidth("-1px");
 		updPericia.setHeight("-1px");
@@ -228,6 +229,7 @@ public class PanelRegistroPericia extends CustomComponent {
 		
 		// updLogo
 		updLogo = new UploadDirandro();
+		updLogo.setCaption("Logo de la droga");
 		updLogo.setImmediate(false);
 		updLogo.setWidth("-1px");
 		updLogo.setHeight("-1px");
