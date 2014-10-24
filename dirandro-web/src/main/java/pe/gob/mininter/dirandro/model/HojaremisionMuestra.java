@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
@@ -181,5 +180,5 @@ public class HojaremisionMuestra extends AuditoriaBean implements Validador, Ser
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }
