@@ -92,7 +92,8 @@ public class PermisoServiceImpl extends BaseServiceImpl<Permiso, Long>
 		
 	}
 	
-	private void prepararLista(List<Permiso> lista, Valor estado)
+	@Override
+	public void prepararLista(List<Permiso> lista, Valor estado)
 	{
 		for (Permiso permiso : lista) {
 			permiso.setEstado(estado);

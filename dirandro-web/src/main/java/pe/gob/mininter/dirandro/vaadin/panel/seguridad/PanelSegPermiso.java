@@ -6,14 +6,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Permiso;
 import pe.gob.mininter.dirandro.model.Rol;
+import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.OpcionService;
 import pe.gob.mininter.dirandro.service.PermisoService;
 import pe.gob.mininter.dirandro.service.RolService;
+import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -65,6 +68,8 @@ public class PanelSegPermiso extends DirandroComponent implements ClickListener{
     private PermisoService permisoService;
     @Autowired
     private OpcionService opcionService;
+    @Autowired
+    private ValorService valorService;
     
 	/**
 	 * The constructor should first build the main layout, set the
@@ -80,6 +85,7 @@ public class PanelSegPermiso extends DirandroComponent implements ClickListener{
 		rolService=Injector.obtenerServicio(RolService.class);
 		permisoService=Injector.obtenerServicio(PermisoService.class);
 		opcionService=Injector.obtenerServicio(OpcionService.class);
+		valorService=Injector.obtenerServicio(ValorService.class);
 		postConstruct();
 	}
 
@@ -155,8 +161,40 @@ public class PanelSegPermiso extends DirandroComponent implements ClickListener{
                         idsOpciones.add(idOpcion);
                 }
         }
+        //permisoService.guardarPermisos(idRol, idsOpciones);
         
-        permisoService.guardarPermisos(idRol, idsOpciones);
+        List<Permiso> permisosALL = permisoService.obtenerPermisosXRol(idRol, false);
+        List<Permiso> permisosA = permisoService.obtenerPermisosXRol(idRol, true);
+        List<Permiso> permisosSel = new ArrayList<Permiso>();
+        for (Long idOpcion : idsOpciones) {
+                Permiso permiso = new Permiso();
+                permiso.setRol(new Rol());
+                permiso.getRol().setId(idRol);
+                permiso.setOpcion(new Opcion());
+                permiso.getOpcion().setId(idOpcion);
+                permisosSel.add(permiso);
+        }
+        List<Permiso> permisosD = ListUtils.subtract(permisosALL, permisosA);
+        
+        List<Permiso> updPermisosD = ListUtils.subtract(permisosA, permisosSel);
+        List<Permiso> updPermisosA = ListUtils.intersection(permisosSel, permisosD);
+        List<Permiso> insPermisosA = ListUtils.subtract(permisosSel, permisosALL);
+		
+		Valor estadoInactivo = valorService.obtenerValor(Constante.LISTA.CODIGO.ESTADO, Constante.VALOR.CODIGO.INACTIVO);
+		Valor estadoActivo = valorService.obtenerValor(Constante.LISTA.CODIGO.ESTADO, Constante.VALOR.CODIGO.ACTIVO);
+		
+		permisoService.prepararLista(updPermisosD, estadoInactivo);
+		permisoService.prepararLista(updPermisosA, estadoActivo);
+		permisoService.prepararLista(insPermisosA, estadoActivo);
+        
+        List<Permiso> permisosU = ListUtils.union(updPermisosD, updPermisosA);
+        List<Permiso> permisos = ListUtils.union(permisosU, insPermisosA);
+        
+        permisoService.grabarTodos(permisos);
+        
+        
+        
+        
 	}
 	
 	private Long obtenerIdRolSeleccionado()

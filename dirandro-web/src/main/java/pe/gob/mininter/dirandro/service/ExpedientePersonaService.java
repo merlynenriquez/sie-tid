@@ -8,6 +8,8 @@ import pe.gob.mininter.dirandro.model.Expediente;
 public interface ExpedientePersonaService extends BaseService<DetExpedientePersona, Long> {
 	
 	public List<DetExpedientePersona> buscar(DetExpedientePersona expPersona);
+	
+	public List<DetExpedientePersona> buscarBusqueda(DetExpedientePersona expPersona);
 
 	public List<DetExpedientePersona> cargarIntervinientes(Expediente expediente);
 

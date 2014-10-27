@@ -298,7 +298,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 					wdAbogado.addComponent(panelAbogadoPersona);
 						
 					wdAbogado.setCaption("Abogados");
-					wdAbogado.setWidth("1050px");
+					wdAbogado.setWidth("500px");
 					getApplication().getMainWindow().getWindow().addWindow(wdAbogado);
 				}
 			});
