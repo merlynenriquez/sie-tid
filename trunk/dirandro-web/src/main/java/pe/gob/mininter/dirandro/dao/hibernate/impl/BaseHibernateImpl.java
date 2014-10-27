@@ -67,7 +67,7 @@ public abstract class BaseHibernateImpl <Entidad extends Serializable, TipoLlave
 	@Override
 	public void grabarTodos(List<Entidad> list){	
 		for (Entidad entidad : list){
-			getSession().save(entidad);
+			getSession().merge(entidad);
 		}
 	}
 

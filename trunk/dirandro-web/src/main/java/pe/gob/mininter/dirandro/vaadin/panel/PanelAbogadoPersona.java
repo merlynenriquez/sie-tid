@@ -5,9 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
-
-
 import pe.gob.mininter.dirandro.model.AbogadoPersona;
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.Letrado;
@@ -37,7 +34,6 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public class PanelAbogadoPersona extends CustomComponent implements ClickListener{
@@ -202,7 +198,7 @@ public class PanelAbogadoPersona extends CustomComponent implements ClickListene
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		mainLayout.setMargin(true);
+		mainLayout.setMargin(false);
 		
 		// top-level component properties
 		setWidth("100.0%");
@@ -211,7 +207,6 @@ public class PanelAbogadoPersona extends CustomComponent implements ClickListene
 		// pnlPrincipal
 		pnlPrincipal = buildPnlPrincipal();
 		mainLayout.addComponent(pnlPrincipal);
-		mainLayout.setComponentAlignment(pnlPrincipal, new Alignment(20));
 		
 		return mainLayout;
 	}
@@ -324,7 +319,7 @@ public class PanelAbogadoPersona extends CustomComponent implements ClickListene
 		// tblAbogadoPersona
 		tblAbogadoPersona = new Table();
 		tblAbogadoPersona.setImmediate(false);
-		tblAbogadoPersona.setWidth("680px");
+		tblAbogadoPersona.setWidth("420px");
 		tblAbogadoPersona.setHeight("120px");
 		horizontalLayout_3.addComponent(tblAbogadoPersona);
 		

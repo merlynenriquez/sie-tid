@@ -36,4 +36,22 @@ public class DocumentoServiceImpl extends BaseServiceImpl<Documento, Long> imple
 		return documentoHibernate.buscar(filtro);
 	}
 
+	@Override
+	public List<Documento> buscar(Documento documento) {
+		Busqueda filtro = Busqueda.forClass(Documento.class);
+		if(documento!=null){
+			addILikeRestrictions(filtro, "expediente", "ex", "autogenerado", documento.getExpediente().getAutogenerado());
+			addILikeRestrictions(filtro, "tablaOrigen", "to", "nombre", documento.getTablaOrigen().getNombre());
+			filtro.add(Restrictions.eq("origen", documento.getCodigoOrigen()));
+			addILikeRestrictions(filtro, "tipoDocumento", "td", "nombre", documento.getTipoDocumento().getNombre());
+			addILikeRestrictions(filtro, "nroDocumento", documento.getNroDocumento());
+			addILikeRestrictions(filtro, "asunto", documento.getAsunto());
+			filtro.add(Restrictions.eq("diasAtencion", documento.getDiasAtencion()));
+			filtro.add(Restrictions.eq("folios", documento.getFolios()));
+			addILikeRestrictions(filtro, "adjunto", "a", "nombre", documento.getAdjunto().getNombre());
+			addILikeRestrictions(filtro, "prioridad", "p", "nombre", documento.getPrioridad().getNombre());
+		}
+		return documentoHibernate.buscar(filtro);
+	}
+
 }

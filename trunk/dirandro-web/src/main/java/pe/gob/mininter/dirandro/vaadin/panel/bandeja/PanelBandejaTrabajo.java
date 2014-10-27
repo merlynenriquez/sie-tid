@@ -65,7 +65,8 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	private static final String COLUMN_DETALLE = "atestado";
 	
 	private static final Action MODIFICAR_EXPEDIENTE = new Action("Modificar Expediente");
-	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE };
+	private static final Action EXPORTAR_EXPEDIENTE = new Action("Exportar Expediente");
+	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE , EXPORTAR_EXPEDIENTE};
 	
 	private Action[] action = new Action[] {};
 

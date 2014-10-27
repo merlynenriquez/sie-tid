@@ -104,6 +104,25 @@ public class ExpedientePersonaServiceImpl extends BaseServiceImpl<DetExpedienteP
 	}
 
 	@Override
+	public List<DetExpedientePersona> buscarBusqueda(
+			DetExpedientePersona expPersona) {
+		Busqueda filtro = Busqueda.forClass(DetExpedientePersona.class);
+		if(expPersona!=null){
+			addILikeRestrictions(filtro, "involucrado", "i", "nombres", expPersona.getInvolucrado().getNombres());
+			addILikeRestrictions(filtro, "empresaInvolucrada", "e", "razonSocial", expPersona.getEmpresaInvolucrada().getRazonSocial());
+			addILikeRestrictions(filtro, "participacion", "p", "nombre", expPersona.getParticipacion().getNombre());
+			//addILikeRestrictions(filtro, "participacion", "p", "nombre", expPersona.getTipoParticipacion());
+			addILikeRestrictions(filtro, "estadoDato", "ed", "nombre", expPersona.getEstadoDato().getNombre());
+			addILikeRestrictions(filtro, "expediente", "ex", "autogenerado", expPersona.getExpediente().getAutogenerado());
+			addILikeRestrictions(filtro, "organizacion", "or", "nombre", expPersona.getOrganizacion().getNombre());
+			addILikeRestrictions(filtro, "ocupacion", "oc", "nombre", expPersona.getOcupacion().getNombre());
+			addILikeRestrictions(filtro, "situacion", "si", "nombre", expPersona.getSituacion().getNombre());
+			addILikeRestrictions(filtro, "alias", expPersona.getAlias());
+		}
+		return expPersonaHibernate.buscar(filtro);
+	}
+
+	@Override
 	public List<DetExpedientePersona> cargarIntervinientes(Expediente expediente) {
 		Busqueda filtro = Busqueda.forClass(DetExpedientePersona.class);
 		filtro.add(Restrictions.eq("expediente", expediente));
