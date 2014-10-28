@@ -93,46 +93,54 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 	@Transactional
 	public void agregarDocumento(Expediente expediente, Documento documento) {
 		logger.debug("por validar el archivo");
-		if(StringUtils.isEmpty(documento.getFilename()) || documento.getOsDocumento() == null) {
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_CARGA_ARCHIVO, new Object[]{});
-		}
-		logger.debug("validacion de archivo correcta");
-		Parametro pathDocumento = parametroService.obtener(Constante.PARAMETRO.PATH_DOCUMENTO);
 		
-		File archivo = new File(pathDocumento.getValor()+expediente.getAutogenerado()+File.separator+documento.getFilename());
+		Adjunto adjunto = null; 
 		
-		archivo.getParentFile().mkdirs();
-		
-		try {
-			archivo.createNewFile();
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		}
-		
-		OutputStream outputStream = null;
-		try {
-			outputStream = new FileOutputStream(archivo);
-			((ByteArrayOutputStream)documento.getOsDocumento()).writeTo(outputStream);			
-		} catch (FileNotFoundException e2) {
-			e2.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		finally {
-			if(outputStream != null)
-			{
-				IOUtils.closeQuietly(outputStream);
+		if(documento.isRegistrable()){
+			
+			if(StringUtils.isEmpty(documento.getFilename()) || documento.getOsDocumento() == null) {
+				throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_CARGA_ARCHIVO, new Object[]{});
 			}
-			IOUtils.closeQuietly(documento.getOsDocumento());
-		 }
-		logger.debug("archivo cargado, ahora a insertar el registro ADJUNTO en la bd");
-		Adjunto adjunto = new Adjunto();
-		adjunto.setExpExpediente(expediente);
-		adjunto.setRuta(archivo.getPath());
-		adjunto.setNombre(documento.getFilename());//FIXME [MGLHPM] preguntar por el nombre correspondiente.
-		adjunto.setTipo(valorService.obtener(1l));//FIXME [MGLHPM] preguntar por el valor correspondiente.
-		adjuntoService.crear(adjunto);
-		logger.debug("creado el ADJUNTO");
+			logger.debug("validacion de archivo correcta");
+			Parametro pathDocumento = parametroService.obtener(Constante.PARAMETRO.PATH_DOCUMENTO);
+			
+			File archivo = new File(pathDocumento.getValor()+expediente.getAutogenerado()+File.separator+documento.getFilename());
+			
+			archivo.getParentFile().mkdirs();
+			
+			try {
+				archivo.createNewFile();
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+			
+			OutputStream outputStream = null;
+			try {
+				outputStream = new FileOutputStream(archivo);
+				((ByteArrayOutputStream)documento.getOsDocumento()).writeTo(outputStream);			
+			} catch (FileNotFoundException e2) {
+				e2.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+			finally {
+				if(outputStream != null)
+				{
+					IOUtils.closeQuietly(outputStream);
+				}
+				IOUtils.closeQuietly(documento.getOsDocumento());
+			 }
+			logger.debug("archivo cargado, ahora a insertar el registro ADJUNTO en la bd");
+			
+			adjunto = new Adjunto();
+			adjunto.setExpExpediente(expediente);
+			adjunto.setRuta(archivo.getPath());
+			adjunto.setNombre(documento.getFilename());//FIXME [MGLHPM] preguntar por el nombre correspondiente.
+			adjunto.setTipo(valorService.obtener(1l));//FIXME [MGLHPM] preguntar por el valor correspondiente.
+			adjuntoService.crear(adjunto);
+			logger.debug("creado el ADJUNTO");	
+		}
+		
 		documento.setAdjunto(adjunto);
 		documento.setExpediente(expediente);
 		logger.debug("por registrar DOCUMENTO");

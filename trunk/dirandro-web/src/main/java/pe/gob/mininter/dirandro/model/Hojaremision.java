@@ -257,9 +257,9 @@ public class Hojaremision extends AuditoriaBean implements Validador, Serializab
 
 	@Override
 	public void validar() {
-		if(numero == null) {
+	/*	if(numero == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Número"});
-		}
+		}*/
 		if( this.expediente == null) {
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Expediente"});
 		}

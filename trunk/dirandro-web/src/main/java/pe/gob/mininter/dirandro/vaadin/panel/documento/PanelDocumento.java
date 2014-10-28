@@ -282,9 +282,9 @@ public class PanelDocumento extends CustomComponent {
 			documento.setFilename(upArchivo.getFilename());
 			documento.setRegistrable(!rbAdjunto.getValue().equals("No"));
 			documento.setTablaOrigen((Valor) cmbProcedencia.getValue());
-			if (((Valor) cmbProcedencia.getValue()).getCodigo().equals(Constante.VALOR.CODIGO.ENTIDAD)) {
+			if ( cmbProcedencia.getValue()!=null && ((Valor) cmbProcedencia.getValue()).getCodigo().equals(Constante.VALOR.CODIGO.ENTIDAD)) {
 				documento.setCodigoOrigen( getCodigoProcedencia() );
-			}else if (((Valor) cmbProcedencia.getValue()).getCodigo().equals(Constante.VALOR.CODIGO.DEPENDENCIA)) {
+			}else if ( cmbProcedencia.getValue()!=null && ((Valor) cmbProcedencia.getValue()).getCodigo().equals(Constante.VALOR.CODIGO.DEPENDENCIA)) {
 				if(getDependencia()!=null)
 				documento.setCodigoOrigen( getDependencia().getId() );
 			}

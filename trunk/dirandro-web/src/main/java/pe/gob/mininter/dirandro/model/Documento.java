@@ -18,6 +18,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -199,8 +203,15 @@ public class Documento extends AuditoriaBean implements Validador, Serializable 
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(tablaOrigen==null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Entidad de Origen"});
+		}
+		if(StringUtils.isEmpty(nroDocumento)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Numero de Documento"});
+		}
+		if(StringUtils.isEmpty(asunto)){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[]{"Asunto"});
+		}		
 	}
 
 	public OutputStream getOsDocumento() {

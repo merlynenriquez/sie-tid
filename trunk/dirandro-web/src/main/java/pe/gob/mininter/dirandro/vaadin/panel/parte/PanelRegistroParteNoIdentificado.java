@@ -67,6 +67,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 	private static final String COLUMN_APELLIDOS = "COLUMN_APELLIDOS";
 	private static final String COLUMN_ORIENTACION_SEX = "COLUMN_ORIENTACION_SEX";
 	private static final String COLUMN_EDAD = "COLUMN_EDAD";
+	private static final String COLUMN_SEXO = "COLUMN_SEXO";
 	private static final String COLUMN_NO_IDENTIFICADO = "COLUMN_NO_IDENTIFICADO";
 	
 	private Expediente expediente;
@@ -106,6 +107,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 			btnPNIGrabar.addListener((ClickListener) this);
 			inicializado=true;
 			cargarNoIdentificados();
+			limpiar();
 		}
 	}
 	
@@ -117,6 +119,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 		container.addContainerProperty(COLUMN_APELLIDOS, String.class, null);
 		container.addContainerProperty(COLUMN_ORIENTACION_SEX, String.class, null);
 		container.addContainerProperty(COLUMN_EDAD, String.class, null);
+		container.addContainerProperty(COLUMN_SEXO, String.class, null);
 		container.addContainerProperty(COLUMN_NO_IDENTIFICADO, NoIdentificado.class, null);
 		
 		tblNoIdentidifacos.setContainerDataSource(container);
@@ -124,13 +127,14 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 		tblNoIdentidifacos.setColumnHeader(COLUMN_NOMBRES, "Nombres");
 		tblNoIdentidifacos.setColumnHeader(COLUMN_APELLIDOS, "Apellidos");
 		tblNoIdentidifacos.setColumnHeader(COLUMN_ORIENTACION_SEX, "Orientación Sex.");
+		tblNoIdentidifacos.setColumnHeader(COLUMN_SEXO, "Sexo");
 		tblNoIdentidifacos.setColumnHeader(COLUMN_EDAD, "Edad");
-		tblNoIdentidifacos.setVisibleColumns(new Object[] {COLUMN_ALIAS, COLUMN_NOMBRES, COLUMN_APELLIDOS, COLUMN_ORIENTACION_SEX, COLUMN_EDAD });
+		tblNoIdentidifacos.setVisibleColumns(new Object[] {COLUMN_ALIAS, COLUMN_NOMBRES, COLUMN_APELLIDOS, COLUMN_SEXO, COLUMN_EDAD });
 
 		tblNoIdentidifacos.setColumnWidth(COLUMN_ALIAS, 200);
 		tblNoIdentidifacos.setColumnWidth(COLUMN_NOMBRES, 200);
 		tblNoIdentidifacos.setColumnWidth(COLUMN_APELLIDOS, 200);
-		tblNoIdentidifacos.setColumnWidth(COLUMN_ORIENTACION_SEX, 100);
+		tblNoIdentidifacos.setColumnWidth(COLUMN_SEXO, 100);
 		tblNoIdentidifacos.setColumnWidth(COLUMN_EDAD, 60);
 		
 		tblNoIdentidifacos.setSelectable(true);
@@ -182,6 +186,7 @@ public class PanelRegistroParteNoIdentificado extends CustomComponent implements
 			item.getItemProperty(COLUMN_ORIENTACION_SEX).setValue(noIdentificado.getOrientacionSexual() != null ? noIdentificado.getOrientacionSexual().getNombre() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMN_EDAD).setValue(noIdentificado.getEdadAprox() != null ? ""+noIdentificado.getEdadAprox().intValue() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMN_NO_IDENTIFICADO).setValue(noIdentificado);
+			item.getItemProperty(COLUMN_SEXO).setValue(noIdentificado.getSexo());
 		}
 	}
 

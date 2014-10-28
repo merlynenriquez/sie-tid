@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -84,8 +86,15 @@ public class DetCrimen extends AuditoriaBean implements Validador, Serializable 
 
 	@Override
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		if(expedienteDelito==null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Delito"});
+		}
+		if(expedientePersona==null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Intervenido"});
+		}
+		if(prioridad==null){
+			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Prioridad"});
+		}
 	}
 
 }

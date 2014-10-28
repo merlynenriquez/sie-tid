@@ -9,5 +9,5 @@ public interface HojaRemisionService extends BaseService<Hojaremision,Long>{
 	
 	public List<Hojaremision> buscar(Hojaremision hojaremision);
 	List<Hojaremision> buscarBandeja(Map<String, Object> map);
-	
+	public void crearHoja(Hojaremision hojaremision);
 }

@@ -10,6 +10,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.HojaRemisionHibernate;
 import pe.gob.mininter.dirandro.model.Hojaremision;
@@ -157,6 +158,15 @@ public class HojaRemisionServiceImpl extends BaseServiceImpl<Hojaremision, Long>
 			
 		}
 		return hojaDeRemisionHibernate.buscar(filtro);	
+	}
+
+	@Override
+	@Transactional
+	public void crearHoja(Hojaremision hojaremision) {
+		crear(hojaremision);
+		String numeroHoja = StringUtils.leftPad(String.valueOf(hojaremision.getId()), 10, "0");
+		hojaremision.setNumero(numeroHoja);
+		actualizar(hojaremision);
 	}
 
 	
