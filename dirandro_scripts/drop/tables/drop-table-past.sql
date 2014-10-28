@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     10/15/2014 2:25:29 AM                        */
+/* Created on:     10/21/2014 2:58:06 AM                        */
 /*==============================================================*/
 
 
@@ -730,40 +730,40 @@ alter table SIETID.HR_HOJAREMISION
 alter table SIETID.HR_HOJAREMISION
    drop constraint FK_HR_HOJAR_TIPO_HR;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop constraint FK_HOJA_REMISION_TIPO_MEDIDA;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_DROGA_MUESTRA;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_HOJAR_ESPECIE;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_HOJAR_MUESTRA;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_MUESTRA_CREADOR;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop constraint FK_HR_MUESTRA_EDITOR;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_ADJUNTO;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_ADJUNTO_LOGO;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_MUESTRA;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_USUARIO_CREADOR;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_USUARIO_EDITOR;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_VALOR;
 
 alter table SIETID.MNT_MODELO_MARCA
@@ -1324,15 +1324,15 @@ alter table SIETID.HR_HOJAREMISION
 
 drop table SIETID.HR_HOJAREMISION cascade constraints;
 
-alter table HR_HOJAREMISION_MUESTRA
+alter table SIETID.HR_HOJAREMISION_MUESTRA
    drop primary key cascade;
 
-drop table HR_HOJAREMISION_MUESTRA cascade constraints;
+drop table SIETID.HR_HOJAREMISION_MUESTRA cascade constraints;
 
-alter table HR_PERICIA
+alter table SIETID.HR_PERICIA
    drop primary key cascade;
 
-drop table HR_PERICIA cascade constraints;
+drop table SIETID.HR_PERICIA cascade constraints;
 
 alter table SIETID.MNT_MODELO_MARCA
    drop primary key cascade;

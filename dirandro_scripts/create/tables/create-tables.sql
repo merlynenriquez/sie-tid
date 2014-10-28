@@ -1,4 +1,3 @@
-
 /*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
@@ -1940,7 +1939,7 @@ alter table SIETID.EXP_VEHICULO
 create table SIETID.HR_HOJAREMISION 
 (
    ID                   NUMBER(16)           not null,
-   NUMERO               NVARCHAR2(50)        not null,
+   NUMERO               NVARCHAR2(50),
    TIPO_HR              NUMBER(16),
    EXPEDIENTE           NUMBER(16),
    DEPENDENCIA_REMITE   NUMBER(16),
@@ -2610,6 +2609,7 @@ create table SIETID.PER_NO_IDENTIFICADOS
    APELLIDOS            NVARCHAR2(100),
    ORIENT_SEXUAL        NUMBER(16),
    EDAD_APROX           INTEGER,
+   SEXO                 CHAR(1 BYTE),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -4578,5 +4578,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-      
-quit;
+
+      quit;
