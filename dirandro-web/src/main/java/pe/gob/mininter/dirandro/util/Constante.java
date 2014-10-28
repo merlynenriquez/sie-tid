@@ -346,6 +346,7 @@ public abstract class Constante {
 		// Opciones de Acciones de los Botones
 		public static abstract class ACCION {
 			public static final String REGISTRA_REQUERIMIENTO = "REQ_REG_GRABAR";
+			public static final String BOTON_BUSCAR = "BTN_BUSCAR";
 		}
 	}
 

@@ -72,7 +72,7 @@ public abstract class HarecUtil {
 		List<Opcion> list2 = new ArrayList<Opcion>();
 		String codigoPadre;
 		for (Opcion opcion : opciones) {
-			if(ordenarAcciones){			
+			/*if(ordenarAcciones){			
 				if(Constante.VALOR.CODIGO.SUBMENU.equals(opcion.getTipo().getCodigo())){
 					//opcion.setAcciones(new ArrayList<Opcion>());
 					map2.put(opcion.getCodigo(), opcion);
@@ -82,7 +82,7 @@ public abstract class HarecUtil {
 					list2.add(opcion);
 					continue;
 				}
-			}
+			}*/
 			
 			if(opcion.getPadre() == null){
 				codigoPadre = Constante.OPCION.KEY_PADRE;
@@ -103,10 +103,17 @@ public abstract class HarecUtil {
 		
 		if(ordenarAcciones){			
 			for (Opcion opcion : list2) {
-				if(map2.containsKey(opcion.getPadre().getCodigo())){
+				
+				/*if(map2.containsKey(opcion.getPadre().getCodigo())){
 					//--TODO: HABILITAR LA PARTE DE OPCIONES
-					//map2.get(opcion.getPadre().getCodigo()).getAcciones().add(opcion);
-				}
+					if(map2.get(opcion.getPadre().getCodigo()).getAcciones()==null){
+						map2.get(opcion.getPadre().getCodigo()).setAcciones(new ArrayList<Opcion>());
+						map2.get(opcion.getPadre().getCodigo()).getAcciones().add(opcion);
+					}else{
+						map2.get(opcion.getPadre().getCodigo()).getAcciones().add(opcion);
+					}					
+				}*/
+				
 			}
 		}
 		
