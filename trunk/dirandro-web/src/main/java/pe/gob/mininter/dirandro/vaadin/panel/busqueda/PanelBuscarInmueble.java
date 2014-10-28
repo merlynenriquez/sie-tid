@@ -141,6 +141,9 @@ public class PanelBuscarInmueble extends DirandroComponent implements ClickListe
 		txtDimension.setInputPrompt("Dimension");
 		
 		btnBuscar.addListener(this);
+		if(obtenerAccion(Constante.OPCION.ACCION.BOTON_BUSCAR)==null){
+			btnBuscar.setVisible(false);
+		}
 		
 		tblInmueble.setColumnCollapsingAllowed(true);
 		cargarTabla(null);

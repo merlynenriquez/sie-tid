@@ -27,15 +27,13 @@ public abstract class DirandroComponent extends CustomComponent {
 
 	protected Opcion obtenerAccion(String codigo) {
 		if (acciones == null) {
-			// TODO lanza excepcion
-		}
-		Opcion opcion = new Opcion();
-		opcion.setCodigo(codigo);
-		int index = acciones.indexOf(opcion);
-		if (index != -1) {
-			Opcion accion = acciones.get(index);
-			return accion;
-		} else {
+			return null;
+		}else{
+			for (Opcion opcion : acciones) {
+				if(opcion.getCodigo().equals(codigo)){
+					return opcion;
+				}
+			}
 			return null;
 		}
 	}
