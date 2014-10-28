@@ -7,6 +7,7 @@ import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelDocumento;
 import pe.gob.mininter.dirandro.vaadin.panel.util.DependeciaPadre;
@@ -149,14 +150,13 @@ public class PanelRegistroParteDocumento extends CustomComponent implements Clic
 			for (Documento documento : documentos) {
 				Item item = container.addItem(documento.getId());
 				item.getItemProperty(COLUMN_NUMERO_DOCUMENTO).setValue(documento.getNroDocumento());
-				item.getItemProperty(COLUMN_TIPO_DOCUMENTO).setValue(documento.getTipoDocumento().getNombre());
+				item.getItemProperty(COLUMN_TIPO_DOCUMENTO).setValue(HarecUtil.valorNombreToEmpty(documento.getTipoDocumento()));
 				item.getItemProperty(COLUMN_ASUNTO).setValue(documento.getAsunto());
 				item.getItemProperty(COLUMN_DIAS_ATENCION).setValue(documento.getDiasAtencion());
 				item.getItemProperty(COLUMN_FOLIOS).setValue(documento.getFolios());
-				item.getItemProperty(COLUMN_PRIORIDAD).setValue(documento.getPrioridad().getNombre());
+				item.getItemProperty(COLUMN_PRIORIDAD).setValue(HarecUtil.valorNombreToEmpty(documento.getPrioridad()));
 				item.getItemProperty(COLUMN_ES_INICIAL).setValue(crearCheckBox(documento.getEsInicial()));
 				item.getItemProperty(COLUMN_DOCUMENTO).setValue(documento);
-				
 			}
 		}
 	}

@@ -92,6 +92,7 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 	private PanelAgregarNumero pnlAgregarNumero;
 	private boolean inicializado=false;
 	private DetPerTelExp detTelefono;
+	private DetExpedientePersona detPersona;
 	
 	public PanelRegistroParteTelefono() {
 		buildMainLayout();
@@ -106,6 +107,10 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 	
 	public void setExpediente(Expediente expediente) {
 		this.expediente = expediente;
+		this.detTelefono=new DetPerTelExp();
+		this.detTelefono.setExpediente(expediente);
+		this.detPersona=new DetExpedientePersona();
+		this.detPersona.setExpediente(expediente);
 		postConstruct();
 	}
 
@@ -184,7 +189,7 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 	}
 
 	private void cargarInvolucrados() {
-		List<DetExpedientePersona> lstInvolucrados = expPersonaService.buscar(null);
+		List<DetExpedientePersona> lstInvolucrados = expPersonaService.buscar(detPersona);
 		cmbPersonaImplicada.setContainerDataSource(new BeanItemContainer<DetExpedientePersona>(DetExpedientePersona.class,  lstInvolucrados));
 		cmbPersonaImplicada.setItemCaptionPropertyId("nombreCompleto");
 		cmbPersonaImplicada.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
@@ -353,6 +358,7 @@ public class PanelRegistroParteTelefono extends CustomComponent implements Click
 	
 	private void limpiar() {
 		detTelefono = new DetPerTelExp();
+		detTelefono.setExpediente(expediente);
 		cmbEquipo.select(null);
 		cmbEstado.select(null);
 		cmbNumeroTel.select(null);

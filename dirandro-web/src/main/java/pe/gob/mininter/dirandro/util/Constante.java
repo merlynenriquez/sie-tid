@@ -173,6 +173,9 @@ public abstract class Constante {
 			public final static String HR_2 = "TP_HR01";
 			
 			public static final String PERICIA_ESTADO_INICIAL = "EPINI";
+			
+			public static final String INTEGRANTE_FUNCION_INSTRUCTOR = "INST";
+			
 		}
 
 	}
@@ -282,6 +285,8 @@ public abstract class Constante {
 		public static final String VALIDAR_VEHICULO_EXISTENTE= "validar.vehiculo.existente";
 		public static final String VALIDAR_INMUEBLE_EXISTENTE= "validar.inmueble.existente";
 		public static final String VALIDAR_MUESTRA_EXISTENTE= "validar.muestra.existente";
+		public static final String VALIDAR_INVOLUCRADO_EXISTENTE= "validar.involucrado.existente";
+		public static final String VALIDAR_DELITO_EXISTENTE= "validar.delito.existente";
 		public static final String VALIDAR_CARGA_ARCHIVO= "validar.cargar.documento";
 		
 	}

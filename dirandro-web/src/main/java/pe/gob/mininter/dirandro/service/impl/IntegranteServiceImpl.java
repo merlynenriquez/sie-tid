@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -53,6 +54,16 @@ public class IntegranteServiceImpl extends BaseServiceImpl<Integrante, Long> imp
 			if(integrante.getDependencia()!=null){
 				filtro.createAlias("dependencia", "dep");
 				filtro.add(Restrictions.eq("dep.id",integrante.getDependencia().getId()));
+			}
+			if(integrante.getFuncion()!=null){
+				logger.debug("integrante funcion "  + integrante.getFuncion().getCodigo());
+				filtro.createAlias("funcion", "f");
+				if(integrante.getFuncion().getId()!= null){
+					filtro.add(Restrictions.eq("f.id",integrante.getFuncion().getId()));
+				}	
+				if(!StringUtils.isEmpty(integrante.getFuncion().getCodigo()) ){
+					filtro.add(Restrictions.eq("f.codigo",integrante.getFuncion().getCodigo()));
+				}
 			}
 		}
 		
