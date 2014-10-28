@@ -17,12 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteHibernate;
+import pe.gob.mininter.dirandro.dao.oracle.ExpedienteOracle;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Ruta;
+import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
@@ -36,9 +38,6 @@ import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
 @Service
 public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> implements ExpedienteService {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 852185817306565470L;
 		
 	@Autowired
@@ -55,6 +54,9 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 	
 	@Autowired
 	private RutaService rutaService;
+	
+	@Autowired
+	private ExpedienteOracle expedienteOracle;
 	
 	private ExpedienteHibernate expedienteHibernate;
 	
@@ -180,6 +182,13 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 			}
 		}
 		return expedienteHibernate.buscar(filtro);
-	}	
+	}
 
+	@Override
+	public void actualizarAtestado(Expediente expediente, Usuario usuario) {
+		Integer autogenerado = expedienteOracle.obtenerAutogenerado(usuario.getOficina());
+		String nroAtestado = "0000000"+autogenerado+"-2014-"+usuario.getOficina().getAbreviatura();
+		expediente.setNroAtestado(nroAtestado);
+		expedienteHibernate.actualizar(expediente);
+	}
 }

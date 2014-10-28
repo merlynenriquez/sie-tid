@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mx4j.log.Logger;
+
 import org.apache.commons.lang.StringUtils;
 
-import pe.gob.mininter.dirandro.model.Droga;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
-import pe.gob.mininter.dirandro.vaadin.panel.PanelDetalleDroga;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroAtestado;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParte;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
@@ -238,6 +240,9 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 		
 		List<Expediente> expedientes = expedienteService.obtenerBandejaDeTrabajo(form);
 		
+		final Usuario usuario = HarecUtil.obtenerUsuarioSesion();
+		System.out.println("usuario====="+usuario.getId());
+				
 		container.removeAllItems();
 		int con = 0;
 		for (Expediente expediente : expedientes) {
@@ -254,8 +259,9 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 			item.getItemProperty(COLUMNA_JURISDICCION).setValue(expediente.getJurisdiccion() != null ? expediente.getJurisdiccion().getNombre() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMNA_EXPEDIENTE).setValue(expediente);	
 			Button detalle = new Button();
-			detalle.setCaption("Detalle");
+			detalle.setCaption("Generar Atestado");
 			detalle.setData(expediente);
+			
 			detalle.addListener(new ClickListener() {
 				
 				private static final long serialVersionUID = 688255660681167152L;
@@ -263,7 +269,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 				@Override
 				public void buttonClick(ClickEvent event) {
 					PanelRegistroAtestado panelAtestado = new PanelRegistroAtestado();
-					//panelAtestado.setPericia(p);
+					panelAtestado.recibirExpediente((Expediente) event.getButton().getData(), usuario);
 					
 					Window wdHojaRemision = new Window();
 					
@@ -276,7 +282,10 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					getApplication().getMainWindow().addWindow(wdHojaRemision);
 				}
 			});
-			item.getItemProperty(COLUMN_DETALLE).setValue(detalle);
+			if (usuario.getOficina() != null) {
+				item.getItemProperty(COLUMN_DETALLE).setValue(detalle);
+			}
+			
 		}
 		
 	}
