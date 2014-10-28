@@ -5,16 +5,19 @@ import java.util.List;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Ruta;
+import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
 
 public interface ExpedienteService extends BaseService<Expediente,Long> {
 	
-	void registrarExpediente(Expediente expediente, Documento documento, Ruta ruta);
+	public void registrarExpediente(Expediente expediente, Documento documento, Ruta ruta);
 	
-	List<Expediente> buscar(Expediente expediente);
+	public List<Expediente> buscar(Expediente expediente);
 	
-	void agregarDocumento(Expediente expediente, Documento documento);
+	public void agregarDocumento(Expediente expediente, Documento documento);
 	
-	List<Expediente> obtenerBandejaDeTrabajo(FormBandejaTrabajo form);
+	public List<Expediente> obtenerBandejaDeTrabajo(FormBandejaTrabajo form);
+	
+	public void actualizarAtestado(Expediente expediente, Usuario usuario);
 
 }

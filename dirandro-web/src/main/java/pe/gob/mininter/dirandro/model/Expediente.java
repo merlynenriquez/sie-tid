@@ -72,7 +72,17 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 
 	@Column(name="REFERENCIA_HECHO", length=300)
 	private String referenciaHecho;
+	
+	@Column(name="NRO_ATESTADO", length=500)
+	private String nroAtestado;
 
+	@Column(name="FECHA_ATESTADO")
+	@Temporal( TemporalType.TIMESTAMP)
+	private Date fechaAtestado;
+	
+	@Column(name="OBSERVACION_ATESTADO", length=500)
+	private String obsAtestado;
+	
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_FINALIDAD")
@@ -323,6 +333,30 @@ public class Expediente extends AuditoriaBean implements Validador, Serializable
 
 	public void setFechaRegistroFinal(Date fechaRegistroFinal) {
 		this.fechaRegistroFinal = fechaRegistroFinal;
+	}
+
+	public String getNroAtestado() {
+		return nroAtestado;
+	}
+
+	public void setNroAtestado(String nroAtestado) {
+		this.nroAtestado = nroAtestado;
+	}
+
+	public Date getFechaAtestado() {
+		return fechaAtestado;
+	}
+
+	public void setFechaAtestado(Date fechaAtestado) {
+		this.fechaAtestado = fechaAtestado;
+	}
+
+	public String getObsAtestado() {
+		return obsAtestado;
+	}
+
+	public void setObsAtestado(String obsAtestado) {
+		this.obsAtestado = obsAtestado;
 	}
 
 	@Override
