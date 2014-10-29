@@ -1,11 +1,19 @@
 package pe.gob.mininter.dirandro.vaadin.panel.bandeja;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mx4j.log.Logger;
+
+
+
+
+
+
 
 import org.apache.commons.lang.StringUtils;
 
@@ -15,6 +23,7 @@ import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
 import pe.gob.mininter.dirandro.util.HarecUtil;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroAtestado;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParte;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
@@ -31,6 +40,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
+import com.vaadin.terminal.StreamResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -89,7 +99,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	
 	private List<Opcion> acciones;
 
-	
+	protected StreamResource resource;
 
 	/**
 	 * The constructor should first build the main layout, set the
@@ -171,6 +181,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 			 */
 			private static final long serialVersionUID = -6373252406881569655L;
 
+			@SuppressWarnings("serial")
 			@Override
 			public void handleAction(Action action, Object sender, Object target) {
 
@@ -196,6 +207,30 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					wdExpediente.setCaption("Modificar Expediente");
 					wdExpediente.setWidth("1050px");
 					getWindow().addWindow(wdExpediente);
+				}
+				
+				if (action.equals(EXPORTAR_EXPEDIENTE)) {
+					
+					StreamResource.StreamSource source = new StreamResource.StreamSource() {
+			            public InputStream getStream() {
+			            	Object objID = tblBandeja.getValue();
+							
+							Item item = container.getItem(objID);
+							
+			            	Expediente expedienteGrilla = (Expediente)item.getItemProperty(COLUMNA_EXPEDIENTE).getValue();
+			            	
+			            	ByteArrayOutputStream baos = expedienteService.imprimirAtestado(expedienteGrilla.getId());
+			            	return new ByteArrayInputStream(baos.toByteArray());
+			            }
+					};
+					resource = new StreamResource(source, "atestado.pdf", getApplication());
+					resource.setMIMEType("application/x-unknown");
+					resource.setCacheTime(0);
+					
+					AlertDialog alertDialog=new AlertDialog("","Proceso de descarga iniciado","Aceptar","500px", resource);
+					
+					Window window=getApplication().getMainWindow().getWindow();
+					window.getWindow().addWindow(alertDialog);
 				}
 			}
 
