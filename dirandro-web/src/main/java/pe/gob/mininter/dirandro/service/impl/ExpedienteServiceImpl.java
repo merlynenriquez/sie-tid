@@ -34,6 +34,7 @@ import pe.gob.mininter.dirandro.service.ValorService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
+import pe.gob.mininter.dirandro.util.ReportePDF;
 
 @Service
 public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> implements ExpedienteService {
@@ -198,5 +199,11 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 		String nroAtestado = "0000000"+autogenerado+"-2014-"+usuario.getOficina().getAbreviatura();
 		expediente.setNroAtestado(nroAtestado);
 		expedienteHibernate.actualizar(expediente);
+	}
+
+	@Override
+	public ByteArrayOutputStream imprimirAtestado(Long id) {
+		Expediente expediente=obtener(id);
+		return ReportePDF.exportarPdfAtestado(expediente);
 	}
 }

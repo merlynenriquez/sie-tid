@@ -1,5 +1,6 @@
 package pe.gob.mininter.dirandro.service;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import pe.gob.mininter.dirandro.model.Documento;
@@ -20,4 +21,6 @@ public interface ExpedienteService extends BaseService<Expediente,Long> {
 	
 	public void actualizarAtestado(Expediente expediente, Usuario usuario);
 
+	ByteArrayOutputStream imprimirAtestado(Long id);
+	
 }
