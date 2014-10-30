@@ -20,14 +20,40 @@ import pe.gob.mininter.dirandro.dao.hibernate.ExpedienteHibernate;
 import pe.gob.mininter.dirandro.dao.oracle.ExpedienteOracle;
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.model.Adjunto;
+import pe.gob.mininter.dirandro.model.DetExpedientePersona;
+import pe.gob.mininter.dirandro.model.DetPerArmExp;
+import pe.gob.mininter.dirandro.model.DetPerInmExp;
+import pe.gob.mininter.dirandro.model.DetPerTelExp;
+import pe.gob.mininter.dirandro.model.DetPerVehExp;
 import pe.gob.mininter.dirandro.model.Documento;
+import pe.gob.mininter.dirandro.model.Droga;
+import pe.gob.mininter.dirandro.model.Especie;
 import pe.gob.mininter.dirandro.model.Expediente;
+import pe.gob.mininter.dirandro.model.ExpedienteDelito;
+import pe.gob.mininter.dirandro.model.Explosivo;
+import pe.gob.mininter.dirandro.model.Importe;
+import pe.gob.mininter.dirandro.model.Instalacion;
+import pe.gob.mininter.dirandro.model.Municion;
+import pe.gob.mininter.dirandro.model.NoIdentificado;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Ruta;
 import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.DocumentoService;
+import pe.gob.mininter.dirandro.service.DrogaService;
+import pe.gob.mininter.dirandro.service.ExpedienteArmaService;
+import pe.gob.mininter.dirandro.service.ExpedienteDelitoService;
+import pe.gob.mininter.dirandro.service.ExpedienteEspecieService;
+import pe.gob.mininter.dirandro.service.ExpedienteInmuebleService;
+import pe.gob.mininter.dirandro.service.ExpedientePersonaService;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
+import pe.gob.mininter.dirandro.service.ExpedienteTelefonoService;
+import pe.gob.mininter.dirandro.service.ExpedienteVehiculoService;
+import pe.gob.mininter.dirandro.service.ExplosivoService;
+import pe.gob.mininter.dirandro.service.ImporteService;
+import pe.gob.mininter.dirandro.service.InstalacionService;
+import pe.gob.mininter.dirandro.service.MunicionService;
+import pe.gob.mininter.dirandro.service.NoIdentificadoService;
 import pe.gob.mininter.dirandro.service.ParametroService;
 import pe.gob.mininter.dirandro.service.RutaService;
 import pe.gob.mininter.dirandro.service.ValorService;
@@ -55,6 +81,45 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 	
 	@Autowired
 	private RutaService rutaService;
+	
+	@Autowired
+	private ExpedientePersonaService expedientePersonaService;
+	
+	@Autowired
+	private NoIdentificadoService noIdentificadoService;
+	
+	@Autowired
+	private DrogaService drogaService;
+	
+	@Autowired
+	private ExpedienteDelitoService expDelitoService;
+	
+	@Autowired
+	private ExpedienteTelefonoService expTelefonoService;
+	
+	@Autowired
+	private ImporteService importeService;
+	
+	@Autowired
+	private ExpedienteEspecieService expEspecieService;
+	
+	@Autowired
+	private InstalacionService instalacionService;
+	
+	@Autowired
+	private ExpedienteInmuebleService expedienteInmuebleService;
+	
+	@Autowired
+	private ExpedienteVehiculoService expVehiculoService;
+	
+	@Autowired
+	private ExpedienteArmaService expedienteArmaService;
+	
+	@Autowired
+	private ExplosivoService explosivoService;
+	
+	@Autowired
+	private MunicionService municionService;
 	
 	@Autowired
 	private ExpedienteOracle expedienteOracle;
@@ -204,6 +269,36 @@ public class ExpedienteServiceImpl extends BaseServiceImpl<Expediente, Long> imp
 	@Override
 	public ByteArrayOutputStream imprimirAtestado(Long id) {
 		Expediente expediente=obtener(id);
-		return ReportePDF.exportarPdfAtestado(expediente);
+		List<DetExpedientePersona> intervinientes = expedientePersonaService
+				.cargarIntervinientes(expediente);
+		List<NoIdentificado> noIdentificados = noIdentificadoService.
+				cargarDelExpediente(expediente);
+		List<Droga> drogas = drogaService.obtenerDrogasExpediente(expediente);
+		ExpedienteDelito expDelito=new ExpedienteDelito();
+		expDelito.setExpediente(expediente);
+		List<ExpedienteDelito> lstExpDelitos = expDelitoService.buscar(expDelito);
+		List<DetPerTelExp> lstExpTelefonos=expTelefonoService.buscar(null);
+		Importe expImporte=new Importe();
+		expImporte.setExpediente(expediente);
+		List<Importe> lstExpImportes = importeService.buscar(expImporte);
+		List<Especie> lstEspecies = expEspecieService.buscar(null);
+		Instalacion instalacion=new Instalacion();
+		instalacion.setExpediente(expediente);
+		List<Instalacion> lstInstalaciones = instalacionService.buscar(instalacion);
+		DetPerInmExp detinm = new DetPerInmExp();
+		detinm.setExpediente(expediente);
+		List<DetPerInmExp> lstinmuebles = expedienteInmuebleService.buscar(detinm);
+		List<DetPerVehExp> lstExpVehiculos = expVehiculoService.buscar(null);
+		DetPerArmExp arm = new DetPerArmExp();
+		arm.setExpediente(expediente);
+		List<DetPerArmExp> lstArmas = expedienteArmaService.buscar(arm);
+		Explosivo tmpExplosivo = new Explosivo();
+		tmpExplosivo.setExpediente(expediente);
+		List<Explosivo> lstExplosivos = explosivoService.buscar(tmpExplosivo);
+		Municion munin = new Municion();
+		munin.setExpediente(expediente);
+		List<Municion> lstMuniciones = municionService.buscar(munin);
+		return ReportePDF.exportarPdfAtestado(expediente,intervinientes,noIdentificados,drogas,lstExpDelitos,lstExpTelefonos,lstExpImportes,lstEspecies,lstInstalaciones,
+				lstinmuebles,lstExpVehiculos,lstArmas,lstExplosivos,lstMuniciones);
 	}
 }
