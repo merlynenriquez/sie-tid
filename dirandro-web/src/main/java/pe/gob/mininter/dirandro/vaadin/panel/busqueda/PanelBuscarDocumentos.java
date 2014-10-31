@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.vaadin.panel.busqueda;
 
 import java.util.List;
 
+import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Documento;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Opcion;
@@ -9,6 +10,7 @@ import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.DocumentoService;
 import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -223,10 +225,17 @@ public class PanelBuscarDocumentos extends DirandroComponent implements ClickLis
 			expediente.setAutogenerado((String)txtExpediente.getValue());
 			documento.setExpediente(expediente);
 			documento.setTablaOrigen(cmbTablaOrigen.getValor());
-			/*arma.setNroSerie((String)txtNumeroSerie.getValue());
-			arma.setCalibre(cmbCalibre.getValor());
-			arma.setInternamiento((String)txtInternamiento.getValue());
-			cargarTabla(documentoService.);*/
+			documento.setCodigoOrigen(HarecUtil.toLong(txtCodigoOrigen));
+			documento.setTipoDocumento(cmbTipoDocumento.getValor());
+			documento.setNroDocumento((String)txtNroDocumento.getValue());
+			documento.setAsunto((String)txtAsunto.getValue());
+			documento.setDiasAtencion(HarecUtil.toBigDecimal(txtDiasAtencion));
+			documento.setFolios(HarecUtil.toBigDecimal(txtFolio));
+			Adjunto adjunto=new Adjunto();
+			adjunto.setNombre((String)txtAdjunto.getValue());
+			documento.setAdjunto(adjunto);
+			documento.setPrioridad(cmbPrioridad.getValor());
+			cargarTabla(documentoService.buscar(documento));
 		}
 	}
 	
