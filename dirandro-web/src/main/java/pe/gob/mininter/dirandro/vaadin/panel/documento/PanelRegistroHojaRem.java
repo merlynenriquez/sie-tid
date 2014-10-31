@@ -219,7 +219,8 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		// TODO Auto-generated method stub
 		super.attach();
 		if(!hojaremision.esNuevo()){
-			habilitarEdicion(true);
+			habilitarEdicion(true,LIMPIAR_HOJA);
+			limpiar(LIMPIAR_MUESTRA);
 			lblNumeroHoja.setValue(hojaremision.getNumero());
 			logger.debug("setea tipo hr");
 			cmbTipoHr.setValue(hojaremision.getTipoHr());
@@ -404,6 +405,52 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		tblMuestras.setColumnHeader(COLUMN_PESO_NETO, "Peso Neto");
 		tblMuestras.setColumnHeader(COLUMN_PERICIA, "Pericia");
 		
+		tblMuestras.setSelectable(true);
+		tblMuestras.setImmediate(true);
+		tblMuestras.setNullSelectionAllowed(true);
+		tblMuestras.setNullSelectionItemId(null);
+		tblMuestras.addListener(new ValueChangeListener() {
+			
+			private static final long serialVersionUID = 7962790507398071986L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				boolean esModoNuevo = tblMuestras.getValue() == null;
+				limpiar(LIMPIAR_MUESTRA);
+				if(esModoNuevo){
+					tblMuestras.setValue(null);
+					habilitarEdicion(false,LIMPIAR_MUESTRA);
+				}else{
+					habilitarEdicion(true,LIMPIAR_MUESTRA);
+					Item item = tblMuestras.getItem(tblMuestras.getValue());
+					muestra.setId((Long) item.getItemProperty(COLUMN_ID).getValue());
+					
+					HojaremisionMuestra muestraTmp = hojaRemisionMuestraService.obtener((Long) item.getItemProperty(COLUMN_ID).getValue());
+					
+					cmbDroga.setValue( muestraTmp.getDroga());
+					cmbEspecie.setValue(muestraTmp.getEspecie());
+					txtDescripcion.setValue(HarecUtil.nullToEmpty(muestraTmp.getDescripcion()));
+					
+					logger.debug("tipo medida "+ HarecUtil.marcaModeloNombreToEmpty(muestraTmp.getTipoMedida()));
+					cmbUnidadMedida.select(muestraTmp.getTipoMedida());
+					
+					if(muestraTmp.getTipoMedida()!=null){
+						logger.debug("tipo medida padre "+ HarecUtil.marcaModeloNombreToEmpty( muestraTmp.getTipoMedida().getPadre() ));
+						cmbTipoUnidadMedida.select(muestraTmp.getTipoMedida().getPadre());
+					}	
+					
+					txtCantidad.setValue(HarecUtil.nullToEmpty(muestraTmp.getCantidad()));
+					txtPesoBruto.setValue(HarecUtil.nullToEmpty(muestraTmp.getCanPesoBruto()));
+					txtPesoNeto.setValue(HarecUtil.nullToEmpty(muestraTmp.getCanPesoNeto()));
+					txtPesoAnalisis.setValue(HarecUtil.nullToEmpty(muestraTmp.getCanPesoAnalisis()));
+					txtxPesoDevuelto.setValue(HarecUtil.nullToEmpty(muestraTmp.getCanPesoDevuelto()));
+					
+				}
+			}
+		});	
+		
+
+		
 	}
 	
 	public void cargarTablaMuestra() {
@@ -452,11 +499,19 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		limpiar(LIMPIAR_HOJA);
 	}
 	
-	private void habilitarEdicion(boolean flag){
-		if(flag){
-			btnGrabar.setCaption("Actualizar");
+	private void habilitarEdicion(boolean flag,String tipo){
+		if(tipo.equals(LIMPIAR_HOJA)){
+			if(flag){
+				btnGrabar.setCaption("Actualizar");
+			}else{
+				btnGrabar.setCaption("Crear");
+			}
 		}else{
-			btnGrabar.setCaption("Crear");
+			if(flag){
+				btnAgregar.setCaption("Actualizar");
+			}else{
+				btnAgregar.setCaption("Agregar");
+			}
 		}
 	}
 
@@ -478,6 +533,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 			cmbTipoHr.select(null);
 		}else{
 			muestra = new HojaremisionMuestra();
+			muestra.setHojaRemision(hojaremision);
 			txtPesoAnalisis.setValue("");
 			txtPesoBruto.setValue("");
 			txtPesoNeto.setValue("");
@@ -528,7 +584,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		}else{
 			hojaRemisionService.actualizar(hojaremision);
 		}
-		habilitarEdicion(true);
+		habilitarEdicion(true,LIMPIAR_HOJA);
 		AlertDialog alertDialog = new  AlertDialog("Registro de Hoja de Remisión", "Se ha registrado la Hoja de Remisión correctamente", "Aceptar", "400");
 		getApplication().getMainWindow().addWindow(alertDialog);
 	
@@ -575,10 +631,10 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		}
 	}
 	
+	/**
+	 * registra la muestra
+	 */
 	public void btnAgregaDetalleClic(){
-		muestra = new HojaremisionMuestra();
-		//para ambos
-		muestra.setHojaRemision(hojaremision);
 		muestra.setDescripcion(HarecUtil.nullToEmpty(txtDescripcion.getValue()));
 		//para especies
 		muestra.setEspecie((Especie)cmbEspecie.getValue());	
@@ -591,6 +647,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		muestra.setCantidad( HarecUtil.toInteger(txtCantidad.getValue()) );
 		muestra.setTipoMedida((ModeloMarca) cmbUnidadMedida.getValue());
 		
+		//VALIDACIONES
 		if( HarecUtil.nullToEmpty( txtDescripcion.getValue() ).equals(StringUtils.EMPTY)){
 			txtDescripcion.focus();
 			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX, new Object[] { "Descripcion" });
@@ -607,11 +664,22 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 			}
 		}
 		
-		hojaRemisionMuestraService.crear(muestra);
+		logger.debug("id de la muestra " + muestra.getId() );
+		
+		if(muestra.esNuevo()){ 
+			hojaRemisionMuestraService.crear(muestra);	
+		}else{
+			hojaRemisionMuestraService.actualizar(muestra);
+		}
+		
 		limpiar(LIMPIAR_MUESTRA);
 		cargarTablaMuestra();
 	}
 	
+	/***
+	 * registra una pericia para la muestra seleccionada
+	 * @param muestra
+	 */
 	private void registraPericias( HojaremisionMuestra muestra){
 		
 		Pericia p = new Pericia();
@@ -731,6 +799,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		lblNumeroHoja.setImmediate(false);
 		lblNumeroHoja.setWidth("120px");
 		lblNumeroHoja.setHeight("-1px");
+		lblNumeroHoja.setValue("Label");
 		horizontalLayout_1.addComponent(lblNumeroHoja);
 		
 		// cmbTipoHr
