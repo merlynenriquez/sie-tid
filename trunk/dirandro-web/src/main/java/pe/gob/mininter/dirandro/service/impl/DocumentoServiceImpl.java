@@ -41,15 +41,29 @@ public class DocumentoServiceImpl extends BaseServiceImpl<Documento, Long> imple
 		Busqueda filtro = Busqueda.forClass(Documento.class);
 		if(documento!=null){
 			addILikeRestrictions(filtro, "expediente", "ex", "autogenerado", documento.getExpediente().getAutogenerado());
-			addILikeRestrictions(filtro, "tablaOrigen", "to", "nombre", documento.getTablaOrigen().getNombre());
-			filtro.add(Restrictions.eq("origen", documento.getCodigoOrigen()));
-			addILikeRestrictions(filtro, "tipoDocumento", "td", "nombre", documento.getTipoDocumento().getNombre());
+			if(documento.getTablaOrigen()!=null){
+				addILikeRestrictions(filtro, "tablaOrigen", "to", "nombre", documento.getTablaOrigen().getNombre());
+			}
+			if(documento.getCodigoOrigen()!=null){
+				filtro.add(Restrictions.eq("codigoOrigen", documento.getCodigoOrigen()));
+			}
+			if(documento.getTipoDocumento()!=null){
+				addILikeRestrictions(filtro, "tipoDocumento", "td", "nombre", documento.getTipoDocumento().getNombre());
+			}
 			addILikeRestrictions(filtro, "nroDocumento", documento.getNroDocumento());
 			addILikeRestrictions(filtro, "asunto", documento.getAsunto());
-			filtro.add(Restrictions.eq("diasAtencion", documento.getDiasAtencion()));
-			filtro.add(Restrictions.eq("folios", documento.getFolios()));
-			addILikeRestrictions(filtro, "adjunto", "a", "nombre", documento.getAdjunto().getNombre());
-			addILikeRestrictions(filtro, "prioridad", "p", "nombre", documento.getPrioridad().getNombre());
+			if(documento.getDiasAtencion()!=null){
+				filtro.add(Restrictions.eq("diasAtencion", documento.getDiasAtencion()));
+			}
+			if(documento.getFolios()!=null){
+				filtro.add(Restrictions.eq("folios", documento.getFolios()));
+			}
+			if(documento.getAdjunto()!=null){
+				addILikeRestrictions(filtro, "adjunto", "a", "nombre", documento.getAdjunto().getNombre());
+			}
+			if(documento.getPrioridad()!=null){
+				addILikeRestrictions(filtro, "prioridad", "p", "nombre", documento.getPrioridad().getNombre());
+			}
 		}
 		return documentoHibernate.buscar(filtro);
 	}
