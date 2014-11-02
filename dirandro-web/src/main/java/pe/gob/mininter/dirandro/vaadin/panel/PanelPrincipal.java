@@ -22,6 +22,7 @@ import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.util.PlantillaVelocity;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaHojaRemision;
+import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaNotaInformativa;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaPericias;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaTrabajo;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscaPersona;
@@ -35,6 +36,7 @@ import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarVehiculo;
 import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigListaValores;
 import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigParametro;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroHojaRem;
+import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroNotaInformativa;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDelito;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDependencia;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenEmpresa;
@@ -228,7 +230,16 @@ public class PanelPrincipal extends CustomComponent implements Command{
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBandejaPericias(acciones, "-1px"));
 			}
-			
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_NI)){
+				lblTituloPanel.setValue("<h2>Registro de Nota Informativa</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroNotaInformativa(acciones, "-1px"));
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_BAN_NI)){
+				lblTituloPanel.setValue("<h2>Bandeja de Nota Informativa</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBandejaNotaInformativa(acciones, "-1px"));
+			}
 			
 			/**
 			 * Menu Registro de Mantenimientos

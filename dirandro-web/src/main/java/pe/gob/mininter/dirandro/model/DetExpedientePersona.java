@@ -188,7 +188,11 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	}
 	
 	public String getNombreCompleto(){
-		return involucrado.getNombreCompleto();
+		if(involucrado!=null)
+			return involucrado.getNombreCompleto();
+		if(empresaInvolucrada!=null)
+			return empresaInvolucrada.getRazonSocial();
+		return "";
 	}
 
 	/*@Override
