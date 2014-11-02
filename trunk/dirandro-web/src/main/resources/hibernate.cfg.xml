@@ -39,6 +39,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.Inmueble" />
 		<mapping class="pe.gob.mininter.dirandro.model.Instalacion" />
 		<mapping class="pe.gob.mininter.dirandro.model.Municion" />
+		<mapping class="pe.gob.mininter.dirandro.model.NotaInformativa" />
 		<mapping class="pe.gob.mininter.dirandro.model.Organizacion" />
 		<mapping class="pe.gob.mininter.dirandro.model.Pericia" />
 		<mapping class="pe.gob.mininter.dirandro.model.Predecesor" />
