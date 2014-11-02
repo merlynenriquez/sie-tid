@@ -322,7 +322,9 @@ public abstract class Constante {
 		public static final String CODIGO_EXP_BAN_PP = "EXP_BAN_PP";
 		public static final String CODIGO_EXP_BAN_HR = "EXP_BAN_HR";
 		public static final String CODIGO_EXP_BAN_PR = "EXP_BAN_PR";
-
+		public static final String CODIGO_EXP_REG_NI = "EXP_REG_NI";
+		public static final String CODIGO_EXP_BAN_NI = "EXP_BAN_NI";
+		
 		// Menu Nro 3 (Busqueda de Tablas)
 		public final static String CODIGO_BSQ_VEHICULO = "BSQ_VEHICULO";
 		public final static String CODIGO_BSQ_INMUEBLE = "BSQ_INMUEBLE";
