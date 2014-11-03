@@ -603,7 +603,16 @@ alter table SIETID.EXP_MUNICIONES
 
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_PERSONA;
+   
+alter table EXP_NOTA_INFORMATIVA
+   drop constraint FK_EXP_NOTA_CREADOR;
 
+alter table EXP_NOTA_INFORMATIVA
+   drop constraint FK_EXP_NOTA_EDITOR;
+
+alter table EXP_NOTA_INFORMATIVA
+   drop constraint FK_EXP_NOTA_EXPEDIENTE;
+   
 alter table SIETID.EXP_NUMERO
    drop constraint FK_EXP_NUMERO_CREADOR;
 
@@ -1283,6 +1292,11 @@ alter table SIETID.EXP_MUNICIONES
    drop primary key cascade;
 
 drop table SIETID.EXP_MUNICIONES cascade constraints;
+
+alter table EXP_NOTA_INFORMATIVA
+   drop primary key cascade;
+
+drop table EXP_NOTA_INFORMATIVA cascade constraints;
 
 alter table SIETID.EXP_NUMERO
    drop primary key cascade;
