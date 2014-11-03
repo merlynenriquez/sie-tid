@@ -1633,6 +1633,28 @@ alter table SIETID.EXP_MUNICIONES
    add constraint PK_EXP_MUNICIONES primary key (ID);
 
 /*==============================================================*/
+/* Table: EXP_NOTA_INFORMATIVA                                  */
+/*==============================================================*/
+create table EXP_NOTA_INFORMATIVA 
+(
+   ID                   NUMBER(16)           not null,
+   PARTE                NUMBER(16),
+   FECHA_REGISTRO       TIMESTAMP,
+   NUMERO               NVARCHAR2(15),
+   CONTENIDO            NVARCHAR2(2000),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table EXP_NOTA_INFORMATIVA is
+'tabla en la que cada dependencia crea sus notas informativas';
+
+alter table EXP_NOTA_INFORMATIVA
+   add constraint PK_EXP_NOTA_INFORMATIVA primary key (ID);
+
+/*==============================================================*/
 /* Table: EXP_NUMERO                                            */
 /*==============================================================*/
 create table SIETID.EXP_NUMERO 
@@ -3895,6 +3917,18 @@ alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_PERSONA foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
 
+alter table EXP_NOTA_INFORMATIVA
+   add constraint FK_EXP_NOTA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_NOTA_INFORMATIVA
+   add constraint FK_EXP_NOTA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_NOTA_INFORMATIVA
+   add constraint FK_EXP_NOTA_EXPEDIENTE foreign key (PARTE)
+      references SIETID.EXP_EXPEDIENTE (ID);
+      
 alter table SIETID.EXP_NUMERO
    add constraint FK_EXP_NUMERO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
