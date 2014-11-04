@@ -705,13 +705,13 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		// common part: create layout
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
-		mainLayout.setWidth("800px");
+		mainLayout.setWidth("100%");
 		mainLayout.setHeight("-1px");
 		mainLayout.setMargin(true);
 		mainLayout.setSpacing(true);
 		
 		// top-level component properties
-		setWidth("800px");
+		setWidth("100.0%");
 		setHeight("-1px");
 		
 		// pnlPrincipal
