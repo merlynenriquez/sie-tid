@@ -1642,7 +1642,7 @@ create table EXP_NOTA_INFORMATIVA
    FECHA_REGISTRO       TIMESTAMP,
    NUMERO               NVARCHAR2(15),
    CONTENIDO            NVARCHAR2(2000),
-   CREADOR              NUMBER(16)           not null,
+   CREADOR              NUMBER(16),
    CREACION             TIMESTAMP,
    EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
@@ -1685,6 +1685,43 @@ comment on column SIETID.EXP_NUMERO.EDICION is
 
 alter table SIETID.EXP_NUMERO
    add constraint PK_EXP_NUMERO primary key (ID);
+
+/*==============================================================*/
+/* Table: EXP_OFICIO_SOLICITADO                                 */
+/*==============================================================*/
+create table SIETID.EXP_OFICIO_SOLICITADO 
+(
+   ID                   NUMBER(16)           not null,
+   EXPEDIENTE           NUMBER(16),
+   UNIDAD               NUMBER(16),
+   TIPO_RESULTADO       NUMBER(16),
+   OBSERVACION          NVARCHAR2(2000),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   add constraint PK_EXP_OFICIO_SOLICITADO primary key (ID);
+
+/*==============================================================*/
+/* Table: EXP_OFICIO_SOLICITADO_ADJUNTO                         */
+/*==============================================================*/
+create table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO 
+(
+   ID                   NUMBER(16)           not null,
+   OFICIO_SOLICITADO    NUMBER(16),
+   ADJUNTO              NUMBER(16)           not null,
+   TIPO                 NUMBER(16),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   add constraint PK_EXP_OFICIO_SOLICITADO_ADJUN primary key (ID);
 
 /*==============================================================*/
 /* Table: EXP_ORGANIZACION                                      */
@@ -3928,7 +3965,7 @@ alter table EXP_NOTA_INFORMATIVA
 alter table EXP_NOTA_INFORMATIVA
    add constraint FK_EXP_NOTA_EXPEDIENTE foreign key (PARTE)
       references SIETID.EXP_EXPEDIENTE (ID);
-      
+
 alter table SIETID.EXP_NUMERO
    add constraint FK_EXP_NUMERO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -3936,6 +3973,46 @@ alter table SIETID.EXP_NUMERO
 alter table SIETID.EXP_NUMERO
    add constraint FK_EXP_NUMERO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   add constraint FK_EXP_OFI_SOL_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   add constraint FK_EXP_OFI_SOL_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   add constraint FK_EXP_OFI_SOL_EXPEDIENTE foreign key (EXPEDIENTE)
+      references SIETID.EXP_EXPEDIENTE (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   add constraint FK_EXP_OFI_SOL_TIPO foreign key (TIPO_RESULTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   add constraint FK_EXP_OFI_SOL_UNIDAD foreign key (UNIDAD)
+      references SIETID.PER_EMPRESA (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   add constraint FK_EXP_OFI_SOL_ADJU_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   add constraint FK_EXP_OFI_SOL_ADJU_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   add constraint FK_EXP_OFI_SOL_ADJ_ADJUNTO foreign key (ADJUNTO)
+      references SIETID.EXP_ADJUNTO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   add constraint FK_EXP_OFI_SOL_ADJ_OFICIO foreign key (OFICIO_SOLICITADO)
+      references SIETID.EXP_OFICIO_SOLICITADO (ID);
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   add constraint FK_EXP_OFI_SOL_ADJ_TIPO foreign key (TIPO)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_ORGANIZACION
    add constraint FK_EXP_BANDAS_CREADOR foreign key (CREADOR)

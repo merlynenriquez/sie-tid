@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     10/28/2014 3:07:59 AM                        */
+/* Created on:     04/11/2014 0:24:02                           */
 /*==============================================================*/
 
 
@@ -603,7 +603,7 @@ alter table SIETID.EXP_MUNICIONES
 
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_PERSONA;
-   
+
 alter table EXP_NOTA_INFORMATIVA
    drop constraint FK_EXP_NOTA_CREADOR;
 
@@ -612,12 +612,42 @@ alter table EXP_NOTA_INFORMATIVA
 
 alter table EXP_NOTA_INFORMATIVA
    drop constraint FK_EXP_NOTA_EXPEDIENTE;
-   
+
 alter table SIETID.EXP_NUMERO
    drop constraint FK_EXP_NUMERO_CREADOR;
 
 alter table SIETID.EXP_NUMERO
    drop constraint FK_EXP_NUMERO_EDITOR;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   drop constraint FK_EXP_OFI_SOL_CREADOR;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   drop constraint FK_EXP_OFI_SOL_EDITOR;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   drop constraint FK_EXP_OFI_SOL_EXPEDIENTE;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   drop constraint FK_EXP_OFI_SOL_TIPO;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   drop constraint FK_EXP_OFI_SOL_UNIDAD;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   drop constraint FK_EXP_OFI_SOL_ADJU_CREADOR;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   drop constraint FK_EXP_OFI_SOL_ADJU_EDITOR;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   drop constraint FK_EXP_OFI_SOL_ADJ_ADJUNTO;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   drop constraint FK_EXP_OFI_SOL_ADJ_OFICIO;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   drop constraint FK_EXP_OFI_SOL_ADJ_TIPO;
 
 alter table SIETID.EXP_ORGANIZACION
    drop constraint FK_EXP_BANDAS_CREADOR;
@@ -1302,6 +1332,16 @@ alter table SIETID.EXP_NUMERO
    drop primary key cascade;
 
 drop table SIETID.EXP_NUMERO cascade constraints;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO
+   drop primary key cascade;
+
+drop table SIETID.EXP_OFICIO_SOLICITADO cascade constraints;
+
+alter table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO
+   drop primary key cascade;
+
+drop table SIETID.EXP_OFICIO_SOLICITADO_ADJUNTO cascade constraints;
 
 alter table SIETID.EXP_ORGANIZACION
    drop primary key cascade;
