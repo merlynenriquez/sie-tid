@@ -15,6 +15,7 @@ import java.util.Map;
 
 
 
+
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Expediente;
@@ -24,6 +25,7 @@ import pe.gob.mininter.dirandro.service.ExpedienteService;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
+import pe.gob.mininter.dirandro.vaadin.panel.PanelOficioSolicitadoEmpresa;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroAtestado;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParte;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
@@ -78,7 +80,8 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	
 	private static final Action MODIFICAR_EXPEDIENTE = new Action("Modificar Expediente");
 	private static final Action EXPORTAR_EXPEDIENTE = new Action("Exportar Expediente");
-	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE , EXPORTAR_EXPEDIENTE};
+	private static final Action OFICIO_SOLICITADO_EXPEDIENTE = new Action("Oficio Solicitado del Expediente");
+	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE , EXPORTAR_EXPEDIENTE,OFICIO_SOLICITADO_EXPEDIENTE};
 	
 	private Action[] action = new Action[] {};
 
@@ -232,6 +235,32 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					Window window=getApplication().getMainWindow().getWindow();
 					window.getWindow().addWindow(alertDialog);
 				}
+				
+				if (action.equals(OFICIO_SOLICITADO_EXPEDIENTE)) {
+					
+					Object objID = tblBandeja.getValue();
+					
+					Item item = container.getItem(objID);
+					
+					Expediente expedienteGrilla = (Expediente)item.getItemProperty(COLUMNA_EXPEDIENTE).getValue();
+					
+					Expediente expediente = expedienteService.obtener(expedienteGrilla.getId());
+					
+					PanelOficioSolicitadoEmpresa panelOficioSolicitadoEmpresa = 
+							new PanelOficioSolicitadoEmpresa();
+					
+					Window wdOficioSolicitado = new Window();
+					
+					wdOficioSolicitado.setModal(false);
+					wdOficioSolicitado.setResizable(false);
+					wdOficioSolicitado.addComponent(panelOficioSolicitadoEmpresa);
+						
+					wdOficioSolicitado.setCaption("Oficio Solicitado del Expediente");
+					wdOficioSolicitado.setWidth("670px");
+					getWindow().addWindow(wdOficioSolicitado);
+					
+				}
+
 			}
 
 			@Override
