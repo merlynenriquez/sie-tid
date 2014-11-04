@@ -33,10 +33,12 @@ import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarInmueble;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarOrganizacion;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarTelefono;
 import pe.gob.mininter.dirandro.vaadin.panel.busqueda.PanelBuscarVehiculo;
+import pe.gob.mininter.dirandro.vaadin.panel.caso.PanelRegistroCaso;
 import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigListaValores;
 import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigParametro;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroHojaRem;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroNotaInformativa;
+import pe.gob.mininter.dirandro.vaadin.panel.inteligencia.PanelRegistroInteligencia;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDelito;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDependencia;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenEmpresa;
@@ -239,6 +241,16 @@ public class PanelPrincipal extends CustomComponent implements Command{
 				lblTituloPanel.setValue("<h2>Bandeja de Nota Informativa</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBandejaNotaInformativa(acciones, "-1px"));
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_CA)){
+				lblTituloPanel.setValue("<h2>Registro de Caso</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroCaso(acciones, "-1px"));
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_DI)){
+				lblTituloPanel.setValue("<h2>Registro de Documento de Inteligencia</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroInteligencia(acciones, "-1px"));
 			}
 			
 			/**
