@@ -39,6 +39,7 @@ import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigParametro;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroHojaRem;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroNotaInformativa;
 import pe.gob.mininter.dirandro.vaadin.panel.inteligencia.PanelRegistroInteligencia;
+import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenAerodromo;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDelito;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDependencia;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenEmpresa;
@@ -46,6 +47,7 @@ import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenEntidad;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenEstado;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenLetrado;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenModeloMarca;
+import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenOrganizacion;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenPais;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenPersona;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenPoblado;
@@ -308,7 +310,14 @@ public class PanelPrincipal extends CustomComponent implements Command{
 				lblTituloPanel.setValue("<h2>Mantenimiento de Tipos de Especie</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelMantenTipoEspecie(acciones, "-1px"));
-				
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_AERODROMO)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Aerodromos</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenAerodromo(acciones, "-1px"));
+			}else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_MNT_ORGANIZACION)){
+				lblTituloPanel.setValue("<h2>Mantenimiento de Organizaciones</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelMantenOrganizacion(acciones, "-1px"));
 			}
 			
 			/**
