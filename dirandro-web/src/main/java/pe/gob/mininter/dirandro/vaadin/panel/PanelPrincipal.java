@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import mx4j.log.Logger;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -166,14 +168,18 @@ public class PanelPrincipal extends CustomComponent implements Command{
 			return;
 		
 		for (Opcion opc : map.get(codigo)) {
-			HarecMenuItem mni;
+			HarecMenuItem mni = null;
 			if (Constante.VALOR.CODIGO.MENU.equals(opc.getTipo().getCodigo())) {
 				mni = mnuPrincipal.addItem(opc.getCodigo(), opc.getAcciones(), opc.getNombre(), null);
 			} else if (Constante.VALOR.CODIGO.SUBMENU.equals(opc.getTipo().getCodigo())) {
-				mni = padre.addItem(opc.getCodigo(), map.get(opc.getCodigo()), opc.getNombre(), this);
-				if (StringUtils.equals(opc.getCodigo(), Constante.OPCION.CODIGO_EXP_BAN_PP)) {
-					harecMenuItemDefault = mni;
-				}
+				System.out.println("padre"+padre);
+				if (padre != null) {
+					mni = padre.addItem(opc.getCodigo(),map.get(opc.getCodigo()),opc.getNombre(), this);
+					if (StringUtils.equals(opc.getCodigo(), Constante.OPCION.CODIGO_EXP_BAN_PP)) {
+						harecMenuItemDefault = mni;
+					}
+				}				
+				
 			} else {
 				continue;
 			}
