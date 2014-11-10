@@ -81,7 +81,8 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	private static final Action MODIFICAR_EXPEDIENTE = new Action("Modificar Expediente");
 	private static final Action EXPORTAR_EXPEDIENTE = new Action("Exportar Expediente");
 	private static final Action OFICIO_SOLICITADO_EXPEDIENTE = new Action("Oficio Solicitado del Expediente");
-	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE , EXPORTAR_EXPEDIENTE,OFICIO_SOLICITADO_EXPEDIENTE};
+	private static final Action INFORME_GESTION = new Action("Informe de Gestión Principal");
+	private static final Action[] ITEM_ACTIONS = new Action[] { MODIFICAR_EXPEDIENTE , EXPORTAR_EXPEDIENTE,OFICIO_SOLICITADO_EXPEDIENTE,INFORME_GESTION};
 	
 	private Action[] action = new Action[] {};
 
@@ -261,6 +262,9 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					
 				}
 
+				if (action.equals(INFORME_GESTION)) {
+					System.out.println("abre panel para la PPTID");
+				}
 			}
 
 			@Override
