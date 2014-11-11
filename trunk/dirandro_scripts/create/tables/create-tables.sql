@@ -1,4 +1,230 @@
 /*==============================================================*/
+/* User: SIETID                                                 */
+/*==============================================================*/
+create user SIETID 
+  identified by "";
+
+/*==============================================================*/
+/* Table: AGE_CASO                                              */
+/*==============================================================*/
+create table SIETID.AGE_CASO 
+(
+   ID                   NUMBER(16)           not null,
+   NRO_CASO             NVARCHAR2(100),
+   NOMBRE               NVARCHAR2(500),
+   FECHA                TIMESTAMP,
+   DESCRIPCION          NVARCHAR2(2000),
+   SITUACION            NUMBER(16),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.AGE_CASO.CREADOR is
+'Usuario de creación de registro';
+
+comment on column SIETID.AGE_CASO.CREACION is
+'Fecha de creación de registro';
+
+comment on column SIETID.AGE_CASO.EDITOR is
+'Usuario de modificación de registro';
+
+comment on column SIETID.AGE_CASO.EDICION is
+'Fecha de modificación de registro';
+
+alter table SIETID.AGE_CASO
+   add constraint PK_AGE_CASO primary key (ID);
+
+/*==============================================================*/
+/* Table: AGE_DET_CASO_AGENTE                                   */
+/*==============================================================*/
+create table SIETID.AGE_DET_CASO_AGENTE 
+(
+   ID                   NUMBER(16)           not null,
+   AGENTE               NUMBER(16),
+   CASO                 NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.AGE_DET_CASO_AGENTE is
+'REGISTRA AL AGENTE ENCARGADO O ENCARGADOS DEL CASO';
+
+comment on column SIETID.AGE_DET_CASO_AGENTE.AGENTE is
+'Identificador';
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   add constraint PK_AGE_DET_CASO_AGENTE primary key (ID);
+
+/*==============================================================*/
+/* Table: AGE_DET_CASO_DIRECCION                                */
+/*==============================================================*/
+create table SIETID.AGE_DET_CASO_DIRECCION 
+(
+   ID                   NUMBER(16)           not null,
+   CASO                 NUMBER(16),
+   DIRECCION            NUMBER(16),
+   TIPO_USO             NUMBER(16),
+   DETALLE_USO          NVARCHAR2(2000),
+   SITUACION            NUMBER(16)           not null,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.AGE_DET_CASO_DIRECCION.CREADOR is
+'Usuario de creación del registro';
+
+comment on column SIETID.AGE_DET_CASO_DIRECCION.CREACION is
+'Fecha de creación del registro';
+
+comment on column SIETID.AGE_DET_CASO_DIRECCION.EDITOR is
+'Usuario que modifica registro';
+
+comment on column SIETID.AGE_DET_CASO_DIRECCION.EDICION is
+'Fecha que se modifica el registro';
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint PK_AGE_DET_CASO_DIRECCION primary key (ID);
+
+/*==============================================================*/
+/* Table: AGE_DET_CASO_IMAGEN                                   */
+/*==============================================================*/
+create table SIETID.AGE_DET_CASO_IMAGEN 
+(
+   ID                   NUMBER(16)           not null,
+   CASO                 NUMBER(16),
+   IMAGEN               NUMBER(16),
+   OBSERVACION          NVARCHAR2(2000),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.AGE_DET_CASO_IMAGEN.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.AGE_DET_CASO_IMAGEN.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.AGE_DET_CASO_IMAGEN.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.AGE_DET_CASO_IMAGEN.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   add constraint PK_AGE_DET_CASO_IMAGEN primary key (ID);
+
+/*==============================================================*/
+/* Table: AGE_DET_CASO_PERSONA                                  */
+/*==============================================================*/
+create table SIETID.AGE_DET_CASO_PERSONA 
+(
+   ID                   NUMBER(16)           not null,
+   CASO                 NUMBER(16),
+   PERSONA              NUMBER(16),
+   NA_PERSONA           NUMBER(16),
+   ORGANIZACION         NUMBER(16),
+   SITUACION            NUMBER(16),
+   OBSERVACION          NVARCHAR2(1000),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.AGE_DET_CASO_PERSONA.CREADOR is
+'Usuario de creación de registro';
+
+comment on column SIETID.AGE_DET_CASO_PERSONA.CREACION is
+'Fecha de creación de registro';
+
+comment on column SIETID.AGE_DET_CASO_PERSONA.EDITOR is
+'Usuario de modificación de registro';
+
+comment on column SIETID.AGE_DET_CASO_PERSONA.EDICION is
+'Fecha de modificación de registro';
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint PK_AGE_DET_CASO_PERSONA primary key (ID);
+
+/*==============================================================*/
+/* Table: AGE_DET_CASO_VEHICULO                                 */
+/*==============================================================*/
+create table SIETID.AGE_DET_CASO_VEHICULO 
+(
+   ID                   NUMBER(16)           not null,
+   CASO                 NUMBER(16),
+   VEHICULO             NUMBER(16),
+   PROPIETARIO          NUMBER(16),
+   TIPO_USO             NVARCHAR2(500),
+   PARTICIPACION        NUMBER(16),
+   ESTADO_DATO          NUMBER(16),
+   OBSERVACION          NVARCHAR2(2000),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.AGE_DET_CASO_VEHICULO.PARTICIPACION is
+'particular, ';
+
+comment on column SIETID.AGE_DET_CASO_VEHICULO.ESTADO_DATO is
+'alquilado, propio, robado';
+
+comment on column SIETID.AGE_DET_CASO_VEHICULO.CREADOR is
+'Id del usuario del sistema que harealizado el registro.
+';
+
+comment on column SIETID.AGE_DET_CASO_VEHICULO.CREACION is
+'Fecha y hora del sistema en que se realizó el registro.
+';
+
+comment on column SIETID.AGE_DET_CASO_VEHICULO.EDITOR is
+'Id del usuario del sistema que harealizado la modificacion del registro.
+';
+
+comment on column SIETID.AGE_DET_CASO_VEHICULO.EDICION is
+'Fecha y hora del sistema en que se relaizó la modificacion del registro.
+';
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint PK_AGE_DET_CASO_VEHICULO primary key (ID);
+
+/*==============================================================*/
+/* Table: AGE_NOTA_AGENTE                                       */
+/*==============================================================*/
+create table SIETID.AGE_NOTA_AGENTE 
+(
+   ID                   NUMBER(16)           not null,
+   CASO                 NUMBER(16),
+   AGENTE               NUMBER(16),
+   FECHA_NOTA           TIMESTAMP,
+   CONTENIDO            NVARCHAR2(2000),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.AGE_NOTA_AGENTE is
+'registra las notas que realiza el agente para un caso y que luego podrian ser utilizadas en un inform de inteligencia';
+
+alter table SIETID.AGE_NOTA_AGENTE
+   add constraint PK_AGE_NOTA_AGENTE primary key (ID);
+
+/*==============================================================*/
 /* Table: CFG_LISTA                                             */
 /*==============================================================*/
 create table SIETID.CFG_LISTA 
@@ -162,6 +388,43 @@ comment on table SIETID.EXP_ADJUNTO is
 
 alter table SIETID.EXP_ADJUNTO
    add constraint PK_EXP_ADJUNTO primary key (ID);
+
+/*==============================================================*/
+/* Table: EXP_AGENDA_ACTORES                                    */
+/*==============================================================*/
+create table EXP_AGENDA_ACTORES 
+(
+   ID                   NUMBER(16)           not null,
+   AGENDA               NUMBER(16),
+   ACTOR                NUMBER(16),
+   MOTIVO               NUMBER(16),
+   LUGAR                NVARCHAR2(1000),
+   FECHA                TIMESTAMP,
+   HORA                 TIMESTAMP,
+   ESTADO               NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table EXP_AGENDA_ACTORES is
+'LOS PARTICIPANTES O ABOGADOS DE LA PPTID';
+
+comment on column EXP_AGENDA_ACTORES.LUGAR is
+'lugar del a diligencia';
+
+comment on column EXP_AGENDA_ACTORES.FECHA is
+'fecha de la diligencia';
+
+comment on column EXP_AGENDA_ACTORES.HORA is
+'hora de la diligencia';
+
+comment on column EXP_AGENDA_ACTORES.ESTADO is
+'estado de la diligencia';
+
+alter table EXP_AGENDA_ACTORES
+   add constraint PK_EXP_AGENDA_ACTORES primary key (ID);
 
 /*==============================================================*/
 /* Table: EXP_ANEXO                                             */
@@ -1635,11 +1898,11 @@ alter table SIETID.EXP_MUNICIONES
 /*==============================================================*/
 /* Table: EXP_NOTA_INFORMATIVA                                  */
 /*==============================================================*/
-create table EXP_NOTA_INFORMATIVA 
+create table SIETID.EXP_NOTA_INFORMATIVA 
 (
    ID                   NUMBER(16)           not null,
    PARTE                NUMBER(16),
-   FECHA_REGISTRO       TIMESTAMP,
+   FECHAREGISTRO________ TIMESTAMP,
    NUMERO               NVARCHAR2(15),
    CONTENIDO            NVARCHAR2(2000),
    CREADOR              NUMBER(16),
@@ -1648,10 +1911,10 @@ create table EXP_NOTA_INFORMATIVA
    EDICION              TIMESTAMP
 );
 
-comment on table EXP_NOTA_INFORMATIVA is
+comment on table SIETID.EXP_NOTA_INFORMATIVA is
 'tabla en la que cada dependencia crea sus notas informativas';
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    add constraint PK_EXP_NOTA_INFORMATIVA primary key (ID);
 
 /*==============================================================*/
@@ -2108,6 +2371,395 @@ alter table SIETID.HR_PERICIA
    add constraint PK_HR_PERICIA primary key (ID);
 
 /*==============================================================*/
+/* Table: INF_AGENDA                                            */
+/*==============================================================*/
+create table SIETID.INF_AGENDA 
+(
+   ID                   NUMBER(16)           not null,
+   INFORME              NUMBER(16),
+   NOTIFICACION         NUMBER(16),
+   TIPO_AGENDA          NUMBER(16),
+   UNIDAD_PPTID         NUMBER(16),
+   FECHA_EMISION        TIMESTAMP,
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.INF_AGENDA is
+'Se registraran los eventos agendados a los abogados de la PPTID.
+Esto será para un parte o hecho TID espedifico (legajo pptid).
+Se registra la agenda en base a una notificacion recibida
+con click derecho sobre la bandeja del parte se cargara el popup para editar y registrar';
+
+alter table SIETID.INF_AGENDA
+   add constraint PK_INF_AGENDA primary key (ID);
+
+/*==============================================================*/
+/* Table: INF_INFORME                                           */
+/*==============================================================*/
+create table SIETID.INF_INFORME 
+(
+   ID                   NUMBER(16)           not null,
+   PADRE                NUMBER(16),
+   NUMERO               NVARCHAR2(20),
+   TIPO_INFORME         NUMBER(16),
+   TIPO_RESOLUCION      NUMBER(16),
+   NRO_RESOLUCION       NVARCHAR2(20),
+   FECHA_RESOLUCION     TIMESTAMP,
+   PARTE                NUMBER(16),
+   NOMBRE_CASO          TIMESTAMP,
+   TIPO_FUENTE          NUMBER(16),
+   TIPO_MEDIO_RECEPCION NUMBER(16),
+   FECHA_NOTIFICACION_EMISOR TIMESTAMP,
+   FECHA_RECEPCION_NOTIFICACION TIMESTAMP,
+   UNIDAD_PROCURADURIA  NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.INF_INFORME is
+'hace referencia a cada legajo de la PPTID, lo que a la vez es el parte para DIRANDRO';
+
+comment on column SIETID.INF_INFORME.PADRE is
+'este campo hace referencia al informe complementario';
+
+comment on column SIETID.INF_INFORME.PARTE is
+'Nro de Parte de Dirandro';
+
+comment on column SIETID.INF_INFORME.UNIDAD_PROCURADURIA is
+'unidad encargada';
+
+alter table SIETID.INF_INFORME
+   add constraint PK_INF_INFORME primary key (ID);
+
+/*==============================================================*/
+/* Table: INF_NOTIFICACION                                      */
+/*==============================================================*/
+create table INF_NOTIFICACION 
+(
+   ID                   NUMBER(16)           not null,
+   INFORME              NUMBER(16),
+   UNIDAD_PPTID         NUMBER(16),
+   TIPO_NOTIFICACION    NUMBER(16),
+   FECHA_RECEPCION      TIMESTAMP,
+   FECHA_VENCIMIENTO    TIMESTAMP,
+   FECHA_PLAZO          TIMESTAMP,
+   ESTADO               NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table INF_NOTIFICACION is
+'notificaciones que recibe la PPTID por parte de alguna entidad';
+
+comment on column INF_NOTIFICACION.UNIDAD_PPTID is
+'unidad asignada de la pptid';
+
+comment on column INF_NOTIFICACION.FECHA_RECEPCION is
+'fecha en que recepciona pptid';
+
+comment on column INF_NOTIFICACION.FECHA_PLAZO is
+'fecha de plazo para fundamentar';
+
+comment on column INF_NOTIFICACION.ESTADO is
+'estado del la notificacion';
+
+alter table INF_NOTIFICACION
+   add constraint PK_INF_NOTIFICACION primary key (ID);
+
+/*==============================================================*/
+/* Table: INF_SEGUIMIENTO_NOT                                   */
+/*==============================================================*/
+create table INF_SEGUIMIENTO_NOT 
+(
+   ID                   NUMBER(16)           not null,
+   NOTIFICACION         NUMBER(16),
+   ESTADO_SEGUIMIENTO   NUMBER(16),
+   FECHA_RECEPCION      TIMESTAMP,
+   DETALLE              NVARCHAR2(2000),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table INF_SEGUIMIENTO_NOT is
+'Es el seguieminto o detalle de la notificacion, sera una pantalla similar a lista valor';
+
+alter table INF_SEGUIMIENTO_NOT
+   add constraint PK_INF_SEGUIMIENTO_NOT primary key (ID);
+
+/*==============================================================*/
+/* Table: INF_TITULO_REGISTRAL                                  */
+/*==============================================================*/
+create table INF_TITULO_REGISTRAL 
+(
+   ID                   NUMBER(16)           not null,
+   VEHICULO             NUMBER(16),
+   INMUEBLE             NUMBER(16),
+   INFORME              NUMBER(16),
+   ESTADO_TRAMITE       NUMBER(16),
+   FECHA_SEGUIMIENTO    TIMESTAMP,
+   NRO_TITULO           NVARCHAR2(20),
+   FECHA_TITULO         TIMESTAMP,
+   SEDE_REGISTRAL       NUMBER(16),
+   FECHA_TERMINO        TIMESTAMP,
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table INF_TITULO_REGISTRAL is
+'es para registrar los tramites de inscripcion que han iniciado antes SUNARP';
+
+comment on column INF_TITULO_REGISTRAL.FECHA_TITULO is
+'fecha de titulo registral';
+
+comment on column INF_TITULO_REGISTRAL.SEDE_REGISTRAL is
+'sede en donde se ha hecho la inscripción, tabla valor';
+
+comment on column INF_TITULO_REGISTRAL.FECHA_TERMINO is
+'fecha de temrino de subsanacion';
+
+alter table INF_TITULO_REGISTRAL
+   add constraint PK_INF_TITULO_REGISTRAL primary key (ID);
+
+/*==============================================================*/
+/* Table: INF_VALOR_ESPECIE                                     */
+/*==============================================================*/
+create table SIETID.INF_VALOR_ESPECIE 
+(
+   ID                   NUMBER(16)           not null,
+   INFORME              NUMBER(16),
+   DROGA                NUMBER(16),
+   ESPECIE              NUMBER(16),
+   VALOR                NUMBER(16),
+   FECHAVALOR           TIMESTAMP,
+   ESTRUCTURA_PERICIAL  NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.INF_VALOR_ESPECIE is
+'tabla en donde se registra el valor de la especia, sea droga o alguno de las especies registradas en el sistema';
+
+comment on column SIETID.INF_VALOR_ESPECIE.DROGA is
+'referencia al a tabla drogas';
+
+comment on column SIETID.INF_VALOR_ESPECIE.ESPECIE is
+'referencia a la tala especcies';
+
+comment on column SIETID.INF_VALOR_ESPECIE.VALOR is
+'valor monetario que tiene el item';
+
+comment on column SIETID.INF_VALOR_ESPECIE.FECHAVALOR is
+'fecha en la que se le colocó esta valorización';
+
+alter table SIETID.INF_VALOR_ESPECIE
+   add constraint PK_INF_VALOR_ESPECIE primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_AERODROMO                                         */
+/*==============================================================*/
+create table SIETID.INT_AERODROMO 
+(
+   ID                   NUMBER(16)           not null,
+   NOMBRE               NVARCHAR2(300),
+   EMPRESA              NUMBER(16),
+   AERONAVE_MAXIMA      NUMBER(16),
+   UBICACION            NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16)           not null,
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.INT_AERODROMO.EMPRESA is
+'empresa administradora del aerodromo';
+
+comment on column SIETID.INT_AERODROMO.AERONAVE_MAXIMA is
+'maxima nave que tiene permitida, ej';
+
+comment on column SIETID.INT_AERODROMO.UBICACION is
+'ubigeo';
+
+alter table SIETID.INT_AERODROMO
+   add constraint PK_INT_AERODROMO primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_DET_AERODROMO                                     */
+/*==============================================================*/
+create table SIETID.INT_DET_AERODROMO 
+(
+   ID                   NUMBER(16)           not null,
+   AERODROMO            NUMBER(16),
+   INTEGENCIA           NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INT_DET_AERODROMO
+   add constraint PK_INT_DET_AERODROMO primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_DET_GREMIO_COCALERO                               */
+/*==============================================================*/
+create table SIETID.INT_DET_GREMIO_COCALERO 
+(
+   ID                   NUMBER(16)           not null,
+   GREMIO               NUMBER(16),
+   INTELIGENCIA         NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   add constraint PK_INT_DET_GREMIO_COCALERO primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_DET_INTELIGENCIA_NOTA                             */
+/*==============================================================*/
+create table SIETID.INT_DET_INTELIGENCIA_NOTA 
+(
+   ID                   NUMBER(16)           not null,
+   INTELIGENCIA         NUMBER(16),
+   NOTA                 NUMBER(16),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.INT_DET_INTELIGENCIA_NOTA is
+'DETALLE ENTRE LAS NOTAS DE AGENTE QUE SE HAN SELECCIONADO PARA INCLUIR EN ESTE DOCUMENTO DE INTELIGENCIA';
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   add constraint PK_INT_DET_INTELIGENCIA_NOTA primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_DET_ORGANIZACION                                  */
+/*==============================================================*/
+create table SIETID.INT_DET_ORGANIZACION 
+(
+   ID                   NUMBER(16)           not null,
+   ORGANIZACION         NUMBER(16),
+   INTELIGENCIA         NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INT_DET_ORGANIZACION
+   add constraint PK_INT_DET_ORGANIZACION primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_DET_ZONA_CULTIVO                                  */
+/*==============================================================*/
+create table SIETID.INT_DET_ZONA_CULTIVO 
+(
+   ID                   NUMBER(16)           not null,
+   ZONA_CULTIVO         NUMBER(16),
+   INTELIGENCIA         NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   add constraint PK_INT_DET_ZONA_CULTIVO primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_GREMIO_COCALERO                                   */
+/*==============================================================*/
+create table SIETID.INT_GREMIO_COCALERO 
+(
+   ID                   NUMBER(16)           not null,
+   NOMBRE               NVARCHAR2(200),
+   SIGLAS               NVARCHAR2(50),
+   ACTIVIDAD            NVARCHAR2(2000),
+   NUM_MIEMBROS         NUMBER(16),
+   JUNTA_DIRECTIVA      NVARCHAR2(500),
+   PLATAFORMA_LUCHA     NVARCHAR2(500),
+   UBIGEO               NUMBER(16),
+   CUENCA               NUMBER(16),
+   ZONA_INFLUENCIA      NVARCHAR2(500),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.INT_GREMIO_COCALERO.ZONA_INFLUENCIA is
+'ambito en donde tiene influencia ';
+
+alter table SIETID.INT_GREMIO_COCALERO
+   add constraint PK_INT_GREMIO_COCALERO primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_INTELIGENCIA                                      */
+/*==============================================================*/
+create table SIETID.INT_INTELIGENCIA 
+(
+   ID                   NUMBER(16)           not null,
+   AUTOGENERADO         NVARCHAR2(20),
+   NOMBRE               NVARCHAR2(500),
+   FECHA                TIMESTAMP,
+   EXPEDIENTE           NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.INT_INTELIGENCIA is
+'ESTA TABLA REGISTRARA UN CASO DE INTELIGENCIA EN DONDE SE VAN A IR REGISTRANDO LOS DATOS SEGUN AVANCE SU INVSTIGACION PARA LUEGO TEMRINAR EN LA GENERACIONDE UN INFORME DE INTELIGENCIA';
+
+comment on column SIETID.INT_INTELIGENCIA.EXPEDIENTE is
+'Solo se va dar para un expediente';
+
+alter table SIETID.INT_INTELIGENCIA
+   add constraint PK_INT_INTELIGENCIA primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_ZONA_CULTIVO                                      */
+/*==============================================================*/
+create table SIETID.INT_ZONA_CULTIVO 
+(
+   ID                   NUMBER(16)           not null,
+   UBICACION            NUMBER(16),
+   HECTAREAS            NUMBER(16),
+   TIPO_CULTIVO         NUMBER(16),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on column SIETID.INT_ZONA_CULTIVO.UBICACION is
+'ubigeo';
+
+comment on column SIETID.INT_ZONA_CULTIVO.HECTAREAS is
+'numero de hectareas';
+
+alter table SIETID.INT_ZONA_CULTIVO
+   add constraint PK_INT_ZONA_CULTIVO primary key (ID);
+
+/*==============================================================*/
 /* Table: MNT_MODELO_MARCA                                      */
 /*==============================================================*/
 create table SIETID.MNT_MODELO_MARCA 
@@ -2416,6 +3068,20 @@ comment on column SIETID.PER_DETALLE.EDICION is
 
 alter table SIETID.PER_DETALLE
    add constraint PK_PER_DETALLE primary key (ID);
+
+/*==============================================================*/
+/* Table: PER_DET_SENTENCIA_DELITO                              */
+/*==============================================================*/
+create table PER_DET_SENTENCIA_DELITO 
+(
+   ID                   NUMBER(16)           not null,
+   DELITO_IMPUTADO      NUMBER(16),
+   PROCESO              NUMBER(16),
+   OBSERVACION          NVARCHAR2(250)
+);
+
+alter table PER_DET_SENTENCIA_DELITO
+   add constraint PK_PER_DET_SENTENCIA_DELITO primary key (ID);
 
 /*==============================================================*/
 /* Table: PER_DIRECCION                                         */
@@ -2860,6 +3526,39 @@ alter table SIETID.PER_POLICIA
    add constraint PK_PER_POLICIA primary key (ID);
 
 /*==============================================================*/
+/* Table: PER_SITUACION_PROCESO                                 */
+/*==============================================================*/
+create table SIETID.PER_SITUACION_PROCESO 
+(
+   ID                   NUMBER(16)           not null,
+   PROCESADO            NUMBER(16),
+   TIPO_RESOLUCION      NUMBER(16),
+   NRO_RESOLUCION       NVARCHAR2(100),
+   FECHA_RESOLUCION     TIMESTAMP,
+   NRO_EXPEDIENTE       NVARCHAR2(100),
+   TIPO_PENA            NUMBER(16),
+   TIPO_SENTENCIA       NUMBER(16),
+   FECHA_SENTENCIA      TIMESTAMP,
+   SENTENCIA_INICIO     TIMESTAMP,
+   SENTENCIA_TERMINO    TIMESTAMP,
+   TIPO_REPACION        NUMBER(16)           not null,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+comment on table SIETID.PER_SITUACION_PROCESO is
+'Registrara el resultado el resultado del proceso para esta persona en el caso (pptid)
+una sola persona  puede tener varias sentencias?';
+
+comment on column SIETID.PER_SITUACION_PROCESO.PROCESADO is
+'es el procesado del caso';
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint PK_PER_SITUACION_PROCESO primary key (ID);
+
+/*==============================================================*/
 /* Table: PER_TELEFONO                                          */
 /*==============================================================*/
 create table SIETID.PER_TELEFONO 
@@ -3154,6 +3853,142 @@ create table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint PK_UBG_PROVINCIA primary key (ID);
 
+alter table SIETID.AGE_CASO
+   add constraint FK_AGE_CASO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_CASO
+   add constraint FK_AGE_CASO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   add constraint FK_AGE_DET_AGENTE foreign key (AGENTE)
+      references SIETID.PER_POLICIA (ID);
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   add constraint FK_AGE_DET_CASO foreign key (CASO)
+      references SIETID.AGE_CASO (ID);
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   add constraint FK_AGE_DET_CASO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   add constraint FK_AGE_DET_CASO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint FK_AGE_DET_DIRECCION_CASO foreign key (CASO)
+      references SIETID.AGE_CASO (ID);
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint FK_AGE_DET_DIRECCION_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint FK_AGE_DET_DIRECCION_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint FK_AGE_DET_DIRECCION_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint FK_AGE_DET_DIRE_DIRECCION foreign key (DIRECCION)
+      references SIETID.PER_DIRECCION (ID);
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   add constraint FK_AGE_DIRECCION_TIPO_USO foreign key (TIPO_USO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   add constraint FK_AGE_DET_CASO_IMAGEN foreign key (IMAGEN)
+      references SIETID.EXP_ADJUNTO (ID);
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   add constraint FK_AGE_DET_CASO_IMG_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   add constraint FK_AGE_DET_CASO_IMG_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   add constraint FK_AGE_DET_IMAGEN_CASO foreign key (CASO)
+      references SIETID.AGE_CASO (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_CASO_IMPLICADO foreign key (PERSONA)
+      references SIETID.PER_PERSONA (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_CASO_NA foreign key (NA_PERSONA)
+      references SIETID.PER_NO_IDENTIFICADOS (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_CASO_ORGANIZACION foreign key (ORGANIZACION)
+      references SIETID.EXP_ORGANIZACION (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_CASO_PER_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_CASO_PER_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_CASO_PER_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   add constraint FK_AGE_DET_IMPLICADO_CASO foreign key (CASO)
+      references SIETID.AGE_CASO (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_CASO_VEHICULO foreign key (VEHICULO)
+      references SIETID.EXP_VEHICULO (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_VEHICULO_CASO foreign key (CASO)
+      references SIETID.AGE_CASO (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_VEHICULO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_VEHICULO_DATO foreign key (ESTADO_DATO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_VEHICULO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_VEHICULO_PARTICIPAC foreign key (PARTICIPACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   add constraint FK_AGE_DET_VEHICULO_PROPIET foreign key (PROPIETARIO)
+      references SIETID.PER_PERSONA (ID);
+
+alter table SIETID.AGE_NOTA_AGENTE
+   add constraint FK_AGE_NOTA_AGENTE foreign key (AGENTE)
+      references SIETID.PER_POLICIA (ID);
+
+alter table SIETID.AGE_NOTA_AGENTE
+   add constraint FK_AGE_NOTA_AGENTE_CASO foreign key (CASO)
+      references SIETID.AGE_CASO (ID);
+
+alter table SIETID.AGE_NOTA_AGENTE
+   add constraint FK_AGE_NOTA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_NOTA_AGENTE
+   add constraint FK_AGE_NOTA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
 alter table SIETID.CFG_LISTA
    add constraint FK_CGF_LISTA_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -3233,6 +4068,10 @@ alter table SIETID.EXP_ADJUNTO
 alter table SIETID.EXP_ADJUNTO
    add constraint FK_EXP_ADJUNTO_EXPEDIENTE foreign key (EXPEDIENTE)
       references SIETID.EXP_EXPEDIENTE (ID);
+
+alter table EXP_AGENDA_ACTORES
+   add constraint FK_EXP_AGEN_ACTORES foreign key (AGENDA)
+      references SIETID.INF_AGENDA (ID);
 
 alter table SIETID.EXP_ANEXO
    add constraint FK_EXP_ANEXO_ADJUNTO foreign key (ADJUNTO)
@@ -3413,6 +4252,10 @@ alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    add constraint FK_EXP_DET_EXP_PER__PERSONA foreign key (INVOLUCRADO)
       references SIETID.PER_PERSONA (ID);
+
+alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
+   add constraint FK_EXP_DET_PER_TIPO_PARTICIP foreign key (TIPO_PARTICIPACION)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    add constraint FK_EXP_PER_EDITOR foreign key (EDITOR)
@@ -3954,15 +4797,15 @@ alter table SIETID.EXP_MUNICIONES
    add constraint FK_EXP_MUNI_PERSONA foreign key (PERSONA)
       references SIETID.PER_PERSONA (ID);
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    add constraint FK_EXP_NOTA_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    add constraint FK_EXP_NOTA_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    add constraint FK_EXP_NOTA_EXPEDIENTE foreign key (PARTE)
       references SIETID.EXP_EXPEDIENTE (ID);
 
@@ -4222,6 +5065,190 @@ alter table SIETID.HR_PERICIA
    add constraint FK_HR_PERICIA_VALOR foreign key (ESTADO_PERICIA)
       references SIETID.CFG_VALOR (ID);
 
+alter table SIETID.INF_AGENDA
+   add constraint FK_INF_AGENDA_INFORME foreign key (INFORME)
+      references SIETID.INF_INFORME (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_EXPEDIENTE foreign key (PARTE)
+      references SIETID.EXP_EXPEDIENTE (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_PADRE foreign key (PADRE)
+      references SIETID.INF_INFORME (ID);
+
+alter table INF_NOTIFICACION
+   add constraint FK_INF_NOTI_INFORME foreign key (INFORME)
+      references SIETID.INF_INFORME (ID);
+
+alter table INF_SEGUIMIENTO_NOT
+   add constraint FK_INF_SEGUIM_NOTIFICACION foreign key (NOTIFICACION)
+      references INF_NOTIFICACION (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITU_INFORME foreign key (INFORME)
+      references SIETID.INF_INFORME (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITU_INMUEBLE foreign key (INMUEBLE)
+      references SIETID.EXP_DET_PER_INM_EXP (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITU_VEHICULO foreign key (VEHICULO)
+      references SIETID.EXP_DET_PER_VEH_EXP (ID);
+
+alter table SIETID.INF_VALOR_ESPECIE
+   add constraint FK_INF_VALOR_ESPECIE foreign key (ESPECIE)
+      references SIETID.EXP_ESPECIE (ID);
+
+alter table SIETID.INF_VALOR_ESPECIE
+   add constraint FK_INF_VALOR_ESPECIE_DROGA foreign key (DROGA)
+      references SIETID.EXP_DROGAS (ID);
+
+alter table SIETID.INF_VALOR_ESPECIE
+   add constraint FK_INF_VALOR_INFORME foreign key (INFORME)
+      references SIETID.INF_INFORME (ID);
+
+alter table SIETID.INT_AERODROMO
+   add constraint FK_INT_AERODROMO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_AERODROMO
+   add constraint FK_INT_AERODROMO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_AERODROMO
+   add constraint FK_INT_AERODROMO_EMP_ADMIN foreign key (EMPRESA)
+      references SIETID.PER_EMPRESA (ID);
+
+alter table SIETID.INT_AERODROMO
+   add constraint FK_INT_AERODROMO_UBICACION foreign key (UBICACION)
+      references SIETID.UBG_DISTRITO (ID);
+
+alter table SIETID.INT_AERODROMO
+   add constraint FK_INT_AERONAVE_MAXIMA foreign key (AERONAVE_MAXIMA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INT_DET_AERODROMO
+   add constraint FK_INT_DET_AERO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_AERODROMO
+   add constraint FK_INT_DET_AERO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_AERODROMO
+   add constraint FK_INT_DET_AER_AERODROMO foreign key (AERODROMO)
+      references SIETID.INT_AERODROMO (ID);
+
+alter table SIETID.INT_DET_AERODROMO
+   add constraint FK_INT_DET_AER_INTELIGENCIA foreign key (INTEGENCIA)
+      references SIETID.INT_INTELIGENCIA (ID);
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   add constraint FK_DET_INT_GREMIO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   add constraint FK_DET_INT_GREMIO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   add constraint FK_INT_DET_GREM_GREMIO foreign key (GREMIO)
+      references SIETID.INT_GREMIO_COCALERO (ID);
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   add constraint FK_INT_DET_GREM_INTELIGENCIA foreign key (INTELIGENCIA)
+      references SIETID.INT_INTELIGENCIA (ID);
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   add constraint FK_INT_DET_INT_NOTA foreign key (INTELIGENCIA)
+      references SIETID.INT_INTELIGENCIA (ID);
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   add constraint FK_INT_DET_INT_NOTA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   add constraint FK_INT_DET_NOTA_INTE foreign key (NOTA)
+      references SIETID.AGE_NOTA_AGENTE (ID);
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   add constraint FK_INT_DET_NOTA_INT_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_ORGANIZACION
+   add constraint FK_INT_DET_ORGA_INTELIGENCIA foreign key (INTELIGENCIA)
+      references SIETID.INT_INTELIGENCIA (ID);
+
+alter table SIETID.INT_DET_ORGANIZACION
+   add constraint FK_INT_DET_ORGA_ORGANIZACION foreign key (ORGANIZACION)
+      references SIETID.EXP_ORGANIZACION (ID);
+
+alter table SIETID.INT_DET_ORGANIZACION
+   add constraint FK_INT_DET_ORG_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_ORGANIZACION
+   add constraint FK_INT_DET_ORG_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   add constraint FK_INT_DET_ZONA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   add constraint FK_INT_DET_ZONA_CULTIVO foreign key (ZONA_CULTIVO)
+      references SIETID.INT_ZONA_CULTIVO (ID);
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   add constraint FK_INT_DET_ZONA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   add constraint FK_INT_DET_ZONA_INTELIGENCIA foreign key (INTELIGENCIA)
+      references SIETID.INT_INTELIGENCIA (ID);
+
+alter table SIETID.INT_GREMIO_COCALERO
+   add constraint FK_INT_GREM_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_GREMIO_COCALERO
+   add constraint FK_INT_GREM_CUENCA foreign key (CUENCA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INT_GREMIO_COCALERO
+   add constraint FK_INT_GREM_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_GREMIO_COCALERO
+   add constraint FK_INT_GREM_UBICACION foreign key (UBIGEO)
+      references SIETID.UBG_DISTRITO (ID);
+
+alter table SIETID.INT_INTELIGENCIA
+   add constraint FK_INT_INTE_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_INTELIGENCIA
+   add constraint FK_INT_INTE_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_ZONA_CULTIVO
+   add constraint FK_INT_ZONA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_ZONA_CULTIVO
+   add constraint FK_INT_ZONA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_ZONA_CULTIVO
+   add constraint FK_INT_ZONA_TIPO_CULTIVO foreign key (TIPO_CULTIVO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INT_ZONA_CULTIVO
+   add constraint FK_INT_ZONA_UBICACION foreign key (UBICACION)
+      references SIETID.UBG_DISTRITO (ID);
+
 alter table SIETID.MNT_MODELO_MARCA
    add constraint FK_MODELO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -4373,6 +5400,14 @@ alter table SIETID.PER_DETALLE
 alter table SIETID.PER_DETALLE
    add constraint FK_PER_DETALLE_TIPO_RAZA foreign key (TIPO_RAZA)
       references SIETID.CFG_VALOR (ID);
+
+alter table PER_DET_SENTENCIA_DELITO
+   add constraint FK_PER_DET_SENTENCIA_DELITO foreign key (DELITO_IMPUTADO)
+      references SIETID.EXP_DET_CRIMEN (ID);
+
+alter table PER_DET_SENTENCIA_DELITO
+   add constraint FK_PER_DET_SENTENCIA_PROCESO foreign key (PROCESO)
+      references SIETID.PER_SITUACION_PROCESO (ID);
 
 alter table SIETID.PER_DIRECCION
    add constraint FK_PER_DIRECCION_CREADOR foreign key (CREADOR)
@@ -4546,6 +5581,34 @@ alter table SIETID.PER_POLICIA
    add constraint FK_PER_POLICIA_GRADO foreign key (GRADO)
       references SIETID.CFG_VALOR (ID);
 
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PER_PROCESAL_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PER_PROCESAL_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PER_PROCESO_TIPO_PENA foreign key (TIPO_PENA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PER_PROCESO_TIPO_REPARACION foreign key (TIPO_REPACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PER_PROCESO_TIPO_RESOLUCION foreign key (TIPO_RESOLUCION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PER_PROCESO_TIPO_SENTENCIA foreign key (TIPO_SENTENCIA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.PER_SITUACION_PROCESO
+   add constraint FK_PROCESO_IMPLICADO foreign key (PROCESADO)
+      references SIETID.EXP_DET_EXPEDIENTE_PERSONA (ID);
+
 alter table SIETID.PER_TELEFONO
    add constraint FK_PER_TELEFONO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -4689,5 +5752,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-
+      
       quit;

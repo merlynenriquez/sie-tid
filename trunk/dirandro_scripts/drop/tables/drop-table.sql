@@ -1,8 +1,110 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     04/11/2014 0:24:02                           */
+/* Created on:     11/11/2014 2:32:07 AM                        */
 /*==============================================================*/
 
+
+alter table SIETID.AGE_CASO
+   drop constraint FK_AGE_CASO_CREADOR;
+
+alter table SIETID.AGE_CASO
+   drop constraint FK_AGE_CASO_EDITOR;
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   drop constraint FK_AGE_DET_AGENTE;
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   drop constraint FK_AGE_DET_CASO;
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   drop constraint FK_AGE_DET_CASO_CREADOR;
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   drop constraint FK_AGE_DET_CASO_EDITOR;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop constraint FK_AGE_DET_DIRECCION_CASO;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop constraint FK_AGE_DET_DIRECCION_CREADOR;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop constraint FK_AGE_DET_DIRECCION_EDITOR;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop constraint FK_AGE_DET_DIRECCION_SITUACION;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop constraint FK_AGE_DET_DIRE_DIRECCION;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop constraint FK_AGE_DIRECCION_TIPO_USO;
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   drop constraint FK_AGE_DET_CASO_IMAGEN;
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   drop constraint FK_AGE_DET_CASO_IMG_CREADOR;
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   drop constraint FK_AGE_DET_CASO_IMG_EDITOR;
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   drop constraint FK_AGE_DET_IMAGEN_CASO;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_CASO_IMPLICADO;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_CASO_NA;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_CASO_ORGANIZACION;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_CASO_PER_CREADOR;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_CASO_PER_EDITOR;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_CASO_PER_SITUACION;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop constraint FK_AGE_DET_IMPLICADO_CASO;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_CASO_VEHICULO;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_VEHICULO_CASO;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_VEHICULO_CREADOR;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_VEHICULO_DATO;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_VEHICULO_EDITOR;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_VEHICULO_PARTICIPAC;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop constraint FK_AGE_DET_VEHICULO_PROPIET;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop constraint FK_AGE_NOTA_AGENTE;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop constraint FK_AGE_NOTA_AGENTE_CASO;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop constraint FK_AGE_NOTA_CREADOR;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop constraint FK_AGE_NOTA_EDITOR;
 
 alter table SIETID.CFG_LISTA
    drop constraint FK_CGF_LISTA_CREADOR;
@@ -63,6 +165,9 @@ alter table SIETID.EXP_ADJUNTO
 
 alter table SIETID.EXP_ADJUNTO
    drop constraint FK_EXP_ADJUNTO_EXPEDIENTE;
+
+alter table EXP_AGENDA_ACTORES
+   drop constraint FK_EXP_AGEN_ACTORES;
 
 alter table SIETID.EXP_ANEXO
    drop constraint FK_EXP_ANEXO_ADJUNTO;
@@ -198,6 +303,9 @@ alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_DET_EXP_PER__PERSONA;
+
+alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
+   drop constraint FK_EXP_DET_PER_TIPO_PARTICIP;
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_PER_EDITOR;
@@ -604,13 +712,13 @@ alter table SIETID.EXP_MUNICIONES
 alter table SIETID.EXP_MUNICIONES
    drop constraint FK_EXP_MUNI_PERSONA;
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    drop constraint FK_EXP_NOTA_CREADOR;
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    drop constraint FK_EXP_NOTA_EDITOR;
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    drop constraint FK_EXP_NOTA_EXPEDIENTE;
 
 alter table SIETID.EXP_NUMERO
@@ -805,6 +913,144 @@ alter table SIETID.HR_PERICIA
 alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_VALOR;
 
+alter table SIETID.INF_AGENDA
+   drop constraint FK_INF_AGENDA_INFORME;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_EXPEDIENTE;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_PADRE;
+
+alter table INF_NOTIFICACION
+   drop constraint FK_INF_NOTI_INFORME;
+
+alter table INF_SEGUIMIENTO_NOT
+   drop constraint FK_INF_SEGUIM_NOTIFICACION;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITU_INFORME;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITU_INMUEBLE;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITU_VEHICULO;
+
+alter table SIETID.INF_VALOR_ESPECIE
+   drop constraint FK_INF_VALOR_ESPECIE;
+
+alter table SIETID.INF_VALOR_ESPECIE
+   drop constraint FK_INF_VALOR_ESPECIE_DROGA;
+
+alter table SIETID.INF_VALOR_ESPECIE
+   drop constraint FK_INF_VALOR_INFORME;
+
+alter table SIETID.INT_AERODROMO
+   drop constraint FK_INT_AERODROMO_CREADOR;
+
+alter table SIETID.INT_AERODROMO
+   drop constraint FK_INT_AERODROMO_EDITOR;
+
+alter table SIETID.INT_AERODROMO
+   drop constraint FK_INT_AERODROMO_EMP_ADMIN;
+
+alter table SIETID.INT_AERODROMO
+   drop constraint FK_INT_AERODROMO_UBICACION;
+
+alter table SIETID.INT_AERODROMO
+   drop constraint FK_INT_AERONAVE_MAXIMA;
+
+alter table SIETID.INT_DET_AERODROMO
+   drop constraint FK_INT_DET_AERO_CREADOR;
+
+alter table SIETID.INT_DET_AERODROMO
+   drop constraint FK_INT_DET_AERO_EDITOR;
+
+alter table SIETID.INT_DET_AERODROMO
+   drop constraint FK_INT_DET_AER_AERODROMO;
+
+alter table SIETID.INT_DET_AERODROMO
+   drop constraint FK_INT_DET_AER_INTELIGENCIA;
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   drop constraint FK_DET_INT_GREMIO_CREADOR;
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   drop constraint FK_DET_INT_GREMIO_EDITOR;
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   drop constraint FK_INT_DET_GREM_GREMIO;
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   drop constraint FK_INT_DET_GREM_INTELIGENCIA;
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   drop constraint FK_INT_DET_INT_NOTA;
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   drop constraint FK_INT_DET_INT_NOTA_CREADOR;
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   drop constraint FK_INT_DET_NOTA_INTE;
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   drop constraint FK_INT_DET_NOTA_INT_EDITOR;
+
+alter table SIETID.INT_DET_ORGANIZACION
+   drop constraint FK_INT_DET_ORGA_INTELIGENCIA;
+
+alter table SIETID.INT_DET_ORGANIZACION
+   drop constraint FK_INT_DET_ORGA_ORGANIZACION;
+
+alter table SIETID.INT_DET_ORGANIZACION
+   drop constraint FK_INT_DET_ORG_CREADOR;
+
+alter table SIETID.INT_DET_ORGANIZACION
+   drop constraint FK_INT_DET_ORG_EDITOR;
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   drop constraint FK_INT_DET_ZONA_CREADOR;
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   drop constraint FK_INT_DET_ZONA_CULTIVO;
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   drop constraint FK_INT_DET_ZONA_EDITOR;
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   drop constraint FK_INT_DET_ZONA_INTELIGENCIA;
+
+alter table SIETID.INT_GREMIO_COCALERO
+   drop constraint FK_INT_GREM_CREADOR;
+
+alter table SIETID.INT_GREMIO_COCALERO
+   drop constraint FK_INT_GREM_CUENCA;
+
+alter table SIETID.INT_GREMIO_COCALERO
+   drop constraint FK_INT_GREM_EDITOR;
+
+alter table SIETID.INT_GREMIO_COCALERO
+   drop constraint FK_INT_GREM_UBICACION;
+
+alter table SIETID.INT_INTELIGENCIA
+   drop constraint FK_INT_INTE_CREADOR;
+
+alter table SIETID.INT_INTELIGENCIA
+   drop constraint FK_INT_INTE_EDITOR;
+
+alter table SIETID.INT_ZONA_CULTIVO
+   drop constraint FK_INT_ZONA_CREADOR;
+
+alter table SIETID.INT_ZONA_CULTIVO
+   drop constraint FK_INT_ZONA_EDITOR;
+
+alter table SIETID.INT_ZONA_CULTIVO
+   drop constraint FK_INT_ZONA_TIPO_CULTIVO;
+
+alter table SIETID.INT_ZONA_CULTIVO
+   drop constraint FK_INT_ZONA_UBICACION;
+
 alter table SIETID.MNT_MODELO_MARCA
    drop constraint FK_MODELO_CREADOR;
 
@@ -918,6 +1164,12 @@ alter table SIETID.PER_DETALLE
 
 alter table SIETID.PER_DETALLE
    drop constraint FK_PER_DETALLE_TIPO_RAZA;
+
+alter table PER_DET_SENTENCIA_DELITO
+   drop constraint FK_PER_DET_SENTENCIA_DELITO;
+
+alter table PER_DET_SENTENCIA_DELITO
+   drop constraint FK_PER_DET_SENTENCIA_PROCESO;
 
 alter table SIETID.PER_DIRECCION
    drop constraint FK_PER_DIRECCION_CREADOR;
@@ -1048,6 +1300,27 @@ alter table SIETID.PER_POLICIA
 alter table SIETID.PER_POLICIA
    drop constraint FK_PER_POLICIA_GRADO;
 
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESAL_CREADOR;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESAL_EDITOR;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_PENA;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_REPARACION;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_RESOLUCION;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_SENTENCIA;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PROCESO_IMPLICADO;
+
 alter table SIETID.PER_TELEFONO
    drop constraint FK_PER_TELEFONO_CREADOR;
 
@@ -1156,6 +1429,41 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    drop constraint FK_UBG_PROVINCIA_ESTADO;
 
+alter table SIETID.AGE_CASO
+   drop primary key cascade;
+
+drop table SIETID.AGE_CASO cascade constraints;
+
+alter table SIETID.AGE_DET_CASO_AGENTE
+   drop primary key cascade;
+
+drop table SIETID.AGE_DET_CASO_AGENTE cascade constraints;
+
+alter table SIETID.AGE_DET_CASO_DIRECCION
+   drop primary key cascade;
+
+drop table SIETID.AGE_DET_CASO_DIRECCION cascade constraints;
+
+alter table SIETID.AGE_DET_CASO_IMAGEN
+   drop primary key cascade;
+
+drop table SIETID.AGE_DET_CASO_IMAGEN cascade constraints;
+
+alter table SIETID.AGE_DET_CASO_PERSONA
+   drop primary key cascade;
+
+drop table SIETID.AGE_DET_CASO_PERSONA cascade constraints;
+
+alter table SIETID.AGE_DET_CASO_VEHICULO
+   drop primary key cascade;
+
+drop table SIETID.AGE_DET_CASO_VEHICULO cascade constraints;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop primary key cascade;
+
+drop table SIETID.AGE_NOTA_AGENTE cascade constraints;
+
 drop index SIETID.UNQ_CODIGO_LISTA;
 
 alter table SIETID.CFG_LISTA
@@ -1189,6 +1497,11 @@ alter table SIETID.EXP_ADJUNTO
    drop primary key cascade;
 
 drop table SIETID.EXP_ADJUNTO cascade constraints;
+
+alter table EXP_AGENDA_ACTORES
+   drop primary key cascade;
+
+drop table EXP_AGENDA_ACTORES cascade constraints;
 
 alter table SIETID.EXP_ANEXO
    drop primary key cascade;
@@ -1323,10 +1636,10 @@ alter table SIETID.EXP_MUNICIONES
 
 drop table SIETID.EXP_MUNICIONES cascade constraints;
 
-alter table EXP_NOTA_INFORMATIVA
+alter table SIETID.EXP_NOTA_INFORMATIVA
    drop primary key cascade;
 
-drop table EXP_NOTA_INFORMATIVA cascade constraints;
+drop table SIETID.EXP_NOTA_INFORMATIVA cascade constraints;
 
 alter table SIETID.EXP_NUMERO
    drop primary key cascade;
@@ -1388,6 +1701,81 @@ alter table SIETID.HR_PERICIA
 
 drop table SIETID.HR_PERICIA cascade constraints;
 
+alter table SIETID.INF_AGENDA
+   drop primary key cascade;
+
+drop table SIETID.INF_AGENDA cascade constraints;
+
+alter table SIETID.INF_INFORME
+   drop primary key cascade;
+
+drop table SIETID.INF_INFORME cascade constraints;
+
+alter table INF_NOTIFICACION
+   drop primary key cascade;
+
+drop table INF_NOTIFICACION cascade constraints;
+
+alter table INF_SEGUIMIENTO_NOT
+   drop primary key cascade;
+
+drop table INF_SEGUIMIENTO_NOT cascade constraints;
+
+alter table INF_TITULO_REGISTRAL
+   drop primary key cascade;
+
+drop table INF_TITULO_REGISTRAL cascade constraints;
+
+alter table SIETID.INF_VALOR_ESPECIE
+   drop primary key cascade;
+
+drop table SIETID.INF_VALOR_ESPECIE cascade constraints;
+
+alter table SIETID.INT_AERODROMO
+   drop primary key cascade;
+
+drop table SIETID.INT_AERODROMO cascade constraints;
+
+alter table SIETID.INT_DET_AERODROMO
+   drop primary key cascade;
+
+drop table SIETID.INT_DET_AERODROMO cascade constraints;
+
+alter table SIETID.INT_DET_GREMIO_COCALERO
+   drop primary key cascade;
+
+drop table SIETID.INT_DET_GREMIO_COCALERO cascade constraints;
+
+alter table SIETID.INT_DET_INTELIGENCIA_NOTA
+   drop primary key cascade;
+
+drop table SIETID.INT_DET_INTELIGENCIA_NOTA cascade constraints;
+
+alter table SIETID.INT_DET_ORGANIZACION
+   drop primary key cascade;
+
+drop table SIETID.INT_DET_ORGANIZACION cascade constraints;
+
+alter table SIETID.INT_DET_ZONA_CULTIVO
+   drop primary key cascade;
+
+drop table SIETID.INT_DET_ZONA_CULTIVO cascade constraints;
+
+alter table SIETID.INT_GREMIO_COCALERO
+   drop primary key cascade;
+
+drop table SIETID.INT_GREMIO_COCALERO cascade constraints;
+
+alter table SIETID.INT_INTELIGENCIA
+   drop primary key cascade;
+
+drop table SIETID.INT_INTELIGENCIA cascade constraints;
+
+alter table SIETID.INT_ZONA_CULTIVO
+   drop primary key cascade;
+
+drop table SIETID.INT_ZONA_CULTIVO cascade constraints;
+
 alter table SIETID.MNT_MODELO_MARCA
    drop primary key cascade;
 
@@ -1417,6 +1805,11 @@ alter table SIETID.PER_DETALLE
    drop primary key cascade;
 
 drop table SIETID.PER_DETALLE cascade constraints;
+
+alter table PER_DET_SENTENCIA_DELITO
+   drop primary key cascade;
+
+drop table PER_DET_SENTENCIA_DELITO cascade constraints;
 
 alter table SIETID.PER_DIRECCION
    drop primary key cascade;
@@ -1462,6 +1855,11 @@ alter table SIETID.PER_POLICIA
    drop primary key cascade;
 
 drop table SIETID.PER_POLICIA cascade constraints;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop primary key cascade;
+
+drop table SIETID.PER_SITUACION_PROCESO cascade constraints;
 
 alter table SIETID.PER_TELEFONO
    drop primary key cascade;
