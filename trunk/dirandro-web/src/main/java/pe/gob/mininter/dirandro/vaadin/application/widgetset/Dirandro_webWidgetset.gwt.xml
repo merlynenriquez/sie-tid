@@ -33,4 +33,6 @@
     <inherits name="com.vaadin.addon.timeline.gwt.TimelineWidgetSet" />
 
     <inherits name="org.tepi.filtertable.gwt.FilterTableWidgetset" />
+
+    <inherits name="org.vaadin.openesignforms.ckeditor.widgetset.VaadinCKEditorWidgetset" />
 </module>

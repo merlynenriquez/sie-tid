@@ -196,7 +196,7 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 					txtApellidoPaterno.setValue(policia.getPersona().getApePaterno());
 					txtApellidoMaterno.setValue(policia.getPersona().getApeMaterno());
 					txtNombres.setValue(policia.getPersona().getNombres());
-					txtCargo.setValue(policia.getCargo().getNombre());
+					txtCargo.setValue(policia.getCargo() != null ? policia.getCargo().getNombre() : StringUtils.EMPTY);
 				}
 			}			
 		});
@@ -240,22 +240,9 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 					txtNombres.setValue(item.getItemProperty("nombres").getValue());
 					txtApellidoPaterno.setValue(item.getItemProperty("apePat").getValue());
 					txtApellidoMaterno.setValue(item.getItemProperty("apeMat").getValue());
-					
-					for (Policia policia : lstPolicias) {
-						if (policia.getId().equals((Long) item.getItemProperty("id").getValue()))
-							cmbPolicia.select(policia);
-					}
-					
-					for (Dependencia dependencia : lstDependencias) {
-						if (dependencia.getId().equals((Long) item.getItemProperty("oficina.id").getValue()))
-							cmbOficina.select(dependencia);
-					}
-					
-					for (Rol rol : lstRoles) {
-						if (rol.getId().equals((Long) item.getItemProperty("rol.id").getValue()))
-							cmbRol.select(rol);
-					}
-					
+					cmbPolicia.select(item.getItemProperty("policia").getValue());
+					cmbOficina.select(item.getItemProperty("dependencia").getValue());
+					cmbRol.select(item.getItemProperty("rol").getValue());
 					txtCargo.setValue(item.getItemProperty("cargo").getValue()!= null ? item.getItemProperty("cargo").getValue() : StringUtils.EMPTY);
 					txtCargoDescripcion.setValue(item.getItemProperty("descCargo").getValue() != null ? item.getItemProperty("descCargo").getValue() : StringUtils.EMPTY);
 					habilitarEdicion(esModoNuevo);
@@ -497,10 +484,12 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 		container.addContainerProperty("apeMat", String.class, null);
 		container.addContainerProperty("cargo", String.class, null);
 		container.addContainerProperty("descCargo", String.class, null);
+		container.addContainerProperty("rol", Rol.class, null);
+		container.addContainerProperty("policia", Policia.class, null);
+		container.addContainerProperty("dependencia", Dependencia.class, null);
 		container.addContainerProperty("oficina.id", Long.class, null);
 		container.addContainerProperty("oficina.nombre", String.class, null);
 		container.addContainerProperty("rol.id", Long.class, null);
-		
 		
 		tblUsuarios.setContainerDataSource(container);
 		tblUsuarios.setVisibleColumns(new Object[]{"usuario","nombres","apePat", "apeMat","cargo","oficina.nombre"});
@@ -528,25 +517,18 @@ public class PanelSegUsuario extends DirandroComponent implements ClickListener,
 			item.getItemProperty("nombres").setValue(usuario.getNombres());
 			item.getItemProperty("apePat").setValue(usuario.getApePat());
 			item.getItemProperty("apeMat").setValue(usuario.getApeMat());
+			item.getItemProperty("rol").setValue(usuario.getRol());
 			item.getItemProperty("cargo").setValue(usuario.getCargo());
+			item.getItemProperty("dependencia").setValue(usuario.getOficina());
+			item.getItemProperty("policia").setValue(usuario.getPolicia());
 			item.getItemProperty("descCargo").setValue(usuario.getDescCargo());
 			item.getItemProperty("rol.id").setValue(usuario.getRol() != null ? usuario.getRol().getId() : null);
 			item.getItemProperty("oficina.id").setValue(usuario.getOficina() != null ? usuario.getOficina().getId() : null);
 			item.getItemProperty("oficina.nombre").setValue(usuario.getOficina()!= null ? usuario.getOficina().getNombre() : null);
 		}
-		
-		if(flagLimpiar){							
-			txtUsuario.setValue("");
-			txtNombres.setValue("");
-			txtApellidoPaterno.setValue("");
-			txtApellidoMaterno.setValue("");
-			cmbRol.select(null);
-			txtCargo.setValue("");
-			txtCargoDescripcion.setValue("");
-			cmbOficina.select(null);
-		}	
+		limpiar();
 	}
-	
+		
 	@Override
 	public void buttonClick(ClickEvent event) {				
 		if(event.getButton().equals(btnCrearUsuario)){

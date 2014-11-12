@@ -156,7 +156,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		
 		tblBandeja.setImmediate(true);
 		
-		buscarHojaRemisiones(new HashMap<String, Object>());
+		//buscarHojaRemisiones(new HashMap<String, Object>());
 		
 		btnBuscar.addListener((ClickListener) this);
 		
@@ -227,7 +227,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		});
 	}
 
-	private void buscarHojaRemisiones(Map<String, Object> map) {
+	/*private void buscarHojaRemisiones(Map<String, Object> map) {
 		
 		List<Hojaremision> hojaremisiones = hojaRemisionService.buscarBandeja(map);
 		
@@ -255,17 +255,17 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 			item.getItemProperty(COLUMNA_HOJA_REMISION).setValue(hojaremision);
 		}
 		
-	}
+	}*/
 
 	@Override
 	public void handleEnterAction(TablaFiltroEnterEvent event) {
-		buscarHojaRemisiones(event.getDatos());
+		//buscarHojaRemisiones(event.getDatos());
 	}
 
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnBuscar)) {
-			buscarHojaRemisiones(tblBandeja.getValues());
+			//buscarHojaRemisiones(tblBandeja.getValues());
 		}
 	}
 

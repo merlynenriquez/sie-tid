@@ -67,6 +67,7 @@ public class NotaInformativaServiceImpl extends BaseServiceImpl<NotaInformativa,
 		return notaInformativaHibernate.buscar(filtro);		
 	}
 
+	//TODO: Revisar se cae
 	@Override
 	public List<NotaInformativa> buscarBandeja(Map<String, Object> map) {
 		Busqueda filtro = Busqueda.forClass(NotaInformativa.class);

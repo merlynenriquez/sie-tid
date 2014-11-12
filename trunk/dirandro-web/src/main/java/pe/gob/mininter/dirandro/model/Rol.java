@@ -15,7 +15,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import pe.gob.mininter.dirandro.util.Validador;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -25,7 +24,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="SEG_ROL")
-public class Rol extends AuditoriaBean implements Validador, Serializable {
+public class Rol extends AuditoriaBean implements Serializable {
 
 	private static final long serialVersionUID = 4748951542756910651L;
 
@@ -101,10 +100,30 @@ public class Rol extends AuditoriaBean implements Validador, Serializable {
 	public void setOpciones(Map<String, List<Opcion>> opciones) {
 		this.opciones = opciones;
 	}
+	
 	@Override
-	public void validar() {
-		// TODO Auto-generated method stub
-		
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rol other = (Rol) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
  
 }
