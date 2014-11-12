@@ -16,12 +16,14 @@ import java.util.Map;
 
 
 
+
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.service.ExpedienteService;
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
@@ -168,9 +170,13 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 				tblBandeja.removeAllActionHandlers();
 				
 				if (value != null) {
-					action = ITEM_ACTIONS;
+					if(obtenerAccion(Constante.OPCION.ACCION.ACCION_INFORME_GESTION_PRINCIPAL)==null){
+						action = new Action[] { MODIFICAR_EXPEDIENTE , EXPORTAR_EXPEDIENTE,OFICIO_SOLICITADO_EXPEDIENTE};
+					}else{
+						action = ITEM_ACTIONS;	
+					}
 					asignaActionHandler();
-				} 
+				}
 
 				tblBandeja.requestRepaintTable();
 			}
