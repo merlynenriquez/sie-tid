@@ -234,6 +234,10 @@ public class Persona extends AuditoriaBean implements Serializable {
 		return this.nombres + " " + this.apePaterno + " " + this.apeMaterno;
 	}
 	
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

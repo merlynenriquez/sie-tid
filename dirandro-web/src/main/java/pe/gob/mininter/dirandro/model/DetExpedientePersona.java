@@ -50,9 +50,6 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	@JoinColumn(name="OCUPACION")
 	private Valor ocupacion;
 
-	@Column(name="TIPO_PARTICIPACION", precision=16)
-	private BigDecimal tipoParticipacion;
-
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
@@ -64,6 +61,11 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	@JoinColumn(name="PARTICIPACION")
 	private Valor participacion;
 
+	@Column(name="TIPO_PARTICIPACION")
+	private Valor tipoParticipacion;
+
+	private BigDecimal requisitoria;
+	
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
 	@JoinColumn(name="EXPEDIENTE", nullable=false)
@@ -131,11 +133,11 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 		this.ocupacion = ocupacion;
 	}
 
-	public BigDecimal getTipoParticipacion() {
+	public Valor getTipoParticipacion() {
 		return tipoParticipacion;
 	}
 
-	public void setTipoParticipacion(BigDecimal tipoParticipacion) {
+	public void setTipoParticipacion(Valor tipoParticipacion) {
 		this.tipoParticipacion = tipoParticipacion;
 	}
 	
@@ -177,6 +179,14 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 
 	public void setEmpresaInvolucrada(Empresa empresaInvolucrada) {
 		this.empresaInvolucrada = empresaInvolucrada;
+	}
+	
+	public BigDecimal getRequisitoria() {
+		return requisitoria;
+	}
+
+	public void setRequisitoria(BigDecimal requisitoria) {
+		this.requisitoria = requisitoria;
 	}
 
 	public Persona getInvolucrado() {
