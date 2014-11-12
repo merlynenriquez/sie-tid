@@ -48,7 +48,6 @@ public class RolServiceImpl extends BaseServiceImpl<Rol, Long> implements RolSer
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(Rol object) {
-		object.validar();
 		Busqueda filtro = Busqueda.forClass(Rol.class);
 		filtro.add(Restrictions.eq("codigo", object.getCodigo()));
 		filtro.add(Restrictions.not(Restrictions.eq("id", object.getId())));

@@ -83,9 +83,13 @@
 		   <artifactId>toolkit-productivity-tools</artifactId>
 		   <version>1.2.0</version>
 		</dependency>
+		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>ckeditor-wrapper-for-vaadin</artifactId>
+		   <version>1.8.2</version>
+		</dependency>
 	
-	
-	<!-- Validacion Hibernate -->
+		<!-- Validacion Hibernate -->
 		<dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
