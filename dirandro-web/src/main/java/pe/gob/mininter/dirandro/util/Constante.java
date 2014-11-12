@@ -358,6 +358,7 @@ public abstract class Constante {
 		public static abstract class ACCION {
 			public static final String REGISTRA_REQUERIMIENTO = "REQ_REG_GRABAR";
 			public static final String BOTON_BUSCAR_INMUEBLE = "BTN_BUS_IN";
+			public static final String ACCION_INFORME_GESTION_PRINCIPAL = "ACC_INF_GES_PRI";
 		}
 	}
 
