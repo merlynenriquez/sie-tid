@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import pe.gob.mininter.dirandro.util.Constante;
@@ -34,6 +35,9 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 
 	@Column(name="ALIAS", length=400)
 	private String alias;
+
+	@Column(name="CODIGO_PARTICIPANTE")
+	private Long codigoParticipante;
 
 	@ManyToOne
 	@JoinColumn(name="ESTADO_DATO")
@@ -61,7 +65,8 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	@JoinColumn(name="PARTICIPACION")
 	private Valor participacion;
 
-	@Column(name="TIPO_PARTICIPACION")
+	@ManyToOne
+	@JoinColumn(name="TIPO_PARTICIPACION")
 	private Valor tipoParticipacion;
 
 	private BigDecimal requisitoria;
@@ -75,16 +80,18 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	@ManyToOne
 	@JoinColumn(name="ORGANIZACION")
 	private Organizacion organizacion;
-
-	//bi-directional many-to-one association to Empresa
-	@ManyToOne
-	@JoinColumn(name="EMPRESA")
-	private Empresa empresaInvolucrada;
-
-	//bi-directional many-to-one association to Persona
-	@ManyToOne
-	@JoinColumn(name="INVOLUCRADO")
+	
+	@Transient
 	private Persona involucrado;
+
+	@Transient
+	private Empresa empresaInvolucrada;
+	
+	@Transient
+	private Policia policia;
+	
+	@Transient
+	private Letrado letrado;
 	
 	public DetExpedientePersona() {
 	}
@@ -132,15 +139,31 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	public void setOcupacion(Valor ocupacion) {
 		this.ocupacion = ocupacion;
 	}
-
+	
+	/**
+	 * 
+	 * @return Tabla de donde tomará el dato para determinar la participación
+	 */
 	public Valor getTipoParticipacion() {
 		return tipoParticipacion;
 	}
 
+	/**
+	 * Tabla de donde tomará el dato para determinar la participación
+	 * @param tipoParticipacion
+	 */
 	public void setTipoParticipacion(Valor tipoParticipacion) {
 		this.tipoParticipacion = tipoParticipacion;
 	}
-	
+
+	public BigDecimal getRequisitoria() {
+		return requisitoria;
+	}
+
+	public void setRequisitoria(BigDecimal requisitoria) {
+		this.requisitoria = requisitoria;
+	}
+
 	public Valor getSituacion() {
 		return situacion;
 	}
@@ -149,10 +172,18 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 		this.situacion = situacion;
 	}
 
+	/**
+	 * Participación ejem: delincuente, acusado, testigo
+	 * @return
+	 */
 	public Valor getParticipacion() {
 		return participacion;
 	}
 
+	/**
+	 * Participación ejem: delincuente, acusado, testigo
+	 * @param participacion
+	 */
 	public void setParticipacion(Valor participacion) {
 		this.participacion = participacion;
 	}
@@ -173,20 +204,12 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 		this.organizacion = organizacion;
 	}
 
-	public Empresa getEmpresaInvolucrada() {
-		return empresaInvolucrada;
+	public Long getCodigoParticipante() {
+		return codigoParticipante;
 	}
 
-	public void setEmpresaInvolucrada(Empresa empresaInvolucrada) {
-		this.empresaInvolucrada = empresaInvolucrada;
-	}
-	
-	public BigDecimal getRequisitoria() {
-		return requisitoria;
-	}
-
-	public void setRequisitoria(BigDecimal requisitoria) {
-		this.requisitoria = requisitoria;
+	public void setCodigoParticipante(Long codigoParticipante) {
+		this.codigoParticipante = codigoParticipante;
 	}
 
 	public Persona getInvolucrado() {
@@ -196,12 +219,40 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	public void setInvolucrado(Persona involucrado) {
 		this.involucrado = involucrado;
 	}
-	
+
+	public Empresa getEmpresaInvolucrada() {
+		return empresaInvolucrada;
+	}
+
+	public void setEmpresaInvolucrada(Empresa empresaInvolucrada) {
+		this.empresaInvolucrada = empresaInvolucrada;
+	}
+
+	public Policia getPolicia() {
+		return policia;
+	}
+
+	public void setPolicia(Policia policia) {
+		this.policia = policia;
+	}
+
+	public Letrado getLetrado() {
+		return letrado;
+	}
+
+	public void setLetrado(Letrado letrado) {
+		this.letrado = letrado;
+	}
+
 	public String getNombreCompleto(){
 		if(involucrado!=null)
 			return involucrado.getNombreCompleto();
 		if(empresaInvolucrada!=null)
 			return empresaInvolucrada.getRazonSocial();
+		if(policia!=null)
+			return policia.getNombreCompleto();
+		if(letrado!=null)
+			return letrado.getNombreCompleto();
 		return "";
 	}
 

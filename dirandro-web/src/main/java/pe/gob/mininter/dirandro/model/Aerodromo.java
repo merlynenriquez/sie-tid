@@ -20,7 +20,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="INT_AERODROMO")
-public class Aerodromo extends AuditoriaBean  implements Serializable {
+public class Aerodromo extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -87,7 +87,6 @@ public class Aerodromo extends AuditoriaBean  implements Serializable {
 	public void setUbicacion(Distrito ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-
 
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;

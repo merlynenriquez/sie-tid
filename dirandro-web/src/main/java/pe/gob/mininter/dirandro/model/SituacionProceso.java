@@ -28,7 +28,7 @@ public class SituacionProceso extends AuditoriaBean implements Serializable {
 	@Id
 	@SequenceGenerator(name="PER_SITUACION_PROCESO_ID_GENERATOR", sequenceName="SEQ_PER_SITUACION_PROCESO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_SITUACION_PROCESO_ID_GENERATOR")
-	private long id;
+	private Long id;
 
 	@Column(name="FECHA_RESOLUCION")
 	private Timestamp fechaResolucion;
@@ -76,11 +76,11 @@ public class SituacionProceso extends AuditoriaBean implements Serializable {
 	public SituacionProceso() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -170,6 +170,36 @@ public class SituacionProceso extends AuditoriaBean implements Serializable {
 
 	public void setProcesado(DetExpedientePersona procesado) {
 		this.procesado = procesado;
+	}
+	
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SituacionProceso other = (SituacionProceso) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

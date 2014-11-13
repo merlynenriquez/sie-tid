@@ -386,6 +386,7 @@ public class PanelDocumento extends CustomComponent {
 		// lytDependencia
 		lytDependencia = buildLytDependencia();
 		pnlDocumento1.addComponent(lytDependencia);
+		pnlDocumento1.setComponentAlignment(lytDependencia, new Alignment(33));
 		
 		// cmbDocTipo
 		cmbDocTipo = new ComboBoxLOVS();
@@ -448,6 +449,7 @@ public class PanelDocumento extends CustomComponent {
 		lytDependencia.setWidth("-1px");
 		lytDependencia.setHeight("-1px");
 		lytDependencia.setMargin(false);
+		lytDependencia.setSpacing(true);
 		
 		// lblDependencia
 		lblDependencia = new Label();

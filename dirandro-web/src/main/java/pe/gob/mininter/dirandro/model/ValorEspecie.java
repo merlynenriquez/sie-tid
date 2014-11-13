@@ -1,13 +1,20 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
-
-import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
@@ -44,7 +51,7 @@ public class ValorEspecie extends AuditoriaBean implements Serializable {
 	//bi-directional many-to-one association to Informe
 	@ManyToOne
 	@JoinColumn(name="INFORME")
-	private Informe infInforme;
+	private Informe informe;
 
 	public ValorEspecie() {
 	}
@@ -97,13 +104,42 @@ public class ValorEspecie extends AuditoriaBean implements Serializable {
 		this.especie = especie;
 	}
 
-	public Informe getInfInforme() {
-		return infInforme;
+	public Informe getInforme() {
+		return informe;
 	}
 
-	public void setInfInforme(Informe infInforme) {
-		this.infInforme = infInforme;
+	public void setInforme(Informe informe) {
+		this.informe = informe;
+	}
+
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ValorEspecie other = (ValorEspecie) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }

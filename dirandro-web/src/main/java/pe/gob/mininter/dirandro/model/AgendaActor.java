@@ -26,20 +26,26 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 
 	private BigDecimal actor;
 
-	private BigDecimal estado;
-
 	private Timestamp fecha;
 
 	private Timestamp hora;
 
 	private String lugar;
 
-	private BigDecimal motivo;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor estado;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="MOTIVO")
+	private Valor motivo;
 
 	//bi-directional many-to-one association to Agenda
 	@ManyToOne
 	@JoinColumn(name="AGENDA")
-	private Agenda infAgenda;
+	private Agenda agenda;
 
 	public AgendaActor() {
 	}
@@ -58,14 +64,6 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 
 	public void setActor(BigDecimal actor) {
 		this.actor = actor;
-	}
-
-	public BigDecimal getEstado() {
-		return estado;
-	}
-
-	public void setEstado(BigDecimal estado) {
-		this.estado = estado;
 	}
 
 	public Timestamp getFecha() {
@@ -92,22 +90,29 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 		this.lugar = lugar;
 	}
 
-	public BigDecimal getMotivo() {
+	public Valor getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Valor estado) {
+		this.estado = estado;
+	}
+
+	public Valor getMotivo() {
 		return motivo;
 	}
 
-	public void setMotivo(BigDecimal motivo) {
+	public void setMotivo(Valor motivo) {
 		this.motivo = motivo;
 	}
 
-	public Agenda getInfAgenda() {
-		return infAgenda;
+	public Agenda getAgenda() {
+		return agenda;
 	}
 
-	public void setInfAgenda(Agenda infAgenda) {
-		this.infAgenda = infAgenda;
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
 	}
-
 
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
@@ -137,4 +142,5 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 			return false;
 		return true;
 	}
+
 }

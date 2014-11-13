@@ -80,6 +80,7 @@ public abstract class Constante {
 			public static final String TIPO_DROGA = "TIPO_DROGA";
 			public static final String ESTADO_OBJETOS = "ESTADO_OBJETOS";
 			public static final String OPERADORA = "OPERADORA";
+			/**Tabla de donde se obtendra el dato*/
 			public static final String TIPO_PARTICIPAC = "TIPO_PARTICIPAC";
 			public static final String TIPO_EST_DATO = "TIPO_EST_DATO";	
 			public static final String SIT_PROCESADO = "SIT_PROCESADO";	
@@ -94,7 +95,10 @@ public abstract class Constante {
 			public static final String MODALIDAD_DROGA = "MODALIDAD_DRG";
 			public static final String TRANSPORTE_DROGA = "TRANSPORTE_DRG";
 			public static final String ESTADO_PARTICIPACION = "ESTADO_PARTIC";
+			/**Acusado, denuncniante, etc*/
 			public static final String PARTICIPACION = "PARTICIPACION";
+			/** participacion de los intervinientes en el parte */
+			public static final String PARTICIPA_INT = "PARTICIPA_INT";
 			public static final String ESTADO_PERICIA = "ESTADO_PERICIA";
 			
 		}

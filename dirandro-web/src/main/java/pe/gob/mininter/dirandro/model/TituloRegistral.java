@@ -1,20 +1,12 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
+
+import java.sql.Timestamp;
 
 
 /**
@@ -31,9 +23,6 @@ public class TituloRegistral extends AuditoriaBean implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INF_TITULO_REGISTRAL_ID_GENERATOR")
 	private Long id;
 
-	@Column(name="ESTADO_TRAMITE")
-	private BigDecimal estadoTramite;
-
 	@Column(name="FECHA_SEGUIMIENTO")
 	private Timestamp fechaSeguimiento;
 
@@ -46,23 +35,30 @@ public class TituloRegistral extends AuditoriaBean implements Serializable {
 	@Column(name="NRO_TITULO")
 	private String nroTitulo;
 
-	@Column(name="SEDE_REGISTRAL")
-	private BigDecimal sedeRegistral;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="SEDE_REGISTRAL")
+	private Valor sedeRegistral;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO_TRAMITE")
+	private Valor estadoTramite;
 
 	//bi-directional many-to-one association to DetPerInmExp
 	@ManyToOne
 	@JoinColumn(name="INMUEBLE")
-	private DetPerInmExp expDetPerInmExp;
+	private DetPerInmExp inmueble;
 
 	//bi-directional many-to-one association to DetPerVehExp
 	@ManyToOne
 	@JoinColumn(name="VEHICULO")
-	private DetPerVehExp expDetPerVehExp;
+	private DetPerVehExp vehiculo;
 
 	//bi-directional many-to-one association to Informe
 	@ManyToOne
 	@JoinColumn(name="INFORME")
-	private Informe infInforme;
+	private Informe informe;
 
 	public TituloRegistral() {
 	}
@@ -73,14 +69,6 @@ public class TituloRegistral extends AuditoriaBean implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public BigDecimal getEstadoTramite() {
-		return estadoTramite;
-	}
-
-	public void setEstadoTramite(BigDecimal estadoTramite) {
-		this.estadoTramite = estadoTramite;
 	}
 
 	public Timestamp getFechaSeguimiento() {
@@ -115,36 +103,72 @@ public class TituloRegistral extends AuditoriaBean implements Serializable {
 		this.nroTitulo = nroTitulo;
 	}
 
-	public BigDecimal getSedeRegistral() {
+	public Valor getSedeRegistral() {
 		return sedeRegistral;
 	}
 
-	public void setSedeRegistral(BigDecimal sedeRegistral) {
+	public void setSedeRegistral(Valor sedeRegistral) {
 		this.sedeRegistral = sedeRegistral;
 	}
 
-	public DetPerInmExp getExpDetPerInmExp() {
-		return expDetPerInmExp;
+	public Valor getEstadoTramite() {
+		return estadoTramite;
 	}
 
-	public void setExpDetPerInmExp(DetPerInmExp expDetPerInmExp) {
-		this.expDetPerInmExp = expDetPerInmExp;
+	public void setEstadoTramite(Valor estadoTramite) {
+		this.estadoTramite = estadoTramite;
 	}
 
-	public DetPerVehExp getExpDetPerVehExp() {
-		return expDetPerVehExp;
+	public DetPerInmExp getInmueble() {
+		return inmueble;
 	}
 
-	public void setExpDetPerVehExp(DetPerVehExp expDetPerVehExp) {
-		this.expDetPerVehExp = expDetPerVehExp;
+	public void setInmueble(DetPerInmExp inmueble) {
+		this.inmueble = inmueble;
 	}
 
-	public Informe getInfInforme() {
-		return infInforme;
+	public DetPerVehExp getVehiculo() {
+		return vehiculo;
 	}
 
-	public void setInfInforme(Informe infInforme) {
-		this.infInforme = infInforme;
+	public void setVehiculo(DetPerVehExp vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 
+	public Informe getInforme() {
+		return informe;
+	}
+
+	public void setInforme(Informe informe) {
+		this.informe = informe;
+	}
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TituloRegistral other = (TituloRegistral) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }
