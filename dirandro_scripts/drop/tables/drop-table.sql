@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     11/11/2014 2:32:07 AM                        */
+/* Created on:     11/12/2014 11:40:41 PM                       */
 /*==============================================================*/
 
 
@@ -167,6 +167,18 @@ alter table SIETID.EXP_ADJUNTO
    drop constraint FK_EXP_ADJUNTO_EXPEDIENTE;
 
 alter table EXP_AGENDA_ACTORES
+   drop constraint FK_EXP_AGENDA_ACTOR_CREADOR;
+
+alter table EXP_AGENDA_ACTORES
+   drop constraint FK_EXP_AGENDA_ACTOR_EDITOR;
+
+alter table EXP_AGENDA_ACTORES
+   drop constraint FK_EXP_AGENDA_ACTOR_ESTADO;
+
+alter table EXP_AGENDA_ACTORES
+   drop constraint FK_EXP_AGENDA_ACTOR_MOTIVO;
+
+alter table EXP_AGENDA_ACTORES
    drop constraint FK_EXP_AGEN_ACTORES;
 
 alter table SIETID.EXP_ANEXO
@@ -290,9 +302,6 @@ alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_DET_EXP_PER_CREADOR;
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
-   drop constraint FK_EXP_DET_EXP_PER_EMPRESA;
-
-alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_DET_EXP_PER_EXPEDIENTE;
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
@@ -300,9 +309,6 @@ alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_DET_EXP_PER_SITUACION;
-
-alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
-   drop constraint FK_EXP_DET_EXP_PER__PERSONA;
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    drop constraint FK_EXP_DET_PER_TIPO_PARTICIP;
@@ -914,7 +920,19 @@ alter table SIETID.HR_PERICIA
    drop constraint FK_HR_PERICIA_VALOR;
 
 alter table SIETID.INF_AGENDA
-   drop constraint FK_INF_AGENDA_INFORME;
+   drop constraint FK_INF_AGENDA_CREADOR;
+
+alter table SIETID.INF_AGENDA
+   drop constraint FK_INF_AGENDA_EDITOR;
+
+alter table SIETID.INF_AGENDA
+   drop constraint FK_INF_AGENDA_NOTIFICACION;
+
+alter table SIETID.INF_AGENDA
+   drop constraint FK_INF_AGENDA_TIPO;
+
+alter table SIETID.INF_AGENDA
+   drop constraint FK_INF_AGENDA_UNNINDAD_PPTID;
 
 alter table SIETID.INF_INFORME
    drop constraint FK_INF_INFORME_EXPEDIENTE;
@@ -922,11 +940,68 @@ alter table SIETID.INF_INFORME
 alter table SIETID.INF_INFORME
    drop constraint FK_INF_INFORME_PADRE;
 
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_TIPO_FUENTE;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_TIPO_INFORME;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_TIPO_MEDIO;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_TIPO_RESOLUCION;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFORME_UNIDAD_PPTID;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFO_CREADOR;
+
+alter table SIETID.INF_INFORME
+   drop constraint FK_INF_INFO_EDITOR;
+
+alter table INF_NOTIFICACION
+   drop constraint FK_INF_NOTIFICACION_CREADOR;
+
+alter table INF_NOTIFICACION
+   drop constraint FK_INF_NOTIFICACION_EDITOR;
+
+alter table INF_NOTIFICACION
+   drop constraint FK_INF_NOTIFICACION_ESTADO;
+
+alter table INF_NOTIFICACION
+   drop constraint FK_INF_NOTIFICACION_TIPO;
+
+alter table INF_NOTIFICACION
+   drop constraint FK_INF_NOTIFICACION_UNIDAD;
+
 alter table INF_NOTIFICACION
    drop constraint FK_INF_NOTI_INFORME;
 
 alter table INF_SEGUIMIENTO_NOT
+   drop constraint FK_INF_SEGUIMIENTO_CREADOR;
+
+alter table INF_SEGUIMIENTO_NOT
+   drop constraint FK_INF_SEGUIMIENTO_EDITOR;
+
+alter table INF_SEGUIMIENTO_NOT
+   drop constraint FK_INF_SEGUIMIENTO_ESTADO;
+
+alter table INF_SEGUIMIENTO_NOT
    drop constraint FK_INF_SEGUIM_NOTIFICACION;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITULO_CREADOR;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITULO_EDITOR;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITULO_ESTADO;
+
+alter table INF_TITULO_REGISTRAL
+   drop constraint FK_INF_TITULO_SEDE;
 
 alter table INF_TITULO_REGISTRAL
    drop constraint FK_INF_TITU_INFORME;
@@ -936,6 +1011,12 @@ alter table INF_TITULO_REGISTRAL
 
 alter table INF_TITULO_REGISTRAL
    drop constraint FK_INF_TITU_VEHICULO;
+
+alter table SIETID.INF_VALOR_ESPECIE
+   drop constraint FK_INF_VALOR_CREADOR;
+
+alter table SIETID.INF_VALOR_ESPECIE
+   drop constraint FK_INF_VALOR_EDITOR;
 
 alter table SIETID.INF_VALOR_ESPECIE
    drop constraint FK_INF_VALOR_ESPECIE;
@@ -1166,7 +1247,13 @@ alter table SIETID.PER_DETALLE
    drop constraint FK_PER_DETALLE_TIPO_RAZA;
 
 alter table PER_DET_SENTENCIA_DELITO
+   drop constraint FK_PER_DET_SENTENCIA_CREADOR;
+
+alter table PER_DET_SENTENCIA_DELITO
    drop constraint FK_PER_DET_SENTENCIA_DELITO;
+
+alter table PER_DET_SENTENCIA_DELITO
+   drop constraint FK_PER_DET_SENTENCIA_EDITOR;
 
 alter table PER_DET_SENTENCIA_DELITO
    drop constraint FK_PER_DET_SENTENCIA_PROCESO;
