@@ -687,10 +687,9 @@ alter table EXP_DET_DROGAS
 create table SIETID.EXP_DET_EXPEDIENTE_PERSONA 
 (
    ID                   NUMBER(16)           not null,
-   INVOLUCRADO          NUMBER(16),
-   EMPRESA              NUMBER(16),
    PARTICIPACION        NUMBER(16),
    TIPO_PARTICIPACION   NUMBER(16),
+   CODIGO_PARTICIPANTE  NUMBER(16),
    ESTADO_DATO          NUMBER(16),
    EXPEDIENTE           NUMBER(16)           not null,
    REQUISITORIA         NUMBER(1),
@@ -712,17 +711,14 @@ Se esta pensando romper en una tabla detallle la posiblidad de relacionar de las
 comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.ID is
 'Identificador';
 
-comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.INVOLUCRADO is
-'Identificador de la persona';
-
-comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.EMPRESA is
-'Identificador de la empresa';
-
 comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.PARTICIPACION is
 'Participación ejem: delincuente, acusado, testigo';
 
 comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.TIPO_PARTICIPACION is
-'Tipo de participación: la tabla de donde tomará el dato para determinar la participación';
+'Tabla de donde tomará el dato para determinar la participación';
+
+comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.CODIGO_PARTICIPANTE is
+'id de la tabla seleccionada en tipo participacion';
 
 comment on column SIETID.EXP_DET_EXPEDIENTE_PERSONA.ESTADO_DATO is
 'Estado del dato:Confirmado, Por confirmar (si la persona se ha confirmado su participacion)';
@@ -2376,7 +2372,6 @@ alter table SIETID.HR_PERICIA
 create table SIETID.INF_AGENDA 
 (
    ID                   NUMBER(16)           not null,
-   INFORME              NUMBER(16),
    NOTIFICACION         NUMBER(16),
    TIPO_AGENDA          NUMBER(16),
    UNIDAD_PPTID         NUMBER(16),
@@ -2402,14 +2397,13 @@ alter table SIETID.INF_AGENDA
 create table SIETID.INF_INFORME 
 (
    ID                   NUMBER(16)           not null,
+   PARTE                NUMBER(16),
    PADRE                NUMBER(16),
    NUMERO               NVARCHAR2(20),
    TIPO_INFORME         NUMBER(16),
    TIPO_RESOLUCION      NUMBER(16),
    NRO_RESOLUCION       NVARCHAR2(20),
    FECHA_RESOLUCION     TIMESTAMP,
-   PARTE                NUMBER(16),
-   NOMBRE_CASO          TIMESTAMP,
    TIPO_FUENTE          NUMBER(16),
    TIPO_MEDIO_RECEPCION NUMBER(16),
    FECHA_NOTIFICACION_EMISOR TIMESTAMP,
@@ -2424,11 +2418,29 @@ create table SIETID.INF_INFORME
 comment on table SIETID.INF_INFORME is
 'hace referencia a cada legajo de la PPTID, lo que a la vez es el parte para DIRANDRO';
 
+comment on column SIETID.INF_INFORME.PARTE is
+'Nro de Parte de Dirandro';
+
 comment on column SIETID.INF_INFORME.PADRE is
 'este campo hace referencia al informe complementario';
 
-comment on column SIETID.INF_INFORME.PARTE is
-'Nro de Parte de Dirandro';
+comment on column SIETID.INF_INFORME.TIPO_INFORME is
+'si es principal o complemetntario';
+
+comment on column SIETID.INF_INFORME.TIPO_RESOLUCION is
+'tipo de la resolucion del caso';
+
+comment on column SIETID.INF_INFORME.NRO_RESOLUCION is
+'numero del docummento de resolucion';
+
+comment on column SIETID.INF_INFORME.FECHA_RESOLUCION is
+'fecha del documento de resolucion';
+
+comment on column SIETID.INF_INFORME.TIPO_FUENTE is
+'tabla valor';
+
+comment on column SIETID.INF_INFORME.TIPO_MEDIO_RECEPCION is
+'tabla valor';
 
 comment on column SIETID.INF_INFORME.UNIDAD_PROCURADURIA is
 'unidad encargada';
@@ -2449,7 +2461,7 @@ create table INF_NOTIFICACION
    FECHA_VENCIMIENTO    TIMESTAMP,
    FECHA_PLAZO          TIMESTAMP,
    ESTADO               NUMBER(16),
-   CREADOR              NUMBER(16),
+   CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP,
    EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
@@ -2550,7 +2562,7 @@ create table SIETID.INF_VALOR_ESPECIE
 );
 
 comment on table SIETID.INF_VALOR_ESPECIE is
-'tabla en donde se registra el valor de la especia, sea droga o alguno de las especies registradas en el sistema';
+'tabla en donde se registra el valor de la especie, sea droga o alguno de las especies registradas en el sistema';
 
 comment on column SIETID.INF_VALOR_ESPECIE.DROGA is
 'referencia al a tabla drogas';
@@ -3077,7 +3089,11 @@ create table PER_DET_SENTENCIA_DELITO
    ID                   NUMBER(16)           not null,
    DELITO_IMPUTADO      NUMBER(16),
    PROCESO              NUMBER(16),
-   OBSERVACION          NVARCHAR2(250)
+   OBSERVACION          NVARCHAR2(250),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
 );
 
 alter table PER_DET_SENTENCIA_DELITO
@@ -4070,6 +4086,22 @@ alter table SIETID.EXP_ADJUNTO
       references SIETID.EXP_EXPEDIENTE (ID);
 
 alter table EXP_AGENDA_ACTORES
+   add constraint FK_EXP_AGENDA_ACTOR_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_AGENDA_ACTORES
+   add constraint FK_EXP_AGENDA_ACTOR_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table EXP_AGENDA_ACTORES
+   add constraint FK_EXP_AGENDA_ACTOR_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table EXP_AGENDA_ACTORES
+   add constraint FK_EXP_AGENDA_ACTOR_MOTIVO foreign key (MOTIVO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table EXP_AGENDA_ACTORES
    add constraint FK_EXP_AGEN_ACTORES foreign key (AGENDA)
       references SIETID.INF_AGENDA (ID);
 
@@ -4234,10 +4266,6 @@ alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
-   add constraint FK_EXP_DET_EXP_PER_EMPRESA foreign key (EMPRESA)
-      references SIETID.PER_EMPRESA (ID);
-
-alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    add constraint FK_EXP_DET_EXP_PER_EXPEDIENTE foreign key (EXPEDIENTE)
       references SIETID.EXP_EXPEDIENTE (ID);
 
@@ -4248,10 +4276,6 @@ alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    add constraint FK_EXP_DET_EXP_PER_SITUACION foreign key (SITUACION)
       references SIETID.CFG_VALOR (ID);
-
-alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
-   add constraint FK_EXP_DET_EXP_PER__PERSONA foreign key (INVOLUCRADO)
-      references SIETID.PER_PERSONA (ID);
 
 alter table SIETID.EXP_DET_EXPEDIENTE_PERSONA
    add constraint FK_EXP_DET_PER_TIPO_PARTICIP foreign key (TIPO_PARTICIPACION)
@@ -5066,8 +5090,24 @@ alter table SIETID.HR_PERICIA
       references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.INF_AGENDA
-   add constraint FK_INF_AGENDA_INFORME foreign key (INFORME)
-      references SIETID.INF_INFORME (ID);
+   add constraint FK_INF_AGENDA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INF_AGENDA
+   add constraint FK_INF_AGENDA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INF_AGENDA
+   add constraint FK_INF_AGENDA_NOTIFICACION foreign key (NOTIFICACION)
+      references INF_NOTIFICACION (ID);
+
+alter table SIETID.INF_AGENDA
+   add constraint FK_INF_AGENDA_TIPO foreign key (TIPO_AGENDA)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_AGENDA
+   add constraint FK_INF_AGENDA_UNNINDAD_PPTID foreign key (UNIDAD_PPTID)
+      references SIETID.EXP_DEPENDENCIA (ID);
 
 alter table SIETID.INF_INFORME
    add constraint FK_INF_INFORME_EXPEDIENTE foreign key (PARTE)
@@ -5077,13 +5117,89 @@ alter table SIETID.INF_INFORME
    add constraint FK_INF_INFORME_PADRE foreign key (PADRE)
       references SIETID.INF_INFORME (ID);
 
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_TIPO_FUENTE foreign key (TIPO_FUENTE)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_TIPO_INFORME foreign key (TIPO_INFORME)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_TIPO_MEDIO foreign key (TIPO_MEDIO_RECEPCION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_TIPO_RESOLUCION foreign key (TIPO_RESOLUCION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFORME_UNIDAD_PPTID foreign key (UNIDAD_PROCURADURIA)
+      references SIETID.EXP_DEPENDENCIA (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INF_INFORME
+   add constraint FK_INF_INFO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_NOTIFICACION
+   add constraint FK_INF_NOTIFICACION_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_NOTIFICACION
+   add constraint FK_INF_NOTIFICACION_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_NOTIFICACION
+   add constraint FK_INF_NOTIFICACION_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table INF_NOTIFICACION
+   add constraint FK_INF_NOTIFICACION_TIPO foreign key (TIPO_NOTIFICACION)
+      references SIETID.CFG_VALOR (ID);
+
+alter table INF_NOTIFICACION
+   add constraint FK_INF_NOTIFICACION_UNIDAD foreign key (UNIDAD_PPTID)
+      references SIETID.EXP_DEPENDENCIA (ID);
+
 alter table INF_NOTIFICACION
    add constraint FK_INF_NOTI_INFORME foreign key (INFORME)
       references SIETID.INF_INFORME (ID);
 
 alter table INF_SEGUIMIENTO_NOT
+   add constraint FK_INF_SEGUIMIENTO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_SEGUIMIENTO_NOT
+   add constraint FK_INF_SEGUIMIENTO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_SEGUIMIENTO_NOT
+   add constraint FK_INF_SEGUIMIENTO_ESTADO foreign key (ESTADO_SEGUIMIENTO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table INF_SEGUIMIENTO_NOT
    add constraint FK_INF_SEGUIM_NOTIFICACION foreign key (NOTIFICACION)
       references INF_NOTIFICACION (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITULO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITULO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITULO_ESTADO foreign key (ESTADO_TRAMITE)
+      references SIETID.CFG_VALOR (ID);
+
+alter table INF_TITULO_REGISTRAL
+   add constraint FK_INF_TITULO_SEDE foreign key (SEDE_REGISTRAL)
+      references SIETID.CFG_VALOR (ID);
 
 alter table INF_TITULO_REGISTRAL
    add constraint FK_INF_TITU_INFORME foreign key (INFORME)
@@ -5096,6 +5212,14 @@ alter table INF_TITULO_REGISTRAL
 alter table INF_TITULO_REGISTRAL
    add constraint FK_INF_TITU_VEHICULO foreign key (VEHICULO)
       references SIETID.EXP_DET_PER_VEH_EXP (ID);
+
+alter table SIETID.INF_VALOR_ESPECIE
+   add constraint FK_INF_VALOR_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INF_VALOR_ESPECIE
+   add constraint FK_INF_VALOR_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.INF_VALOR_ESPECIE
    add constraint FK_INF_VALOR_ESPECIE foreign key (ESPECIE)
@@ -5402,8 +5526,16 @@ alter table SIETID.PER_DETALLE
       references SIETID.CFG_VALOR (ID);
 
 alter table PER_DET_SENTENCIA_DELITO
+   add constraint FK_PER_DET_SENTENCIA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table PER_DET_SENTENCIA_DELITO
    add constraint FK_PER_DET_SENTENCIA_DELITO foreign key (DELITO_IMPUTADO)
       references SIETID.EXP_DET_CRIMEN (ID);
+
+alter table PER_DET_SENTENCIA_DELITO
+   add constraint FK_PER_DET_SENTENCIA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
 
 alter table PER_DET_SENTENCIA_DELITO
    add constraint FK_PER_DET_SENTENCIA_PROCESO foreign key (PROCESO)
