@@ -592,6 +592,20 @@ public abstract class HarecUtil {
 		}
 	}
 	
+	public static String valorCodigoToEmpty(Valor valor){
+		try {
+			if(valor != null){
+				if(StringUtils.isEmpty(valor.getCodigo())){
+					return StringUtils.EMPTY;
+				}
+				return valor.getCodigo();
+			}else{
+				return StringUtils.EMPTY; 
+			}
+		} catch (Exception e) {
+			return StringUtils.EMPTY;
+		}
+	}
 	public static String marcaModeloNombreToEmpty(ModeloMarca valor){
 		try {
 			if(valor != null){

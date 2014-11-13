@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -40,28 +39,35 @@ public class Informe extends AuditoriaBean implements Serializable {
 	@Column(name="FECHA_RESOLUCION")
 	private Timestamp fechaResolucion;
 
-	@Column(name="NOMBRE_CASO")
-	private Timestamp nombreCaso;
-
 	@Column(name="NRO_RESOLUCION")
 	private String nroResolucion;
 
 	private String numero;
 
-	@Column(name="TIPO_FUENTE")
-	private BigDecimal tipoFuente;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_MEDIO_RECEPCION")
+	private Valor tipoMedioRecepcion;
 
-	@Column(name="TIPO_INFORME")
-	private BigDecimal tipoInforme;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_FUENTE")
+	private Valor tipoFuente;
 
-	@Column(name="TIPO_MEDIO_RECEPCION")
-	private BigDecimal tipoMedioRecepcion;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_INFORME")
+	private Valor tipoInforme;
 
-	@Column(name="TIPO_RESOLUCION")
-	private BigDecimal tipoResolucion;
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO_RESOLUCION")
+	private Valor tipoResolucion;
 
-	@Column(name="UNIDAD_PROCURADURIA")
-	private BigDecimal unidadProcuraduria;
+	//bi-directional many-to-one association to Dependencia
+	@ManyToOne
+	@JoinColumn(name="UNIDAD_PROCURADURIA")
+	private Dependencia unidad;
 
 	//bi-directional many-to-one association to Expediente
 	@ManyToOne
@@ -108,14 +114,6 @@ public class Informe extends AuditoriaBean implements Serializable {
 		this.fechaResolucion = fechaResolucion;
 	}
 
-	public Timestamp getNombreCaso() {
-		return nombreCaso;
-	}
-
-	public void setNombreCaso(Timestamp nombreCaso) {
-		this.nombreCaso = nombreCaso;
-	}
-
 	public String getNroResolucion() {
 		return nroResolucion;
 	}
@@ -132,44 +130,44 @@ public class Informe extends AuditoriaBean implements Serializable {
 		this.numero = numero;
 	}
 
-	public BigDecimal getTipoFuente() {
-		return tipoFuente;
-	}
-
-	public void setTipoFuente(BigDecimal tipoFuente) {
-		this.tipoFuente = tipoFuente;
-	}
-
-	public BigDecimal getTipoInforme() {
-		return tipoInforme;
-	}
-
-	public void setTipoInforme(BigDecimal tipoInforme) {
-		this.tipoInforme = tipoInforme;
-	}
-
-	public BigDecimal getTipoMedioRecepcion() {
+	public Valor getTipoMedioRecepcion() {
 		return tipoMedioRecepcion;
 	}
 
-	public void setTipoMedioRecepcion(BigDecimal tipoMedioRecepcion) {
+	public void setTipoMedioRecepcion(Valor tipoMedioRecepcion) {
 		this.tipoMedioRecepcion = tipoMedioRecepcion;
 	}
 
-	public BigDecimal getTipoResolucion() {
+	public Valor getTipoFuente() {
+		return tipoFuente;
+	}
+
+	public void setTipoFuente(Valor tipoFuente) {
+		this.tipoFuente = tipoFuente;
+	}
+
+	public Valor getTipoInforme() {
+		return tipoInforme;
+	}
+
+	public void setTipoInforme(Valor tipoInforme) {
+		this.tipoInforme = tipoInforme;
+	}
+
+	public Valor getTipoResolucion() {
 		return tipoResolucion;
 	}
 
-	public void setTipoResolucion(BigDecimal tipoResolucion) {
+	public void setTipoResolucion(Valor tipoResolucion) {
 		this.tipoResolucion = tipoResolucion;
 	}
 
-	public BigDecimal getUnidadProcuraduria() {
-		return unidadProcuraduria;
+	public Dependencia getUnidad() {
+		return unidad;
 	}
 
-	public void setUnidadProcuraduria(BigDecimal unidadProcuraduria) {
-		this.unidadProcuraduria = unidadProcuraduria;
+	public void setUnidad(Dependencia unidad) {
+		this.unidad = unidad;
 	}
 
 	public Expediente getExpediente() {
@@ -186,6 +184,35 @@ public class Informe extends AuditoriaBean implements Serializable {
 
 	public void setPadre(Informe padre) {
 		this.padre = padre;
+	}
+
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Informe other = (Informe) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

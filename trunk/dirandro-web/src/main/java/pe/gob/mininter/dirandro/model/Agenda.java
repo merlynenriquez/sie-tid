@@ -1,7 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -23,7 +22,7 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
  */
 @Entity
 @Table(name="INF_AGENDA")
-public class Agenda  extends AuditoriaBean implements Serializable {
+public class Agenda extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,18 +33,20 @@ public class Agenda  extends AuditoriaBean implements Serializable {
 	@Column(name="FECHA_EMISION")
 	private Timestamp fechaEmision;
 
-	private BigDecimal notificacion;
-
-	@Column(name="TIPO_AGENDA")
-	private BigDecimal tipoAgenda;
-
-	@Column(name="UNIDAD_PPTID")
-	private BigDecimal unidadPptid;
-
-	//bi-directional many-to-one association to Informe
+	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="INFORME")
-	private Informe infInforme;
+	@JoinColumn(name="TIPO_AGENDA")
+	private Valor tipoAgenda;
+
+	//bi-directional many-to-one association to Dependencia
+	@ManyToOne
+	@JoinColumn(name="UNIDAD_PPTID")
+	private Dependencia dependencia;
+
+	//bi-directional many-to-one association to Notificacion
+	@ManyToOne
+	@JoinColumn(name="NOTIFICACION")
+	private Notificacion notificacion;
 
 	public Agenda() {
 	}
@@ -66,36 +67,28 @@ public class Agenda  extends AuditoriaBean implements Serializable {
 		this.fechaEmision = fechaEmision;
 	}
 
-	public BigDecimal getNotificacion() {
-		return notificacion;
-	}
-
-	public void setNotificacion(BigDecimal notificacion) {
-		this.notificacion = notificacion;
-	}
-
-	public BigDecimal getTipoAgenda() {
+	public Valor getTipoAgenda() {
 		return tipoAgenda;
 	}
 
-	public void setTipoAgenda(BigDecimal tipoAgenda) {
+	public void setTipoAgenda(Valor tipoAgenda) {
 		this.tipoAgenda = tipoAgenda;
 	}
 
-	public BigDecimal getUnidadPptid() {
-		return unidadPptid;
+	public Dependencia getDependencia() {
+		return dependencia;
 	}
 
-	public void setUnidadPptid(BigDecimal unidadPptid) {
-		this.unidadPptid = unidadPptid;
+	public void setDependencia(Dependencia dependencia) {
+		this.dependencia = dependencia;
 	}
 
-	public Informe getInfInforme() {
-		return infInforme;
+	public Notificacion getNotificacion() {
+		return notificacion;
 	}
 
-	public void setInfInforme(Informe infInforme) {
-		this.infInforme = infInforme;
+	public void setNotificacion(Notificacion notificacion) {
+		this.notificacion = notificacion;
 	}
 
 	public boolean esNuevo(){
@@ -126,5 +119,4 @@ public class Agenda  extends AuditoriaBean implements Serializable {
 			return false;
 		return true;
 	}
-	
 }

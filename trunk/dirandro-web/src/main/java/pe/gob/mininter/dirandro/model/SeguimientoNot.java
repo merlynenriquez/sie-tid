@@ -7,7 +7,6 @@ import javax.persistence.*;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 
 
 /**
@@ -22,15 +21,17 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 	@Id
 	@SequenceGenerator(name="INF_SEGUIMIENTO_NOT_ID_GENERATOR", sequenceName="SEQ_INF_SEGUIMIENTO_NOT")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INF_SEGUIMIENTO_NOT_ID_GENERATOR")
-	private long id;
+	private Long id;
 
 	private String detalle;
 
-	@Column(name="ESTADO_SEGUIMIENTO")
-	private BigDecimal estadoSeguimiento;
-
 	@Column(name="FECHA_RECEPCION")
 	private Timestamp fechaRecepcion;
+
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO_SEGUIMIENTO")
+	private Valor estadoSeguimiento;
 
 	//bi-directional many-to-one association to Notificacion
 	@ManyToOne
@@ -40,11 +41,11 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 	public SeguimientoNot() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,20 +57,20 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 		this.detalle = detalle;
 	}
 
-	public BigDecimal getEstadoSeguimiento() {
-		return estadoSeguimiento;
-	}
-
-	public void setEstadoSeguimiento(BigDecimal estadoSeguimiento) {
-		this.estadoSeguimiento = estadoSeguimiento;
-	}
-
 	public Timestamp getFechaRecepcion() {
 		return fechaRecepcion;
 	}
 
 	public void setFechaRecepcion(Timestamp fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
+	}
+
+	public Valor getEstadoSeguimiento() {
+		return estadoSeguimiento;
+	}
+
+	public void setEstadoSeguimiento(Valor estadoSeguimiento) {
+		this.estadoSeguimiento = estadoSeguimiento;
 	}
 
 	public Notificacion getNotificacion() {
@@ -80,5 +81,32 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 		this.notificacion = notificacion;
 	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SeguimientoNot other = (SeguimientoNot) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }
