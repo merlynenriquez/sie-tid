@@ -131,7 +131,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 
 	private DetExpedientePersona detExpedientePersona;
 	
-	//private static final String COLUMN_TIPO_PERSONA = "COLUMN_TIPO_PERSONA";
+	private static final String COLUMN_TABLA_INTERVINIENTE = "COLUMN_TABLA_INTERVINIENTE";
 	private static final String COLUMN_TIPO_INTERVINIENTE = "COLUMN_TIPO_INTERVINIENTE";
 	private static final String COLUMN_PARTICIPACION = "COLUMN_PARTICIPACION";
 	private static final String COLUMN_INTERVINIENTE = "COLUMN_INTERVINIENTE";
@@ -262,13 +262,20 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 						}else{
 							chkRequisitoria.setValue(false);	
 						}
-						//TODO detalle getinvolucrado tiene que ver si viene de policia o  de empresa o de persona letrado
-						if(detalle.getEmpresaInvolucrada()!=null){
+						String tabla = item.getItemProperty(COLUMN_TABLA_INTERVINIENTE).getValue().toString();
+						logger.debug("es de la tabla " + tabla);
+						if(tabla.equals(OPCION_EMPRESA)){
 							cmbIntervinientes.setValue(detalle.getEmpresaInvolucrada());
-						}else{
+						}
+						if(tabla.equals(OPCION_POLICIA)){
+							cmbIntervinientes.setValue(detalle.getPolicia());
+						}
+						if(tabla.equals(OPCION_PERSONA)){
 							cmbIntervinientes.setValue(detalle.getInvolucrado());
 						}
-						
+						if(tabla.equals(OPCION_LETRADO)){
+							cmbIntervinientes.setValue(detalle.getLetrado());
+						}
 					}		
 				}
 			});
@@ -295,6 +302,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		this.container = new IndexedContainer();
 
 		container.addContainerProperty(COLUMN_TIPO_INTERVINIENTE, String.class,null);
+		container.addContainerProperty(COLUMN_TABLA_INTERVINIENTE, String.class,null);
 		container.addContainerProperty(COLUMN_PARTICIPACION, String.class,null);
 		container.addContainerProperty(COLUMN_INTERVINIENTE, String.class, null);
 		container.addContainerProperty(COLUMN_ID_INTERVINIENTE, Long.class, null);
@@ -346,8 +354,22 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		List<DetExpedientePersona> intervinientes = expedientePersonaService.cargarIntervinientes(expediente);
 		for (final DetExpedientePersona interviniente : intervinientes) {
 			Item item = container.addItem(interviniente.getId());
-			
+			String tabla = HarecUtil.valorCodigoToEmpty(interviniente.getTipoParticipacion());
+			logger.debug("setear objeto de participante: "+tabla+" "+interviniente.getCodigoParticipante());
+			if(tabla.equals(OPCION_EMPRESA)){
+				interviniente.setEmpresaInvolucrada(empresaService.obtener(interviniente.getCodigoParticipante()));
+			}
+			if(tabla.equals(OPCION_POLICIA)){
+				interviniente.setPolicia(policiaService.obtener(interviniente.getCodigoParticipante()));
+			}
+			if(tabla.equals(OPCION_PERSONA)){
+				interviniente.setInvolucrado(personaService.obtener(interviniente.getCodigoParticipante()));
+			}
+			if(tabla.equals(OPCION_LETRADO)){
+				interviniente.setLetrado(letradoService.obtener(interviniente.getCodigoParticipante()));
+			}
 			item.getItemProperty(COLUMN_TIPO_INTERVINIENTE).setValue(HarecUtil.valorNombreToEmpty(interviniente.getTipoParticipacion()));
+			item.getItemProperty(COLUMN_TABLA_INTERVINIENTE).setValue(HarecUtil.valorCodigoToEmpty(interviniente.getTipoParticipacion()));
 			item.getItemProperty(COLUMN_PARTICIPACION).setValue(HarecUtil.valorNombreToEmpty(interviniente.getParticipacion()));
 			item.getItemProperty(COLUMN_INTERVINIENTE).setValue(interviniente.getNombreCompleto());
 			item.getItemProperty(COLUMN_ID_INTERVINIENTE).setValue(interviniente.getCodigoParticipante());
@@ -361,10 +383,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 			Button abogado=new Button();
 			abogado.setCaption("Abogados");
 			abogado.addListener(new ClickListener() {
-				
-				/**
-				 * 
-				 */
 				private static final long serialVersionUID = -2810346866475578492L;
 
 				@Override
@@ -519,22 +537,22 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		
 		detExpedientePersona.setExpediente(expediente);
 		detExpedientePersona.setAlias((String) txtInterAlias.getValue());
-		
 		Long idParticipante = null;
-		if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_PERSONA)) {
-			idParticipante = ((Persona) cmbIntervinientes.getValue()).getId();
-		} 
-		if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_POLICIA)) {
-			idParticipante =((Policia) cmbIntervinientes.getValue()).getId();
+		if(cmbTipoParticipacion.getValor()!=null){
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_PERSONA)) {
+				idParticipante = ((Persona) cmbIntervinientes.getValue()).getId();
+			} 
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_POLICIA)) {
+				idParticipante =((Policia) cmbIntervinientes.getValue()).getId();
+			}
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_EMPRESA)) {
+				idParticipante =((Empresa) cmbIntervinientes.getValue()).getId();
+			}
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_LETRADO)) {
+				idParticipante =((Letrado) cmbIntervinientes.getValue()).getId();
+			}		
+			detExpedientePersona.setCodigoParticipante(idParticipante);	
 		}
-		if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_EMPRESA)) {
-			idParticipante =((Empresa) cmbIntervinientes.getValue()).getId();
-		}
-		if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_LETRADO)) {
-			idParticipante =((Letrado) cmbIntervinientes.getValue()).getId();
-		}		
-		detExpedientePersona.setCodigoParticipante(idParticipante);
-		
 		logger.debug(" requisitoria " +  chkRequisitoria.getValue() + " " +  ((Boolean)chkRequisitoria.getValue()?1:0 ) );
 		detExpedientePersona.setRequisitoria(new BigDecimal((Boolean)chkRequisitoria.getValue()?1:0 ));
 		
@@ -591,7 +609,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 	private void limpiarTodo() {
 		habilitarEdicion(false);
 		detExpedientePersona = new DetExpedientePersona();
-		cmbTipoParticipacion.select(null);
 		lstPersonas = personaService.buscar(null);
 		cargaComboPersonaIncautada(OPCION_PERSONA);
 		cmbInterEstadoDato.select(null);
@@ -602,6 +619,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		dtInterFechaInter.setValue(null);
 		chkRequisitoria.setValue(false);
 		cmbParticipacion.select(null);
+		cmbTipoParticipacion.select(null);
 	}
 
 	@Override
