@@ -89,7 +89,17 @@ public class Letrado extends AuditoriaBean implements Validador, Serializable {
 	}
 
 	public String getNombreCompleto(){
-		return this.persona.getNombres() + " " + this.persona.getApePaterno() + " " + this.persona.getApeMaterno();
+		StringBuilder nombre = new StringBuilder();
+		if(this.getTipo()!=null){
+			nombre.append(this.getTipo().getNombre());
+			nombre.append(" - ");
+		}
+		nombre.append(this.persona.getNombres());
+		nombre.append("");
+		nombre.append(this.persona.getApePaterno());
+		nombre.append(" ");
+		nombre.append(this.persona.getApeMaterno());
+		return nombre.toString();
 	}
 	
 	@Override
