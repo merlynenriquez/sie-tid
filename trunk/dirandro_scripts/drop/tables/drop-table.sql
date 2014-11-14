@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     11/12/2014 11:40:41 PM                       */
+/* Created on:     13/11/2014 19:23:46                          */
 /*==============================================================*/
 
 
@@ -1392,6 +1392,21 @@ alter table SIETID.PER_SITUACION_PROCESO
 
 alter table SIETID.PER_SITUACION_PROCESO
    drop constraint FK_PER_PROCESAL_EDITOR;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_COD_PROCESAL;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_ESTA_PENI;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_CONDICION;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_DELITO;
+
+alter table SIETID.PER_SITUACION_PROCESO
+   drop constraint FK_PER_PROCESO_TIPO_INHABILI;
 
 alter table SIETID.PER_SITUACION_PROCESO
    drop constraint FK_PER_PROCESO_TIPO_PENA;
