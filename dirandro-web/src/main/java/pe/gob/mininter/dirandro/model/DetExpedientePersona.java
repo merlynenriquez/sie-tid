@@ -37,6 +37,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	private String alias;
 
 	@Column(name="CODIGO_PARTICIPANTE")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Long codigoParticipante;
 
 	@ManyToOne
@@ -46,7 +47,7 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 
 	@Column(name="INTERVENCION")
 	@Temporal( TemporalType.TIMESTAMP)
-	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
+	///@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private Date intervencion;
 
 	//bi-directional many-to-one association to Valor
@@ -63,10 +64,12 @@ public class DetExpedientePersona extends AuditoriaBean implements Serializable 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="PARTICIPACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor participacion;
 
 	@ManyToOne
 	@JoinColumn(name="TIPO_PARTICIPACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor tipoParticipacion;
 
 	private BigDecimal requisitoria;

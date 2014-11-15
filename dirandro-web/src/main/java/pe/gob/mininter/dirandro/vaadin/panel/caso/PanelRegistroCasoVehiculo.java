@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import pe.gob.mininter.dirandro.model.Caso;
 import pe.gob.mininter.dirandro.model.DetPerVehExp;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Persona;
@@ -83,6 +84,17 @@ public class PanelRegistroCasoVehiculo extends CustomComponent implements ClickL
 	private ComboBox cmbVehVehiculo;
 	private static final long serialVersionUID = -4639683924066371051L;
 
+	private Caso caso;
+	
+	public Caso getCaso() {
+		return caso;
+	}
+
+	public void setCaso(Caso caso) {
+		this.caso = caso;
+	}
+
+	
 	private ExpedienteVehiculoService expVehiculoService;
 	private VehiculoService vehiculoService;
 	private PersonaService personaService;
