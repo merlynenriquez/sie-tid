@@ -179,7 +179,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 			cmbInterEstadoDato.attach();
 			cmbInterOcupacion.setCodigoLista(Constante.LISTA.CODIGO.OCUP_INTERV);
 			cmbInterOcupacion.setInputPrompt("Ocupación");
-			cmbInterOcupacion.setRequired(true);
 			cmbInterOcupacion.attach();
 			cmbInterSituacion.setCodigoLista(Constante.LISTA.CODIGO.SIT_PROCESADO);
 			cmbInterSituacion.setInputPrompt("Situación");
@@ -188,10 +187,11 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 			
 			cmbParticipacion.setCodigoLista(Constante.LISTA.CODIGO.PARTICIPA_INT);
 			cmbParticipacion.setInputPrompt("Tipo de Participación");
+			cmbParticipacion.setRequired(true);
 			cmbParticipacion.attach();
 			
 
-			cmbTipoParticipacion.setInputPrompt("Tipo Participacion");
+			cmbTipoParticipacion.setInputPrompt("Tipo de Participante");
 			cmbTipoParticipacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_PARTICIPAC);
 			cmbTipoParticipacion.setRequired(true);
 			cmbTipoParticipacion.attach();
@@ -215,8 +215,7 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 			cmbIntervinientes.setInputPrompt("Incautado a:");
 			cmbIntervinientes.setItemCaptionPropertyId("nombreCompleto");
 			cmbIntervinientes.setImmediate(true);
-			cargaComboPersonaIncautada(OPCION_PERSONA);
-	
+			cargaComboPersonaIncautada(OPCION_PERSONA);	
 			cmbIntervinientes.addListener(new ValueChangeListener() {
 				private static final long serialVersionUID = 2720977948538256976L;
 	
@@ -477,8 +476,9 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 	private void tipoIntervinienteValueChange(ValueChangeEvent event) {
 		Valor sel = (Valor)event.getProperty().getValue();
 		cmbIntervinientes.select(null);
-		if(sel!=null)
+		if(sel!=null){
 			cargaComboPersonaIncautada(sel.getCodigo());
+		}	
 		limpiarPersonaEmpresa();
 	}
 
@@ -498,23 +498,29 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 				lstEmpresas = empresaService.buscar(null);
 			cmbIntervinientes.setContainerDataSource(new BeanItemContainer<Empresa>(Empresa.class, lstEmpresas));
 			return;
+		}else{
+			//TODO ocultar controles  y pre selecccionar los combos por que para policias y letados no aplica esto
+			//cmbInterSituacion.select( new Valor() );
+			//cmbInterEstadoDato.select( new Valor() );
+			
+			if (opcion.equals(OPCION_POLICIA)) {
+				listaSeleccionada = OPCION_POLICIA;
+				cmbIntervinientes.setItemCaptionPropertyId("nombreCompleto");
+				if (lstPolicias == null)
+					lstPolicias = policiaService.buscar(null);
+				cmbIntervinientes.setContainerDataSource(new BeanItemContainer<Policia>(Policia.class, lstPolicias));
+				return;
+			}
+			if (opcion.equals(OPCION_LETRADO)) {
+				listaSeleccionada = OPCION_LETRADO;
+				cmbIntervinientes.setItemCaptionPropertyId("nombreCompleto");
+				if (lstLetrados == null)
+					lstLetrados = letradoService.buscar(null);
+				cmbIntervinientes.setContainerDataSource(new BeanItemContainer<Letrado>(Letrado.class, lstLetrados));
+				return;
+			}
 		}
-		if (opcion.equals(OPCION_POLICIA)) {
-			listaSeleccionada = OPCION_POLICIA;
-			cmbIntervinientes.setItemCaptionPropertyId("nombreCompleto");
-			if (lstPolicias == null)
-				lstPolicias = policiaService.buscar(null);
-			cmbIntervinientes.setContainerDataSource(new BeanItemContainer<Policia>(Policia.class, lstPolicias));
-			return;
-		}
-		if (opcion.equals(OPCION_LETRADO)) {
-			listaSeleccionada = OPCION_LETRADO;
-			cmbIntervinientes.setItemCaptionPropertyId("nombreCompleto");
-			if (lstLetrados == null)
-				lstLetrados = letradoService.buscar(null);
-			cmbIntervinientes.setContainerDataSource(new BeanItemContainer<Letrado>(Letrado.class, lstLetrados));
-			return;
-		}
+		
 	}
 
 	@Override
@@ -537,22 +543,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		
 		detExpedientePersona.setExpediente(expediente);
 		detExpedientePersona.setAlias((String) txtInterAlias.getValue());
-		Long idParticipante = null;
-		if(cmbTipoParticipacion.getValor()!=null){
-			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_PERSONA)) {
-				idParticipante = ((Persona) cmbIntervinientes.getValue()).getId();
-			} 
-			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_POLICIA)) {
-				idParticipante =((Policia) cmbIntervinientes.getValue()).getId();
-			}
-			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_EMPRESA)) {
-				idParticipante =((Empresa) cmbIntervinientes.getValue()).getId();
-			}
-			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_LETRADO)) {
-				idParticipante =((Letrado) cmbIntervinientes.getValue()).getId();
-			}		
-			detExpedientePersona.setCodigoParticipante(idParticipante);	
-		}
 		logger.debug(" requisitoria " +  chkRequisitoria.getValue() + " " +  ((Boolean)chkRequisitoria.getValue()?1:0 ) );
 		detExpedientePersona.setRequisitoria(new BigDecimal((Boolean)chkRequisitoria.getValue()?1:0 ));
 		
@@ -565,17 +555,30 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		detExpedientePersona.setSituacion(cmbInterSituacion.getValor());
 		detExpedientePersona.setIntervencion((Date) dtInterFechaInter.getValue());
 		
-		if( detExpedientePersona.getCodigoParticipante() == null)
-		{
-			cmbIntervinientes.focus();
-			throw new ValidacionException(Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX, new Object[]{"Involucrado"});
+		
+		Long idParticipante = null;
+		if(cmbTipoParticipacion.getValor()!=null && cmbIntervinientes.getValue()!=null ){
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_PERSONA)) {
+				idParticipante = ((Persona) cmbIntervinientes.getValue()).getId();
+			} 
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_POLICIA)) {
+				idParticipante =((Policia) cmbIntervinientes.getValue()).getId();
+			}
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_EMPRESA)) {
+				idParticipante =((Empresa) cmbIntervinientes.getValue()).getId();
+			}
+			if (cmbTipoParticipacion.getValor().getCodigo().equals(OPCION_LETRADO)) {
+				idParticipante =((Letrado) cmbIntervinientes.getValue()).getId();
+			}
+			detExpedientePersona.setCodigoParticipante(idParticipante);	
 		}
 		
-        HarecUtil.validar(getWindow(), detExpedientePersona, new BeanValidar[]{
-        						new BeanValidar("estadoDato", new Object[]{"Estado del dato"}, cmbInterEstadoDato),
-                                new BeanValidar("intervencion", new Object[]{"Fecha de intervención"}, dtInterFechaInter),
-                                new BeanValidar("situacion", new Object[]{"Situacion"}, cmbInterSituacion)});
-        
+		   HarecUtil.validar(getWindow(), detExpedientePersona, new BeanValidar[]{
+				new BeanValidar("tipoParticipacion", new Object[]{"Tipo de Participante"}, cmbTipoParticipacion),
+				new BeanValidar("codigoParticipante", new Object[]{"Participante"}, cmbIntervinientes),
+				new BeanValidar("participacion", new Object[]{"Participación"}, cmbParticipacion),
+				new BeanValidar("estadoDato", new Object[]{"Estado del dato"}, cmbInterEstadoDato),
+            new BeanValidar("situacion", new Object[]{"Situacion"}, cmbInterSituacion)});
 		
         AlertDialog alertDialog = null;
         if(detExpedientePersona.esNuevo()){
@@ -863,7 +866,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		cmbInterOrganizacion.setImmediate(false);
 		cmbInterOrganizacion.setWidth("-1px");
 		cmbInterOrganizacion.setHeight("-1px");
-		cmbInterOrganizacion.setRequired(true);
 		horizontalLayout_32.addComponent(cmbInterOrganizacion);
 		
 		// cmbInterOcupacion
@@ -881,7 +883,6 @@ public class PanelRegistroParteInterviniente extends CustomComponent implements 
 		dtInterFechaInter.setWidth("150px");
 		dtInterFechaInter.setHeight("-1px");
 		dtInterFechaInter.setInvalidAllowed(false);
-		dtInterFechaInter.setRequired(true);
 		dtInterFechaInter.setResolution(4);
 		horizontalLayout_32.addComponent(dtInterFechaInter);
 		

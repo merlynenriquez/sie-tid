@@ -1,8 +1,7 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,20 +24,20 @@ public class Caso extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AGE_CASO_ID_GENERATOR", sequenceName="SEQ_AGE_CASO")
+	@SequenceGenerator(name="AGE_CASO_ID_GENERATOR", sequenceName="SEQ_CASO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AGE_CASO_ID_GENERATOR")
 	private Long id;
 
 	private String descripcion;
 
-	private Timestamp fecha;
+	private Date fecha;
 
 	private String nombre;
 
 	@Column(name="NRO_CASO")
 	private String nroCaso;
 
-	private BigDecimal situacion;
+	private Long situacion;
 
 	public Caso() {
 	}
@@ -59,11 +58,11 @@ public class Caso extends AuditoriaBean implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
@@ -83,11 +82,11 @@ public class Caso extends AuditoriaBean implements Serializable {
 		this.nroCaso = nroCaso;
 	}
 
-	public BigDecimal getSituacion() {
+	public Long getSituacion() {
 		return situacion;
 	}
 
-	public void setSituacion(BigDecimal situacion) {
+	public void setSituacion(Long situacion) {
 		this.situacion = situacion;
 	}
 	

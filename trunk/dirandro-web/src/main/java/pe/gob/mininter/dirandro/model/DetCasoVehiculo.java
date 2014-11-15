@@ -27,7 +27,7 @@ public class DetCasoVehiculo extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AGE_DET_CASO_VEHICULO_ID_GENERATOR", sequenceName="SEQ_AGE_DET_CASO_VEHICULO")
+	@SequenceGenerator(name="AGE_DET_CASO_VEHICULO_ID_GENERATOR", sequenceName="SEQ_CASO_VEHICULO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AGE_DET_CASO_VEHICULO_ID_GENERATOR")
 	private Long id;
 
