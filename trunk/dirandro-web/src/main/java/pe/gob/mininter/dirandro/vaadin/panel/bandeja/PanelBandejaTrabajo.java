@@ -254,7 +254,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					Expediente expediente = expedienteService.obtener(expedienteGrilla.getId());
 					
 					PanelOficioSolicitadoEmpresa panelOficioSolicitadoEmpresa = 
-							new PanelOficioSolicitadoEmpresa();
+							new PanelOficioSolicitadoEmpresa(null, "-1", expediente);
 					
 					Window wdOficioSolicitado = new Window();
 					
@@ -263,7 +263,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					wdOficioSolicitado.addComponent(panelOficioSolicitadoEmpresa);
 						
 					wdOficioSolicitado.setCaption("Oficio Solicitado del Expediente");
-					wdOficioSolicitado.setWidth("670px");
+					wdOficioSolicitado.setWidth("830px");
 					getWindow().addWindow(wdOficioSolicitado);
 					
 				}
