@@ -15,32 +15,37 @@ import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
 /**
- * The persistent class for the AGE_DET_CASO_IMAGEN database table.
+ * The persistent class for the INT_RUTA database table.
  * 
  */
 @Entity
-@Table(name="AGE_DET_CASO_IMAGEN")
-public class DetCasoImagen extends AuditoriaBean implements Serializable {
+@Table(name="INT_RUTA")
+public class RutaTid extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AGE_DET_CASO_IMAGEN_ID_GENERATOR", sequenceName="SEQ_CASO_IMAGEN", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AGE_DET_CASO_IMAGEN_ID_GENERATOR")
+	@SequenceGenerator(name="INT_RUTA_ID_GENERATOR", sequenceName="SEQ_INT_RUTA")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INT_RUTA_ID_GENERATOR")
 	private Long id;
+	
+	private String descripcion;
 
-	private String observacion;
-
-	//bi-directional many-to-one association to Caso
+	//bi-directional many-to-one association to Valor
 	@ManyToOne
-	@JoinColumn(name="CASO")
-	private Caso caso;
+	@JoinColumn(name="TIPO")
+	private Valor tipo;
 
-	//bi-directional many-to-one association to Adjunto
+	//bi-directional many-to-one association to Distrito
 	@ManyToOne
-	@JoinColumn(name="IMAGEN")
-	private Adjunto imagen;
+	@JoinColumn(name="DESTINO")
+	private Distrito destino;
 
-	public DetCasoImagen() {
+	//bi-directional many-to-one association to Distrito
+	@ManyToOne
+	@JoinColumn(name="ORIGEN")
+	private Distrito origen;
+
+	public RutaTid() {
 	}
 
 	public Long getId() {
@@ -51,34 +56,42 @@ public class DetCasoImagen extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public String getObservacion() {
-		return observacion;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public Caso getCaso() {
-		return caso;
+	public Valor getTipo() {
+		return tipo;
 	}
 
-	public void setCaso(Caso caso) {
-		this.caso = caso;
+	public void setTipo(Valor tipo) {
+		this.tipo = tipo;
 	}
 
-	public Adjunto getImagen() {
-		return imagen;
+	public Distrito getDestino() {
+		return destino;
 	}
 
-	public void setImagen(Adjunto imagen) {
-		this.imagen = imagen;
+	public void setDestino(Distrito destino) {
+		this.destino = destino;
+	}
+
+	public Distrito getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(Distrito origen) {
+		this.origen = origen;
 	}
 
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,7 +108,7 @@ public class DetCasoImagen extends AuditoriaBean implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DetCasoImagen other = (DetCasoImagen) obj;
+		RutaTid other = (RutaTid) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -103,4 +116,5 @@ public class DetCasoImagen extends AuditoriaBean implements Serializable {
 			return false;
 		return true;
 	}
+	
 }

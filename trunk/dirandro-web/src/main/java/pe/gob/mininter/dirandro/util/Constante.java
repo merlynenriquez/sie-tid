@@ -100,6 +100,8 @@ public abstract class Constante {
 			/** participacion de los intervinientes en el parte */
 			public static final String PARTICIPA_INT = "PARTICIPA_INT";
 			public static final String ESTADO_PERICIA = "ESTADO_PERICIA";
+			/*Usados en el CASO*/			
+			public static final String INMUEBLE_TIPO_USO = "INM_T_USO";
 			
 		}
 	}

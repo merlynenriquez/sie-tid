@@ -26,7 +26,7 @@ public class NotaAgente extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AGE_NOTA_AGENTE_ID_GENERATOR", sequenceName="SEQ_AGE_NOTA_AGENTE")
+	@SequenceGenerator(name="AGE_NOTA_AGENTE_ID_GENERATOR", sequenceName="SEQ_AGE_NOTA_AGENTE", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AGE_NOTA_AGENTE_ID_GENERATOR")
 	private Long id;
 

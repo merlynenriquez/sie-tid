@@ -11,7 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -25,7 +27,7 @@ public class DetCasoDireccion extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AGE_DET_CASO_DIRECCION_ID_GENERATOR", sequenceName="SEQ_CASO_DIRECCION")
+	@SequenceGenerator(name="AGE_DET_CASO_DIRECCION_ID_GENERATOR", sequenceName="SEQ_CASO_DIRECCION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AGE_DET_CASO_DIRECCION_ID_GENERATOR")
 	private Long id;
 
@@ -40,16 +42,19 @@ public class DetCasoDireccion extends AuditoriaBean implements Serializable {
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="TIPO_USO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor tipoUso;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
 	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Valor situacion;
 
 	//bi-directional many-to-one association to Direccion
 	@ManyToOne
 	@JoinColumn(name="DIRECCION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Direccion direccion;
 
 	public DetCasoDireccion() {
@@ -103,4 +108,32 @@ public class DetCasoDireccion extends AuditoriaBean implements Serializable {
 		this.direccion = direccion;
 	}
  
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DetCasoDireccion other = (DetCasoDireccion) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

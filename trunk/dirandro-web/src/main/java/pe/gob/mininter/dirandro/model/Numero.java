@@ -25,7 +25,7 @@ public class Numero extends AuditoriaBean implements Validador, Serializable {
 	private static final long serialVersionUID = 160195192053678873L;
 
 	@Id
-	@SequenceGenerator(name="EXP_NUMERO_ID_GENERATOR", sequenceName="SEQ_NUMERO")
+	@SequenceGenerator(name="EXP_NUMERO_ID_GENERATOR", sequenceName="SEQ_NUMERO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_NUMERO_ID_GENERATOR")
 	@Column(unique=true, nullable=false, precision=16)
 	private Long id;

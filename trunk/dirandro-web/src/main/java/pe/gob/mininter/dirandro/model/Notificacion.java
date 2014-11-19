@@ -26,7 +26,7 @@ public class Notificacion extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INF_NOTIFICACION_ID_GENERATOR", sequenceName="SEQ_INF_NOTIFICACION")
+	@SequenceGenerator(name="INF_NOTIFICACION_ID_GENERATOR", sequenceName="SEQ_INF_NOTIFICACION", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INF_NOTIFICACION_ID_GENERATOR")
 	private Long id;
 

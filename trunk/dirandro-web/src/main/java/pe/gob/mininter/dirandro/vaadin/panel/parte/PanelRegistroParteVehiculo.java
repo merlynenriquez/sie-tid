@@ -273,7 +273,7 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton().equals(btnVehRegistrar)) {
 			pnlAgregarVehiculo = new PanelAgregarVehiculo();
-			pnlAgregarVehiculo.setPadre(this);
+			//pnlAgregarVehiculo.setPadre(this);
 			if(this.getParent().getParent()!=null){
 				pnlAgregarVehiculo.setParent(this.getParent().getParent());//cambio 1
 			}else{
@@ -286,7 +286,15 @@ public class PanelRegistroParteVehiculo extends CustomComponent implements Click
 
 				  protected void close() {
 					  getApplication().getMainWindow().removeWindow(getWindow());
-				  }};
+				  }
+
+				@Override
+				public void detach() {
+					setVehiculoPopUp(pnlAgregarVehiculo.getVehiculo());
+					actualizarVehiculo(vehiculoService.buscar(null));
+				}
+				
+			};
 			window.setCaption("Registrar Vehículo");
 			window.addComponent(pnlAgregarVehiculo);
 			window.setModal(true);
