@@ -8,9 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
 
@@ -24,20 +30,28 @@ public class Caso extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AGE_CASO_ID_GENERATOR", sequenceName="SEQ_CASO")
+	@SequenceGenerator(name="AGE_CASO_ID_GENERATOR", sequenceName="SEQ_CASO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AGE_CASO_ID_GENERATOR")
 	private Long id;
 
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
+	@Column(nullable=false)
 	private String descripcion;
 
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Date fecha;
 
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
+	@Column(nullable=false)
 	private String nombre;
 
 	@Column(name="NRO_CASO")
 	private String nroCaso;
 
-	private Long situacion;
+	@ManyToOne
+	@JoinColumn(name="SITUACION")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
+	private Valor situacion;
 
 	public Caso() {
 	}
@@ -82,11 +96,11 @@ public class Caso extends AuditoriaBean implements Serializable {
 		this.nroCaso = nroCaso;
 	}
 
-	public Long getSituacion() {
+	public Valor getSituacion() {
 		return situacion;
 	}
 
-	public void setSituacion(Long situacion) {
+	public void setSituacion(Valor situacion) {
 		this.situacion = situacion;
 	}
 	

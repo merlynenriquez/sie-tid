@@ -20,7 +20,7 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EXP_AGENDA_ACTORES_ID_GENERATOR", sequenceName="SEQ_EXP_AGENDA_ACTORES")
+	@SequenceGenerator(name="EXP_AGENDA_ACTORES_ID_GENERATOR", sequenceName="SEQ_EXP_AGENDA_ACTORES", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_AGENDA_ACTORES_ID_GENERATOR")
 	private Long id;
 

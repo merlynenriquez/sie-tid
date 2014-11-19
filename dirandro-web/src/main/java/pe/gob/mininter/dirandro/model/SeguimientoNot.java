@@ -19,7 +19,7 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INF_SEGUIMIENTO_NOT_ID_GENERATOR", sequenceName="SEQ_INF_SEGUIMIENTO_NOT")
+	@SequenceGenerator(name="INF_SEGUIMIENTO_NOT_ID_GENERATOR", sequenceName="SEQ_INF_SEGUIMIENTO_NOT", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INF_SEGUIMIENTO_NOT_ID_GENERATOR")
 	private Long id;
 

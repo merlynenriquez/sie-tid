@@ -103,6 +103,11 @@ public class Distrito extends AuditoriaBean implements Validador, Serializable {
 		
 	}
 
+	public boolean esNuevo(){
+		return id == null || id.longValue() == 0;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

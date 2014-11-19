@@ -31,6 +31,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.DetDroga" />
 		<mapping class="pe.gob.mininter.dirandro.model.DetExpedientePersona" />
 		<mapping class="pe.gob.mininter.dirandro.model.DetGremioCocalero" />
+		<mapping class="pe.gob.mininter.dirandro.model.DetIntRuta" />
 		<mapping class="pe.gob.mininter.dirandro.model.DetLlamada" />
 		<mapping class="pe.gob.mininter.dirandro.model.DetOrganizacion" />
 		<mapping class="pe.gob.mininter.dirandro.model.DetPerArmExp" />
@@ -89,6 +90,7 @@
 		<mapping class="pe.gob.mininter.dirandro.model.Regla" />
 		<mapping class="pe.gob.mininter.dirandro.model.Rol" />
 		<mapping class="pe.gob.mininter.dirandro.model.Ruta" />
+		<mapping class="pe.gob.mininter.dirandro.model.RutaTid" />
 		<mapping class="pe.gob.mininter.dirandro.model.SeguimientoNot" />
 		<mapping class="pe.gob.mininter.dirandro.model.SituacionGeneral" />
 		<mapping class="pe.gob.mininter.dirandro.model.SituacionProceso" />

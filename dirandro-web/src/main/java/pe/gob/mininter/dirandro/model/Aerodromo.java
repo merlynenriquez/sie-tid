@@ -24,7 +24,7 @@ public class Aerodromo extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INT_AERODROMO_ID_GENERATOR", sequenceName="SEQ_INT_AERODROMO")
+	@SequenceGenerator(name="INT_AERODROMO_ID_GENERATOR", sequenceName="SEQ_INT_AERODROMO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INT_AERODROMO_ID_GENERATOR")
 	private Long id;
 

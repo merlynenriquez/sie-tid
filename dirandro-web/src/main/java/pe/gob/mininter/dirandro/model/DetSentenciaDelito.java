@@ -17,7 +17,7 @@ public class DetSentenciaDelito extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PER_DET_SENTENCIA_DELITO_ID_GENERATOR", sequenceName="SEQ_PER_DET_SENTENCIA_DELITO")
+	@SequenceGenerator(name="PER_DET_SENTENCIA_DELITO_ID_GENERATOR", sequenceName="SEQ_PER_DET_SENTENCIA_DELITO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_DET_SENTENCIA_DELITO_ID_GENERATOR")
 	private Long id;
 

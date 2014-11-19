@@ -29,7 +29,7 @@ public class NotaInformativa  extends AuditoriaBean implements Validador, Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EXP_NOTA_INFORMATIVA_ID_GENERATOR", sequenceName="SEQ_EXP_NOTA_INFORMATIVA")
+	@SequenceGenerator(name="EXP_NOTA_INFORMATIVA_ID_GENERATOR", sequenceName="SEQ_EXP_NOTA_INFORMATIVA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_NOTA_INFORMATIVA_ID_GENERATOR")
 	private Long id;
 

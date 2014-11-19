@@ -30,7 +30,7 @@ public class Pericia extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="HR_PERICIA_ID_GENERATOR", sequenceName="SEQ_PERICIA")
+	@SequenceGenerator(name="HR_PERICIA_ID_GENERATOR", sequenceName="SEQ_PERICIA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HR_PERICIA_ID_GENERATOR")
 	private Long id;
 

@@ -26,7 +26,7 @@ public class SituacionProceso extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PER_SITUACION_PROCESO_ID_GENERATOR", sequenceName="SEQ_PER_SITUACION_PROCESO")
+	@SequenceGenerator(name="PER_SITUACION_PROCESO_ID_GENERATOR", sequenceName="SEQ_PER_SITUACION_PROCESO", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PER_SITUACION_PROCESO_ID_GENERATOR")
 	private Long id;
 

@@ -8,4 +8,5 @@ public interface CasoDireccionService extends BaseService<DetCasoDireccion, Long
 
 	public List<DetCasoDireccion> buscar(DetCasoDireccion caso);
 	
+	public void registrar(DetCasoDireccion caso);
 }

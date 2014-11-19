@@ -3,8 +3,11 @@ package pe.gob.mininter.dirandro.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.CasoHibernate;
 import pe.gob.mininter.dirandro.model.Caso;
@@ -50,6 +53,15 @@ public class CasoServiceImpl extends BaseServiceImpl<Caso, Long> implements Caso
 	public Map<String, List<Caso>> filtrarCasos(List<Caso> lstCasos) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public void registrarCaso(Caso caso) {
+		super.crear(caso);
+		String numeroCaso = StringUtils.leftPad(String.valueOf(caso.getId()), 10, "0");
+		caso.setNroCaso(numeroCaso);
+		super.actualizar(caso);
 	}
  
 	

@@ -106,20 +106,20 @@ public class PanelRegistroCaso extends DirandroComponent implements SelectedTabC
 		if(event.getTabSheet().isEnabled()){
 
 			if(tabParticipantes.equals(event.getTabSheet().getSelectedTab())){
-				logger.debug("cargar panel principal del caso");
+				logger.debug("cargar participantes del caso");
 				pnlIntervinientes.setCaso(caso);
 				pnlNoIdentificado.setCaso(caso);
 			}
 			if(tabDireccion.equals(event.getTabSheet().getSelectedTab())){
-				logger.debug("cargar panel principal del caso");
+				logger.debug("cargar tab direccion del caso");
 				pnlCasoDireccion.setCaso(caso);
 			}
 			if(tabVehiculos.equals(event.getTabSheet().getSelectedTab())){
-				logger.debug("cargar panel principal del caso");
+				logger.debug("cargar tab vehiculos del caso");
 				pnlCasoVehiculo.setCaso(caso);
 			}
 			if(tabIamgenes.equals(event.getTabSheet().getSelectedTab())){
-				logger.debug("cargar panel principal del caso");
+				logger.debug("cargar tab imagenes del caso");
 				pnlCasoImagen.setCaso(caso);
 			}
 		}

@@ -27,7 +27,7 @@ public class ValorEspecie extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INF_VALOR_ESPECIE_ID_GENERATOR", sequenceName="SEQ_INF_VALOR_ESPECIE")
+	@SequenceGenerator(name="INF_VALOR_ESPECIE_ID_GENERATOR", sequenceName="SEQ_INF_VALOR_ESPECIE", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INF_VALOR_ESPECIE_ID_GENERATOR")
 	private Long id;
 

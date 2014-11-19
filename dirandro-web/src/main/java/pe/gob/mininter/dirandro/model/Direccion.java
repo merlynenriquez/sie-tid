@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import pe.gob.mininter.dirandro.exception.ValidacionException;
 import pe.gob.mininter.dirandro.util.Constante;
@@ -38,21 +41,30 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 	private Long id;
 
 	@Column(nullable=false, length=500)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String direccion;
 
 	@Column(length=1000)
+	@NotBlank(message=Constante.CODIGO_MENSAJE.VALIDAR_TEXTBOX)
 	private String referencia;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="PERSONA", nullable=false)
+	@JoinColumn(name="PERSONA", nullable=true)
 	private Persona persona;
 
 	//bi-directional many-to-one association to Distrito
 	@ManyToOne
 	@JoinColumn(name="DISTRITO")
+	@NotNull(message=Constante.CODIGO_MENSAJE.VALIDAR_COMBOBOX)
 	private Distrito distrito;
 
+
+	private String latitud;
+
+	private String longitud;
+	
+	
 	public Direccion() {
 	}
 
@@ -99,6 +111,22 @@ public class Direccion extends AuditoriaBean implements Validador, Serializable 
 
 	public void setDistrito(Distrito distrito) {
 		this.distrito = distrito;
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 
 	@Override

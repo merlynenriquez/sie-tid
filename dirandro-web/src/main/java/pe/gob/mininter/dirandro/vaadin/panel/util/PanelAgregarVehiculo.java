@@ -11,7 +11,6 @@ import pe.gob.mininter.dirandro.service.ModeloMarcaService;
 import pe.gob.mininter.dirandro.service.VehiculoService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
-import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParteVehiculo;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -75,23 +74,27 @@ public class PanelAgregarVehiculo extends CustomComponent implements ClickListen
 	private ComboBoxLOVS cmbTipo;
 	private static final long serialVersionUID = -1544986287716283352L;
 	
-	private PanelRegistroParteVehiculo padre;
 	private ModeloMarcaService modeloMarcaService;
 	private VehiculoService vehiculoService;
+	private Vehiculo vehiculo;
 	
 	private List<ModeloMarca> lstMarcas;
 	private List<ModeloMarca> lstModelos;
 		
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+
 	public PanelAgregarVehiculo() {
 		buildMainLayout();
 		modeloMarcaService = Injector.obtenerServicio(ModeloMarcaService.class);
 		vehiculoService = Injector.obtenerServicio(VehiculoService.class);
 		setCompositionRoot(mainLayout);
 		postConstruct();
-	}
-
-	public void setPadre(PanelRegistroParteVehiculo padre) {
-		this.padre = padre;
 	}
 
 	public void postConstruct() {
@@ -159,9 +162,10 @@ public class PanelAgregarVehiculo extends CustomComponent implements ClickListen
 			getApplication().getMainWindow().addWindow(alertDialog);
 			
 			btnRegistrarVehiculo.setEnabled(false);
-			padre.setVehiculoPopUp(vehiculo);
-			padre.actualizarVehiculo(vehiculoService.buscar(null));
+			setVehiculo(vehiculo);
+			detach();
 			getApplication().getMainWindow().removeWindow(getWindow());
+			
 		}
 	}
 
