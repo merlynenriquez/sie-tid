@@ -1,8 +1,7 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,9 +29,9 @@ public class Inteligencia extends AuditoriaBean implements Serializable {
 
 	private String autogenerado;
 
-	private BigDecimal expediente;
+	private Expediente expediente;
 
-	private Timestamp fecha;
+	private Date fecha;
 
 	private String nombre;
  
@@ -55,19 +54,11 @@ public class Inteligencia extends AuditoriaBean implements Serializable {
 		this.autogenerado = autogenerado;
 	}
 
-	public BigDecimal getExpediente() {
-		return expediente;
-	}
-
-	public void setExpediente(BigDecimal expediente) {
-		this.expediente = expediente;
-	}
-
-	public Timestamp getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
@@ -77,6 +68,14 @@ public class Inteligencia extends AuditoriaBean implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Expediente getExpediente() {
+		return expediente;
+	}
+
+	public void setExpediente(Expediente expediente) {
+		this.expediente = expediente;
 	}
 
 
