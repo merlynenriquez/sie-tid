@@ -1,10 +1,4 @@
 /*==============================================================*/
-/* User: SIETID                                                 */
-/*==============================================================*/
-create user SIETID 
-  identified by "";
-
-/*==============================================================*/
 /* Table: AGE_CASO                                              */
 /*==============================================================*/
 create table SIETID.AGE_CASO 
@@ -2662,6 +2656,25 @@ alter table SIETID.INT_DET_INTELIGENCIA_NOTA
    add constraint PK_INT_DET_INTELIGENCIA_NOTA primary key (ID);
 
 /*==============================================================*/
+/* Table: INT_DET_INT_RUTA                                      */
+/*==============================================================*/
+create table SIETID.INT_DET_INT_RUTA 
+(
+   ID                   NUMBER(16)           not null,
+   RUTA                 NUMBER(16),
+   INTELIGENCIA         NUMBER(16),
+   DESCRIPCION_ORIGEN   NVARCHAR2(3000),
+   DESCRIPCION_DESTINO  NVARCHAR2(3000),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16)           not null,
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INT_DET_INT_RUTA
+   add constraint PK_INT_DET_INT_RUTA primary key (ID);
+
+/*==============================================================*/
 /* Table: INT_DET_ORGANIZACION                                  */
 /*==============================================================*/
 create table SIETID.INT_DET_ORGANIZACION 
@@ -2746,6 +2759,25 @@ comment on column SIETID.INT_INTELIGENCIA.EXPEDIENTE is
 
 alter table SIETID.INT_INTELIGENCIA
    add constraint PK_INT_INTELIGENCIA primary key (ID);
+
+/*==============================================================*/
+/* Table: INT_RUTA                                              */
+/*==============================================================*/
+create table SIETID.INT_RUTA 
+(
+   ID                   NUMBER(16)           not null,
+   TIPO                 NUMBER(16),
+   ORIGEN               NUMBER(16),
+   DESTINO              NUMBER(16),
+   DESCRIPCION          NVARCHAR2(2000),
+   CREADOR              NUMBER(16),
+   CREACION             TIMESTAMP,
+   EDITOR               NUMBER(16)           not null,
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INT_RUTA
+   add constraint PK_INT_RUTA primary key (ID);
 
 /*==============================================================*/
 /* Table: INT_ZONA_CULTIVO                                      */
@@ -3105,10 +3137,12 @@ alter table PER_DET_SENTENCIA_DELITO
 create table SIETID.PER_DIRECCION 
 (
    ID                   NUMBER(16)           not null,
-   PERSONA              NUMBER(16)           not null,
+   PERSONA              NUMBER(16),
    DISTRITO             NUMBER(16),
    DIRECCION            NVARCHAR2(250)       not null,
    REFERENCIA           NVARCHAR2(500),
+   LONGITUD             NVARCHAR2(50),
+   LATITUD              NVARCHAR2(50),
    CREADOR              NUMBER(16)           not null,
    CREACION             TIMESTAMP            not null,
    EDITOR               NUMBER(16),
@@ -3890,6 +3924,10 @@ alter table SIETID.AGE_CASO
 alter table SIETID.AGE_CASO
    add constraint FK_AGE_CASO_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.AGE_CASO
+   add constraint FK_AGE_CASO_SITUACION foreign key (SITUACION)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.AGE_DET_CASO_AGENTE
    add constraint FK_AGE_DET_AGENTE foreign key (AGENTE)
@@ -5315,6 +5353,22 @@ alter table SIETID.INT_DET_INTELIGENCIA_NOTA
    add constraint FK_INT_DET_NOTA_INT_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
 
+alter table SIETID.INT_DET_INT_RUTA
+   add constraint FK_INT_DET_INT_RUTA foreign key (RUTA)
+      references SIETID.INT_RUTA (ID);
+
+alter table SIETID.INT_DET_INT_RUTA
+   add constraint FK_INT_DET_RUTA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_INT_RUTA
+   add constraint FK_INT_DET_RUTA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_DET_INT_RUTA
+   add constraint FK_INT_DET_RUTA_INTELIGENCIA foreign key (INTELIGENCIA)
+      references SIETID.INT_INTELIGENCIA (ID);
+
 alter table SIETID.INT_DET_ORGANIZACION
    add constraint FK_INT_DET_ORGA_INTELIGENCIA foreign key (INTELIGENCIA)
       references SIETID.INT_INTELIGENCIA (ID);
@@ -5364,12 +5418,36 @@ alter table SIETID.INT_GREMIO_COCALERO
       references SIETID.UBG_DISTRITO (ID);
 
 alter table SIETID.INT_INTELIGENCIA
+   add constraint FK_INT_INTELIGENCIA_EXPEDIENTE foreign key (EXPEDIENTE)
+      references SIETID.EXP_EXPEDIENTE (ID);
+
+alter table SIETID.INT_INTELIGENCIA
    add constraint FK_INT_INTE_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
 alter table SIETID.INT_INTELIGENCIA
    add constraint FK_INT_INTE_EDITOR foreign key (EDITOR)
       references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_RUTA
+   add constraint FK_INT_RUTA_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_RUTA
+   add constraint FK_INT_RUTA_DESTINO foreign key (DESTINO)
+      references SIETID.UBG_DISTRITO (ID);
+
+alter table SIETID.INT_RUTA
+   add constraint FK_INT_RUTA_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INT_RUTA
+   add constraint FK_INT_RUTA_ORIGEN foreign key (ORIGEN)
+      references SIETID.UBG_DISTRITO (ID);
+
+alter table SIETID.INT_RUTA
+   add constraint FK_INT_RUTA_TIPO_TID foreign key (TIPO)
+      references SIETID.CFG_VALOR (ID);
 
 alter table SIETID.INT_ZONA_CULTIVO
    add constraint FK_INT_ZONA_CREADOR foreign key (CREADOR)
@@ -5918,5 +5996,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-      
-      quit;
+
+quit;
