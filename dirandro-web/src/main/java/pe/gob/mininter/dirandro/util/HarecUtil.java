@@ -1,5 +1,10 @@
 package pe.gob.mininter.dirandro.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
@@ -25,6 +30,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import pe.gob.mininter.dirandro.exception.ValidacionException;
+import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Delito;
 import pe.gob.mininter.dirandro.model.Dependencia;
 import pe.gob.mininter.dirandro.model.ModeloMarca;
@@ -694,6 +700,27 @@ public abstract class HarecUtil {
 	        }
 	    }
 	}
+
+	public static void adjuntarDocumentos(Adjunto documentoAdjunto) {
+		String directorio = documentoAdjunto.getRuta();
+		
+		File file = new File(directorio);
+		if(!file.exists()) file.mkdirs();		
+		
+		ByteArrayOutputStream arrayOutputStream = documentoAdjunto.getOutputStream();
+		FileOutputStream outputStream = null;
+		
+		try {
+			outputStream = new FileOutputStream(file+"//"+documentoAdjunto.getId()+"."+documentoAdjunto.getExtension());
+			arrayOutputStream.writeTo(outputStream);
+		} catch (FileNotFoundException e2) {
+			e2.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 	
 }
 

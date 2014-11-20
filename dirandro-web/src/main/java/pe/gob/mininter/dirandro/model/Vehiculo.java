@@ -84,6 +84,10 @@ public class Vehiculo extends AuditoriaBean implements Validador, Serializable {
 	public Vehiculo() {
 	}
 
+	public Vehiculo(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}

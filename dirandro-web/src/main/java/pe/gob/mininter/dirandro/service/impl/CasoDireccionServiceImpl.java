@@ -51,14 +51,11 @@ public class CasoDireccionServiceImpl extends BaseServiceImpl<DetCasoDireccion, 
 			}
 			
 			if(caso.getCaso()!=null){
-				logger.debug(" tiene Caso ");
 				filtro.createAlias("caso", "c");
 				if(caso.getCaso().getId()!=null){
-					logger.debug(" caso id "+caso.getCaso().getId());
 					filtro.add(Restrictions.eq("c.id", caso.getCaso().getId() ));			
 				}
 				if(!HarecUtil.nullToEmpty( caso.getCaso().getNombre() ).equals("")){
-					logger.debug(" caso nombre " + caso.getCaso().getNombre());
 					filtro.add(Restrictions.ilike("c.nombre", caso.getCaso().getNombre(), MatchMode.ANYWHERE ));			
 				}
 			}

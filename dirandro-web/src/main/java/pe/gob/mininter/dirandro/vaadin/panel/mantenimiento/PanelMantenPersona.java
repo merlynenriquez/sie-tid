@@ -577,7 +577,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 			cant++;
 		}
 		logger.debug("cant " + cant ) ;
-		if(cant >1){
+		if(cant > 0){
 			Map<String,List<Persona>> map = personaService.listarPersonas( per );
 			logger.debug( " elementos a pintar "+map.size() );
 			cargarPersonas(map);	
@@ -602,7 +602,8 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 						
 						//parametroRuta = parametroService.obtener(Constante.PARAMETRO.PATH_WINDOW);
 						parametroRuta = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_PATH);
-						if (parametroRuta != null) rutaDocumento = parametroSize.getValor();
+						if (parametroRuta != null) rutaDocumento = parametroRuta.getValor();
+						//rutaDocumento += "PER_" + persona.getId() + "\\" ; 
 					}
 	
 				}
@@ -1409,7 +1410,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 		if (lstImagenes != null) {
 	    	 for (Imagen imagen: lstImagenes) {
 	             Item item = container.addItem(con++);
-	             item.getItemProperty("imagen.id").setValue(imagen.getId());
+	             item.getItemProperty("imagen.id").setValue(imagen.getAdjunto().getId());
 	             item.getItemProperty("adjunto.ruta").setValue(imagen.getAdjunto().getRuta());
 	             item.getItemProperty("nombreAdjunto").setValue(imagen.getAdjunto().getNombre());
 	        }
@@ -1589,7 +1590,7 @@ public class PanelMantenPersona extends DirandroComponent implements ClickListen
 			if(image!=null)
 				pnlImgImagen.removeComponent(image);
 			cmbImgTipo.select(null);
-			lblImgTipo.setValue("");
+			//lblImgTipo.setValue("");
 			lblImgValor.setValue("");
 			return;
 		}
