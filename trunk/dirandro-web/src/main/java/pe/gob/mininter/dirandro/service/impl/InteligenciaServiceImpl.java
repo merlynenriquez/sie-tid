@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,14 @@ public class InteligenciaServiceImpl extends BaseServiceImpl<Inteligencia, Long>
 			
 		}
 		return inteligenciaHibernate.buscar(filtro);		
+	}
+
+	@Override
+	public void registrarDocInteligencia(Inteligencia inteligencia) {
+		super.crear(inteligencia);
+		String numeroInteligencia = StringUtils.leftPad(String.valueOf(inteligencia.getId()), 10, "0");
+		inteligencia.setAutogenerado(numeroInteligencia);
+		super.actualizar(inteligencia);
 	}
 	
 }

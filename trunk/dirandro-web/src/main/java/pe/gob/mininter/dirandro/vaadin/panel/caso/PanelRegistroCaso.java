@@ -105,8 +105,7 @@ public class PanelRegistroCaso extends DirandroComponent implements SelectedTabC
 		
 		if(event.getTabSheet().isEnabled()){
 
-			if(tabParticipantes.equals(event.getTabSheet().getSelectedTab())){
-				logger.debug("cargar participantes del caso");
+			if(tabParticipantes.equals(event.getTabSheet().getSelectedTab())){				
 				pnlIntervinientes.setCaso(caso);
 				pnlNoIdentificado.setCaso(caso);
 			}
