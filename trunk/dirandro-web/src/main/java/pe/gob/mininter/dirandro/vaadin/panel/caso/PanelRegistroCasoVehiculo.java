@@ -151,8 +151,9 @@ public class PanelRegistroCasoVehiculo extends CustomComponent implements ClickL
 						txaObservacion.setValue(item.getItemProperty("observacion").getValue() != null ? item.getItemProperty("observacion").getValue().toString() : StringUtils.EMPTY);
 						
 						cmbEstadoDato.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
-						cmbVehVehiculo.select((Vehiculo) item.getItemProperty("vehiculo").getValue());
-						cmbPropietario.select((Persona) item.getItemProperty("propietario").getValue());
+						cmbVehVehiculo.select(new Vehiculo((Long)item.getItemProperty("vehiculo.id").getValue()));
+						cmbPropietario.select(new Persona((Long)item.getItemProperty("propietario.id").getValue()));
+						cmbParticipacion.select(new Valor((Long) item.getItemProperty("participacion.id").getValue()));
 					}
 				}
 			});
@@ -169,59 +170,59 @@ public class PanelRegistroCasoVehiculo extends CustomComponent implements ClickL
 	
 	private void cargarExpVehiculos(){
 		limpiar();
-		List<DetCasoVehiculo> lstExpVehiculos = casoVehiculoService.buscar(null);
+		DetCasoVehiculo det = new DetCasoVehiculo();
+		det.setCaso(caso);
+		List<DetCasoVehiculo> lstExpVehiculos = casoVehiculoService.buscar(det);
 		cargarExpVehiculos(lstExpVehiculos);
 	}
 	
 	private void cargarExpVehiculos(List<DetCasoVehiculo> lstExpVehiculos) {
 		IndexedContainer container = new IndexedContainer();
 		container.addContainerProperty("id", Long.class,  null);
-		container.addContainerProperty("vehiculo", Vehiculo.class, null);
 		container.addContainerProperty("vehiculo.id", Long.class, null);		
 		container.addContainerProperty("vehiculo.placa", String.class, null);
 		container.addContainerProperty("vehiculo.tipoTamano", String.class, null);
 		container.addContainerProperty("vehiculo.fabricacion", String.class, null);
 		container.addContainerProperty("estado.id", Long.class, null);
-		container.addContainerProperty("estadoChasis.id", Long.class, null);
-		container.addContainerProperty("estadoMotor.id", Long.class, null);
-		container.addContainerProperty("situacion.id", Long.class, null);
-		container.addContainerProperty("estadoChasis", String.class, null);
-		container.addContainerProperty("estadoMotor", String.class, null);
-		container.addContainerProperty("placaMontada", String.class, null);
+		container.addContainerProperty("estado.nombre", String.class, null);
 		container.addContainerProperty("tipoUso", String.class, null);
 		container.addContainerProperty("observacion", String.class, null);
 		container.addContainerProperty("propietario.id", Long.class, null);
-		container.addContainerProperty("propietario", Persona.class, null);
-		container.addContainerProperty("personaImplicada.id", Long.class, null);
-		container.addContainerProperty("personaImplicada", Persona.class, null);
-		container.addContainerProperty("personaImplicada.nombre", String.class, null);
+		container.addContainerProperty("propietario.nombre", String.class, null);
+		container.addContainerProperty("participacion.id", Long.class, null);
+		container.addContainerProperty("participacion.nombre", String.class, null);
 		
 		tblVehLista.setContainerDataSource(container);
-		tblVehLista.setVisibleColumns(new Object[]{"id","vehiculo.placa","vehiculo.tipoTamano","vehiculo.fabricacion","estadoChasis","estadoMotor","personaImplicada.nombre"});
+		tblVehLista.setVisibleColumns(new Object[]{"id","vehiculo.placa","vehiculo.tipoTamano","vehiculo.fabricacion","estado.nombre","propietario.nombre","participacion.nombre"});
 		
 		tblVehLista.setColumnHeader("id", "Id");
 		tblVehLista.setColumnHeader("vehiculo.placa", "Placa");
 		tblVehLista.setColumnHeader("vehiculo.tipoTamano", "Tamaño");
 		tblVehLista.setColumnHeader("vehiculo.fabricacion", "Fabricación");
-		tblVehLista.setColumnHeader("estadoChasis", "Estado Chasis");
-		tblVehLista.setColumnHeader("estadoMotor", "Estado Motor");
-		tblVehLista.setColumnHeader("personaImplicada.nombre", "Implicado");
+		tblVehLista.setColumnHeader("estado.nombre", "Estado del Dato");
+		tblVehLista.setColumnHeader("propietario.nombre", "Propietario");
+		tblVehLista.setColumnHeader("participacion.nombre", "Participacion");
 		
 		int con=1;
 		for (DetCasoVehiculo casoVehiculo : lstExpVehiculos){
 			Item item = container.addItem(con++);
 			item.getItemProperty("id").setValue(casoVehiculo.getId());
-			item.getItemProperty("vehiculo").setValue(casoVehiculo.getVehiculo());
+			//item.getItemProperty("vehiculo").setValue(casoVehiculo.getVehiculo());
 			item.getItemProperty("vehiculo.id").setValue(casoVehiculo.getVehiculo() != null ? casoVehiculo.getVehiculo().getId() : null);
 			item.getItemProperty("vehiculo.placa").setValue(casoVehiculo.getVehiculo().getPlaca());
 			item.getItemProperty("vehiculo.tipoTamano").setValue(HarecUtil.valorNombreToEmpty(casoVehiculo.getVehiculo().getTipoTamano()));
 			item.getItemProperty("vehiculo.fabricacion").setValue(HarecUtil.valorNombreToEmpty(casoVehiculo.getVehiculo().getPeriodoFabricacion()));
 			item.getItemProperty("estado.id").setValue(HarecUtil.valorIdToEmpty(casoVehiculo.getEstadoDato()));
+			item.getItemProperty("estado.nombre").setValue(HarecUtil.valorNombreToEmpty(casoVehiculo.getEstadoDato()));
 			item.getItemProperty("tipoUso").setValue(casoVehiculo.getTipoUso());
 			item.getItemProperty("observacion").setValue(casoVehiculo.getObservacion());
 			if(casoVehiculo.getPropietario()!=null){
-				item.getItemProperty("propietario").setValue(casoVehiculo.getPropietario());
 				item.getItemProperty("propietario.id").setValue(casoVehiculo.getPropietario().getId());
+				item.getItemProperty("propietario.nombre").setValue(casoVehiculo.getPropietario().getNombreCompleto());
+			}
+			if(casoVehiculo.getParticipacion()!=null){
+				item.getItemProperty("participacion.id").setValue(HarecUtil.valorIdToEmpty(casoVehiculo.getParticipacion()));
+				item.getItemProperty("participacion.nombre").setValue(HarecUtil.valorNombreToEmpty(casoVehiculo.getParticipacion()));
 			}
 		}
 			

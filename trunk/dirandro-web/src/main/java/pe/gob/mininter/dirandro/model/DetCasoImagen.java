@@ -38,7 +38,7 @@ public class DetCasoImagen extends AuditoriaBean implements Serializable {
 	//bi-directional many-to-one association to Adjunto
 	@ManyToOne
 	@JoinColumn(name="IMAGEN")
-	private Adjunto imagen;
+	private Adjunto adjunto;
 
 	public DetCasoImagen() {
 	}
@@ -67,12 +67,12 @@ public class DetCasoImagen extends AuditoriaBean implements Serializable {
 		this.caso = caso;
 	}
 
-	public Adjunto getImagen() {
-		return imagen;
+	public Adjunto getAdjunto() {
+		return adjunto;
 	}
 
-	public void setImagen(Adjunto imagen) {
-		this.imagen = imagen;
+	public void setAdjunto(Adjunto adjunto) {
+		this.adjunto = adjunto;
 	}
 
 	public boolean esNuevo(){

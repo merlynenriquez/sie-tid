@@ -19,6 +19,7 @@ import pe.gob.mininter.dirandro.model.Imagen;
 import pe.gob.mininter.dirandro.service.AdjuntoService;
 import pe.gob.mininter.dirandro.service.ImagenService;
 import pe.gob.mininter.dirandro.util.Busqueda;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 
 @Service
 public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements ImagenService{
@@ -63,29 +64,9 @@ public class ImagenServiceImpl extends BaseServiceImpl<Imagen, Long> implements 
 		imagenHibernate.crear(imagen);
 		
 		//grabar binario en disco duro
-		adjuntarDocumentos(imagAdjunta);
+		HarecUtil.adjuntarDocumentos(imagAdjunta);
 		
 		return imagen;
 	}
-	
-	public void adjuntarDocumentos(Adjunto documentoAdjunto) {
-		String directorio = documentoAdjunto.getRuta();
 		
-		File file = new File(directorio);
-		if(!file.exists()) file.mkdirs();		
-		
-		ByteArrayOutputStream arrayOutputStream = documentoAdjunto.getOutputStream();
-		FileOutputStream outputStream = null;
-		
-		try {
-			outputStream = new FileOutputStream(file+"//"+documentoAdjunto.getId()+"."+documentoAdjunto.getExtension());
-			arrayOutputStream.writeTo(outputStream);
-		} catch (FileNotFoundException e2) {
-			e2.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	
 }
