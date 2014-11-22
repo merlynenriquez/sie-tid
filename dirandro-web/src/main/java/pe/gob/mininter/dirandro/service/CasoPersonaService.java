@@ -8,4 +8,7 @@ public interface CasoPersonaService extends BaseService<DetCasoPersona, Long> {
 
 	public List<DetCasoPersona> buscar(DetCasoPersona caso);
 	
+	public void registrar(DetCasoPersona caso);
+	
+	
 }
