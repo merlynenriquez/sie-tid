@@ -92,7 +92,7 @@ public class PanelRegistroCaso extends DirandroComponent implements SelectedTabC
 		
 		pnlCasoPrincipal.setPadre(this);		
 		if(!caso.esNuevo()) {
-			//pnlCasoPrincipal.cargarFormulario();
+			pnlCasoPrincipal.cargarFormulario();
 			habilitarTab(true);
 		}
 	}

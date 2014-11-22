@@ -93,6 +93,17 @@ public class PanelRegistroCasoPrincipal extends CustomComponent implements Click
 		
 	}
 	
+	public void cargarFormulario(){
+		if(caso!=null){
+			txtDescrpcion.setValue(caso.getDescripcion());
+			txtNombre.setValue(caso.getNombre());
+			lblNumero.setValue(caso.getNroCaso());
+			dtSituacion.setValue(caso.getFecha());
+			cmbSituacion.select(caso.getSituacion());
+		}
+		
+	}
+	
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnGrabar)) {

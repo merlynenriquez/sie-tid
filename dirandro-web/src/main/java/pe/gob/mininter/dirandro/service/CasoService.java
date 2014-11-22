@@ -15,4 +15,5 @@ public interface CasoService extends BaseService<Caso, Long> {
 	
 	public Map<String, List<Caso>> filtrarCasos(List<Caso> lstCasos);
 	
+	public List<Caso> buscarBandeja(Map<String, Object> map);
 }

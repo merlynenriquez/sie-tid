@@ -63,6 +63,51 @@ public class CasoServiceImpl extends BaseServiceImpl<Caso, Long> implements Caso
 		caso.setNroCaso(numeroCaso);
 		super.actualizar(caso);
 	}
+
+	@Override
+	public List<Caso> buscarBandeja(Map<String, Object> map) {
+		Busqueda filtro = Busqueda.forClass(Caso.class);
+		if(map!=null){
+			
+//			if(StringUtils.isNotBlank((String)map.get(PanelBandejaPericias.COLUMNA_EXPEDIENTE))) {
+//				filtro.createAlias("muestra", "m");
+//				filtro.createAlias("m.hojaremision", "hr");
+//				addILikeRestrictions(filtro, "hr.expediente", "ex", "autogenerado", (String)map.get(PanelBandejaPericias.COLUMNA_EXPEDIENTE));
+//			}
+//			if(StringUtils.isNotBlank((String)map.get(PanelBandejaPericias.COLUMNA_TIPO_HR))) {
+//				filtro.createAlias("muestra", "m");
+//				filtro.createAlias("m.hojaremision", "hr");
+//				addILikeRestrictions(filtro, "hr.tipoHr", "th", "nombre", (String)map.get(PanelBandejaPericias.COLUMNA_TIPO_HR));
+//			}
+//			if(StringUtils.isNotBlank((String)map.get(PanelBandejaPericias.COLUMNA_HOJA_REMISION))) {
+//				filtro.createAlias("muestra", "m");
+//				addILikeRestrictions(filtro, "m.hojaRemision", "hr", "numero", (String)map.get(PanelBandejaPericias.COLUMNA_HOJA_REMISION));
+//			}
+//			/*
+//			 * No se puede xq no es campo
+//			 * if(StringUtils.isNotBlank((String)map.get(PanelBandejaPericias.COLUMNA_TIPO_MUESTRA))) {
+//				filtro.createAlias("muestra", "m");
+//				addILikeRestrictions(filtro, "m.", "tm", "autogenerado", (String)map.get(PanelBandejaPericias.COLUMNA_TIPO_MUESTRA));
+//			}*/
+//			if(StringUtils.isNotBlank((String)map.get(PanelBandejaPericias.COLUMNA_TIPO_MUESTRA_NOMBRE))) {
+//				
+//				filtro.createAlias("muestra", "mu");
+//				
+//				filtro.add(Restrictions.or(
+//						Restrictions.ilike("mu.droga.tipoDroga.nombre", (String)map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA), MatchMode.ANYWHERE),
+//						Restrictions.ilike("mu.especie.nombre", (String)map.get(PanelBandejaHojaRemision.COLUMNA_PERSONA), MatchMode.ANYWHERE)
+//				));
+//			
+//			}
+//			/*addILikeRestrictions(filtro, "destino", "de", "nombre", (String)map.get(PanelBandejaPericias.COLUMNA_DEPENDENCIA_DESTINO));
+//			addBetweenGeLeRestrictions(filtro, "fechaPeritaje", (Date)map.get(PanelBandejaPericias.COLUMNA_FECHA_EMISION+TablaFiltro.KEY_INICIAL), 
+//					(Date)map.get(PanelBandejaPericias.COLUMNA_FECHA_EMISION+TablaFiltro.KEY_FINAL));
+//			addILikeRestrictions(filtro, "estado", (String)map.get(PanelBandejaPericias.COLUMNA_NUMERO));
+//			*/
+			
+		}
+		return casoHibernate.buscar(filtro);	
+	}
  
 	
 }
