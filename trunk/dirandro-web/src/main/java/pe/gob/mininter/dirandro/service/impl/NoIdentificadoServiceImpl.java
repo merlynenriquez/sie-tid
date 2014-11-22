@@ -35,4 +35,5 @@ public class NoIdentificadoServiceImpl extends BaseServiceImpl<NoIdentificado, L
 		return noIdentificadoHibernate.buscar(filtro);
 	}
 
+
 }

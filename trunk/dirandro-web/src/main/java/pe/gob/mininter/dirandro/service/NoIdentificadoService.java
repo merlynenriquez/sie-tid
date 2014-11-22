@@ -8,5 +8,5 @@ import pe.gob.mininter.dirandro.model.NoIdentificado;
 public interface NoIdentificadoService extends BaseService<NoIdentificado, Long> {
 
 	List<NoIdentificado> cargarDelExpediente(Expediente expediente);
-
+	
 }

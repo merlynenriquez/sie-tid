@@ -6,8 +6,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import pe.gob.mininter.dirandro.model.Caso;
+import pe.gob.mininter.dirandro.model.DetCasoPersona;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.NoIdentificado;
+import pe.gob.mininter.dirandro.service.CasoPersonaService;
 import pe.gob.mininter.dirandro.service.NoIdentificadoService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
@@ -64,15 +66,11 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 	private final static Logger logger = Logger.getLogger(PanelRegistroCasoNoIdentificado.class);
 	private IndexedContainer container;
 	private Caso caso;
+	private boolean inicializado=false;
+	private CasoPersonaService casoPersonaService;
+	private NoIdentificado noIdentificado;
+	private DetCasoPersona participante;
 	
-	public Caso getCaso() {
-		return caso;
-	}
-
-	public void setCaso(Caso caso) {
-		this.caso = caso;
-	}
-
 	private static final String COLUMN_ALIAS = "COLUMN_ALIAS";
 	private static final String COLUMN_NOMBRES = "COLUMN_NOMBRES";
 	private static final String COLUMN_APELLIDOS = "COLUMN_APELLIDOS";
@@ -81,14 +79,18 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 	private static final String COLUMN_SEXO = "COLUMN_SEXO";
 	private static final String COLUMN_NO_IDENTIFICADO = "COLUMN_NO_IDENTIFICADO";
 	
-	private Expediente expediente;
-	private boolean inicializado=false;
-	private NoIdentificadoService noIdentificadoService;
-	private NoIdentificado noIdentificado;
+	public Caso getCaso() {
+		return caso;
+	}
+	public void setCaso(Caso caso) {
+		this.caso = caso;
+		postConstruct();
+	}
 	
 	public PanelRegistroCasoNoIdentificado() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
+		casoPersonaService = Injector.obtenerServicio(CasoPersonaService.class);
 		postConstruct();
 	}
 	
@@ -96,16 +98,11 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 	public void attach() {
 		super.attach();
 	}
-
-	public void setExpediente(Expediente expediente) {
-		this.expediente = expediente;
-		postConstruct();
-	}
-
+	
 	public void postConstruct() {
-		if(expediente!=null && !expediente.esNuevo() && !inicializado){
+		if(caso!=null && !caso.esNuevo() && !inicializado){
 			logger.debug("esto es postconstruct");
-			noIdentificadoService = Injector.obtenerServicio(NoIdentificadoService.class);
+			
 			cmbPNIOrientacionSexual.setCodigoLista(Constante.LISTA.CODIGO.ORIENTACION_SEXUAL);
 			cmbPNIOrientacionSexual.setInputPrompt("Orientación Sexual");
 			cmbPNIOrientacionSexual.attach();
@@ -131,7 +128,7 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 		container.addContainerProperty(COLUMN_ORIENTACION_SEX, String.class, null);
 		container.addContainerProperty(COLUMN_EDAD, String.class, null);
 		container.addContainerProperty(COLUMN_SEXO, String.class, null);
-		container.addContainerProperty(COLUMN_NO_IDENTIFICADO, NoIdentificado.class, null);
+		container.addContainerProperty(COLUMN_NO_IDENTIFICADO, DetCasoPersona.class, null);
 		
 		tblNoIdentidifacos.setContainerDataSource(container);
 		tblNoIdentidifacos.setColumnHeader(COLUMN_ALIAS,"Alias");
@@ -165,7 +162,8 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 					limpiar();
 				}else {
 					Item item = tblNoIdentidifacos.getItem(tblNoIdentidifacos.getValue());
-					noIdentificado = (NoIdentificado)item.getItemProperty(COLUMN_NO_IDENTIFICADO).getValue(); 
+					participante = (DetCasoPersona)item.getItemProperty(COLUMN_NO_IDENTIFICADO).getValue(); 
+					noIdentificado = participante.getNoIdentificado();
 					llenarCamposNoIdentificado();
 				}
 			}
@@ -188,16 +186,23 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 		
 		container.removeAllItems();
 
-		List<NoIdentificado> noIdentificados = noIdentificadoService.cargarDelExpediente(expediente);
-		for (NoIdentificado noIdentificado : noIdentificados) {
-			Item item = container.addItem(noIdentificado.getId());
+		DetCasoPersona nn = new DetCasoPersona();
+		nn.setCaso(caso);
+		List<DetCasoPersona> noIdentificados = casoPersonaService.buscar(nn);
+		NoIdentificado noIdentificado = null;
+		
+		for (DetCasoPersona part : noIdentificados) {
+			
+			Item item = container.addItem(part.getId());
+			noIdentificado = part.getNoIdentificado();
 			item.getItemProperty(COLUMN_ALIAS).setValue(noIdentificado.getAlias());
 			item.getItemProperty(COLUMN_NOMBRES).setValue(noIdentificado.getNombres());
 			item.getItemProperty(COLUMN_APELLIDOS).setValue(noIdentificado.getApellidos());
 			item.getItemProperty(COLUMN_ORIENTACION_SEX).setValue(noIdentificado.getOrientacionSexual() != null ? noIdentificado.getOrientacionSexual().getNombre() : StringUtils.EMPTY);
 			item.getItemProperty(COLUMN_EDAD).setValue(noIdentificado.getEdadAprox() != null ? ""+noIdentificado.getEdadAprox().intValue() : StringUtils.EMPTY);
-			item.getItemProperty(COLUMN_NO_IDENTIFICADO).setValue(noIdentificado);
+			item.getItemProperty(COLUMN_NO_IDENTIFICADO).setValue(part);
 			item.getItemProperty(COLUMN_SEXO).setValue(noIdentificado.getSexo());
+			
 		}
 	}
 
@@ -218,14 +223,17 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 		}
 		noIdentificado.setSexo( rbSexo.getValue()!= null ? rbSexo.getValue().toString() : StringUtils.EMPTY );
 		noIdentificado.setEdadAprox(HarecUtil.toBigDecimal(txtPNIEdad.getValue())); 
-		noIdentificado.setExpediente(expediente);
+		
+		participante.setObservacion(null);
+		participante.setSituacion(null);
+		participante.setNoIdentificado(noIdentificado);
 		
 		AlertDialog alertDialog = null;
-		if(noIdentificado.esNuevo()){
-			noIdentificadoService.crear(noIdentificado);	
+		if(participante.esNuevo()){
+			casoPersonaService.registrar(participante);	
 			alertDialog = new  AlertDialog("Registro de Persona no identificada", "Se ha registrado a la persona correctamente", "Aceptar", "400");
 		}else{
-			noIdentificadoService.actualizar(noIdentificado);
+			casoPersonaService.actualizar(participante);
 			alertDialog = new  AlertDialog("Registro de Persona no identificada", "Se ha actualizado a la persona correctamente", "Aceptar", "400");
 		}
 		getApplication().getMainWindow().addWindow(alertDialog);
@@ -236,12 +244,15 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 	}
 
 	private void limpiar() {
+		noIdentificado = new NoIdentificado();
+		participante = new DetCasoPersona();
+		participante.setCaso(caso);
+		participante.setNoIdentificado(noIdentificado);
 		txtPNIAlias.setValue(StringUtils.EMPTY);
 		txtPNINombres.setValue(StringUtils.EMPTY);
 		txtPNIApellidos.setValue(StringUtils.EMPTY);
 		txtPNIEdad.setValue(StringUtils.EMPTY);
 		cmbPNIOrientacionSexual.select(null);
-		this.noIdentificado = new NoIdentificado();
 	}
 
 	@AutoGenerated
