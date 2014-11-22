@@ -21,6 +21,7 @@ import pe.gob.mininter.dirandro.model.Usuario;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.util.PlantillaVelocity;
+import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaCasos;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaHojaRemision;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaNotaInformativa;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaPericias;
@@ -248,6 +249,11 @@ public class PanelPrincipal extends CustomComponent implements Command{
 				lblTituloPanel.setValue("<h2>Registro de Caso</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroCaso(acciones, "-1px"));
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_BAN_CA)){
+				lblTituloPanel.setValue("<h2>Bandeja de Casos</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBandejaCasos(acciones, "-1px"));
 			}
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_DI)){
 				lblTituloPanel.setValue("<h2>Registro de Documento de Inteligencia</h2>");

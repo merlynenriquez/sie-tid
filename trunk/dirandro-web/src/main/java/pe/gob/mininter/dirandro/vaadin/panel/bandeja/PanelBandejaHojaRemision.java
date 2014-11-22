@@ -1,18 +1,14 @@
 package pe.gob.mininter.dirandro.vaadin.panel.bandeja;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Hojaremision;
 import pe.gob.mininter.dirandro.model.Opcion;
-import pe.gob.mininter.dirandro.service.HojaRemisionService;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroHojaRem;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
-import pe.gob.mininter.dirandro.vaadin.util.Injector;
 import pe.gob.mininter.dirandro.vaadin.util.TablaFiltro;
 import pe.gob.mininter.dirandro.vaadin.util.container.TablaFiltroIndexedContainer;
 import pe.gob.mininter.dirandro.vaadin.util.container.TablaFiltroIndexedContainer.TipoComponente;
@@ -89,9 +85,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 	private static final long serialVersionUID = -3860689794611254325L;
 	
 	private TablaFiltroIndexedContainer container;
-	
-	private HojaRemisionService hojaRemisionService;	
-	
+		
 	private List<Opcion> acciones;
 
 	
@@ -111,8 +105,6 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 		
-		hojaRemisionService = Injector.obtenerServicio(HojaRemisionService.class);
-
 		postConstruct();
 	}
 

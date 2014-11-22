@@ -333,6 +333,7 @@ public abstract class Constante {
 		public static final String CODIGO_EXP_REG_NI = "EXP_REG_NI";
 		public static final String CODIGO_EXP_BAN_NI = "EXP_BAN_NI";
 		public static final String CODIGO_EXP_REG_CA = "EXP_REG_CA";
+		public static final String CODIGO_EXP_BAN_CA = "EXP_BAN_CA";
 		public static final String CODIGO_EXP_REG_DI = "EXP_REG_DI";
 		
 		// Menu Nro 3 (Busqueda de Tablas)
