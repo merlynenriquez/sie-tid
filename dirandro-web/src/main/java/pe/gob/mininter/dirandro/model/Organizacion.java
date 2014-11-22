@@ -59,6 +59,10 @@ public class Organizacion extends AuditoriaBean implements Validador, Serializab
 	public Organizacion() {
 	}
 
+	public Organizacion(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
