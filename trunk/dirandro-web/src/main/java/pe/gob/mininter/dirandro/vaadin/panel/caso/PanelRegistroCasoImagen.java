@@ -153,7 +153,7 @@ public class PanelRegistroCasoImagen extends CustomComponent implements ClickLis
 			cmbTipoAdjunto.attach();
 			
 			uploadImagen.setImmediate(true);
-			uploadImagen.setButtonCaption("Adjuntar Imagen");
+			uploadImagen.setButtonCaption("Seleccionar Imagen");
 			uploadImagenAddListener();
 			
 			container = new IndexedContainer();

@@ -116,6 +116,7 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 			inicializado=true;
 			cargarNoIdentificados();
 			limpiar();
+			habilitarEdicion(false);
 		}
 	}
 	
@@ -159,8 +160,10 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 				boolean esModoNuevo = tblNoIdentidifacos.getValue() == null;
 				if(esModoNuevo){
 					tblNoIdentidifacos.setValue(null);
+					habilitarEdicion(false);
 					limpiar();
 				}else {
+					habilitarEdicion(true);
 					Item item = tblNoIdentidifacos.getItem(tblNoIdentidifacos.getValue());
 					participante = (DetCasoPersona)item.getItemProperty(COLUMN_NO_IDENTIFICADO).getValue(); 
 					noIdentificado = participante.getNoIdentificado();
@@ -192,9 +195,11 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 		NoIdentificado noIdentificado = null;
 		
 		for (DetCasoPersona part : noIdentificados) {
-			
-			Item item = container.addItem(part.getId());
 			noIdentificado = part.getNoIdentificado();
+			if(noIdentificado==null){
+				continue;
+			}
+			Item item = container.addItem(part.getId());
 			item.getItemProperty(COLUMN_ALIAS).setValue(noIdentificado.getAlias());
 			item.getItemProperty(COLUMN_NOMBRES).setValue(noIdentificado.getNombres());
 			item.getItemProperty(COLUMN_APELLIDOS).setValue(noIdentificado.getApellidos());
@@ -241,6 +246,14 @@ public class PanelRegistroCasoNoIdentificado extends CustomComponent implements 
 		cargarNoIdentificados();
 		limpiar();
 		
+	}
+	
+	private void habilitarEdicion(boolean flag){
+		if(flag){
+			btnPNIGrabar.setCaption("Actualizar");
+		}else{
+			btnPNIGrabar.setCaption("Agregar");
+		}
 	}
 
 	private void limpiar() {
