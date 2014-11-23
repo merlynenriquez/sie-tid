@@ -2583,9 +2583,9 @@ create table SIETID.INT_AERODROMO
    EMPRESA              NUMBER(16),
    AERONAVE_MAXIMA      NUMBER(16),
    UBICACION            NUMBER(16),
-   CREADOR              NUMBER(16),
-   CREACION             TIMESTAMP,
-   EDITOR               NUMBER(16)           not null,
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
 );
 
