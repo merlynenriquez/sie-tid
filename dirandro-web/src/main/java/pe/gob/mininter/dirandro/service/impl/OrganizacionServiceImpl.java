@@ -73,20 +73,23 @@ public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, Long>
 			if (organizacion.getNombre() != null && organizacion.getNombre() .length() > 0) {
 				filtro.add(Restrictions.ilike("nombre", organizacion.getNombre(), MatchMode.ANYWHERE));
 			}
-			if (organizacion.getZonaOperacion() != null && organizacion.getZonaOperacion().length() > 0) {
-				filtro.add(Restrictions.ilike("zonaOperacion", organizacion.getZonaOperacion(), MatchMode.ANYWHERE));
-			}
 			if (organizacion.getDescripcion()!= null && organizacion.getDescripcion().length() > 0) {
 				logger.debug("descripcion " + organizacion.getDescripcion());
 				filtro.add(Restrictions.ilike("descripcion", organizacion.getDescripcion(), MatchMode.ANYWHERE));
 			}
-			if ( !HarecUtil.nullToEmpty( organizacion.getUbicacionActivos()).equals("")) {
-				logger.debug("ubicacionActivos " + organizacion.getUbicacionActivos());
-				filtro.add(Restrictions.ilike("ubicacionActivos", organizacion.getUbicacionActivos(), MatchMode.ANYWHERE));
+			if (organizacion.getCampo() != null && organizacion.getCampo() .length() > 0) {
+				filtro.add(Restrictions.ilike("campo", organizacion.getCampo(), MatchMode.ANYWHERE));
+			}
+			if (organizacion.getZonaOperacion() != null && organizacion.getZonaOperacion().length() > 0) {
+				filtro.add(Restrictions.ilike("zonaOperacion", organizacion.getZonaOperacion(), MatchMode.ANYWHERE));
 			}
 			if ( !HarecUtil.nullToEmpty( organizacion.getNroIntegrantes() ).equals("")) {
 				logger.debug("nro integ " + organizacion.getNroIntegrantes() );
 				filtro.add(Restrictions.ge("nroIntegrantes", organizacion.getNroIntegrantes()));
+			}
+			if ( !HarecUtil.nullToEmpty( organizacion.getUbicacionActivos()).equals("")) {
+				logger.debug("ubicacionActivos " + organizacion.getUbicacionActivos());
+				filtro.add(Restrictions.ilike("ubicacionActivos", organizacion.getUbicacionActivos(), MatchMode.ANYWHERE));
 			}
 		}
 		return organizacionHibernate.buscar(filtro);		
