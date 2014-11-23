@@ -505,6 +505,9 @@ public abstract class HarecUtil {
 				if(StringUtils.isEmpty(valor.toString())){
 					return null;
 				}
+				if(valor instanceof BigDecimal){
+					return (BigDecimal)valor;
+				}
 				return new BigDecimal((String)valor);
 			}else{
 				return null; 

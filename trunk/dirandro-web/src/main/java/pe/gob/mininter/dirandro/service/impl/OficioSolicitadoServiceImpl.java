@@ -32,8 +32,12 @@ public class OficioSolicitadoServiceImpl extends BaseServiceImpl<OficioSolicitad
 			if (oficioSolicitado.getId() != null) {
 				filtro.add(Restrictions.ilike("id", oficioSolicitado.getId().toString(), MatchMode.ANYWHERE));
 			}
+			if(oficioSolicitado.getExpediente()!=null){
+				filtro.createAlias("expediente", "e");
+				filtro.add(Restrictions.eq("e.id", oficioSolicitado.getExpediente().getId()));
+			}
 		}
-		filtro.addOrder(Order.asc("codigo"));
+		filtro.addOrder(Order.asc("id"));
 		return oficioSolicitadoHibernate.buscar(filtro);
 	}
 
