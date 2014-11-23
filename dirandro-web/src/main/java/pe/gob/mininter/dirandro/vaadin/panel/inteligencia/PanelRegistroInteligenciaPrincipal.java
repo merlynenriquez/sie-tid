@@ -65,7 +65,14 @@ public class PanelRegistroInteligenciaPrincipal extends CustomComponent implemen
 	private Inteligencia inteligencia;
 	private ExpedienteService expedienteService;
 	private InteligenciaService inteligenciaService;
-
+	private PanelRegistroInteligencia padre;
+	
+	public PanelRegistroInteligencia getPadre() {
+		return padre;
+	}
+	public void setPadre(PanelRegistroInteligencia padre) {
+		this.padre = padre;
+	}
 	public Inteligencia getInteligencia() {
 		return inteligencia;
 	}
@@ -79,6 +86,17 @@ public class PanelRegistroInteligenciaPrincipal extends CustomComponent implemen
 		expedienteService = Injector.obtenerServicio(ExpedienteService.class);
 		inteligenciaService = Injector.obtenerServicio(InteligenciaService.class);
 		postConstruct();
+	}
+
+	public void cargarFormulario(){
+		if(inteligencia!=null){
+			//txtDescrpcion.setValue(caso.getDescripcion());
+			txtNombre.setValue(inteligencia.getNombre());
+			lblNumero.setValue(inteligencia.getAutogenerado());
+			//dtSituacion.setValue(caso.getFecha());
+			//cmbSituacion.select(caso.getSituacion());
+		}
+		
 	}
 
 	public void postConstruct(){
@@ -119,6 +137,9 @@ public class PanelRegistroInteligenciaPrincipal extends CustomComponent implemen
 		inteligencia.setNombre(txtNombre.getValue().toString());
 		inteligenciaService.registrarDocInteligencia(inteligencia);
 		lblAutogenerado.setValue("Nro Autogenerado : "+inteligencia.getAutogenerado());
+		padre.habilitarTab(true);
+		padre.setInteligencia(inteligencia);
+		
 	}
 
 	public void limpiar(){

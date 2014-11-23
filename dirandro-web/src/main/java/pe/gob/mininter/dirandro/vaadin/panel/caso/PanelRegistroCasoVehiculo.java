@@ -233,13 +233,7 @@ public class PanelRegistroCasoVehiculo extends CustomComponent implements ClickL
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton().equals(btnVehRegistrar)) {
 			pnlAgregarVehiculo = new PanelAgregarVehiculo();
-//			if(this.getParent().getParent()!=null){
-//				System.out.println("this.getParent().getParent()!=null uno");
-//				pnlAgregarVehiculo.setParent(this.getParent().getParent());
-//			}else{
-//				System.out.println("this.getParent().getParent() es null dos");
-//				pnlAgregarVehiculo.setParent(this.getParent());
-//			}
+
 			Window window=new Window(){
 				
 				private static final long serialVersionUID = 1L;
