@@ -1,9 +1,16 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.SituacionProceso;
+import pe.gob.mininter.dirandro.service.EmpresaService;
+import pe.gob.mininter.dirandro.service.PersonaService;
 import pe.gob.mininter.dirandro.service.SituacionProcesoService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -259,6 +266,8 @@ public class PanelSituacionProceso extends CustomComponent implements ClickListe
 	private DetExpedientePersona persona;
 	private Long id;
 	private SituacionProcesoService situacionProcesoService;
+	private PersonaService personaService;
+	private EmpresaService empresaService;
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -271,6 +280,8 @@ public class PanelSituacionProceso extends CustomComponent implements ClickListe
 		setCompositionRoot(mainLayout);
 		this.persona=persona;
 		situacionProcesoService=Injector.obtenerServicio(SituacionProcesoService.class);
+		empresaService=Injector.obtenerServicio(EmpresaService.class);
+		personaService=Injector.obtenerServicio(PersonaService.class);
 		postConstruct();
 	}
 	
@@ -282,10 +293,65 @@ public class PanelSituacionProceso extends CustomComponent implements ClickListe
 		if(situacionProceso!=null){
 			id=situacionProceso.getId();
 			cmbTipoResolucion.setValue(situacionProceso.getTipoResolucion());
+			txtNroResolucion.setValue(situacionProceso.getNroResolucion());
+			dtFechaResolucion.setValue(situacionProceso.getFechaResolucion());
+			txtNroExpediente.setValue(situacionProceso.getNroExpediente());
+			cmbTipoPena.setValue(situacionProceso.getTipoPena());
+			cmbTipoDelito.setValue(situacionProceso.getTipoDelito());
+			cmbTipoSentencia.setValue(situacionProceso.getTipoSentencia());
+			dtFechaSentencia.setValue(situacionProceso.getFechaSentencia());
+			dtFechaInicio.setValue(situacionProceso.getSentenciaInicio());
+			dtFechaFin.setValue(situacionProceso.getSentenciaTermino());
+			cmbCodigoProcesal.setValue(situacionProceso.getCodigoProcesal());
+			cmbTipoReparacion.setValue(situacionProceso.getTipoReparacionCivil());
+			txtImporteReparacion.setValue(situacionProceso.getImporteReparacionCivil());
+			txtImporteReparacionSolidario.setValue(situacionProceso.getImporteReparacionSolidario());
+			cmbTipoInhabitacion.setValue(situacionProceso.getTipoInhabitacion());
+			txtNroAnosInhabitado.setValue(situacionProceso.getNroAnoInhabitado());
+			txtNroMesInhabitado.setValue(situacionProceso.getNroMesInhabitado());
+			txtNroDiasInhabitado.setValue(situacionProceso.getNroDiaInhabitado());
+			txtNroDiasMulta.setValue(situacionProceso.getNroDiaMulta());
+			cmbEstablecimiento.setValue(situacionProceso.getEstablecimientoPenitenciario());
+			cmbTipoCondicion.setValue(situacionProceso.getTipoCondicionPena());
+			txtNroAnosPena.setValue(situacionProceso.getNroAnoPena());
+			txtNroMesPena.setValue(situacionProceso.getNroMesPena());
+			txtNroDiasPena.setValue(situacionProceso.getNroDiaPena());
 		}
 	}
 
 	public void postConstruct() {
+		DateFormat dt=new SimpleDateFormat("dd/MM/yyyy");
+		txtNroParte.setValue(persona.getExpediente().getAutogenerado());
+		txtNroParte.setEnabled(false);
+		txtNroLegajo.setEnabled(false);
+		if(persona.getExpediente().getFechaRegistro()!=null){
+			txtFechaParte.setValue(dt.format(persona.getExpediente().getFechaRegistro()));	
+		}
+		txtFechaParte.setEnabled(false);
+		txtNombreCaso.setValue(persona.getExpediente().getNombreCaso());
+		txtNombreCaso.setEnabled(false);
+		txtFechaHecho.setEnabled(false);
+
+		persona.setEmpresaInvolucrada(empresaService.obtener(persona.getCodigoParticipante()));
+		persona.setInvolucrado(personaService.obtener(persona.getCodigoParticipante()));
+		
+		txtTipoDctoId.setValue(persona.getInvolucrado().getTipoDocumento()==null?
+				null:persona.getInvolucrado().getTipoDocumento().getNombre());
+		txtTipoDctoId.setEnabled(false);
+		txtNroDctoId.setValue(persona.getInvolucrado().getNroDocumento());
+		txtNroDctoId.setEnabled(false);
+		txtRazonSocial.setValue(persona.getEmpresaInvolucrada()==null?
+				null:persona.getEmpresaInvolucrada().getRazonSocial());
+		txtRazonSocial.setEnabled(false);
+		txtApPaterno.setValue(persona.getInvolucrado().getApePaterno());
+		txtApPaterno.setEnabled(false);
+		txtApMaterno.setValue(persona.getInvolucrado().getApeMaterno());
+		txtApMaterno.setEnabled(false);
+		txtNombres.setValue(persona.getInvolucrado().getNombres());
+		txtNombres.setEnabled(false);
+		txtAliasActor.setValue(persona.getAlias());
+		txtAliasActor.setEnabled(false);
+		txtDireccion.setEnabled(false);
 		
 		cmbTipoResolucion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
 		cmbTipoResolucion.setInputPrompt("Tipo Resolucion");
@@ -326,6 +392,29 @@ public class PanelSituacionProceso extends CustomComponent implements ClickListe
 			situacionProceso.setId(id);
 			situacionProceso.setProcesado(persona);
 			situacionProceso.setTipoResolucion(cmbTipoResolucion.getValor());
+			situacionProceso.setNroResolucion((String)txtNroResolucion.getValue());
+			situacionProceso.setFechaResolucion((Date)dtFechaResolucion.getValue());
+			situacionProceso.setNroExpediente((String)txtNroExpediente.getValue());
+			situacionProceso.setTipoPena(cmbTipoPena.getValor());
+			situacionProceso.setTipoDelito(cmbTipoDelito.getValor());
+			situacionProceso.setTipoSentencia(cmbTipoSentencia.getValor());
+			situacionProceso.setFechaSentencia((Date)dtFechaSentencia.getValue());
+			situacionProceso.setSentenciaInicio((Date)dtFechaInicio.getValue());
+			situacionProceso.setSentenciaTermino((Date)dtFechaFin.getValue());
+			situacionProceso.setCodigoProcesal(cmbCodigoProcesal.getValor());
+			situacionProceso.setTipoReparacionCivil(cmbTipoReparacion.getValor());
+			situacionProceso.setImporteReparacionCivil(HarecUtil.toBigDecimal(txtImporteReparacion.getValue()));
+			situacionProceso.setImporteReparacionSolidario(HarecUtil.toBigDecimal(txtImporteReparacionSolidario.getValue()));
+			situacionProceso.setTipoInhabitacion(cmbTipoInhabitacion.getValor());
+			situacionProceso.setNroAnoInhabitado(HarecUtil.toBigDecimal(txtNroAnosInhabitado.getValue()));
+			situacionProceso.setNroMesInhabitado(HarecUtil.toBigDecimal(txtNroMesInhabitado.getValue()));
+			situacionProceso.setNroDiaInhabitado(HarecUtil.toBigDecimal(txtNroDiasInhabitado.getValue()));
+			situacionProceso.setNroDiaMulta(HarecUtil.toBigDecimal(txtNroDiasMulta.getValue()));
+			situacionProceso.setEstablecimientoPenitenciario(cmbEstablecimiento.getValor());
+			situacionProceso.setTipoCondicionPena(cmbTipoCondicion.getValor());
+			situacionProceso.setNroAnoPena(HarecUtil.toBigDecimal(txtNroAnosPena.getValue()));
+			situacionProceso.setNroMesPena(HarecUtil.toBigDecimal(txtNroMesPena.getValue()));
+			situacionProceso.setNroDiaPena(HarecUtil.toBigDecimal(txtNroDiasPena.getValue()));
 			if(situacionProceso.getId()==null){
 				situacionProcesoService.crear(situacionProceso);
 			}else{
