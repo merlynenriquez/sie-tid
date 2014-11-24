@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,11 +35,9 @@ public class CasoServiceImpl extends BaseServiceImpl<Caso, Long> implements Caso
 	public List<Caso> buscar(Caso caso) {
 		Busqueda filtro = Busqueda.forClass(Caso.class);		
 		if(caso!=null){
-//			if(caso.getPersona()!=null){
-//				if(caso.getPersona().getId()!=null){
-//					filtro.add(Restrictions.eq("persona.id", correo.getPersona().getId()));			
-//				}
-//			}
+			if(caso.getId()!=null){
+				filtro.add(Restrictions.eq("id", caso.getId()));			
+			}
 		}
 		return casoHibernate.buscar(filtro);
 	}

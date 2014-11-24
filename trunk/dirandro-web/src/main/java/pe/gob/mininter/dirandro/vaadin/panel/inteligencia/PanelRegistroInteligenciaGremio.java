@@ -1,8 +1,12 @@
 package pe.gob.mininter.dirandro.vaadin.panel.inteligencia;
 
+import java.util.List;
+
+import pe.gob.mininter.dirandro.dao.hibernate.impl.DetalleGremioInteligenciaHibernateImpl;
 import pe.gob.mininter.dirandro.model.DetGremioCocalero;
 import pe.gob.mininter.dirandro.model.GremioCocalero;
 import pe.gob.mininter.dirandro.model.Inteligencia;
+import pe.gob.mininter.dirandro.service.DetalleGremioInteligenciaService;
 import pe.gob.mininter.dirandro.service.GremioService;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarGremio;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
@@ -49,10 +53,10 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 	private IndexedContainer container;
 	private Inteligencia inteligencia;
 	private DetGremioCocalero detalleGremio;
-	
+	private List<DetGremioCocalero> lstGremio;
 	private boolean inicializado=false;
 	private GremioService gremioService;
-	
+	private DetalleGremioInteligenciaService detalleGremioInteligenciaService;
 	private PanelAgregarGremio panelAgregarGremio;
 	
 	public Inteligencia getInteligencia() {
@@ -75,6 +79,7 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 	public PanelRegistroInteligenciaGremio() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
+		detalleGremioInteligenciaService= Injector.obtenerServicio(DetalleGremioInteligenciaService.class);
 		gremioService = Injector.obtenerServicio(GremioService.class);
 		postConstruct();
 	}
@@ -85,6 +90,11 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 			cmbGremio.setInputPrompt("Gremio Cocalero");
 			cmbGremio.setItemCaptionPropertyId("nombre");
 			actualizaListaGremios(); 
+			
+			container = new IndexedContainer();
+			container.addContainerProperty("id", Long.class, null);
+			container.addContainerProperty("gremio", GremioCocalero.class, null);
+			container.addContainerProperty("gremio.nombre", String.class, null);
 			
 			tblGremio.setSelectable(true);
 			tblGremio.setImmediate(true);
@@ -101,20 +111,17 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 					habilitarEdicion(!esModoNuevo);
 					if (!esModoNuevo) {
 						Item item = tblGremio.getItem(tblGremio.getValue());
-//						casoVehiculo.setId((Long) item.getItemProperty("id").getValue());
-//						txtTipodeUso.setValue(item.getItemProperty("tipoUso").getValue() != null ? item.getItemProperty("tipoUso").getValue().toString() : StringUtils.EMPTY);
-//						txaObservacion.setValue(item.getItemProperty("observacion").getValue() != null ? item.getItemProperty("observacion").getValue().toString() : StringUtils.EMPTY);
-//						
-//						cmbEstadoDato.select(new Valor((Long) item.getItemProperty("estado.id").getValue()));
-//						cmbVehVehiculo.select(new Vehiculo((Long)item.getItemProperty("vehiculo.id").getValue()));
-//						cmbPropietario.select(new Persona((Long)item.getItemProperty("propietario.id").getValue()));
-//						cmbParticipacion.select(new Valor((Long) item.getItemProperty("participacion.id").getValue()));
+						
+						detalleGremio.setId((Long) item.getItemProperty("id").getValue());
+						cmbGremio.select((GremioCocalero) item.getItemProperty("gremio").getValue());
 					}
 				}
 			});
 			
 			btnAgregar.addListener((ClickListener)this);
 			btnNuevo.addListener((ClickListener)this);
+			
+			llenaPanel();
 			
 			limpiar();
 			habilitarEdicion(false);
@@ -123,10 +130,41 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 		}
 	}
 		
+	private void llenaPanel(){
+		DetGremioCocalero detGrem = new DetGremioCocalero();
+		detGrem.setInteligencia(inteligencia);
+		lstGremio = detalleGremioInteligenciaService.buscar(detGrem);
+		container.removeAllItems();
+		int con=1;
+		if ( lstGremio != null) {
+	    	 for (DetGremioCocalero imagen: lstGremio) {
+	             Item item = container.addItem(con++);
+	             item.getItemProperty("id").setValue(imagen.getId());
+	             item.getItemProperty("gremio").setValue(imagen.getGremioCocalero());
+	             item.getItemProperty("gremio.nombre").setValue(imagen.getGremioCocalero().getNombre());
+	           				
+	        }
+	    }
+		
+		tblGremio.setContainerDataSource(container);
+		tblGremio.setVisibleColumns(new Object[]{"gremio.nombre"});
+
+	}
+	
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnAgregar)) {
-		
+			
+			detalleGremio.setGremioCocalero((GremioCocalero)cmbGremio.getValue());
+			
+			if(detalleGremio.esNuevo()){
+				detalleGremioInteligenciaService.crear(detalleGremio);	
+			}else{
+				detalleGremioInteligenciaService.actualizar(detalleGremio);
+			}
+			
+			limpiar();
+			llenaPanel();
 			return;
 		}
 		if(event.getButton().equals(btnNuevo)) {
