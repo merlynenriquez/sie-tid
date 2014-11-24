@@ -15,7 +15,6 @@ import org.apache.commons.lang.StringUtils;
 import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Caso;
 import pe.gob.mininter.dirandro.model.DetCasoImagen;
-import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.model.Valor;
 import pe.gob.mininter.dirandro.service.CasoImagenService;
@@ -44,12 +43,12 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.ProgressIndicator;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Upload;
-import com.vaadin.ui.Window;
 import com.vaadin.ui.Upload.FailedEvent;
 import com.vaadin.ui.Upload.FinishedEvent;
 import com.vaadin.ui.Upload.StartedEvent;
 import com.vaadin.ui.Upload.SucceededEvent;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 public class PanelRegistroCasoImagen extends CustomComponent implements ClickListener {
 

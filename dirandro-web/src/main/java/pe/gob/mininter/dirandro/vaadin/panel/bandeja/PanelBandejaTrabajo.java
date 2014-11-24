@@ -8,15 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
-
-
-
-
-
-
-
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Expediente;
@@ -28,6 +19,7 @@ import pe.gob.mininter.dirandro.util.FormBandejaTrabajo;
 import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.panel.PanelOficioSolicitadoEmpresa;
+import pe.gob.mininter.dirandro.vaadin.panel.informe.PanelRegistroInforme;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroAtestado;
 import pe.gob.mininter.dirandro.vaadin.panel.parte.PanelRegistroParte;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
@@ -89,10 +81,6 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 	private Action[] action = new Action[] {};
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
-
-	
-
-	
 
 	/**
 	 * 
@@ -270,6 +258,27 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 
 				if (action.equals(INFORME_GESTION)) {
 					System.out.println("abre panel para la PPTID");
+					 
+					Object objID = tblBandeja.getValue();
+					
+					Item item = container.getItem(objID);
+					
+					Expediente expedienteGrilla = (Expediente)item.getItemProperty(COLUMNA_EXPEDIENTE).getValue();
+					
+					Expediente expediente = expedienteService.obtener(expedienteGrilla.getId());
+					
+					PanelRegistroInforme panelRegistroParte = new PanelRegistroInforme(acciones, "-1px");
+					panelRegistroParte.setExpediente(expediente);					
+					
+					Window wdExpediente = new Window();
+					
+					wdExpediente.setModal(false);
+					wdExpediente.setResizable(false);
+					wdExpediente.addComponent(panelRegistroParte);
+						
+					wdExpediente.setCaption("Modificar Informe de Gestión Principal");
+					wdExpediente.setWidth("1050px");
+					getWindow().addWindow(wdExpediente);
 				}
 			}
 
