@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
@@ -44,6 +45,11 @@ public class RutaTid extends AuditoriaBean implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ORIGEN")
 	private Distrito origen;
+	
+	@Transient
+	public String getNombreCompleto(){
+		return  "ORIGEN: " + origen.getNombreCompleto()+" DESTINO: "+destino.getNombreCompleto();
+	}
 
 	public RutaTid() {
 	}
