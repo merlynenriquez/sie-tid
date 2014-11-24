@@ -113,7 +113,9 @@ public class PanelRegistroInteligencia extends DirandroComponent implements Sele
 			if(tabAerodromo.equals(event.getTabSheet().getSelectedTab())){
 				pnlAerodromo.setInteligencia(inteligencia);
 			}
-			
+			if(tabOrganizaciones.equals(event.getTabSheet().getSelectedTab())){
+				panelRegistroInteligenciaOrganizacion.setInteligencia(inteligencia);
+			}
 			if(tabGremio.equals(event.getTabSheet().getSelectedTab())){
 				pnlGremio.setInteligencia(inteligencia);
 			}
