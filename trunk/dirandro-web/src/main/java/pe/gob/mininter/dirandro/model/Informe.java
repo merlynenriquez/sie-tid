@@ -1,7 +1,7 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,18 +26,18 @@ public class Informe extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INF_INFORME_ID_GENERATOR", sequenceName="SEQ_INF_INFORME")
+	@SequenceGenerator(name="INF_INFORME_ID_GENERATOR", sequenceName="SEQ_INF_INFORME", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INF_INFORME_ID_GENERATOR")
 	private Long id;
 
 	@Column(name="FECHA_NOTIFICACION_EMISOR")
-	private Timestamp fechaNotificacionEmisor;
+	private Date fechaNotificacionEmisor;
 
 	@Column(name="FECHA_RECEPCION_NOTIFICACION")
-	private Timestamp fechaRecepcionNotificacion;
+	private Date fechaRecepcionNotificacion;
 
 	@Column(name="FECHA_RESOLUCION")
-	private Timestamp fechaResolucion;
+	private Date fechaResolucion;
 
 	@Column(name="NRO_RESOLUCION")
 	private String nroResolucion;
@@ -90,27 +90,27 @@ public class Informe extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getFechaNotificacionEmisor() {
+	public Date getFechaNotificacionEmisor() {
 		return fechaNotificacionEmisor;
 	}
 
-	public void setFechaNotificacionEmisor(Timestamp fechaNotificacionEmisor) {
+	public void setFechaNotificacionEmisor(Date fechaNotificacionEmisor) {
 		this.fechaNotificacionEmisor = fechaNotificacionEmisor;
 	}
 
-	public Timestamp getFechaRecepcionNotificacion() {
+	public Date getFechaRecepcionNotificacion() {
 		return fechaRecepcionNotificacion;
 	}
 
-	public void setFechaRecepcionNotificacion(Timestamp fechaRecepcionNotificacion) {
+	public void setFechaRecepcionNotificacion(Date fechaRecepcionNotificacion) {
 		this.fechaRecepcionNotificacion = fechaRecepcionNotificacion;
 	}
 
-	public Timestamp getFechaResolucion() {
+	public Date getFechaResolucion() {
 		return fechaResolucion;
 	}
 
-	public void setFechaResolucion(Timestamp fechaResolucion) {
+	public void setFechaResolucion(Date fechaResolucion) {
 		this.fechaResolucion = fechaResolucion;
 	}
 
