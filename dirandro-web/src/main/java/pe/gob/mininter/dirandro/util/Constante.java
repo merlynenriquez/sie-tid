@@ -104,6 +104,14 @@ public abstract class Constante {
 			public static final String INMUEBLE_TIPO_USO = "INM_T_USO";
 			/*Usados en Inteligencia*/
 			public static final String TIPO_RUTA_TID = "TIPO_RUTA";
+			/**Tipo de informe de gestion PPTID*/
+			public static final String TIPO_INFORME = "TIPO_INFORME";
+			/**tipo de resolucion de informe de gestion pptid*/
+			public static final String TIPO_RESOLUCION = "TIPO_RESOLUCION";
+			/**tipo de fuente informe de gestion pptid*/
+			public static final String TIPO_FUENTE = "TIPO_FUENTE";
+			/**tipo de medio de recepcion de informe pptid*/
+			public static final String TIPO_MEDIO_REC = "TIPO_MEDIO_REC";
 			
 		}
 	}
