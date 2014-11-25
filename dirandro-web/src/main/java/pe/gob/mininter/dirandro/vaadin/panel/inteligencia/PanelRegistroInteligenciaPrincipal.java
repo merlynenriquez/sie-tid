@@ -136,12 +136,9 @@ public class PanelRegistroInteligenciaPrincipal extends CustomComponent implemen
 		inteligencia.setExpediente(cmbExpediente.getValue() != null ? (Expediente) cmbExpediente.getValue() : null);
 		inteligencia.setFechaApertura((Date) dtFechaApertura.getValue());
 		inteligencia.setNombre(txtNombre.getValue().toString());
-		
-		AlertDialog alertDialog =null;
-		
 		inteligenciaService.registrarDocInteligencia(inteligencia);
 		
-		alertDialog = new  AlertDialog("Registro de Zona de Cultivo", "Se ha registrado la Zona de Cultivo correctamente", "Aceptar", "400");
+		AlertDialog alertDialog = new  AlertDialog("Registro el Informe de Inteligencia", "Se ha registrado el Informe de Inteligencia correctamente", "Aceptar", "400");
 		getApplication().getMainWindow().addWindow(alertDialog);
 		
 		lblAutogenerado.setValue("Nro Autogenerado : "+inteligencia.getAutogenerado());
