@@ -25,7 +25,7 @@ public class DetIntRuta extends AuditoriaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INT_DET_INT_RUTA_ID_GENERATOR", sequenceName="SEQ_INT_DET_INT_RUTA")
+	@SequenceGenerator(name="INT_DET_INT_RUTA_ID_GENERATOR", sequenceName="SEQ_INT_DET_INT_RUTA", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INT_DET_INT_RUTA_ID_GENERATOR")
 	private Long id;
 

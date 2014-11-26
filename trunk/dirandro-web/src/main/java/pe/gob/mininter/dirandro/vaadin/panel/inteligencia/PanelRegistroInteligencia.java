@@ -108,8 +108,7 @@ public class PanelRegistroInteligencia extends DirandroComponent implements Sele
 		if(event.getTabSheet().isEnabled()){
 			if(pnlRutaTID.equals(event.getTabSheet().getSelectedTab())){
 				pnlRutaTID.setInteligencia(inteligencia);
-			}	
-			
+			}			
 			if(tabAerodromo.equals(event.getTabSheet().getSelectedTab())){
 				pnlAerodromo.setInteligencia(inteligencia);
 			}
@@ -118,8 +117,10 @@ public class PanelRegistroInteligencia extends DirandroComponent implements Sele
 			}
 			if(tabGremio.equals(event.getTabSheet().getSelectedTab())){
 				pnlGremio.setInteligencia(inteligencia);
+			}			
+			if(tabZona.equals(event.getTabSheet().getSelectedTab())){
+				pnlZonaCultivo.setInteligencia(inteligencia);
 			}
-			
 		}
 	
 	}

@@ -2,7 +2,6 @@ package pe.gob.mininter.dirandro.vaadin.panel.inteligencia;
 
 import java.util.List;
 
-import pe.gob.mininter.dirandro.dao.hibernate.impl.DetalleGremioInteligenciaHibernateImpl;
 import pe.gob.mininter.dirandro.model.DetGremioCocalero;
 import pe.gob.mininter.dirandro.model.GremioCocalero;
 import pe.gob.mininter.dirandro.model.Inteligencia;
@@ -79,7 +78,7 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 	public PanelRegistroInteligenciaGremio() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-		detalleGremioInteligenciaService= Injector.obtenerServicio(DetalleGremioInteligenciaService.class);
+		detalleGremioInteligenciaService = Injector.obtenerServicio(DetalleGremioInteligenciaService.class);
 		gremioService = Injector.obtenerServicio(GremioService.class);
 		postConstruct();
 	}
