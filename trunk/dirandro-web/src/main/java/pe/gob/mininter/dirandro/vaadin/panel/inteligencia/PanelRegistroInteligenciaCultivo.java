@@ -9,6 +9,7 @@ import pe.gob.mininter.dirandro.model.Inteligencia;
 import pe.gob.mininter.dirandro.model.ZonaCultivo;
 import pe.gob.mininter.dirandro.service.DetalleZonaCultivoService;
 import pe.gob.mininter.dirandro.service.ZonaCultivoService;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarZonaCultivo;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -101,7 +102,9 @@ public class PanelRegistroInteligenciaCultivo extends CustomComponent  implement
 			container = new IndexedContainer();
 			container.addContainerProperty("id", Long.class, null);
 			container.addContainerProperty("zona", ZonaCultivo.class, null);
-			container.addContainerProperty("zona.nombre", String.class, null);
+			container.addContainerProperty("zona.tipo", String.class, null);
+			container.addContainerProperty("zona.hectareas", String.class, null);
+			container.addContainerProperty("zona.ubicacion", String.class, null);
 			container.addContainerProperty("zona.id", Long.class, null);
 			
 			tblCultivo.setSelectable(true);
@@ -195,18 +198,20 @@ public class PanelRegistroInteligenciaCultivo extends CustomComponent  implement
 		container.removeAllItems();
 		int con=1;
 		if ( lstZonaCultivo != null) {
-	    	 for (DetZonaCultivo imagen: lstZonaCultivo) {
+	    	 for (DetZonaCultivo zona: lstZonaCultivo) {
 	             Item item = container.addItem(con++);
-	             item.getItemProperty("id").setValue(imagen.getId());
-	             item.getItemProperty("zona").setValue(imagen.getZonaCultivo());
-	             item.getItemProperty("zona.id").setValue(imagen.getZonaCultivo().getId());
-	             item.getItemProperty("zona.nombre").setValue(imagen.getZonaCultivo().getDistrito());
+	             item.getItemProperty("id").setValue(zona.getId());
+	             item.getItemProperty("zona").setValue(zona.getZonaCultivo());
+	             item.getItemProperty("zona.id").setValue(zona.getZonaCultivo().getId());
+	             item.getItemProperty("zona.tipo").setValue(HarecUtil.valorNombreToEmpty(zona.getZonaCultivo().getTipoCultivo()));
+	             item.getItemProperty("zona.hectareas").setValue(HarecUtil.nullToEmpty(zona.getZonaCultivo().getHectareas()));
+	             item.getItemProperty("zona.ubicacion").setValue(zona.getZonaCultivo().getDistrito()!=null?zona.getZonaCultivo().getDistrito().getNombreCompleto():"");
 	           				
 	        }
 	    }
 		
 		tblCultivo.setContainerDataSource(container);
-		tblCultivo.setVisibleColumns(new Object[]{"zona.nombre", "zona.id"});
+		tblCultivo.setVisibleColumns(new Object[]{"zona.id","zona.tipo","zona.ubicacion","zona.hectareas"});
 
 	}
 	

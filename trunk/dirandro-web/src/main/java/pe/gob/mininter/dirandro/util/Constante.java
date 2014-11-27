@@ -112,6 +112,9 @@ public abstract class Constante {
 			public static final String TIPO_FUENTE = "TIPO_FUENTE";
 			/**tipo de medio de recepcion de informe pptid*/
 			public static final String TIPO_MEDIO_REC = "TIPO_MEDIO_REC";
+			/**Tipo de cultivo en zona de cultivo**/
+			public static final String TIPO_CULTIVO = "TIPO_CULTIVO";
+			
 			
 		}
 	}
