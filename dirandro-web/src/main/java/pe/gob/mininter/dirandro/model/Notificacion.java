@@ -1,7 +1,7 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,13 +31,13 @@ public class Notificacion extends AuditoriaBean implements Serializable {
 	private Long id;
 
 	@Column(name="FECHA_PLAZO")
-	private Timestamp fechaPlazo;
+	private Date fechaPlazo;
 
 	@Column(name="FECHA_RECEPCION")
-	private Timestamp fechaRecepcion;
+	private Date fechaRecepcion;
 
 	@Column(name="FECHA_VENCIMIENTO")
-	private Timestamp fechaVencimiento;
+	private Date fechaVencimiento;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -70,27 +70,27 @@ public class Notificacion extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getFechaPlazo() {
+	public Date getFechaPlazo() {
 		return fechaPlazo;
 	}
 
-	public void setFechaPlazo(Timestamp fechaPlazo) {
+	public void setFechaPlazo(Date fechaPlazo) {
 		this.fechaPlazo = fechaPlazo;
 	}
 
-	public Timestamp getFechaRecepcion() {
+	public Date getFechaRecepcion() {
 		return fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Timestamp fechaRecepcion) {
+	public void setFechaRecepcion(Date fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 
-	public Timestamp getFechaVencimiento() {
+	public Date getFechaVencimiento() {
 		return fechaVencimiento;
 	}
 
-	public void setFechaVencimiento(Timestamp fechaVencimiento) {
+	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 
