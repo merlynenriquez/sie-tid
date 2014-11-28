@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.DetIntRuta;
+import pe.gob.mininter.dirandro.model.DetZonaCultivo;
 import pe.gob.mininter.dirandro.model.Distrito;
 import pe.gob.mininter.dirandro.model.Inteligencia;
 import pe.gob.mininter.dirandro.model.RutaTid;
@@ -97,11 +98,15 @@ public class PanelRegistroInteligenciaRutaTID extends CustomComponent implements
 	
 	public void setInteligencia(Inteligencia inteligencia) {
 		this.inteligencia = inteligencia;
+		
 	}
 	
 	private void cargarRutasTID(){
 		limpiar();
-		List<DetIntRuta> lstDetRutaTID = detRutaTIDService.buscar(null);
+		
+		DetIntRuta detRuta = new DetIntRuta();
+		detRuta.setInteligencia(inteligencia);
+		List<DetIntRuta> lstDetRutaTID = detRutaTIDService.buscar(detRuta);
 		cargarRutasTID(lstDetRutaTID);
 	}
 
@@ -145,10 +150,12 @@ public class PanelRegistroInteligenciaRutaTID extends CustomComponent implements
 		if (event.getButton().equals(btnRegistrar)) {
 			DetIntRuta detIntRuta = new DetIntRuta();
 			detIntRuta.setRuta((RutaTid) cmbRutaTID.getValue());
+			System.out.println("inteligencia"+inteligencia);
 			detIntRuta.setInteligencia(inteligencia);
 			detIntRuta.setDescripcionOrigen(txaDescripcionOrigen.getValue() != null ? txaDescripcionOrigen.getValue().toString() : StringUtils.EMPTY);
 			detIntRuta.setDescripcionDestino(txaDescripcionDestino.getValue() != null ? txaDescripcionDestino.getValue().toString() : StringUtils.EMPTY);
 			detRutaTIDService.crear(detIntRuta);
+			cargarRutasTID();
 		}
 		
 		if (event.getButton().equals(btnAgregar)) {
