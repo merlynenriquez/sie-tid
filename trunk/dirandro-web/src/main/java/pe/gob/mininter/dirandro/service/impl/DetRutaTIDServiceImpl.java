@@ -2,6 +2,7 @@ package pe.gob.mininter.dirandro.service.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,16 @@ public class DetRutaTIDServiceImpl extends BaseServiceImpl<DetIntRuta, Long> imp
 	@Override
 	public List<DetIntRuta> buscar(DetIntRuta rutaTID) {
 		Busqueda filtro = Busqueda.forClass(DetIntRuta.class);
+		
+		if (rutaTID != null) {
+			
+			if(rutaTID.getInteligencia()!=null){
+				filtro.createAlias("inteligencia", "i");
+				if(rutaTID.getInteligencia().getId()!=null){
+					filtro.add(Restrictions.eq("i.id", rutaTID.getInteligencia().getId() ));			
+				}
+			}
+		}
 		
 		return detRutaTIDHibernate.buscar(filtro);
 	}

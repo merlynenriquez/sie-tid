@@ -106,7 +106,7 @@ public class PanelRegistroInteligencia extends DirandroComponent implements Sele
 	@Override
 	public void selectedTabChange(SelectedTabChangeEvent event) {
 		if(event.getTabSheet().isEnabled()){
-			if(pnlRutaTID.equals(event.getTabSheet().getSelectedTab())){
+			if(tabRutas.equals(event.getTabSheet().getSelectedTab())){
 				pnlRutaTID.setInteligencia(inteligencia);
 			}			
 			if(tabAerodromo.equals(event.getTabSheet().getSelectedTab())){

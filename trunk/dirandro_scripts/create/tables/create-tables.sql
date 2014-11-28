@@ -2667,7 +2667,7 @@ create table SIETID.INT_DET_INT_RUTA
    DESCRIPCION_DESTINO  NVARCHAR2(2000),
    CREADOR              NUMBER(16),
    CREACION             TIMESTAMP,
-   EDITOR               NUMBER(16)           not null,
+   EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
 );
 
@@ -2772,7 +2772,7 @@ create table SIETID.INT_RUTA
    DESCRIPCION          NVARCHAR2(2000),
    CREADOR              NUMBER(16),
    CREACION             TIMESTAMP,
-   EDITOR               NUMBER(16)           not null,
+   EDITOR               NUMBER(16),
    EDICION              TIMESTAMP
 );
 
@@ -5997,4 +5997,4 @@ alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
 
-quit;
+      quit;

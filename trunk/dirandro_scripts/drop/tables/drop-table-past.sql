@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     14/11/2014 1:16:02                           */
+/* Created on:     23/11/2014 0:08:43                           */
 /*==============================================================*/
 
 
@@ -9,6 +9,9 @@ alter table SIETID.AGE_CASO
 
 alter table SIETID.AGE_CASO
    drop constraint FK_AGE_CASO_EDITOR;
+
+alter table SIETID.AGE_CASO
+   drop constraint FK_AGE_CASO_SITUACION;
 
 alter table SIETID.AGE_DET_CASO_AGENTE
    drop constraint FK_AGE_DET_AGENTE;
@@ -1078,6 +1081,18 @@ alter table SIETID.INT_DET_INTELIGENCIA_NOTA
 alter table SIETID.INT_DET_INTELIGENCIA_NOTA
    drop constraint FK_INT_DET_NOTA_INT_EDITOR;
 
+alter table SIETID.INT_DET_INT_RUTA
+   drop constraint FK_INT_DET_INT_RUTA;
+
+alter table SIETID.INT_DET_INT_RUTA
+   drop constraint FK_INT_DET_RUTA_CREADOR;
+
+alter table SIETID.INT_DET_INT_RUTA
+   drop constraint FK_INT_DET_RUTA_EDITOR;
+
+alter table SIETID.INT_DET_INT_RUTA
+   drop constraint FK_INT_DET_RUTA_INTELIGENCIA;
+
 alter table SIETID.INT_DET_ORGANIZACION
    drop constraint FK_INT_DET_ORGA_INTELIGENCIA;
 
@@ -1115,10 +1130,28 @@ alter table SIETID.INT_GREMIO_COCALERO
    drop constraint FK_INT_GREM_UBICACION;
 
 alter table SIETID.INT_INTELIGENCIA
+   drop constraint FK_INT_INTELIGENCIA_EXPEDIENTE;
+
+alter table SIETID.INT_INTELIGENCIA
    drop constraint FK_INT_INTE_CREADOR;
 
 alter table SIETID.INT_INTELIGENCIA
    drop constraint FK_INT_INTE_EDITOR;
+
+alter table SIETID.INT_RUTA
+   drop constraint FK_INT_RUTA_CREADOR;
+
+alter table SIETID.INT_RUTA
+   drop constraint FK_INT_RUTA_DESTINO;
+
+alter table SIETID.INT_RUTA
+   drop constraint FK_INT_RUTA_EDITOR;
+
+alter table SIETID.INT_RUTA
+   drop constraint FK_INT_RUTA_ORIGEN;
+
+alter table SIETID.INT_RUTA
+   drop constraint FK_INT_RUTA_TIPO_TID;
 
 alter table SIETID.INT_ZONA_CULTIVO
    drop constraint FK_INT_ZONA_CREADOR;
@@ -1853,6 +1886,11 @@ alter table SIETID.INT_DET_INTELIGENCIA_NOTA
 
 drop table SIETID.INT_DET_INTELIGENCIA_NOTA cascade constraints;
 
+alter table SIETID.INT_DET_INT_RUTA
+   drop primary key cascade;
+
+drop table SIETID.INT_DET_INT_RUTA cascade constraints;
+
 alter table SIETID.INT_DET_ORGANIZACION
    drop primary key cascade;
 
@@ -1872,6 +1910,11 @@ alter table SIETID.INT_INTELIGENCIA
    drop primary key cascade;
 
 drop table SIETID.INT_INTELIGENCIA cascade constraints;
+
+alter table SIETID.INT_RUTA
+   drop primary key cascade;
+
+drop table SIETID.INT_RUTA cascade constraints;
 
 alter table SIETID.INT_ZONA_CULTIVO
    drop primary key cascade;
