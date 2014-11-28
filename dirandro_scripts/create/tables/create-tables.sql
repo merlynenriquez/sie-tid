@@ -2480,6 +2480,30 @@ alter table INF_NOTIFICACION
    add constraint PK_INF_NOTIFICACION primary key (ID);
 
 /*==============================================================*/
+/* Table: INF_ORG_EXHORTO                                       */
+/*==============================================================*/
+create table SIETID.INF_ORG_EXHORTO 
+(
+   ID                   NUMBER(16)           not null,
+   INFORME              NUMBER(16),
+   TABLA_ORIGEN         NUMBER(16),
+   CODIGO_ORIGEN        NUMBER(8),
+   TABLA_DESTINO        NUMBER(16),
+   CODIGO_DESTINO       NUMBER(8),
+   FECHA_SOLICITUD      TIMESTAMP,
+   FECHA_DILINGECIA     TIMESTAMP,
+   OBSERVACIONES        NVARCHAR2(2000),
+   ESTADO               NUMBER(16),
+   CREADOR              NUMBER(16)           not null,
+   CREACION             TIMESTAMP            not null,
+   EDITOR               NUMBER(16),
+   EDICION              TIMESTAMP
+);
+
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint PK_INF_ORG_EXHORTO primary key (ID);
+
+/*==============================================================*/
 /* Table: INF_SEGUIMIENTO_NOT                                   */
 /*==============================================================*/
 create table INF_SEGUIMIENTO_NOT 
@@ -5221,6 +5245,30 @@ alter table INF_NOTIFICACION
    add constraint FK_INF_NOTI_INFORME foreign key (INFORME)
       references SIETID.INF_INFORME (ID);
 
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_CREADOR foreign key (CREADOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_DESTINO foreign key (TABLA_DESTINO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_EDITOR foreign key (EDITOR)
+      references SIETID.SEG_USUARIO (ID);
+
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_INFORME foreign key (INFORME)
+      references SIETID.INF_INFORME (ID);
+
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_ORIGEN foreign key (TABLA_ORIGEN)
+      references SIETID.CFG_VALOR (ID);
+
 alter table INF_SEGUIMIENTO_NOT
    add constraint FK_INF_SEGUIMIENTO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -5996,5 +6044,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-
+      
       quit;
