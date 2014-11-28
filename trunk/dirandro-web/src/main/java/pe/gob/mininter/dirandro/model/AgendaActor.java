@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.math.BigDecimal;
 
 
@@ -26,9 +26,9 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 
 	private BigDecimal actor;
 
-	private Timestamp fecha;
+	private Date fecha;
 
-	private Timestamp hora;
+	private Date hora;
 
 	private String lugar;
 
@@ -66,19 +66,19 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 		this.actor = actor;
 	}
 
-	public Timestamp getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
-	public Timestamp getHora() {
+	public Date getHora() {
 		return hora;
 	}
 
-	public void setHora(Timestamp hora) {
+	public void setHora(Date hora) {
 		this.hora = hora;
 	}
 

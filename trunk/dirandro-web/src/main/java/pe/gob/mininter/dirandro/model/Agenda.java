@@ -1,7 +1,7 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class Agenda extends AuditoriaBean implements Serializable {
 	private Long id;
 
 	@Column(name="FECHA_EMISION")
-	private Timestamp fechaEmision;
+	private Date fechaEmision;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -59,11 +59,11 @@ public class Agenda extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getFechaEmision() {
+	public Date getFechaEmision() {
 		return fechaEmision;
 	}
 
-	public void setFechaEmision(Timestamp fechaEmision) {
+	public void setFechaEmision(Date fechaEmision) {
 		this.fechaEmision = fechaEmision;
 	}
 
