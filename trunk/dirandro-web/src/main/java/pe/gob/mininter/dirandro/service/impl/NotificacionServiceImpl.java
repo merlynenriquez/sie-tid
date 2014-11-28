@@ -29,6 +29,12 @@ public class NotificacionServiceImpl extends BaseServiceImpl<Notificacion, Long>
 	public List<Notificacion> buscar(Notificacion notificacion) {
 		Busqueda filtro = Busqueda.forClass(Notificacion.class);
 		
+		if(notificacion != null){
+			if(notificacion.getInforme()!=null){
+				filtro.createAlias("informe", "i");
+				filtro.add(Restrictions.eq("i.id", notificacion.getInforme().getId()));
+			}
+		}
 		/*if (aerodromo != null) {
 			if(aerodromo.getNombre()!=null && StringUtils.isNotBlank(aerodromo.getNombre())){
 				filtro.add(Restrictions.ilike("nombre", aerodromo.getNombre(), MatchMode.ANYWHERE));
@@ -53,10 +59,9 @@ public class NotificacionServiceImpl extends BaseServiceImpl<Notificacion, Long>
 				Restrictions.ilike("p.nombre", aerodromo.getUbicacion().getNombre(),MatchMode.ANYWHERE),
 				Restrictions.ilike("d.nombre", aerodromo.getUbicacion().getNombre(),MatchMode.ANYWHERE)));
 			}
-		}
+		}*/
 		
-		return aerodromoHibernate.buscar(filtro);*/
-		return null;
+		return notificacionHibernate.buscar(filtro);
 	}
 	
 }
