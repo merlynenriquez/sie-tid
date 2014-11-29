@@ -88,7 +88,7 @@ public class PanelSeleccionarEntidad extends CustomComponent {
 	}
 	
 	/**
-	 * devuelve el ID de la entidada o dependencia seleccionada
+	 * devuelve el ID de la entidad o dependencia seleccionada
 	 * @return
 	 */
 	public Long getIdentificador(){
@@ -96,7 +96,7 @@ public class PanelSeleccionarEntidad extends CustomComponent {
 			return getDependencia().getId();
 		}else{
 			if(cmbTipo.getValue()!=null)
-				return ((Entidad)cmbTipo.getValue()).getId();
+				return ((Valor)cmbTipo.getValue()).getId();
 		}
 		return null;
 	}

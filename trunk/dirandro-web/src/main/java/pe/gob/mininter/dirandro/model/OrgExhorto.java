@@ -1,8 +1,7 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,16 +31,16 @@ public class OrgExhorto extends AuditoriaBean implements Serializable {
 	private Long id;
 
 	@Column(name="CODIGO_DESTINO")
-	private BigDecimal codigoDestino;
+	private Long codigoDestino;
 
 	@Column(name="CODIGO_ORIGEN")
-	private BigDecimal codigoOrigen;
+	private Long codigoOrigen;
 
 	@Column(name="FECHA_DILINGECIA")
-	private Timestamp fechaDilingecia;
+	private Date fechaDilingecia;
 
 	@Column(name="FECHA_SOLICITUD")
-	private Timestamp fechaSolicitud;
+	private Date fechaSolicitud;
 
 	private String observaciones;
 
@@ -63,7 +62,7 @@ public class OrgExhorto extends AuditoriaBean implements Serializable {
 	//bi-directional many-to-one association to Informe
 	@ManyToOne
 	@JoinColumn(name="INFORME")
-	private Informe infInforme;
+	private Informe informe;
 
 
 	public OrgExhorto() {
@@ -80,42 +79,42 @@ public class OrgExhorto extends AuditoriaBean implements Serializable {
 	}
 
 
-	public BigDecimal getCodigoDestino() {
+	public Long getCodigoDestino() {
 		return codigoDestino;
 	}
 
 
-	public void setCodigoDestino(BigDecimal codigoDestino) {
+	public void setCodigoDestino(Long codigoDestino) {
 		this.codigoDestino = codigoDestino;
 	}
 
 
-	public BigDecimal getCodigoOrigen() {
+	public Long getCodigoOrigen() {
 		return codigoOrigen;
 	}
 
 
-	public void setCodigoOrigen(BigDecimal codigoOrigen) {
+	public void setCodigoOrigen(Long codigoOrigen) {
 		this.codigoOrigen = codigoOrigen;
 	}
 
 
-	public Timestamp getFechaDilingecia() {
+	public Date getFechaDilingecia() {
 		return fechaDilingecia;
 	}
 
 
-	public void setFechaDilingecia(Timestamp fechaDilingecia) {
+	public void setFechaDilingecia(Date fechaDilingecia) {
 		this.fechaDilingecia = fechaDilingecia;
 	}
 
 
-	public Timestamp getFechaSolicitud() {
+	public Date getFechaSolicitud() {
 		return fechaSolicitud;
 	}
 
 
-	public void setFechaSolicitud(Timestamp fechaSolicitud) {
+	public void setFechaSolicitud(Date fechaSolicitud) {
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
@@ -159,14 +158,12 @@ public class OrgExhorto extends AuditoriaBean implements Serializable {
 		this.destino = destino;
 	}
 
-
-	public Informe getInfInforme() {
-		return infInforme;
+	public Informe getInforme() {
+		return informe;
 	}
 
-
-	public void setInfInforme(Informe infInforme) {
-		this.infInforme = infInforme;
+	public void setInforme(Informe informe) {
+		this.informe = informe;
 	}
 
 	public boolean esNuevo(){
