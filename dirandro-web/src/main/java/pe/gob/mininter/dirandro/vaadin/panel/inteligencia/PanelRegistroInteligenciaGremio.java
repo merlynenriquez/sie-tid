@@ -7,6 +7,7 @@ import pe.gob.mininter.dirandro.model.GremioCocalero;
 import pe.gob.mininter.dirandro.model.Inteligencia;
 import pe.gob.mininter.dirandro.service.DetalleGremioInteligenciaService;
 import pe.gob.mininter.dirandro.service.GremioService;
+import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.vaadin.panel.util.PanelAgregarGremio;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -94,6 +95,9 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 			container.addContainerProperty("id", Long.class, null);
 			container.addContainerProperty("gremio", GremioCocalero.class, null);
 			container.addContainerProperty("gremio.nombre", String.class, null);
+			container.addContainerProperty("gremio.siglas", String.class, null);
+			container.addContainerProperty("gremio.ubicacion", String.class, null);
+			container.addContainerProperty("gremio.cuenca", String.class, null);
 			
 			tblGremio.setSelectable(true);
 			tblGremio.setImmediate(true);
@@ -141,12 +145,14 @@ public class PanelRegistroInteligenciaGremio extends CustomComponent  implements
 	             item.getItemProperty("id").setValue(imagen.getId());
 	             item.getItemProperty("gremio").setValue(imagen.getGremioCocalero());
 	             item.getItemProperty("gremio.nombre").setValue(imagen.getGremioCocalero().getNombre());
-	           				
+	             item.getItemProperty("gremio.siglas").setValue(imagen.getGremioCocalero().getSiglas());
+	             item.getItemProperty("gremio.ubicacion").setValue(imagen.getGremioCocalero().getDistrito()!=null?imagen.getGremioCocalero().getDistrito().getNombreCompleto():"");
+	             item.getItemProperty("gremio.cuenca").setValue(HarecUtil.valorNombreToEmpty(imagen.getGremioCocalero().getCuenca()));
 	        }
 	    }
 		
 		tblGremio.setContainerDataSource(container);
-		tblGremio.setVisibleColumns(new Object[]{"gremio.nombre"});
+		tblGremio.setVisibleColumns(new Object[]{"gremio.nombre","gremio.siglas","gremio.ubicacion","gremio.cuenca"});
 
 	}
 	
