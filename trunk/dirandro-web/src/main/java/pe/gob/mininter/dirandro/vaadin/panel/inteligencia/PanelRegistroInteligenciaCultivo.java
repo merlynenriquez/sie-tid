@@ -95,6 +95,7 @@ public class PanelRegistroInteligenciaCultivo extends CustomComponent  implement
 
 	private void postConstruct(){
 		if(inteligencia!=null && !inteligencia.esNuevo() && !inicializado){
+			
 			cmbCultivo.setInputPrompt("Zona de Cultivo");
 			cmbCultivo.setItemCaptionPropertyId("id");
 			actualizaListaZonas();
@@ -217,7 +218,7 @@ public class PanelRegistroInteligenciaCultivo extends CustomComponent  implement
 	
 	public void actualizaListaZonas() {
 		cmbCultivo.setContainerDataSource(new BeanItemContainer<ZonaCultivo>(ZonaCultivo.class,  zonaCultivoService.buscar(null)));
-		cmbCultivo.setItemCaptionPropertyId("id");
+		cmbCultivo.setItemCaptionPropertyId("nombreCompleto");
 		cmbCultivo.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
 		cmbCultivo.setImmediate(true);
 	}

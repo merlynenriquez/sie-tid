@@ -1,5 +1,6 @@
 package pe.gob.mininter.dirandro.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -76,6 +77,13 @@ public class ZonaCultivo extends AuditoriaBean implements Serializable {
 		this.distrito = distrito;
 	}
 
+	@Transient
+	public String getNombreCompleto(){
+		if(distrito!=null)
+			return distrito.getNombreCompleto();
+		return "";
+	}
+	
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
 	}
