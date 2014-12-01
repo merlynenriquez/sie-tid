@@ -1,6 +1,8 @@
 package pe.gob.mininter.dirandro.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -126,6 +128,12 @@ public class Notificacion extends AuditoriaBean implements Serializable {
 		this.informe = informe;
 	}
 
+	public String getCompleto(){
+		DateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+		return (tipoNotificacion==null?"":tipoNotificacion.getNombre())+" "+
+				(fechaRecepcion==null?"":df.format(fechaRecepcion));
+	}
+	
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
 	}

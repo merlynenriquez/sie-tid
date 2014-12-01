@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -26,7 +26,7 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 	private String detalle;
 
 	@Column(name="FECHA_RECEPCION")
-	private Timestamp fechaRecepcion;
+	private Date fechaRecepcion;
 
 	//bi-directional many-to-one association to Valor
 	@ManyToOne
@@ -57,11 +57,11 @@ public class SeguimientoNot extends AuditoriaBean implements Serializable {
 		this.detalle = detalle;
 	}
 
-	public Timestamp getFechaRecepcion() {
+	public Date getFechaRecepcion() {
 		return fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Timestamp fechaRecepcion) {
+	public void setFechaRecepcion(Date fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 

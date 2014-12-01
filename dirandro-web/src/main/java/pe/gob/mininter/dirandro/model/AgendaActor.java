@@ -24,7 +24,7 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EXP_AGENDA_ACTORES_ID_GENERATOR")
 	private Long id;
 
-	private BigDecimal actor;
+	private Long actor;
 
 	private Date fecha;
 
@@ -58,11 +58,11 @@ public class AgendaActor extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getActor() {
+	public Long getActor() {
 		return actor;
 	}
 
-	public void setActor(BigDecimal actor) {
+	public void setActor(Long actor) {
 		this.actor = actor;
 	}
 
