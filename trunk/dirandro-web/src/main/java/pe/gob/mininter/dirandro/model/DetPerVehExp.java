@@ -185,6 +185,10 @@ public class DetPerVehExp extends AuditoriaBean implements Validador, Serializab
 		this.observacion = observacion;
 	}
 
+	public String getNombreCompleto(){
+		return (vehiculo==null?"":vehiculo.getModeloEspecifico());
+	}
+	
 	@Override
 	public void validar() {
 		if(vehiculo == null){

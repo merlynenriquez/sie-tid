@@ -125,6 +125,10 @@ public class DetPerInmExp extends AuditoriaBean implements Serializable {
 		this.inmueble = inmueble;
 	}
 
+	public String getNombreCompleto(){
+		return (inmueble==null?"":inmueble.getNroInscripcion());
+	}
+	
 	public boolean esNuevo(){
 		return id == null || id.longValue() == 0;
 	}

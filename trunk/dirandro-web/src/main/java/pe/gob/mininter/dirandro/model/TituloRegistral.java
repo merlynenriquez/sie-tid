@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -24,13 +24,13 @@ public class TituloRegistral extends AuditoriaBean implements Serializable {
 	private Long id;
 
 	@Column(name="FECHA_SEGUIMIENTO")
-	private Timestamp fechaSeguimiento;
+	private Date fechaSeguimiento;
 
 	@Column(name="FECHA_TERMINO")
-	private Timestamp fechaTermino;
+	private Date fechaTermino;
 
 	@Column(name="FECHA_TITULO")
-	private Timestamp fechaTitulo;
+	private Date fechaTitulo;
 
 	@Column(name="NRO_TITULO")
 	private String nroTitulo;
@@ -71,27 +71,27 @@ public class TituloRegistral extends AuditoriaBean implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getFechaSeguimiento() {
+	public Date getFechaSeguimiento() {
 		return fechaSeguimiento;
 	}
 
-	public void setFechaSeguimiento(Timestamp fechaSeguimiento) {
+	public void setFechaSeguimiento(Date fechaSeguimiento) {
 		this.fechaSeguimiento = fechaSeguimiento;
 	}
 
-	public Timestamp getFechaTermino() {
+	public Date getFechaTermino() {
 		return fechaTermino;
 	}
 
-	public void setFechaTermino(Timestamp fechaTermino) {
+	public void setFechaTermino(Date fechaTermino) {
 		this.fechaTermino = fechaTermino;
 	}
 
-	public Timestamp getFechaTitulo() {
+	public Date getFechaTitulo() {
 		return fechaTitulo;
 	}
 
-	public void setFechaTitulo(Timestamp fechaTitulo) {
+	public void setFechaTitulo(Date fechaTitulo) {
 		this.fechaTitulo = fechaTitulo;
 	}
 

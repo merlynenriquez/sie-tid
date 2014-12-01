@@ -5,9 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import pe.gob.mininter.dirandro.model.Aerodromo;
 import pe.gob.mininter.dirandro.model.Dependencia;
-import pe.gob.mininter.dirandro.model.DetAerodromo;
 import pe.gob.mininter.dirandro.model.Informe;
 import pe.gob.mininter.dirandro.model.Notificacion;
 import pe.gob.mininter.dirandro.service.DependenciaService;
@@ -31,6 +29,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public class PanelRegistroInformeNotificacion extends CustomComponent implements ClickListener{
@@ -185,8 +184,18 @@ public class PanelRegistroInformeNotificacion extends CustomComponent implements
 				
 				@Override
 				public void buttonClick(ClickEvent event) {
-					notificacionService.eliminar(notificacion);
-					cargarDatos();
+					
+					PanelRegistroInformeSeguimientoNotificacion panelRegistroInformeSeguimientoNotificacion=new PanelRegistroInformeSeguimientoNotificacion(notificacion);
+					
+					Window wdSeguimiento = new Window();
+					
+					wdSeguimiento.setModal(true);
+					wdSeguimiento.setResizable(false);
+					wdSeguimiento.addComponent(panelRegistroInformeSeguimientoNotificacion);
+						
+					wdSeguimiento.setCaption("Seguimiento");
+					wdSeguimiento.setWidth("1050px");
+					getApplication().getMainWindow().getWindow().addWindow(wdSeguimiento);
 				}
 			});
 			item.getItemProperty(COLUMNA_OPCION_SEGUIMIENTO).
@@ -287,7 +296,7 @@ public class PanelRegistroInformeNotificacion extends CustomComponent implements
 		// tblNotificacion
 		tblNotificacion = new Table();
 		tblNotificacion.setImmediate(false);
-		tblNotificacion.setWidth("600px");
+		tblNotificacion.setWidth("940px");
 		tblNotificacion.setHeight("200px");
 		pnlPrincipal.addComponent(tblNotificacion);
 		
