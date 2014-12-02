@@ -44,6 +44,16 @@ public class NotaAgente extends AuditoriaBean implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="AGENTE")
 	private Policia agente;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="TIPO")
+	private Valor tipoNota;
+	
+	//bi-directional many-to-one association to Valor
+	@ManyToOne
+	@JoinColumn(name="ESTADO")
+	private Valor estado;
 
 	public NotaAgente() {
 	}
@@ -86,6 +96,22 @@ public class NotaAgente extends AuditoriaBean implements Serializable {
 
 	public void setAgente(Policia agente) {
 		this.agente = agente;
+	}
+
+	public Valor getTipoNota() {
+		return tipoNota;
+	}
+
+	public void setTipoNota(Valor tipoNota) {
+		this.tipoNota = tipoNota;
+	}
+
+	public Valor getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Valor estado) {
+		this.estado = estado;
 	}
 
 }

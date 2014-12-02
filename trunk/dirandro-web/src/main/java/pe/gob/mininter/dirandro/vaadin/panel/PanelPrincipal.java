@@ -39,6 +39,7 @@ import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigListaValor
 import pe.gob.mininter.dirandro.vaadin.panel.configuracion.PanelConfigParametro;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroHojaRem;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroNotaInformativa;
+import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroNotas;
 import pe.gob.mininter.dirandro.vaadin.panel.inteligencia.PanelRegistroInteligencia;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenAerodromo;
 import pe.gob.mininter.dirandro.vaadin.panel.mantenimiento.PanelMantenDelito;
@@ -259,6 +260,11 @@ public class PanelPrincipal extends CustomComponent implements Command{
 				lblTituloPanel.setValue("<h2>Registro de Documento de Inteligencia</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelRegistroInteligencia(acciones, "-1px"));
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_NA)){
+				lblTituloPanel.setValue("<h2>Registro de Notas</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelRegistroNotas(acciones, "-1px"));
 			}
 			
 			/**

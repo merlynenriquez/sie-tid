@@ -348,6 +348,7 @@ public abstract class Constante {
 		public static final String CODIGO_EXP_REG_CA = "EXP_REG_CA";
 		public static final String CODIGO_EXP_BAN_CA = "EXP_BAN_CA";
 		public static final String CODIGO_EXP_REG_DI = "EXP_REG_DI";
+		public static final String CODIGO_EXP_REG_NA = "EXP_REG_NA";
 		
 		// Menu Nro 3 (Busqueda de Tablas)
 		public final static String CODIGO_BSQ_VEHICULO = "BSQ_VEHICULO";

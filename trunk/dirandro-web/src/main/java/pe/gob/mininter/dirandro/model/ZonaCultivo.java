@@ -1,6 +1,5 @@
 package pe.gob.mininter.dirandro.model;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -12,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pe.gob.mininter.dirandro.util.beanbase.AuditoriaBean;
 
