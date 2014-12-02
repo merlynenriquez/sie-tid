@@ -64,6 +64,11 @@ public class OrgExhorto extends AuditoriaBean implements Serializable {
 	@JoinColumn(name="INFORME")
 	private Informe informe;
 
+	//bi-directional many-to-one association to Persona
+	@ManyToOne
+	@JoinColumn(name="PERSONA_DESTINO")
+	private Persona personaDestino;
+	
 
 	public OrgExhorto() {
 	}
@@ -164,6 +169,14 @@ public class OrgExhorto extends AuditoriaBean implements Serializable {
 
 	public void setInforme(Informe informe) {
 		this.informe = informe;
+	}
+	
+	public Persona getPersonaDestino() {
+		return personaDestino;
+	}
+
+	public void setPersonaDestino(Persona personaDestino) {
+		this.personaDestino = personaDestino;
 	}
 
 	public boolean esNuevo(){

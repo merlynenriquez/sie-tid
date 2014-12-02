@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.gob.mininter.dirandro.dao.hibernate.InformeHibernate;
-import pe.gob.mininter.dirandro.model.Caso;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.Informe;
 import pe.gob.mininter.dirandro.service.InformeService;
 import pe.gob.mininter.dirandro.util.Busqueda;
+import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaInforme;
 
 @Service
 public class InformeServiceImpl extends BaseServiceImpl<Informe, Long> implements InformeService {
@@ -41,7 +41,13 @@ public class InformeServiceImpl extends BaseServiceImpl<Informe, Long> implement
 
 	@Override
 	public List<Informe> buscarBandeja(Map<String, Object> map) {
-		return null;
+		Busqueda filtro = Busqueda.forClass(Informe.class);
+		if(map!=null){
+			//TODO completar 
+			addILikeRestrictions(filtro, "numero", (String)map.get(PanelBandejaInforme.COLUMNA_NUM_INFORME));
+			addILikeRestrictions(filtro, "tipoFuente", "ex", "nombre", (String)map.get(PanelBandejaInforme.COLUMNA_TIPO_FUENTE));
+		}
+		return informeHibernate.buscar(filtro);	
 	}
 
 	@Override
