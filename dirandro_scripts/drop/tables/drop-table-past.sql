@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     11/28/2014 1:07:05 AM                        */
+/* Created on:     11/28/2014 1:56:41 AM                        */
 /*==============================================================*/
 
 
@@ -982,6 +982,24 @@ alter table INF_NOTIFICACION
 alter table INF_NOTIFICACION
    drop constraint FK_INF_NOTI_INFORME;
 
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_CREADOR;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_DESTINO;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_EDITOR;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_ESTADO;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_INFORME;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_ORIGEN;
+
 alter table INF_SEGUIMIENTO_NOT
    drop constraint FK_INF_SEGUIMIENTO_CREADOR;
 
@@ -1850,6 +1868,11 @@ alter table INF_NOTIFICACION
    drop primary key cascade;
 
 drop table INF_NOTIFICACION cascade constraints;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop primary key cascade;
+
+drop table SIETID.INF_ORG_EXHORTO cascade constraints;
 
 alter table INF_SEGUIMIENTO_NOT
    drop primary key cascade;
