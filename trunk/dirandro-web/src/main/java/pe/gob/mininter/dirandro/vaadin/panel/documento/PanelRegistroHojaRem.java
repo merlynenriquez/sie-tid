@@ -580,6 +580,7 @@ public class PanelRegistroHojaRem extends DirandroComponent implements ClickList
 		if(hojaremision.esNuevo()){
 			hojaRemisionService.crearHoja(hojaremision);
 			lblNumeroHoja.setValue( hojaremision.getNumero() );
+			limpiar(LIMPIAR_MUESTRA);
 			cargaPanelDetalle();
 		}else{
 			hojaRemisionService.actualizar(hojaremision);

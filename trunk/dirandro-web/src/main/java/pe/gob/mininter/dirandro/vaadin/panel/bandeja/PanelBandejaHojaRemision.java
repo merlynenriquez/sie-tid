@@ -1,14 +1,18 @@
 package pe.gob.mininter.dirandro.vaadin.panel.bandeja;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
 import pe.gob.mininter.dirandro.model.Hojaremision;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.service.HojaRemisionService;
 import pe.gob.mininter.dirandro.vaadin.panel.documento.PanelRegistroHojaRem;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
+import pe.gob.mininter.dirandro.vaadin.util.Injector;
 import pe.gob.mininter.dirandro.vaadin.util.TablaFiltro;
 import pe.gob.mininter.dirandro.vaadin.util.container.TablaFiltroIndexedContainer;
 import pe.gob.mininter.dirandro.vaadin.util.container.TablaFiltroIndexedContainer.TipoComponente;
@@ -88,6 +92,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		
 	private List<Opcion> acciones;
 
+	private HojaRemisionService hojaRemisionService;
 	
 
 	/**
@@ -104,7 +109,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-		
+		hojaRemisionService = Injector.obtenerServicio(HojaRemisionService.class);
 		postConstruct();
 	}
 
@@ -148,7 +153,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		
 		tblBandeja.setImmediate(true);
 		
-		//buscarHojaRemisiones(new HashMap<String, Object>());
+		buscarHojaRemisiones(new HashMap<String, Object>());
 		
 		btnBuscar.addListener((ClickListener) this);
 		
@@ -219,7 +224,7 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 		});
 	}
 
-	/*private void buscarHojaRemisiones(Map<String, Object> map) {
+	private void buscarHojaRemisiones(Map<String, Object> map) {
 		
 		List<Hojaremision> hojaremisiones = hojaRemisionService.buscarBandeja(map);
 		
@@ -247,17 +252,17 @@ public class PanelBandejaHojaRemision extends DirandroComponent implements Tabla
 			item.getItemProperty(COLUMNA_HOJA_REMISION).setValue(hojaremision);
 		}
 		
-	}*/
+	}
 
 	@Override
 	public void handleEnterAction(TablaFiltroEnterEvent event) {
-		//buscarHojaRemisiones(event.getDatos());
+		buscarHojaRemisiones(event.getDatos());
 	}
 
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if(event.getButton().equals(btnBuscar)) {
-			//buscarHojaRemisiones(tblBandeja.getValues());
+			buscarHojaRemisiones(tblBandeja.getValues());
 		}
 	}
 

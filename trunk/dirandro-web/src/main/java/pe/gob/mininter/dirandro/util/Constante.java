@@ -135,6 +135,7 @@ public abstract class Constante {
 			public final static String SUBMENU = "VEN";
 			public final static String ACCION = "ACC";
 
+			/*lista de tablas de entidades*/
 			public final static String ENTIDAD = "ENTI";
 			public final static String DEPENDENCIA = "DEPE";
 			public final static String PERSONA = "PERS";
@@ -349,6 +350,8 @@ public abstract class Constante {
 		public static final String CODIGO_EXP_BAN_CA = "EXP_BAN_CA";
 		public static final String CODIGO_EXP_REG_DI = "EXP_REG_DI";
 		public static final String CODIGO_EXP_REG_NA = "EXP_REG_NA";
+		/**Informe de gesstion pptid*/
+		public static final String CODIGO_EXP_BAN_AG = "EXP_BAN_AG";
 		
 		// Menu Nro 3 (Busqueda de Tablas)
 		public final static String CODIGO_BSQ_VEHICULO = "BSQ_VEHICULO";

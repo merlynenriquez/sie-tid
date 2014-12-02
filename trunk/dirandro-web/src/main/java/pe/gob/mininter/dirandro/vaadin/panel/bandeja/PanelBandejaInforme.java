@@ -6,11 +6,12 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import pe.gob.mininter.dirandro.model.Caso;
 import pe.gob.mininter.dirandro.model.Informe;
 import pe.gob.mininter.dirandro.model.Opcion;
 import pe.gob.mininter.dirandro.service.InformeService;
-import pe.gob.mininter.dirandro.vaadin.panel.caso.PanelRegistroCaso;
+import pe.gob.mininter.dirandro.util.HarecUtil;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
+import pe.gob.mininter.dirandro.vaadin.panel.informe.PanelRegistroInforme;
 import pe.gob.mininter.dirandro.vaadin.util.DirandroComponent;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 import pe.gob.mininter.dirandro.vaadin.util.TablaFiltro;
@@ -53,9 +54,14 @@ public class PanelBandejaInforme extends DirandroComponent implements TablaFiltr
 	public static final String COLUMNA_NOMBRE_CASO= "nombreCaso";
 	public static final String COLUMNA_SITUACION = "estado";
 	public static final String COLUMNA_FECHA_INFORME = "fechaInforme";
+	public static final String COLUMNA_TIPO_FUENTE = "tipo_fuente";
+	public static final String COLUMNA_TIPO_INFORME = "tipo_informe";
+	public static final String COLUMNA_TIPO_MEDIO_RECEPCION = "tipo_medio_recepcion";
+	public static final String COLUMNA_TIPO_RESOLUCION = "tipo_resolucion";
 	
 	private static final Action EDITAR_INFORME= new Action("Modificar Informe");
-	private static final Action[] ITEM_ACTIONS = new Action[] { EDITAR_INFORME };
+	private static final Action INFORME_COMPLEMETNARIO= new Action("Informe Complementario");
+	private static final Action[] ITEM_ACTIONS = new Action[] { EDITAR_INFORME , INFORME_COMPLEMETNARIO};
 	
 	private Action[] action = new Action[] {};
 
@@ -94,12 +100,15 @@ public class PanelBandejaInforme extends DirandroComponent implements TablaFiltr
 	public void postConstruct() {
 		container = new TablaFiltroIndexedContainer();
 		
-		container.addContainerProperty(COLUMNA_ID, Long.class, StringUtils.EMPTY, "Caso", TipoComponente.TEXT, true, 100);
-		container.addContainerProperty(COLUMNA_NUM_INFORME, String.class, StringUtils.EMPTY, "Numero de Caso", TipoComponente.TEXT, true, 140);
+		container.addContainerProperty(COLUMNA_ID, Long.class, StringUtils.EMPTY, "Informe", TipoComponente.TEXT, true, 100);
+		container.addContainerProperty(COLUMNA_TIPO_INFORME, String.class, StringUtils.EMPTY, "Tipo de Informe", TipoComponente.TEXT, true, 120);
+		container.addContainerProperty(COLUMNA_NUM_INFORME, String.class, StringUtils.EMPTY, "Numero de Informe", TipoComponente.TEXT, true, 140);
 		container.addContainerProperty(COLUMNA_NOMBRE_CASO, String.class, StringUtils.EMPTY, "Nombre de Caso", TipoComponente.TEXT, true, 130);
-		container.addContainerProperty(COLUMNA_SITUACION, String.class, StringUtils.EMPTY, "Situacion", TipoComponente.TEXT, true, 120);
+		container.addContainerProperty(COLUMNA_TIPO_FUENTE, String.class, StringUtils.EMPTY, "Tipo de Fuente", TipoComponente.TEXT, true, 120);
+		container.addContainerProperty(COLUMNA_TIPO_MEDIO_RECEPCION, String.class, StringUtils.EMPTY, "Medio Recepcion", TipoComponente.TEXT, true, 120);
+		container.addContainerProperty(COLUMNA_TIPO_RESOLUCION, String.class, StringUtils.EMPTY, "Tipo de Resolucion", TipoComponente.TEXT, true, 120);
 		container.addContainerProperty(COLUMNA_FECHA_INFORME, String.class, StringUtils.EMPTY, "Fecha", TipoComponente.DATEPICKER, false, 180);
-		container.addContainerProperty(COLUMNA_INFORME, Caso.class, null);
+		container.addContainerProperty(COLUMNA_INFORME, Informe.class, null);
 		
 		tblBandeja.setContainerDataSource(container);
 		tblBandeja.setColumnCollapsingAllowed(true);
@@ -154,10 +163,10 @@ public class PanelBandejaInforme extends DirandroComponent implements TablaFiltr
 					
 					Item item = container.getItem(objID);
 					
-					Caso caso = (Caso)item.getItemProperty(COLUMNA_INFORME).getValue();
+					Informe info = (Informe)item.getItemProperty(COLUMNA_INFORME).getValue();
 					
-					PanelRegistroCaso pnlRegCaso  = new PanelRegistroCaso(acciones, "-1px");
-					pnlRegCaso.setCaso(caso);
+					PanelRegistroInforme pnlRegCaso  = new PanelRegistroInforme(acciones, "-1px");
+					pnlRegCaso.setInforme(info);
 					Window wdHojaRemision = new Window();
 					
 					wdHojaRemision.setModal(false);
@@ -169,6 +178,14 @@ public class PanelBandejaInforme extends DirandroComponent implements TablaFiltr
 					wdHojaRemision.setHeight("600px");
 					getWindow().addWindow(wdHojaRemision);
 					
+				}
+				
+				if (action.equals(INFORME_COMPLEMETNARIO)) {
+					//TODO crear informe complementario 
+					
+					AlertDialog alertDialog = new  AlertDialog("Registro de Informe Complementario", "Seguro de generar un informe complementario?", "Aceptar", "400");
+					getApplication().getMainWindow().addWindow(alertDialog);
+				
 				}
 			}
 
@@ -191,10 +208,14 @@ public class PanelBandejaInforme extends DirandroComponent implements TablaFiltr
 				
 				item.getItemProperty(COLUMNA_ID).setValue(informe.getId());
 				item.getItemProperty(COLUMNA_NUM_INFORME).setValue(informe.getNumero());
-				//item.getItemProperty(COLUMNA_NOMBRE_CASO).setValue( peri.get);
-				//item.getItemProperty(COLUMNA_SITUACION).setValue( HarecUtil.valorNombreToEmpty(peri.getSituacion()));
-				//item.getItemProperty(COLUMNA_FECHA_INFORME).setValue(peri.getFecha());
+				item.getItemProperty(COLUMNA_NOMBRE_CASO).setValue(informe.getExpediente().getNombreCaso());
+				item.getItemProperty(COLUMNA_TIPO_FUENTE).setValue(HarecUtil.valorNombreToEmpty(informe.getTipoFuente()));
+				item.getItemProperty(COLUMNA_TIPO_INFORME).setValue(HarecUtil.valorNombreToEmpty(informe.getTipoInforme()));
+				item.getItemProperty(COLUMNA_TIPO_MEDIO_RECEPCION).setValue(HarecUtil.valorNombreToEmpty(informe.getTipoMedioRecepcion()));
+				item.getItemProperty(COLUMNA_TIPO_RESOLUCION).setValue(HarecUtil.valorNombreToEmpty(informe.getTipoResolucion()));
+				item.getItemProperty(COLUMNA_FECHA_INFORME).setValue(informe.getFechaRecepcionNotificacion());
 				item.getItemProperty(COLUMNA_INFORME).setValue(informe);
+				
 				
 			}
 		

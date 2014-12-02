@@ -23,6 +23,7 @@ import pe.gob.mininter.dirandro.util.HarecUtil;
 import pe.gob.mininter.dirandro.util.PlantillaVelocity;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaCasos;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaHojaRemision;
+import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaInforme;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaNotaInformativa;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaPericias;
 import pe.gob.mininter.dirandro.vaadin.panel.bandeja.PanelBandejaTrabajo;
@@ -245,6 +246,11 @@ public class PanelPrincipal extends CustomComponent implements Command{
 				lblTituloPanel.setValue("<h2>Bandeja de Nota Informativa</h2>");
 				pnlContenido.removeAllComponents();
 				pnlContenido.addComponent(new PanelBandejaNotaInformativa(acciones, "-1px"));
+			}
+			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_BAN_AG)){
+				lblTituloPanel.setValue("<h2>Bandeja de Informe de Gestión</h2>");
+				pnlContenido.removeAllComponents();
+				pnlContenido.addComponent(new PanelBandejaInforme(acciones, "-1px"));
 			}
 			else if(StringUtils.equals(codigo, Constante.OPCION.CODIGO_EXP_REG_CA)){
 				lblTituloPanel.setValue("<h2>Registro de Caso</h2>");

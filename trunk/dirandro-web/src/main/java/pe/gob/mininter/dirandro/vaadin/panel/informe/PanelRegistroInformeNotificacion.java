@@ -11,6 +11,7 @@ import pe.gob.mininter.dirandro.model.Notificacion;
 import pe.gob.mininter.dirandro.service.DependenciaService;
 import pe.gob.mininter.dirandro.service.NotificacionService;
 import pe.gob.mininter.dirandro.util.Constante;
+import pe.gob.mininter.dirandro.vaadin.dialogs.AlertDialog;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
 import pe.gob.mininter.dirandro.vaadin.util.Injector;
 
@@ -236,7 +237,16 @@ public class PanelRegistroInformeNotificacion extends CustomComponent implements
 			notificacion.setFechaVencimiento((Date)dtFechaVencimiento.getValue());
 			notificacion.setFechaPlazo((Date)dtFechaPlazo.getValue());
 			notificacion.setEstado(cmbEstadoNotificacion.getValor());
-			notificacionService.crear(notificacion);
+			
+			AlertDialog alertDialog = null;
+			if(notificacion.esNuevo()){
+				notificacionService.crear(notificacion);
+				alertDialog = new  AlertDialog("Registro de Notificación", "Se ha registrado la notificación correctamente", "Aceptar", "400");
+			}else{
+				notificacionService.actualizar(notificacion);
+				alertDialog = new  AlertDialog("Registro de Notificación", "Se ha actualizado la notificación correctamente", "Aceptar", "400");
+			}
+			getApplication().getMainWindow().addWindow(alertDialog);
 			limpiar();
 			cargarDatos();
 		}
