@@ -202,10 +202,12 @@ alter table SIETID.AGE_DET_CASO_VEHICULO
 create table SIETID.AGE_NOTA_AGENTE 
 (
    ID                   NUMBER(16)           not null,
+   TIPO                 NUMBER(16),
    CASO                 NUMBER(16),
    AGENTE               NUMBER(16),
    FECHA_NOTA           TIMESTAMP,
    CONTENIDO            NVARCHAR2(2000),
+   ESTADO               NUMBER(16)           not null,
    CREADOR              NUMBER(16),
    CREACION             TIMESTAMP,
    EDITOR               NUMBER(16),
@@ -2490,6 +2492,7 @@ create table SIETID.INF_ORG_EXHORTO
    CODIGO_ORIGEN        NUMBER(8),
    TABLA_DESTINO        NUMBER(16),
    CODIGO_DESTINO       NUMBER(8),
+   PERSONA_DESTINO      NUMBER(16),
    FECHA_SOLICITUD      TIMESTAMP,
    FECHA_DILINGECIA     TIMESTAMP,
    OBSERVACIONES        NVARCHAR2(2000),
@@ -4074,6 +4077,14 @@ alter table SIETID.AGE_NOTA_AGENTE
       references SIETID.AGE_CASO (ID);
 
 alter table SIETID.AGE_NOTA_AGENTE
+   add constraint FK_AGE_NOTA_AGENTE_ESTADO foreign key (ESTADO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_NOTA_AGENTE
+   add constraint FK_AGE_NOTA_AGENTE_TIPO foreign key (TIPO)
+      references SIETID.CFG_VALOR (ID);
+
+alter table SIETID.AGE_NOTA_AGENTE
    add constraint FK_AGE_NOTA_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
 
@@ -5269,6 +5280,10 @@ alter table SIETID.INF_ORG_EXHORTO
    add constraint FK_INF_ORG_EXHORTO_ORIGEN foreign key (TABLA_ORIGEN)
       references SIETID.CFG_VALOR (ID);
 
+alter table SIETID.INF_ORG_EXHORTO
+   add constraint FK_INF_ORG_EXHORTO_PER_DESTINO foreign key (PERSONA_DESTINO)
+      references SIETID.PER_PERSONA (ID);
+
 alter table INF_SEGUIMIENTO_NOT
    add constraint FK_INF_SEGUIMIENTO_CREADOR foreign key (CREADOR)
       references SIETID.SEG_USUARIO (ID);
@@ -6044,5 +6059,5 @@ alter table SIETID.UBG_PROVINCIA
 alter table SIETID.UBG_PROVINCIA
    add constraint FK_UBG_PROVINCIA_ESTADO foreign key (ESTADO)
       references SIETID.CFG_VALOR (ID);
-      
-      quit;
+
+quit;

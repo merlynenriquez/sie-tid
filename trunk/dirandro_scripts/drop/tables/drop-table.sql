@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     11/28/2014 1:56:41 AM                        */
+/* Created on:     12/2/2014 12:56:01 AM                        */
 /*==============================================================*/
 
 
@@ -102,6 +102,12 @@ alter table SIETID.AGE_NOTA_AGENTE
 
 alter table SIETID.AGE_NOTA_AGENTE
    drop constraint FK_AGE_NOTA_AGENTE_CASO;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop constraint FK_AGE_NOTA_AGENTE_ESTADO;
+
+alter table SIETID.AGE_NOTA_AGENTE
+   drop constraint FK_AGE_NOTA_AGENTE_TIPO;
 
 alter table SIETID.AGE_NOTA_AGENTE
    drop constraint FK_AGE_NOTA_CREADOR;
@@ -999,6 +1005,9 @@ alter table SIETID.INF_ORG_EXHORTO
 
 alter table SIETID.INF_ORG_EXHORTO
    drop constraint FK_INF_ORG_EXHORTO_ORIGEN;
+
+alter table SIETID.INF_ORG_EXHORTO
+   drop constraint FK_INF_ORG_EXHORTO_PER_DESTINO;
 
 alter table INF_SEGUIMIENTO_NOT
    drop constraint FK_INF_SEGUIMIENTO_CREADOR;
