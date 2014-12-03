@@ -183,9 +183,28 @@ public class PanelBandejaInforme extends DirandroComponent implements TablaFiltr
 				if (action.equals(INFORME_COMPLEMETNARIO)) {
 					//TODO crear informe complementario 
 					
-					AlertDialog alertDialog = new  AlertDialog("Registro de Informe Complementario", "Seguro de generar un informe complementario?", "Aceptar", "400");
-					getApplication().getMainWindow().addWindow(alertDialog);
+					//AlertDialog alertDialog = new  AlertDialog("Registro de Informe Complementario", "Seguro de generar un informe complementario?", "Aceptar", "400");
+				//	getApplication().getMainWindow().addWindow(alertDialog);
+					Object objID = tblBandeja.getValue();
+					
+					Item item = container.getItem(objID);
+					
+					Informe info = (Informe)item.getItemProperty(COLUMNA_INFORME).getValue();
 				
+					
+					PanelInformeComplementario panel = new PanelInformeComplementario();
+					panel.setInforme(info);
+					
+					Window wdHojaRemision = new Window();
+					
+					wdHojaRemision.setModal(false);
+					wdHojaRemision.setResizable(false);
+					wdHojaRemision.addComponent(panel);
+						
+					wdHojaRemision.setCaption("Registro de Informe Complementario");
+					wdHojaRemision.setWidth("500px");
+					getApplication().getMainWindow().addWindow(wdHojaRemision);
+					
 				}
 			}
 

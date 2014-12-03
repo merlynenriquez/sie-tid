@@ -1894,7 +1894,7 @@ create table SIETID.EXP_NOTA_INFORMATIVA
 (
    ID                   NUMBER(16)           not null,
    PARTE                NUMBER(16),
-   FECHAREGISTRO________ TIMESTAMP,
+   FECHA_REGISTRO		TIMESTAMP,
    NUMERO               NVARCHAR2(15),
    CONTENIDO            NVARCHAR2(2000),
    CREADOR              NUMBER(16),
