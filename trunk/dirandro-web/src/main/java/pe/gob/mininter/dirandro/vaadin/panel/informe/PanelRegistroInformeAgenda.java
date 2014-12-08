@@ -106,7 +106,7 @@ public class PanelRegistroInformeAgenda extends CustomComponent implements Click
 
 	public void postConstruct() {
 		
-		cmbTipoAgenda.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoAgenda.setCodigoLista(Constante.LISTA.CODIGO.TIPO_NOTI);
 		cmbTipoAgenda.setInputPrompt("Tipo Notificacion");
 
 		List<Dependencia> dependencias = dependenciaService.buscar(null);
@@ -114,6 +114,7 @@ public class PanelRegistroInformeAgenda extends CustomComponent implements Click
 		BeanItemContainer<Dependencia> containerDependencia = new BeanItemContainer<Dependencia>(Dependencia.class,  dependencias);
 		cmbUnidadProcuraduria.setContainerDataSource(containerDependencia);
 		cmbUnidadProcuraduria.setItemCaptionPropertyId("nombre");
+		cmbUnidadProcuraduria.setInputPrompt("Unidad Procuraduria");
 		
 		Notificacion notificacionBuscar=new Notificacion();
 		notificacionBuscar.setInforme(informe);
@@ -121,6 +122,9 @@ public class PanelRegistroInformeAgenda extends CustomComponent implements Click
 		BeanItemContainer<Notificacion> containerNotificacion = new BeanItemContainer<Notificacion>(Notificacion.class, notificaciones);
 		cmbNotificacion.setContainerDataSource(containerNotificacion);
 		cmbNotificacion.setItemCaptionPropertyId("completo");
+		cmbNotificacion.setInputPrompt("Notificacion");
+		
+		dtFechaEmision.setInputPrompt("Fecha Emision Agenda");
 		
 		btnGuardar.addListener(this);
 	

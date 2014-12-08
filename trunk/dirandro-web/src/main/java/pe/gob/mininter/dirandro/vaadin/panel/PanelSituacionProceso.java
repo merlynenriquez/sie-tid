@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import pe.gob.mininter.dirandro.model.DetExpedientePersona;
 import pe.gob.mininter.dirandro.model.SituacionProceso;
 import pe.gob.mininter.dirandro.service.EmpresaService;
@@ -351,34 +353,76 @@ public class PanelSituacionProceso extends CustomComponent implements ClickListe
 		txtNombres.setEnabled(false);
 		txtAliasActor.setValue(persona.getAlias());
 		txtAliasActor.setEnabled(false);
+		txtAliasActor.setNullRepresentation(StringUtils.EMPTY);
 		txtDireccion.setEnabled(false);
 		
-		cmbTipoResolucion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoResolucion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_RESOLUCION);
 		cmbTipoResolucion.setInputPrompt("Tipo Resolucion");
 		
-		cmbTipoPena.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		txtNroResolucion.setInputPrompt("N° Resolución");
+		txtNroResolucion.setNullRepresentation(StringUtils.EMPTY);
+		
+		dtFechaResolucion.setInputPrompt("Fecha Resolución");
+		
+		txtNroExpediente.setInputPrompt("N° Expediente");
+		txtNroExpediente.setNullRepresentation(StringUtils.EMPTY);
+		
+		cmbTipoPena.setCodigoLista(Constante.LISTA.CODIGO.TIPO_PENA);
 		cmbTipoPena.setInputPrompt("Tipo Pena");
 		
-		cmbTipoDelito.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoDelito.setCodigoLista(Constante.LISTA.CODIGO.PRIORIDAD_DELITO);
 		cmbTipoDelito.setInputPrompt("Tipo Delito");
 		
-		cmbTipoSentencia.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoSentencia.setCodigoLista(Constante.LISTA.CODIGO.TIPO_SEN);
 		cmbTipoSentencia.setInputPrompt("Tipo Sentencia");
 		
-		cmbCodigoProcesal.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		dtFechaSentencia.setInputPrompt("Fecha Sentencia");
+		
+		dtFechaInicio.setInputPrompt("Fecha Inicio");
+		
+		dtFechaFin.setInputPrompt("Fecha Fin");
+		
+		cmbCodigoProcesal.setCodigoLista(Constante.LISTA.CODIGO.COD_PROCESAL);
 		cmbCodigoProcesal.setInputPrompt("Código Procesal");
 		
-		cmbTipoReparacion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoReparacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_REP_CIV);
 		cmbTipoReparacion.setInputPrompt("Tipo Reparación Civil");
 		
-		cmbTipoInhabitacion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		txtImporteReparacion.setInputPrompt("Importe Rep. Civil");
+		txtImporteReparacion.setNullRepresentation(StringUtils.EMPTY);
+		
+		txtImporteReparacionSolidario.setInputPrompt("Importe Rep. Solidario Total");
+		txtImporteReparacionSolidario.setNullRepresentation(StringUtils.EMPTY);
+		
+		cmbTipoInhabitacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_INH);
 		cmbTipoInhabitacion.setInputPrompt("Tipo Inhabitación");
 		
-		cmbEstablecimiento.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		txtNroAnosInhabitado.setInputPrompt("N° Años Inhabitado");
+		txtNroAnosInhabitado.setNullRepresentation(StringUtils.EMPTY);
+		
+		txtNroMesInhabitado.setInputPrompt("N° Mes Inhabitado");
+		txtNroMesInhabitado.setNullRepresentation(StringUtils.EMPTY);
+		
+		txtNroDiasInhabitado.setInputPrompt("N° Dias Inhabitado");
+		txtNroDiasInhabitado.setNullRepresentation(StringUtils.EMPTY);
+		
+		txtNroDiasMulta.setInputPrompt("N° Dias Multa");
+		txtNroDiasMulta.setNullRepresentation(StringUtils.EMPTY);
+		
+		cmbEstablecimiento.setCodigoLista(Constante.LISTA.CODIGO.EST_PENI);
 		cmbEstablecimiento.setInputPrompt("Establecimiento Penitenciario");
 		
-		cmbTipoCondicion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoCondicion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_CON_PEN);
 		cmbTipoCondicion.setInputPrompt("Tipo Condicion Pena");
+		
+		txtNroAnosPena.setInputPrompt("N° Años Pena");
+		txtNroAnosPena.setNullRepresentation(StringUtils.EMPTY);
+		
+		txtNroMesPena.setInputPrompt("N° Meses Pena");
+		txtNroMesPena.setNullRepresentation(StringUtils.EMPTY);
+		
+		txtNroDiasPena.setInputPrompt("N° Dias Pena");
+		txtNroDiasPena.setNullRepresentation(StringUtils.EMPTY);
 		
 		btnGuardar.addListener(this);
 		btnEliminar.addListener(this);

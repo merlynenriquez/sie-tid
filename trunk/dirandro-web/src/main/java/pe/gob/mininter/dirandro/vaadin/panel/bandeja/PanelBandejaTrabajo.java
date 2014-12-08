@@ -251,7 +251,7 @@ public class PanelBandejaTrabajo extends DirandroComponent implements TablaFiltr
 					wdOficioSolicitado.addComponent(panelOficioSolicitadoEmpresa);
 						
 					wdOficioSolicitado.setCaption("Oficio Solicitado del Expediente");
-					wdOficioSolicitado.setWidth("830px");
+					wdOficioSolicitado.setWidth("900px");
 					getWindow().addWindow(wdOficioSolicitado);
 					
 				}

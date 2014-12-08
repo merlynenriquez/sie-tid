@@ -108,7 +108,7 @@ public class PanelMantenAerodromo extends DirandroComponent implements TablaFilt
 		cmbEmpresa.setItemCaptionPropertyId("razonSocial");
 		cmbEmpresa.setContainerDataSource(new BeanItemContainer<Empresa>(Empresa.class,  empresas));
 		
-		cmbAeronaveMaxima.setCodigoLista(Constante.LISTA.CODIGO.TIPO_LETRADO);
+		cmbAeronaveMaxima.setCodigoLista(Constante.LISTA.CODIGO.AERO_MAX);
 		cmbAeronaveMaxima.setInputPrompt("Aeronave Maxima");
 
 		List<Distrito> distritos=ubigeoService.obtenerTodos();

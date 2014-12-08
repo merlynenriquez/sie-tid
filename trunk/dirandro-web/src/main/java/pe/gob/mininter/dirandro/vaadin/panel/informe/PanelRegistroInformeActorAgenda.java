@@ -1,6 +1,7 @@
 package pe.gob.mininter.dirandro.vaadin.panel.informe;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -148,14 +149,19 @@ public class PanelRegistroInformeActorAgenda extends CustomComponent implements 
 		actores = personaService.buscar(null);
 		cmbActor.setItemCaptionPropertyId("nombreCompleto");
 		cmbActor.setContainerDataSource(new BeanItemContainer<Persona>(Persona.class,  actores));
+		cmbActor.setInputPrompt("Actor");
 		
-		cmbMotivo.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbMotivo.setCodigoLista(Constante.LISTA.CODIGO.MOTIVO);
 		cmbMotivo.setInputPrompt("Motivo");
 		
 		txtHoraDiligencia.setNullRepresentation(StringUtils.EMPTY);
+		txtHoraDiligencia.setInputPrompt("Hora Diligencia");
 		txtLugarDiligencia.setNullRepresentation(StringUtils.EMPTY);
+		txtLugarDiligencia.setInputPrompt("Lugar Diligencia");
 		
-		cmbEstadoDiligencia.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		dtFechaDiligencia.setInputPrompt("Fecha Diligencia");
+		
+		cmbEstadoDiligencia.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_DILI);
 		cmbEstadoDiligencia.setInputPrompt("Estado");
 		
 		btnGuardar.addListener(this);
@@ -248,7 +254,14 @@ public class PanelRegistroInformeActorAgenda extends CustomComponent implements 
 			agendaActor.setMotivo(cmbMotivo.getValor());
 			agendaActor.setLugar((String)txtLugarDiligencia.getValue());
 			agendaActor.setFecha((Date)dtFechaDiligencia.getValue());
-			agendaActor.setHora((Date)dtFechaDiligencia.getValue());
+			DateFormat df=new SimpleDateFormat("HH:mm");
+			Date hora=null;
+			try {
+				hora=df.parse((String)txtHoraDiligencia.getValue());
+			} catch (ParseException e) {
+				
+			}
+			agendaActor.setHora(hora);
 			agendaActor.setEstado(cmbEstadoDiligencia.getValor());
 			agendaActorService.crear(agendaActor);
 			limpiar();
