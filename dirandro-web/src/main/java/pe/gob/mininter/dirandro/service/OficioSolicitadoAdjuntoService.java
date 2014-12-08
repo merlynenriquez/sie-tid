@@ -7,5 +7,6 @@ import pe.gob.mininter.dirandro.model.OficioSolicitadoAdjunto;
 public interface OficioSolicitadoAdjuntoService extends BaseService<OficioSolicitadoAdjunto, Long> {
 	
 	public List<OficioSolicitadoAdjunto> buscar(OficioSolicitadoAdjunto oficioSolicitadoAdjunto);
+	void registrarOficioSolicitadoAdjunta(OficioSolicitadoAdjunto oficioSolicitadoAdjunto);
 	
 }

@@ -104,6 +104,7 @@ public class PanelRegistroInformeTitulo extends CustomComponent implements Click
 		BeanItemContainer<DetPerVehExp> containerVehiculo = new BeanItemContainer<DetPerVehExp>(DetPerVehExp.class,  lstExpVehiculos);
 		cmbVehiculo.setContainerDataSource(containerVehiculo);
 		cmbVehiculo.setItemCaptionPropertyId("nombreCompleto");
+		cmbVehiculo.setInputPrompt("Vehiculo");
 		
 		DetPerInmExp detinm = new DetPerInmExp();
 		detinm.setExpediente(informe.getExpediente());
@@ -111,6 +112,7 @@ public class PanelRegistroInformeTitulo extends CustomComponent implements Click
 		BeanItemContainer<DetPerInmExp> containerInmueble = new BeanItemContainer<DetPerInmExp>(DetPerInmExp.class, lstinmuebles);
 		cmbInmueble.setContainerDataSource(containerInmueble);
 		cmbInmueble.setItemCaptionPropertyId("nombreCompleto");
+		cmbInmueble.setInputPrompt("Inmueble");
 	}
 	
 	public static final String COLUMNA_VEHICULO = "vehiculo";
@@ -144,9 +146,14 @@ public class PanelRegistroInformeTitulo extends CustomComponent implements Click
 		cmbEstado.setInputPrompt("Estado");
 		
 		txtNroTitulo.setNullRepresentation(StringUtils.EMPTY);
+		txtNroTitulo.setInputPrompt("N° Titulo Registral");
 		
-		cmbSede.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbSede.setCodigoLista(Constante.LISTA.CODIGO.SEDE_REG);
 		cmbSede.setInputPrompt("Sede");
+		
+		dtFechaSeguimiento.setInputPrompt("Fecha Seguimiento");
+		dtFechaTitulo.setInputPrompt("Fecha Titulo Registral");
+		dtFechaTermino.setInputPrompt("Fecha Termino Subsanacion");
 		
 		btnGuardar.addListener(this);
 	

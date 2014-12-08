@@ -114,7 +114,32 @@ public abstract class Constante {
 			public static final String TIPO_MEDIO_REC = "TIPO_MEDIO_REC";
 			/**Tipo de cultivo en zona de cultivo**/
 			public static final String TIPO_CULTIVO = "TIPO_CULTIVO";
-			
+			//Aeronave Maxima
+			public static final String AERO_MAX = "AERO_MAX";
+			//Sede Registral
+			public static final String SEDE_REG = "SEDE_REG";
+			//Tipo Notificacion
+			public static final String TIPO_NOTI = "TIPO_NOTI";
+			//Estado Notificacion
+			public static final String ESTADO_NOTI = "ESTADO_NOTI";
+			//Estado Seguimiento
+			public static final String ESTADO_SEGUI = "ESTADO_SEGUI";
+			//Motivo
+			public static final String MOTIVO = "MOTIVO";
+			//Estado Diligencia
+			public static final String ESTADO_DILI = "ESTADO_DILI";
+			//Tipo Pena
+			public static final String TIPO_PENA = "TIPO_PENA";
+			//Tipo Sentencia
+			public static final String TIPO_SEN = "TIPO_SEN";
+			//Tipo Reparación Civil
+			public static final String TIPO_REP_CIV = "TIPO_REP_CIV";
+			//Tipo Inhabitación
+			public static final String TIPO_INH = "TIPO_INH";
+			//Establecimiento Penitenciario
+			public static final String EST_PENI = "EST_PENI";
+			//Tipo Condicion Pena
+			public static final String TIPO_CON_PEN = "TIPO_CON_PEN";
 			
 		}
 	}

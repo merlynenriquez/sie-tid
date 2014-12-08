@@ -1,16 +1,23 @@
 package pe.gob.mininter.dirandro.vaadin.panel;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
+import pe.gob.mininter.dirandro.model.Adjunto;
 import pe.gob.mininter.dirandro.model.Empresa;
 import pe.gob.mininter.dirandro.model.Expediente;
 import pe.gob.mininter.dirandro.model.OficioSolicitado;
+import pe.gob.mininter.dirandro.model.OficioSolicitadoAdjunto;
 import pe.gob.mininter.dirandro.model.Opcion;
+import pe.gob.mininter.dirandro.model.Parametro;
 import pe.gob.mininter.dirandro.service.EmpresaService;
 import pe.gob.mininter.dirandro.service.OficioSolicitadoAdjuntoService;
 import pe.gob.mininter.dirandro.service.OficioSolicitadoService;
+import pe.gob.mininter.dirandro.service.ParametroService;
 import pe.gob.mininter.dirandro.util.Constante;
 import pe.gob.mininter.dirandro.vaadin.util.AdjuntarReceiver;
 import pe.gob.mininter.dirandro.vaadin.util.ComboBoxLOVS;
@@ -36,6 +43,10 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Upload.FailedEvent;
+import com.vaadin.ui.Upload.FinishedEvent;
+import com.vaadin.ui.Upload.StartedEvent;
+import com.vaadin.ui.Upload.SucceededEvent;
 
 @SuppressWarnings("serial")
 public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements ClickListener {
@@ -101,9 +112,14 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
 	private EmpresaService empresaService;
 	private OficioSolicitadoService oficioSolicitadoService;
 	private OficioSolicitadoAdjuntoService oficioSolicitadoAdjuntoService;
+	private ParametroService parametroService;
+	private long imageSize = 0;
+	private String rutaDocumento;
+	
 	private AdjuntarReceiver receiver=new AdjuntarReceiver();
 	private Upload uploadDocumento = new Upload(null, receiver);
-	
+
+	public static final String COLUMNA_OFICIO_SOLICITUD_ADJUNTO = "oficioSolicitudAdjunto";
 	public static final String COLUMNA_TIPO = "tipo";
 	public static final String COLUMNA_NOMBRE = "nombre";
 
@@ -128,12 +144,20 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
 		empresaService=Injector.obtenerServicio(EmpresaService.class);
 		oficioSolicitadoService=Injector.obtenerServicio(OficioSolicitadoService.class);
 		oficioSolicitadoAdjuntoService=Injector.obtenerServicio(OficioSolicitadoAdjuntoService.class);
+		parametroService=Injector.obtenerServicio(ParametroService.class);
 		postConstruct();
 	}
 
 	public void postConstruct() {
+		Parametro parametroSize = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_SIZE);
+		if (parametroSize != null) imageSize = Long.valueOf(parametroSize.getValor());
+		
+		Parametro parametroRuta = parametroService.obtener(Constante.PARAMETRO.ADJUNTOS_PATH);
+		if (parametroRuta != null) rutaDocumento = parametroRuta.getValor();
+		
 		lytAdjunto.addComponent(uploadDocumento);
 		uploadDocumento.setButtonCaption("Agregar Archivo");
+		uploadAddListener();		
 		
 		txtNroParte.setInputPrompt("Nro Parte");
 		txtNroParte.setValue(expediente.getAutogenerado());
@@ -155,18 +179,6 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
 		txtAObservacion.setNullRepresentation(StringUtils.EMPTY);
 		
 		btnGuardar.addListener(this);
-		
-		IndexedContainer container = new IndexedContainer();
-        
-        container.addContainerProperty(COLUMNA_TIPO, String.class,  null);
-        container.addContainerProperty(COLUMNA_NOMBRE, String.class,  null);
-        
-        tblAdjunto.setContainerDataSource(container);
-        tblAdjunto.setVisibleColumns(new Object[]{COLUMNA_TIPO, COLUMNA_NOMBRE});
-        tblAdjunto.setColumnWidth(COLUMNA_TIPO, 100);
-        tblAdjunto.setColumnWidth(COLUMNA_NOMBRE, 100);
-        tblAdjunto.setColumnHeader(COLUMNA_TIPO, "Tipo");
-        tblAdjunto.setColumnHeader(COLUMNA_NOMBRE, "Nombre");
         
         tblOficinaSolicitado.setSelectable(true);
         tblOficinaSolicitado.setImmediate(true);
@@ -183,11 +195,82 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
 					cmbTipoResultado.setValue(oficioSolicitado.getTipoResultado());
 					txtAObservacion.setValue(oficioSolicitado.getObservacion());
 					btnGuardar.setCaption("Modificar");
+					cmbTipo.setEnabled(true);
+					uploadDocumento.setEnabled(true);
 				}
+				cargarAdjunto();
 			}
 		});
         cargarDatos();
+		cargarAdjunto();
+	}
+	
+	private void uploadAddListener(){
 		
+        uploadDocumento.addListener(new Upload.StartedListener() {
+            
+			public void uploadStarted(StartedEvent event) {
+				if(cmbTipo.getValor()==null){
+					uploadDocumento.interruptUpload();
+				}
+            }
+        });
+
+        uploadDocumento.addListener(new Upload.ProgressListener() {
+            
+			public void updateProgress(long readBytes, long contentLength) {
+				
+            }
+        });
+
+        uploadDocumento.addListener(new Upload.SucceededListener() {
+            
+			public void uploadSucceeded(SucceededEvent event) {
+				
+				if (event.getLength() > imageSize) {
+					uploadDocumento.interruptUpload();
+					return;
+				}
+				
+				try {
+					String extension = FilenameUtils.getExtension(event.getFilename());
+					AdjuntarReceiver receiver = (AdjuntarReceiver)uploadDocumento.getReceiver();
+					ByteArrayOutputStream outputStream= receiver.getOutputStream();
+					Adjunto adjunto = new Adjunto();
+					adjunto.setNombre(StringUtils.replace(event.getFilename(), " ","_"));
+					adjunto.setTipo(cmbTipo.getValor());
+					adjunto.setOutputStream(outputStream);
+					adjunto.setTipoAdjunto(event.getMIMEType());
+					adjunto.setExtension(extension);
+					adjunto.setFechaCarga(new Date());
+					adjunto.setRuta(rutaDocumento);
+					OficioSolicitadoAdjunto oficioSolicitadoAdjunto=new OficioSolicitadoAdjunto();
+					oficioSolicitadoAdjunto.setAdjunto(adjunto);
+					oficioSolicitadoAdjunto.setTipo(cmbTipo.getValor());
+					OficioSolicitado oficioSolicitado=new OficioSolicitado();
+					oficioSolicitado.setId(id);
+					oficioSolicitadoAdjunto.setOficioSolicitado(oficioSolicitado);
+					oficioSolicitadoAdjuntoService.registrarOficioSolicitadoAdjunta(oficioSolicitadoAdjunto);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+            }
+        });
+
+        uploadDocumento.addListener(new Upload.FailedListener() {
+
+			public void uploadFailed(FailedEvent event) {
+				//Mensaje de Error
+            }
+        });
+
+        uploadDocumento.addListener(new Upload.FinishedListener() {
+
+			public void uploadFinished(FinishedEvent event) {
+				cmbTipo.setValue(null);
+				cargarAdjunto();
+            }
+        });
 	}
 	
 	private void limpiar(){
@@ -196,6 +279,8 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
 		cmbTipoResultado.setValue(null);
 		txtAObservacion.setValue(null);
 		btnGuardar.setCaption("Agregar");
+		cmbTipo.setEnabled(false);
+		uploadDocumento.setEnabled(false);
 	}
 	
 	private void cargarDatos(){
@@ -225,6 +310,13 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
 				
 				@Override
 				public void buttonClick(ClickEvent event) {
+					OficioSolicitadoAdjunto oficioSolicitadoAdjuntoBuscar=new OficioSolicitadoAdjunto();
+					oficioSolicitadoAdjuntoBuscar.setOficioSolicitado(oficioSolicitado);
+					List<OficioSolicitadoAdjunto> oficioSolicitadoAdjuntos=
+							oficioSolicitadoAdjuntoService.buscar(oficioSolicitadoAdjuntoBuscar);
+					for (OficioSolicitadoAdjunto oficioSolicitadoAdjunto : oficioSolicitadoAdjuntos) {
+						oficioSolicitadoAdjuntoService.eliminar(oficioSolicitadoAdjunto);
+					}
 					oficioSolicitadoService.eliminar(oficioSolicitado);
 					cargarDatos();
 				}
@@ -244,6 +336,38 @@ public class PanelOficioSolicitadoEmpresa extends DirandroComponent implements C
         tblOficinaSolicitado.setColumnHeader(COLUMNA_TIPO_RESULTADO, "Tipo Resultado");
         tblOficinaSolicitado.setColumnHeader(COLUMNA_OBSERVACION, "Observacion");
         tblOficinaSolicitado.setColumnHeader(COLUMNA_OPCION, "Opcion");
+	}
+	
+	private void cargarAdjunto(){
+		OficioSolicitadoAdjunto oficioSolicitadoAdjuntoBuscar=new OficioSolicitadoAdjunto();
+		OficioSolicitado oficioSolicitado=new OficioSolicitado();
+		oficioSolicitado.setId(id);
+		oficioSolicitadoAdjuntoBuscar.setOficioSolicitado(oficioSolicitado);
+		List<OficioSolicitadoAdjunto> oficioSolicitadoAdjuntos=
+				oficioSolicitadoAdjuntoService.buscar(oficioSolicitadoAdjuntoBuscar);
+		
+		IndexedContainer container = new IndexedContainer();
+
+        container.addContainerProperty(COLUMNA_OFICIO_SOLICITUD_ADJUNTO, OficioSolicitadoAdjunto.class,  null);
+        container.addContainerProperty(COLUMNA_TIPO, String.class,  null);
+        container.addContainerProperty(COLUMNA_NOMBRE, String.class,  null);
+        
+        int con=1;
+		for (final OficioSolicitadoAdjunto oficioSolicitadoAdjunto : oficioSolicitadoAdjuntos) {
+			Item item=container.addItem(con++);
+			item.getItemProperty(COLUMNA_OFICIO_SOLICITUD_ADJUNTO).setValue(oficioSolicitadoAdjunto);
+			item.getItemProperty(COLUMNA_TIPO).
+			setValue(oficioSolicitadoAdjunto.getTipo()==null?null:oficioSolicitadoAdjunto.getTipo().getNombre());
+			item.getItemProperty(COLUMNA_NOMBRE).
+			setValue(oficioSolicitadoAdjunto.getAdjunto()==null?null:oficioSolicitadoAdjunto.getAdjunto().getNombre());
+		}
+        
+		tblAdjunto.setContainerDataSource(container);
+        tblAdjunto.setVisibleColumns(new Object[]{COLUMNA_TIPO, COLUMNA_NOMBRE});
+        tblAdjunto.setColumnWidth(COLUMNA_TIPO, 100);
+        tblAdjunto.setColumnWidth(COLUMNA_NOMBRE, 100);
+        tblAdjunto.setColumnHeader(COLUMNA_TIPO, "Tipo");
+        tblAdjunto.setColumnHeader(COLUMNA_NOMBRE, "Nombre");
 	}
 	
 	@Override

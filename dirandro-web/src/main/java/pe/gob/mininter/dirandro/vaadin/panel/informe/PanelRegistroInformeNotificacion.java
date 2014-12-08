@@ -114,10 +114,10 @@ public class PanelRegistroInformeNotificacion extends CustomComponent implements
 
 	public void postConstruct() {
 		
-		cmbTipoNotificacion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbTipoNotificacion.setCodigoLista(Constante.LISTA.CODIGO.TIPO_NOTI);
 		cmbTipoNotificacion.setInputPrompt("Tipo Notificacion");
 
-		cmbEstadoNotificacion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
+		cmbEstadoNotificacion.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_NOTI);
 		cmbEstadoNotificacion.setInputPrompt("Estado Notificacion");
 		
 		List<Dependencia> dependencias = dependenciaService.buscar(null);
@@ -125,6 +125,11 @@ public class PanelRegistroInformeNotificacion extends CustomComponent implements
 		BeanItemContainer<Dependencia> containerDependencia = new BeanItemContainer<Dependencia>(Dependencia.class,  dependencias);
 		cmbUnidadProcuraduria.setContainerDataSource(containerDependencia);
 		cmbUnidadProcuraduria.setItemCaptionPropertyId("nombre");
+		cmbUnidadProcuraduria.setInputPrompt("Unidad Procuraduria");
+		
+		dtFechaRecepcion.setInputPrompt("Fecha Recepcion Notificacion");
+		dtFechaVencimiento.setInputPrompt("Fecha Vencimiento PRI");
+		dtFechaPlazo.setInputPrompt("Fecha Plazo Fundamentar");
 		
 		btnGuardar.addListener(this);
 	

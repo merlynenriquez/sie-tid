@@ -125,8 +125,10 @@ public class PanelRegistroInformeSeguimientoNotificacion extends CustomComponent
 		txtEstadoNotificacion.setNullRepresentation(StringUtils.EMPTY);
 		txtEstadoNotificacion.setEnabled(false);
 		
-		cmbEstadoSeguimiento.setCodigoLista(Constante.LISTA.CODIGO.ESTADO);
-		cmbEstadoSeguimiento.setInputPrompt("Estado Notificacion");
+		cmbEstadoSeguimiento.setCodigoLista(Constante.LISTA.CODIGO.ESTADO_SEGUI);
+		cmbEstadoSeguimiento.setInputPrompt("Estado Seguimiento");
+		
+		dtFechaRecepcionF.setInputPrompt("Fecha Recepcion Notificacion");
 		
 		txtADescripcion.setNullRepresentation(StringUtils.EMPTY);
 		

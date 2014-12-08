@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import pe.gob.mininter.dirandro.dao.hibernate.OficioSolicitadoHibernate;
 import pe.gob.mininter.dirandro.model.OficioSolicitado;
+import pe.gob.mininter.dirandro.model.OficioSolicitadoAdjunto;
+import pe.gob.mininter.dirandro.service.OficioSolicitadoAdjuntoService;
 import pe.gob.mininter.dirandro.service.OficioSolicitadoService;
 import pe.gob.mininter.dirandro.util.Busqueda;
 
@@ -17,6 +19,8 @@ import pe.gob.mininter.dirandro.util.Busqueda;
 @SuppressWarnings("serial")
 public class OficioSolicitadoServiceImpl extends BaseServiceImpl<OficioSolicitado, Long> implements OficioSolicitadoService {
 
+	@Autowired 
+	private OficioSolicitadoAdjuntoService oficioSolicitadoAdjuntoService;
 	private OficioSolicitadoHibernate oficioSolicitadoHibernate;
 	
 	@Autowired
@@ -39,6 +43,6 @@ public class OficioSolicitadoServiceImpl extends BaseServiceImpl<OficioSolicitad
 		}
 		filtro.addOrder(Order.asc("id"));
 		return oficioSolicitadoHibernate.buscar(filtro);
-	}
-
+	}	
+	
 }
