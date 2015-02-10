@@ -140,6 +140,10 @@ public abstract class Constante {
 			public static final String EST_PENI = "EST_PENI";
 			//Tipo Condicion Pena
 			public static final String TIPO_CON_PEN = "TIPO_CON_PEN";
+			//Tipos de notas
+			public static final String TIPO_NOTA = "TIPO_NOTA";
+			//estados para los tipos de nota
+			public static final String TIPO_NOTA_ESTADOS = "TIPO_NOTA_EST";
 			
 		}
 	}
