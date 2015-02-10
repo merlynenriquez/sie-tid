@@ -9,5 +9,5 @@ public interface NotaInformativaService extends BaseService<NotaInformativa,Long
 
 	public List<NotaInformativa> buscar(NotaInformativa objeto);
 	public List<NotaInformativa> buscarBandeja(Map<String, Object> map);
-	
+	public void registrarNotaInformativa(NotaInformativa objeto);
 }

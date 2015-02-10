@@ -33,6 +33,19 @@ public class NotaInformativaServiceImpl extends BaseServiceImpl<NotaInformativa,
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
+	public void registrarNotaInformativa(NotaInformativa objeto) {
+		
+		crear(objeto);
+		
+		String numeroParte = StringUtils.leftPad(String.valueOf(objeto.getId()), 10, "0");
+		objeto.setNumero(numeroParte);		
+		
+		actualizar(objeto);
+		
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void actualizar(NotaInformativa object) {
 		notaInformativaHibernate.actualizar(object);
 	}
@@ -40,6 +53,7 @@ public class NotaInformativaServiceImpl extends BaseServiceImpl<NotaInformativa,
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void crear(NotaInformativa object) {
+		//crear numero autogenerado
 		notaInformativaHibernate.crear(object);
 	}
 
@@ -90,9 +104,10 @@ public class NotaInformativaServiceImpl extends BaseServiceImpl<NotaInformativa,
 			}
 			
 			if(StringUtils.isNotBlank((String)map.get(PanelBandejaNotaInformativa.COLUMNA_DEPENDENCIA))) {
-				addILikeRestrictions(filtro, "creador.oficina", "of", "nombre", (String)map.get(PanelBandejaNotaInformativa.COLUMNA_DEPENDENCIA));
+				//addILikeRestrictions(filtro, "creador.oficina", "of", "nombre", (String)map.get(PanelBandejaNotaInformativa.COLUMNA_DEPENDENCIA));
 			}	
 		}
 		return notaInformativaHibernate.buscar(filtro);	
 	}
+
 }
